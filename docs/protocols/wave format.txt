@@ -1,0 +1,77 @@
+Wave Format
+-----------
+Job: To describe the concepts and standards used between the other wave standards.
+Existing Standards: CSS (illustrative)
+
+Overview:
+---
+This document describes the programmatic structure of a "wave", which is a single message/conversation in Wave. 
+
+Terms:
+---
+Wave: A single conversation/message. Refers to a creator and root wavelet, as well as it's history. Identified by an ID.
+Wavelet: A collection of blips which limited people may read and write to. Identified by an ID.
+Blip: A message in a wave, like a comment on a forum. Identified by an ID.
+User: A waver, or some one who uses wave. Identified by a wave address.
+Annotation: Applies style to a section of text.
+Gadget: A JavaScript embedded inside a cell in a blip which performs a handy task via shared state (e.g. gets the conscensious on a topic, maps out a plan).
+Attachments: A file embedded inside a wave.
+Controls: A "widget" embedded inside a blip.
+
+Annotation
+---
+Many of the standards use a key value map of annotations. These annotations are defined here.
+
+Style
+--
+These style annotations are the same as their corresponding CSS properties.
+-style/backgroundColor
+-style/color
+-style/fontFamily
+-style/fontSize
+-style/fontStyle
+-style/fontWeight
+-style/textDecoration
+-style/verticalAlign
+
+User
+--
+-user/d/<session id>
+	This annotation covers the entire document. The value of the 
+	annotation is a comma separated list of (userid, timestamp [,ime 
+	composition state]) The timestamp is the last time the cursor was 
+	updated. The timestamp may be used by clients to stop dislpaying 
+	the users carat after a period of inactivity.
+-user/r/<session id>
+	This annotation represents the users selection. That is, the range 
+	of text with this annotation is text that the user has selected. If 
+	the user does not have any text selected then this annotation is 
+	not present. Note that the currently implementation only supports a 
+	single selection region per user. The value of this annotation is 
+	the user id.
+-user/e/<session id>
+	This annotation represents the user's selection focus (the "blinky 
+	bit"). The first point in the range of the annotation is the cursor 
+	location for the users session. That is, the cursor is placed 
+	before the first item in the annotation range. This annotation 
+	always extends from the cursor position to the end of the document. 
+	If this annotation is missing then the cursor is placed after the 
+	last item in the document. The value of this annotation is the user 
+	id.
+
+User Wave Addresses are in the form username@provider-domain.com, in any standard where Wave Addresses are used. 
+In addition, aliases may be used in any standard for contributors but not participants. These are in the form AliasAccount/RealAccount. Aliases should have tight security, and are provided for use by "groups" (equivalant to mailing lists).
+
+Links
+--
+-link/manual
+	A manually created link. A URI or IRI? is the only valid value for 
+	this annotation.
+-link/auto
+	A link created automatically by some linkifying process. Such 
+	annotations have a lower precedence than manual links. A URI is the 
+	only valid value for this annotation.
+-link/alias
+	The account to use to access the linked wave(s) if you are not a 
+	participant. Your address will still be visible, and clients may 
+	only use their own address for this value.

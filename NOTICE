@@ -1,0 +1,14 @@
+ 
+PyGoWave - The Open Source Python Wave Client/Server solution
+Copyright (C) 2010 "alcinnz"
+
+This software contains code derived from the Google Wave APIs
+and documentation by Google Inc.
+
+The client part of this software makes use of JavaScriptMVC,
+Copyright 2010 Jupiter IT & Contributors
+
+The server part of this software is driven by Twisted,
+Copyright 2001-2004 Twisted Matrix Laboratories
+
+

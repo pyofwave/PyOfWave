@@ -1,0 +1,87 @@
+Federation Format
+--------------------
+
+Job: This standard defines a document structure that can be passed around in the federation standard. 
+Existing Standards: Federation Protocal, Wave Format, XML (illustrative), 
+		DTD (illustrative)
+
+Overview
+---
+A wavelet is made up of several documents, one for the wavelet, and one for each blip. The blips and the wavelet use different tag names (illustrated as XML & DTD), which is explained in this document. 
+
+Wavelet
+---
+This document describes how the wavelet document organizes into a wave. 
+
+Tags
+--
+ Tag			Property		Description
+ ---			--------		--------------
+ conversation					Contains a sequence of blips. 
+ 			sort            	The order of wavelets by 
+						lexicographical order. 
+			anchorWavelet		The wavelet it is contained in. 
+			anchorManifastOffset	Index into parent document. 
+			anchorVersion		The version the wavelet was 
+						created. 
+			anchorBlip		The ID of the blip the wavelet 
+						is attached to.
+			anchorOffset		The offset in the attached blip 
+						the wavelet is placed.
+			<blip/>*		The contained blips.
+ blip						Points to a blip document. 
+			id			Points to the document of the 
+						blip.
+			deleted			Marks the wave as being deleted
+			<thread/>*		Optional additional structure.
+			<peer/>*		Includes any data documents.
+ thread						Contains another sequence of 
+						blips. 
+			id			The thread's id.
+			inline			Marks that the thread is 
+						located inside the blip 
+						document.
+			<blip/>*		Contained blips.
+ peer						Points to a data document (for 
+						gadgets). 
+			id			Points to the document. This 
+						document is one tag with a 
+						number of attributes.
+
+DTD
+--
+
+Blip
+---
+The blips contain the rich text messages of the wave. This document describes the structure of these rich text messages.
+
+Tags
+--
+ Tag			Elements		Description
+ ---			--------		-----------
+ contributor					Points to a person who edited 
+						the blip.
+			name			The user's Wave Address.
+ body						Contains the display of the 
+						wave.
+ line						Marks a line of text.
+			t			The type out of (h1,h2,h3,h4, 
+						h5,li) as in HTML.
+			i			indentation level as a number.
+						Only meaningful with t=li.
+			a			The alignment from (a, m, r, j) 
+						for align left, center, right, 
+						and justified.
+			d			direction of text from (l, r).
+ attachment					Represents a file (could be an 
+						image, file, or gadget).
+			src			The URL of the attachment.
+ reply						Marks the location of an inline 
+						thread.
+			id			The ID of the thread from the 
+						manifast.
+
+Text may also be provided annotations as described in wave format.
+
+DTD
+--

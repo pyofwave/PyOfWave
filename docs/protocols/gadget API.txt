@@ -1,0 +1,559 @@
+Gadget API
+----------
+
+Job: A minimal API for gadget developers to use and wave clients to implement.
+Existing Standards: ECMEAScript (a.k.a. JavaScript), browser API (derived), URL, 
+		various W3C standards (inspiration).
+
+Overview
+---
+The former design of the gadget requires wave clients to implement a full web browser just so that users can have handy tools to embed in waves. This standard is meant to remedy that by explicitly stating the full API users can use.
+This standard makes the gadget a JavaScript (with some extensions) in it's own frame. The SDK primarily provides an API to set and get shared state, change the display, and some useful utilities.
+
+Form
+---
+A gadget is an extended JavaScript available via URL. 
+
+ECMEAScript Extensions
+---
+Certain features, which aren't part of the ECMEAScript standard, proved very handy in designing an API. These features should be easy to implement, either by processing the script or by embedding in the runtime.
+
+Shared Methods
+--
+A shared method is a method available on all objects. They are stored in the "sharedMethods" objects, and any calls to one of it's properties on any object should redirect to sharedMethods, if not provided in the object, with "this" being the object it was accessed from. 
+
+Method Assignment
+--
+The syntax "variable = value" should be interpreted as a call to the shared method "set" passing value as an argument (variable.set(value);). 
+
+API
+---
+The full standard API is listed out below:
+
+Data Objects
+--
+ Class		Property		Description
+ -----		--------		-----------
+ String		constructor		The constructor that created the object. 
+		prototype		Allows extensions of the class. 
+		length			The number of charactors in the string.
+
+		charAt(x)		Get a string of the charactor at index x.
+		charCodeAt(x)		Returns the ASCII Integer of the 
+					charactor at x.
+		concat()		Concats all passed strings with this one.
+		fromCharCode(x)		Gets a String of length 1 from ASCII 
+					Integer.
+		indexOf(str)		Returns the Integer index of str in this.
+		lastIndexOf(str)	Returns the last reiteration of str.
+		match(regx)		Returns a Boolean for whether this 
+					matches the pattern in regx.
+		replace(str1,value)	Replaces str1 with value inside this.
+		search(regx)		Returns Integer index of regx match.
+		slice(begin,end)	Returns string between begin and end 
+					index.
+		split(sep)		Returns an array where each repitation of 
+					sep signals the end of a contained item.
+		substr(from,to)		Returns the str between from and to.
+		toLowerCase()		Returns String copy of this where every 
+					charactor is lower case.
+		toUppercase()		Returns String copy of this where every 
+					charactor is upper case.
+ Number		constructor		The constructor that created the object. 
+		prototype		Allows extensions of the class. 
+		MIN			The minimum possible number.
+		MAX			The maximum possible number.
+		POSITIVE_INFINITY	Number exceding maximum.
+		NEGETIVE_INFINITY	Number exceding minimum.
+
+		toExponential(x)	Returns String as this in Standard form 
+					to x significant figures.
+		toFixed(x)		Returns String as this to x significant 
+					figures.
+		toPrecision(x)		Returns String as this to x decimal 
+					places.
+		toString()		Returns String as this.
+ Boolean	constructor		The constructor that created the object. 
+		prototype		Allows extensions of the class. 
+		toString()		Returns "true" or "false" based on value. 
+ Array		constructor		The constructor that created the object. 
+		length			The number of objects in this. 
+		prototype		Allows extension of the class. 
+
+		concat()		Concatenates all passed arrays to this one. 
+		join()			Joins all contained objects into a string. 
+		pop()			Removes and returns the last object. 
+		push()			Adds new elements to the end of this. 
+		reverse()		Reverses order of this. 
+		shift()			Removes and returns last objects. 
+		slice(start,end)	Returns identified part of this. 
+		sort(sorter)		Uses passed function to sort objects in this. 
+		splice(index,		Replaces range from index of length with 
+		length, . . .)		passed objects. 
+		toString()		Return string representation. 
+                unShift()		Adds passed objects to beginning of array. 
+					Returns length. 
+ Date()					Returns current date or generates one from a 
+					number of milliseconds, string, or big endian 
+					values. (NOTE: the methods starting with get/
+					set are 2 methods, get. . . and set. . .)
+		constructor		The constructor that created the object. 
+		prototype		Allows extending the class. 
+
+		get/setDay()		The day of the week. 
+		get/setDate()		The day of the month. 
+		get/setFullYear()	The year. 
+		get/setHours()		The hour of the day. 
+		get/setMinutes()	The minutes of the hour. 
+		get/setSeconds()	The seconds of the minute. 
+		get/setMilliseconds()	The millisecond of the second. 
+		get/setMonth()		The month of the year as a number. 
+		get/setTime()		The number of milliseconds since the epoch. 
+		get/setTimezoneOffset() The number of hours different from GMT. 
+
+		get/setUTCDay()	The day of the week at GMT. 
+		get/setUTCDate()	The day of the month at GMT. 
+		get/setUTCFullYear()	The year at GMT. 
+		get/setUTCHours()	The hour of the day at GMT. 
+		get/setUTCMinutes()	The minutes of the hour at GMT. 
+		get/setUTCSeconds()	The seconds of the minute at GMT. 
+		get/setUTCMilliseconds() The millisecond of the second at GMT. 
+		get/setUTCMonth()	The month of the year as a number at GMT. 
+		UTC()			The number of milliseconds since the epoch at 
+					GMT. 
+
+                 parse(datestring)	Returns a date from the string. 
+                 toDateString()		Returns a readable date as a string. 
+                 toLocalDateString()	Returns a readable date as a string using 
+					local format. 
+                 toTimeString()		Returns a readable time as a string. 
+                 toLocalTimeString()	Returns a readable time as a string using 
+					local format. 
+                 toUTCString()		Returns a readable date as a string using the 
+					UTC time. 
+                 toString()		Returns this as a string. 
+ Math		E			Euler's Number (approx. 2.718)
+		LN2			The natural logarithm of 2 (approx. 0.693)
+		LN10			The natural logarithm of 10 (approx. 2.302)
+		LOG2E			The base-2 logarithm of E (approx. 1.442)
+		LOG10E			The base-10 logarithm of E (approx. 0.434)
+		PI			Pi (approx. 3.14159)
+		SQRT1_2			The square root of 1/2 (approx. 0.707)
+		SQRT2			The square root of 2 (approx. 1.414)
+
+		abs(x)			Returns the absolute value of x.
+		atan(x)			Returns the arccosine of x, in radians.
+		asin(x)			Returns the arcsine of x, in radians.
+		acos(x)			Returns the arctangent of x as a numeric value 
+					between -PI/2 and PI/2 radians.
+		atan2(x,y)		Returns the arctangent of the quotient of its 
+					arguments.
+		ciel(x)			Returns x rounded up.
+		floor(x)		Returns x rounded down.
+		tan(x)			Returns the tangent of x, in radians.
+		sin(x)			Returns the sine of x, in radians.
+		cos(x)			Returns the cosine of x, in radians.
+		exp(x)			Returns the value of Ex.
+		log(x)			Returns the natural logarithm (base E) of x.
+		max()			Returns the largest value of it's arguments.
+		min()			Returns the smallest value of it's arguments.
+		power(x,y)		Returns x to the power of y.
+		random()		Returns a psuedo-random number between 0 and 1.
+		round(x)		Returns x rounded to a full number.
+		sqrt(x)			Returns the square root of x.
+ sharedMethods	getKeys()		Returns an array of all property names. 
+		getValues()		Returns an array of all property values. 
+		length()		Returns the number of objects
+		set(value)		Replaces all references to this with value. 
+		observe(callbk)		Registers a function to be called whenever 
+					this changes. Returns an ID of any type. 
+		unobserve(id)		Removes the function registered with ID from 
+					getting notified. 
+
+Rendering
+--
+This part of the API may be implemented as far as what has meaning to your client, and it's the same for Roles and positioning. However, the Node, NodeStyle, NodeEvents, ARIA, and controls must be defined if not implemented or have their properties defined.
+ Class		Property	Description
+ -----		--------	-----------
+ Node(style, aria, content)	A node in the presentation of the gadget.
+		content		The contained children of the node as an Array of Nodes 
+				and Strings.
+		style		The applied NodeStyle object.
+		aria		The applied ARIA object.
+		events		The applied NodeEvents object.
+ NodeStyle			The displayed/spoken presentation settings for attached 
+				Node.
+		background	Represents the background content of the Node. Contains 
+				properties: attached (Boolean), image (Image), colour 
+				(Array<Integer> or String), repeatX (Boolean), repeatY 
+				(Boolean), Position (Array<2 Integers>).
+		border		Represents the border of the Node by 4 properties 
+				containing Borders: top, left, bottom, & right.
+		outline		Represents an outline around the Node with a Border.
+		size		The size of the Node as an Array<2 Integers>.
+		padding		The padding between size and border as 4 Integer 
+				properties, top, left, bottom, & right.
+		margin		Same format as padding, but space between border and 
+				other Nodes.
+		font		The font for which to render contained Strings. 
+				Contains the properties: color (Array<Integer> or 
+				String), size (Integer), italic (Boolean) , variant 
+				("smallCaps", "capitals", or "normal"), decor (String 
+				containing selection of substrings "underline", 
+				"overline", and/or "strike").
+		position	Object containing three setable methods: position, 
+				layout, and overflow.
+		zIndex		Integer representing the order in which to paint Nodes.
+ 				(or the order of overlap)
+
+		(for speach based clients:)
+		azimuth		The vertical angle of the sound from the center of the 
+				screen as an Integer in degrees.
+		cue		Contain two sound media objects in properties before 
+				and after.
+		elevation	The vertical angle of the sound from the center of the 
+				screen as an Integer in degrees.
+		pause		Contains two Integers in seconds as before and after 
+				properties representing time to wait.
+		pitch		The pitch of the voice as an Integer.
+		pitchRange	The range of pitch in the voice as an integer.
+		playDuring	Sound media to be played during the element is read.
+		richness	How rich the voice is as an Integer.
+		speakBefore	Array of Nodes to be read directly before this Node.
+		speak		How to speak out of "normal", "none", or "spell-out".
+		speakNumeral	How to speak numbers out of "digits" or "continous".
+		speakPunctuation How to speak punctuation out of "none" or "code".
+		speechRate	How fast to speak as an Integer.
+		voice		Array of Strings representing the voice file.
+		volume		Integer representing how loud the voice relatively.
+ NodeEvents			The keyboard/mouse events for the applied Node.
+		blur		Called when the Node loses focus.
+		change		Called when the Control loses focus and it's value 
+				changed.
+		click		Called when Node has been clicked, client's 
+				disgression.
+		dblclick	Called when Node has been double clicked, client's 
+				disgression.
+		focus		Called when Node gains focus.
+		keydown		Called when a key is pressed down when Node has focus.
+		keypress	Called when a key is held down when Node has focus.
+		keyup		Called when a key is unpressed when Node has focus.
+		mousedown	Called when the mouse button is pressed while the 
+				cursor is over Node.
+		mousemove	Called when the cursor moved over Node.
+		mouseout	Called when the cursor moves from over Node to outside 
+				Node.
+		mouseover	Called when the cursor moves from outside Node to over 
+				Node.
+		mouseup		Called when the mouse button is unpressed while the 
+				cursor is over Node.
+		gesturestart	Called by multitouch clients when the user places 
+				fingers on Node.
+		gesturemoved	Called by multitouch clients when the user moves 
+				fingers over Node.
+		gestureended	Called by multitouch clients when the user lifts their 
+				fingers from touching Node.
+		gesturecanceled	Called by multitouch clients when the OS interrupts a 
+				gesture.
+ ARIA				(Accessible Rich Internet Applications) Provides 
+				metadata to ensure that the Node behaves as expected.
+		role		A standard object representing a role.
+		tabindex	An Integer. All ordered aria.tabindex properties of 
+				Nodes represent the tab order.
+		live		The preference of updates in Nodes out of ("polite", 
+				"assertive", "rude", or "off"), where each listed 
+				String increases in queue wait.
+		busy		Boolean indicating whether this Node is in the queue to 
+				be spoken.
+		relevant	Array of all Nodes from Content which contain relevant 
+				information for this node to be placed on the speach 
+				queue.
+		alt		Content to be spoken if content cannot be spoken.
+ Control(type, name, value)	A Node representing a standard OS control.
+		type		A string donoting the type of control represented. 
+				Possible values include ().
+		name		The name of the control.
+		value		The value of the control.
+		content		As in Node.
+		style		As in Node.
+		aria		As in Node.
+		events		As in Node.
+ document			Node object representing the root Node displayed by the 
+				wave in the gadgets frame.
+Positioning
+--
+ Class		Property	Description
+ -----		--------	-----------
+ Inline				(style.position.position)The object accepts Text 
+				layout.
+ Text				(style.position.layout)The object lays out it's content 
+				in lines of Nodes, as in typical text layout.
+		direction	The direction to draw the text out of "l"&"r". 
+		letterSpacing	How to space the letters as an Integer. 
+		lineHeight	How to space the lines as an Integer. 
+		textAlign	How to space the text in the line out of "l",
+				"r", "m", & "j". 
+		textIndent	How many pixels to indent text. 
+		verticalAlign	How to align the text vertically out of "t", "m",& "b". 
+		whitespace	How to handle whitespace out of "preserve",
+				"wrap", & "collapse". 
+		wordspacing	How far to space words as an Integer. 
+ Block				(position.position)Positions vertically.
+ BlockContainer			(position.layout)Layouts children vertically.
+ HorizontalContainer		(position.layout)Layouts Block positioned children 
+				horizontally.
+ Float				(position.position)Positions to the side side.
+		side		The side of which to position the Node to.
+ Position			(position.position)Positions to a location inside 
+				containing Node.
+		pos		Array of 2 Integers representing x and y position.
+ Relative			(position.position)Positions like another function, but 
+				moves some pixels.
+		delta		Array of 2 Integers representing x and y offset.
+ TableCell			(position.position)Positions to match vertically one 
+				Node and horizontally another.
+		verticalMatch	Node to match width and x position of.
+		horizontalMatch	Node to match height and y position of.
+ ClipOverflow			(position.overflow)Removes any overflown content.
+ Scroll				(position.overflow)Behaves like ClipOverflow, but adds 
+				a scrollbar.
+ AddScroll			(position.overflow)Behaves like Scroll, but only adds 
+				scrollbar if neccessary.
+
+ Border				Represents a border for NodeStyle.
+		thickness	Integer in pixels representing the thickness of the 
+				drawn border.
+		color		Array of Integers or String representing the colour of 
+				the border.
+		style		String out of None, "solid", "inset", "outset", 
+				"dotted", "dashed", "double", "groove", and "ridge", or 
+				an Image to be used.
+
+Roles
+--
+ The role classes described here are the same as the available WAI ARIA standard roles and the object properties are the same as the WAI ARIA states which are not already covered by the ARIA class.
+ The constructors for these role classes take an object which pairs properties to assigned values.
+
+State
+--
+ Class		Property	Description
+ -----		--------	-----------
+ publicState			State accessible by all participants on this wave.
+                               (All property values are Strings.)
+ privateState			State accessible only by the participant the gadget is 
+				running on behalf of (participants.viewer).
+                                (All property values are Strings.)
+ participants	participants	All current participants on a wave.
+		viewer		The participant represented by the running client.
+		host		The paricipant who added this gadget to the wave, may 
+				no longer be in participants.
+ User				Represents a participant on the Wave/using the gadget.
+		address		String representing the user's Wave Address.
+		thumbnail	A scaled down version of avatar.
+		avatar		The user's specified "avatar" Image.
+		note		The user's specified "note" String.
+
+Utilities
+--
+ Class		Property	Description
+ -----		--------	-----------
+ bind(obj1, obj2)		Sets up the two objects so that when one changes, the 
+				other does too.
+ parseInt(str)			Parses an Integer out of a String.
+ toString(obj)			Calls obj.toString().
+ Worker(URL)			An object representing a concurrently running 
+				JavaScript on a seperate "thread".
+		message(obj)	Passes a copy of obj to onMessage(obj) in the 
+				concurrent script.
+		onMessage	Called whenever the concurrent script calls 
+				message(obj), callback recieves copied object.
+ getGeoLocation()		Returns an object representing the user's current 
+				location. The object includes: latitude (Integer), 
+				longitude (Integer), direction (Integer in bearings), 
+				and spead (Integer in m/s).
+ load(URL, type)		Returns an object representing a file of MIMEtype type 
+				loaded from URL.
+				If the object represents a script, it contains all 
+				global properties of that script. 
+				If the object is a movie or audio, the object has the 
+				properties: play(), pause(), seek (in milliseconds), 
+				and playSpeed.
+				The Image class referred throughout this standard does
+ 				not have any standard methods, but is returned by load 
+				for image types. Also, the term media means an object 
+				returned by this function.
+ timer(milliseconds,    Sets a function to be called after milliseconds milliseconds.
+   callback, repeat)     If repeat (default false), the function will be called repeatedly
+                                 on the interval after being called. Returns a function 
+                                which cancels the timer.
+
+Rendering
+--
+ Class		Property	Description
+ -----		--------	-----------
+ Canvas2D			An object adhering to the W3C Canvas standard.
+		save()		Saves canvas state.
+		restore()	Undoes last save().
+		scale(x, y)	Scales the canvas by x & y in current state.
+		rotate(angle)	Rotates the canvas by angle in current state.
+		translate(x,y)	Moves the canvas by x & y in current state.
+		transform(m11,	scale, rotate, and translate in one.
+		   m12, m21, 
+		   m22, dx, dy)
+		setTransform(m11, Alternative scale, rotate, and translate in one.
+		   m12, m21, 
+		   m22, dx, dy)
+		drawImage(image, Draws an Image image at dx & dy scaled dw & dh.
+		   dx, dy,
+		   [dw, dh])
+		drawImage(image, Draws an Image image at dx & dy with scaling and 
+		   sx, sy, sw,	rotation.
+		   sh, dx, dy,
+		   dw, dh)
+
+		globalAlpha	Alpha value as Integer to use when drawing.
+		globalComposit	How to handle overlap of drawing out of ("source-over", 
+				"destination-over", etc.). Will be filled out.
+		lineWidth	The length to draw lines as an Integer in pixels.
+		lineCap		How to draw line ends out of (from Canvas standard).
+		lineJoin	How to join lines out of (from Canvas standard).
+		miterLimit	Integer of pixels to limit line joins to.
+		strokeStyle	The style of line out of ("solid", "dashed", etc.). 
+				Will be expanded.
+		fillStyle	The colour to use to fill shapes.
+		shadowOffsetX	Offset of drawn shadows in x.
+		shadowOffsetY	Offset of drawn shadows in y.
+		shadowBlur	Number of pixels in to blur shadows at.
+		shadowColor	The colour of the shadow as CSS-like String.
+
+		createLinear-	Generates a linear Gradiant to use as fillStyle.
+		  Gradiant(x0,
+		  y0, x1, y1)
+		createRadial-	Generates a radial Gradiant to use as fillStyle.
+		   Gradiant(x0,
+		   y0, r0,
+		   x1, y1, r1)
+		createPattern(	Generates a Pattern to use as fillStyle.
+		   image, rep)
+		
+		beginPath()	Begins drawing a path.
+		closePath()	Closes drawing a path.
+		fill()		Fills drawn path.
+		stroke()	Strokes drawn path.
+		clip()		Clips drawn path.
+		moveTo(x,y)	Jump path to x,y.
+		lineTo(x,y)	Draw a line to x,y in path.
+		quadraticCurve-	Draw a quadratic curve in path.
+		   To(cpx, cpy,
+		   x, y)
+		bezierCurveTo(	Draw a bezier curve in path.
+		   cp1x, cp1y,
+		   cp2x, cp2y,
+		   x, y)
+		arcTo(x1, y1,	Draw an arc from x1,y1 to x2,y2 with rad radius in 
+		   x2, y2, rad)	path.
+		arc(x,y,rad,	Draw an arc from x,y and startAngle to endAngle with
+		   startAngle,	rad radius going anticlockwise as determined by 
+		   endAngle,	anticlockwise in path.
+		   anticlockwise)
+		rect(x,y,w,h)	Draws a rectangle at x,y with w width and y height in 
+				path.
+		isPointInPath(	Determines if point x,y is in path.
+		   x,y)
+		
+		font		The font to use when drawing text.
+		textAlign	The alignment to use when drawing text.
+		textBaseline	The baseline to use when drawing text.
+		fillText(text,	Fill text at x,y with maxWidth.
+		   x,y,maxWidth)
+		strokeText(text, Stroke text at x,y with maxWidth.
+		   x,y,maxWidth)
+		measureText(text) Returns the drawn length of text.
+		
+		clearRect(x,y,	Erases content covered by x,y over w width and h 
+		   w,h)		height.
+		fillRect(x,y,	Fills rect at x,y with w width and h height.
+		   w,h)
+		strokeRect(x,y,	Strokes (outlines) rect at x,y with w width and h 
+		   w,h)		height.
+		createImageData	Creates an empty ImageData object of sw width and sh 
+		   (sw,sh)	height.
+		createImageData	Creates a copy of imageData as ImageData.
+		   (imageData)
+		getImageData(	Gets Image data at sx,sy over sw width and sh height.
+		   sx,sy,sw,sh)
+		putImageData(	Draws imageData at dx,dy with optional hints of where 
+		   imageData,	content changed.
+		   dx, dy,
+		 [drityX,dirtyY,
+		   dirtyWidth,
+		   dirtyHeight])
+ Canvas3D			An object providing 3D graphics rendering, optimized 
+				for extended JS.
+		(environment, each contains enabled property for turning on/off)
+		cull		How to cull triangles from the scene. Contains 
+				properties of Booleans face and frontFace.
+		blend		How to blend transparent colours. Contains shader 
+				properties sourceBlend and destinationBlend.
+		stencil		How to stencil blend, contains func shader.
+		depth		How to cull depth. Contains test (out of ...), range 
+				(Array<2 Integers>), writemask, clearValue, func, bits, 
+				offsetUnits, & offsetFactor.
+		multisample	How to sample the scene. Contains sampleAlphaEnabled 
+				(Boolean), coverageValue, coverageInvert, and samples.
+		viewport	How to render the scene. Contains viewport, maxDims, 
+				clearColorValue, scissorBox, lineWidth, 
+				aliasedPointSizeRange, aliasedLineWidthRange, 
+				colorWriteMask, and subpixelBits.
+		
+		colorSurface-	Boolean for whether to use colored surfaces.
+		  Enabled
+		scene		Array of meshes to be drawn by push().
+		lights		Array of lights to be applied by push().
+		matrix		The matrix shader to be used to draw the scene.
+		push()		Tells GPU to render the scene.
+ Render				An adaptor between Canvas2D, Canvas3D, and movie media
+				to Image.
+
+ CanvasGradient
+		addColorStrop(	Adds a step at offset of colour in the gradiant.
+		   offset, 
+		   color)
+ ImageData
+		width		The width of the image data.
+		height		the height of the image data.
+		data		A 2D Array containing Arrays of 3 Integers.
+
+ Mesh				A 3D object to be drawn via GPU.
+		meshType	How to render the vertices out of (...)
+		vertices	Array of Arrays of 3 Integers Representing triangles of 
+				vectors.
+		color		The color to fill the shape with.
+		colorArray	The color for each vertex.
+		normals		The normals for lighting simulation.
+		material	The material containing lighting properties of (...).
+		texture		An image representing the pixel content of each vertex.
+		texCoord	Matches vertices to the testure.
+		rotation	The rotation to be applied to the Mesh when rendered.
+		offset		The offset to be applied to the Mesh when rendered.
+
+ Texture(image)			An image formatted for GPU use.
+		binding2D	The image passed to the constructor. 
+		bindingCubeMap	The cube map passed to the constuctor. 
+		maxSize		The size of the image as an Array of 2 Integers. 
+		maxCubeSize	The size of cube map as an Array of 2 Integers. 
+		active		Is the texture currently being used by the GPU. 
+		maxImageUnits	How big the image is in image units. 
+		maxVertexImage-	How big the image is in vertex image units. 
+		  Units
+		maxCombined-	How big in image units in total is the image?
+		  ImageUnits
+ Light				A light in a 3D scene. Color's expressed as an
+				Array<3 Integers>
+		specular	The specular color.    
+		diffuse		The diffuse color. 
+		ambient		The ambient color. 
+		position	The position of the light as an Array<3 Integers>
+		spotDirection	The direction of the spotlight as an Array<3 Integers>. 
+		cutoff		The cut off angle to the center of the light. 
+ shader				Loaded scripts to describe GPU behavior.

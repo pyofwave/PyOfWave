@@ -1,0 +1,62 @@
+Core Module
+This file lists all classes, methods, and functions in the core module. This module is the center of of PyGoWave Server and anything else is modular around it.
+
+core/datasource:
+DataSource(zope.interface.Interface)  -Standard interface for datasources.
+	-newDocument(doc)  -Create a new empty document and name it doc.
+	-getDocument(doc)  -Returns the Document named doc.
+	-getDocumentVersion(doc, start, end, limit)  
+		-Returns the deltas as an iterable of arguments to replace 
+		and the kwargs as a dictionary.
+
+Document -Stores data in a document.
+	-__init__(. . .)  -Populates with passed Items.
+	-replace(cursorSlide, . . .)  -Replace cursorSlide items with passed Items
+		and set annotations to kwargs. 
+	-getNodes()  -Returns content as Node objects.
+	-items  -The contained items. 
+	-cursor  -The index of the cursor.
+	-annotations -The annotations at cursor.
+
+Item -A single bit of the Document
+	-__init__(typeI, name, . . .)  -Sets type=typeI, name=name, and annotations to kwargs.
+	-type  -The type of the item, out of TYPE_START_TAG, TYPE_END_TAG, and TYPE_TEXT.
+	-name  -The textual name or content of the item.
+	-annotations  -The annotations applied to the item. 
+	-end  -The end tag for a start tag, used for quick assembly to Tags.
+
+	-TYPE_START_TAG
+	-TYPE_END_TAG
+	-TYPE_TEXT
+
+Tag [To be implemented] -A simplified XML like object, for an easy interface to above.
+	-__init__(self, item)  -constructs self with item=item.
+	-name (readonly) -The name of the equivalant item.
+	-content -The content between the equivalant item and it's corresponding end tag.
+	-annotations  -The annotations of the equivalant item.
+	-sendDelta()  -Submits changes to self to the equivalant item.
+
+core/delta.py:
+[Deltas are distributed through a basic Observer pattern, before and after being saved to a database.]
+Delta  -A collection of Operations to a document from start to finish.
+	-__init__(. . .)  -Constructs self with all passed Operations.
+	-applyToDoc(doc)  [To be implemented]  -Applies operations to the document.
+
+Operation  -A single operation in a delta.
+	-__init__(operation, . . .)  -Constructs the appropriate operation. Passes it following arguments.
+	-apply(doc)  -Applies the change to Document doc.
+
+Message  -A message version.
+	-__init__(message, version)  -Constructs self with message=message and version=version.
+	-message  -A textual description of any errors or notifications at this time.
+	-version  -The version of the Document this applies to.
+
+DeltaObservable  -The subject in the observer pattern.
+	-observers  -The observers of deltas.
+	-applyDelta(doc, delta)  -Notifies all observers.
+	-addObserver(observer)  -adds the callable to observers.
+	-removeObserver(observer)  -removes the callable from observers.
+
+core/operation.py:
+performOperation(operation, kwargs)  [To be debugged]  -Calls 'protocols.'operation passing 
+								kwargs mapping.

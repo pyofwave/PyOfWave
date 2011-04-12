@@ -1,0 +1,245 @@
+Wave Client Protocal
+--------------------
+
+Job: Provides a lower bandwidth and lighter weight alternative to the Simple Data Protocal
+Existing Standards: TCP/IP, ASCII (plain text), HTTP error codes,  Wave format. 
+
+Overview
+---
+The format of this standard, inspired by conf files, is used by both the client and the server to communicate operations and events, here called methods. They can be sent at any time, both from and to the client, and retains session state. The syntax used also has the benefit that it is more succinct than JSON and therefore has a lower bandwidth beyond the lack of blank streaming. 
+
+Default Port
+--------------
+From a client doesn't know the port number of the Wave Client Protocol or any protocol in Wave, the default port for this protocol is 9283. (On a numeric keypad, it spells WAVE). 
+
+Syntax
+---
+The protocal is a plain text message to another computer, using the following syntax to express a bunch of methods to be carried out in sequential order. 
+
+Please note that both semicolons and newlines should be used to separate lines. 
+ Syntax		Description
+ ------		-----------
+;path;                States the path your receiving/sending. In the standard
+                        Wave protocol, this can be (operation, events, and 
+                        operation-response).
+ #name		Starts a method call block of methodName, giving it the 
+   [methodName]	name of name. Ends previous block.
+ [methodName]	Starts a method call block without providing a name.
+ param: arg;	Provides a key value pair for the method to use.
+
+If a parameter contains dashes, you can provide the argument for a parameter prefixed similarly by ommiting the names between the dashes which correlate to the previously provided parameter, leaving just dashes.
+For example, for the server to declare the annotation range in a blip to 0-10, just use:
+annotations-0-range-start: 0;
+---end: 10;
+
+Any path should include ERROR.* methods, where * maps to the HTTP error codes. Arguments are the same as the headers for the error code. 
+
+Methods
+---
+The methods available depend on the use of the protocal, and Wave provides two sets of methods, Operations and Events. Operations are sent by the client to change wave content, and some operations give responses in the same format. Events are sent from the server to update the client on any changes that have been made. 
+Please note two things. Firstly, I use the terms used in OO and functional programming to describe methods. Secondly, the types aren't actually there, but serves to simplify. Their meanings is explained later.
+
+Operations
+--
+The following is a table of all methods and parameters provided by Operations. Please note, the types aren't actually there, but serves to simplify. Their meanings is explained later.
+ Method					Description
+ ------					-----------
+ auth.port(protocol)                    Returns port number in port argument, representing 
+                                        the port number to use for protocol, out of fed and http. 
+ auth.authMethod			Returns how containing an array containing a 
+					selection of ("Oauth", "SSL") appropriately for 
+					the methods of authentication the server supports. 
+					(Note: The list may be expanded.)
+ auth.logout				Cancels authentication.	
+
+ robot.notifyCapabilitiesHash		Sends an XML file to the server registering 
+   (cababilitiesHash : String)		the client for events identified.
+ robot.createWavelet			Creates a new wavelet from waveletData and 
+   (waveletData : WaveletData,		identifies with message. (NOTE: TBD_ prefix may 
+      message : String)			be used for temporary ID's)
+ robot.fetchFolders			Responds with a list of objects containing icon 
+					& children with an optional search property 
+					(defaults to "in:"key). Icon is a URL, and 
+					children is an Array of the same objects.
+ robot.fetchwavelet(waveID : String,	Responds with data in identified wave in 
+   waveletId:String, message:String)	properties wavelet of type WaveletData and 
+					blips Array of BlipData.
+ robot.search(query : String, 		Interprets query as described later, and 
+   index:Integer, numResults:Integer)	responds with an Array of results in range of 
+					index and numResults with properties title, 
+					snippet, waveId, lastModified, unreadCount, 
+					blipCount, and participants.
+ robot.folderAction(modifyHow : String,	Performs selected action of actions (markAsRead,
+   waveId : String)			markAsUnread, mute, and archive <default>) on 
+					identified wave.
+ robot.getUserData(user : String)          Returns the avatar, note, and name of user as Strings.
+
+ wavelet.appendBlip(waveId : String,	Appends blipData to selected wavelet of selected 
+  waveletId:String, blipData:BlipData)	wave.
+ wavelet.setTitle(waveId : String,	Sets the title of selected wavelet of selected 
+   waveletId : String, 			wave.
+   waveletTitle : String)
+ wavelet.addParticipant(waveId:String,	Adds selected participant to selected wavelet 
+   waveletId : String, 			of selected wave.
+   participant : String)
+ wavelet.setDataDoc(waveId : String,	Sets selected dataDocument of selected wavelet 
+   waveletId : String, 			of selected wave to dataDocValue.
+   dataDocName : String, 
+   dataDocValue : Object)
+
+ blip.createChild(waveId : String,	Appends blipData to the identified blip of the 
+   waveletId:String, blipdid:String,	identified wavelet of the identified wave.
+   blipData : BlipData)
+ blip.delete(waveId : String, 		Deletes the identified blip of the identified 
+   waveletId: String, blipdid: String)	wavelet of the identified wave.
+
+ document.appendMarkup(waveId : String,	Appends content translated from HTML to Wave to 
+   waveletId: String, blipdid: String,	identified blip to identified wavelet of 
+   content : String)			identified wave.
+ document.modify(waveId : String,	Replaces content selected by either range or 
+   waveletId : String, blipId : String,	index with modifyAction inside the identified
+   range : Range, index : Integer, 	blip of the identified wavelet of the identified
+   modifyAction : ModifyAction)		wave.
+
+Query Syntax
+-
+Query of robot.search should be interpreted as a list of words to search either wave bodies and tags or wave addresses. Quotes can be used to identify phrases. In addition, users can use the operators defined in the following table for more specific searches by prefixing the phrase/word with the operator and a colon (:). Partial or inexact matches aren't a neccessary feature.
+ Operator	Description
+ --------	-----------
+ creator	All waves created by search
+ from		All waves created by search
+ participant	All waves where search is a direct participant (may be a robot)
+ with		All waves where search is a direct participant (may be a robot)
+ contributor	All waves where search eddited at least one blip
+ by		All waves where search eddited at least one blip
+ to		All waves where search is a participant but not the creator.
+ onlyto		All waves where search is the only participant besides the creator.
+ onlyby		All waves where search is the only contributor.
+ onlywith	All waves where search is the only participant.
+ dfrom		All waves by search directly to you.
+ dto		All waves to search directly from you.
+ is		"note" search gives waves where you are the only participant.
+
+Events
+--
+To save confusion, a wavelet has a root blip, which is identified in these events.
+ Method					Description
+ ------					-----------
+ event.wavelet.blipCreated(blipId:String, Called when newBlipId has been added to blipId.
+   newBlipId: String)
+ events.wavelet.blipRemoved(		Called when removedBlipId has been removed from 
+   blipId:String, removedBlipId:String)	blipId.
+ events.wavelet.participantsChanged(	Called when the participants of blipId changed.
+   blipId: String, 
+   participantsAdded: Array<String>,
+   participantsRemoved: Array<String>)
+ events.wavelet.selfAdded(blipId:String) Called when self is added to the participants 
+					of blipId.
+ events.wavelet.selfRemoved(blipId:String) Called when self is removed from the 
+					participants of blipId.
+ events.wavelet.tagsChanged(blipId:String) Called when the tags of blipId changed.
+ events.wavelet.titleChanged(		Called when the title of blipId changed to 
+   blipId: String, title: String)	title.
+ events.blip.contributorsChanged(	Called when the contributors of blipId changed.
+   blipId: String,
+   contributorsAdded: Array<String>,
+   contributorsRemoved: Array<String>)
+ events.blip.submitted(blipId: String)	Called when blipId was submitted.
+ events.document.submitted(blipId:String) Called when a document changed in blipId.
+ events.formButtonClicked(		Called when button was clicked inside blipId.
+   blipId:String, button:String)
+ events.gadgetStateChanged(blipId:String, Called when the gadget at index inside blipId
+   index:Integer, oldState:Object)	changed state from oldState.
+ events.annotatedTextChanged(		Called when the annotation in blipId at range 
+   blipId:String, name: String,		named name changes to value.
+   value: Integer, range: Range)
+
+ wavelet(
+   creationTime: Date,			Time wave started.
+   creator: String,			The user who created the wave.
+   lastModifiedTime: Date,		Time last change.
+   participants: Array<String>,		Array of the wave addresses of the participants.
+					on the wave.
+   rootBlipId: String,			The ID of the root blip.
+   title: String,			The title of the wave.
+   version: Integer,			The numbered version of the wave.
+   waveId: String,			The waveId of the containing wave.
+   waveletId: String,			The waveletId of the wavelet.
+   dataDocuments: Object)		Object associating document IDs to objects of 
+					their data.
+ blip(
+   blipId: String,			contains the ID of blip in which the event 
+					occurred.
+   childBlipIds: Array<String>,		contains an array of blip IDs for each of the 
+					blip's children.
+   contributors: Array<String>,		denotes participants who have contributed to the 
+					state of this blip.
+   creator: String,			denotes the participant who created this blip.
+   lastModifiedTime: Date,		denotes the Unix time at which this blip was 
+					last modified by any participant.
+   content: String,			contains the textual content of this blip.
+   version: Integer,			contains the version of this blip. Each atomic 
+					operation on a blip increases this version 
+					number.
+   waveId: String,			contains the Wave ID associated with this blip.
+   waveletId: String,			contains the wavelet ID associated with this 
+					blip. 
+
+   (optional:)
+   annotations: Array<Annotation>,	array of annotations associated with the blip. 
+					The annotation is represented by an object with 
+					range (containing start and end properties), 
+					key, and value.
+   elements: Array<Gadget>)		contains gadgets, controls, and attachments 
+					associated with the blip.
+
+Types
+--
+ Type		Properties		Description
+ ----		----------		-----------
+ String					Plain text value.
+ Integer				Plain text value of digits.
+ Object		(accepts any)		A hashtable.
+ Array		(accepts any number)	A list of values.
+ Date					Unix Time Stamp of the date.
+
+ WaveletData	participants		Array of the wave addresses of the participants
+					on the wave.
+		rootBlipId		The ID of the root blip as a String.
+ 		title			The title of the wave as a String.
+ 		waveId			The waveId of the wave as a String.
+ 		waveletId		The waveletId of the root wavelet.
+ 		dataDocuments		Object associating document IDs to objects of
+					their data.
+ BlipData	blipId			contains the ID of blip in which the event 
+					occurred.
+ 		childBlipIds		contains an array of blip IDs for each of the 
+					blip's children.
+ 		content			contains the textual content of this blip.
+ 		waveId			contains the Wave ID associated with this blip.
+ 		waveletId		contains the wavelet ID associated with this 
+					blip. 
+
+ 		(optional:)
+ 		annotations		array of annotations associated with the blip. 						The annotation is represented by an object with 
+					range (containing start and end properties), 	
+					key, and value.
+ 		elements		contains gadgets, controls, and attachments 
+					associated with the blip.
+ Range		start			Integer of the start index.
+		end			Integer of the end index.
+ ModifyAction	content			String representing content.
+		annotations		key:value object representing the annotations 
+					applied.
+		elements		contains gadgets, controls, and attachments to 
+					add to the blip.
+ Element	type			"gadget", "control", or "attachment"
+		index			Integer index in it's blip.
+		(further identified by type, as in gadget has url & state, controls has 
+		name & value, and attachments has url & caption)
+
+ Range		start			Index of the start position.
+		end			Index of the end position.
+ Annotation	range			The range of the annotation as a Range.
+		key			The name of the annotation as a String.
+		value			The value of the annotation as a Integer.

@@ -1,0 +1,24 @@
+Wave URL
+--------
+Job: To define a method for linking to waves.
+Existing Standards: W3C URL, CSS, Federation Format (illustrative)
+
+Form
+---
+The Wave URL starts with "wave://" and followed by a waveID including the domain name. This waveID is in the form "automatic ID!server domain". 
+If you want to create a new wave, use "wave://__new__". 
+
+Query
+--
+Wave URLs accept query values as follows:
+-css - A URL pointing to a CSS file styling the Federation Format tags.
+	It is not neccessary to respect this query.
+-alias - A Wave Address to act as an alias for users not on the wave, as 
+        described by Federation Format. 
+-content - Plain text content for the wave. (ONLY FOR __new__)
+-gadget - A URL to a gadget to be added after content. (ONLY FOR __new__)
+-title - A Plain text title. (ONLY FOR __new__)
+
+Action
+---
+Either the Simple Data API or the Wave Client Protocol should be used to access data from the wave server. If the default wave server has the user logged in, use that account, but otherwise identify the user as "__anonymous__@"wave provider domain. 

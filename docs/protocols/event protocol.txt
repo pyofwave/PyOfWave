@@ -1,0 +1,164 @@
+Wave Event Protocal
+--------------------
+
+Job: Facilitates communicating live changes to the client.
+Existing Standards: JSON, HTTP stream, UNIX time stamp, wave format
+
+Overview:
+---
+When downloading this stream, you will recieve JSON objects containing events, wavelet, and blips. The events communicate changes that have accord  on the wave. The wavelet and blips provide a context for the change.
+
+Connection:
+---
+The event protocal requires a one directional stream, client settings looked up via a session. 
+
+Format:
+---
+The root JSON object of a certain section of the stream contains the following format:
+{
+   events : [Event . . .],
+   wavelet : {
+      creationTime : Number (of ms),
+      creator : String (wave address),
+      lastModifiedTime : Number (of ms),
+      participants : [String (wave address) . . .],
+      rootBlipId : String,
+      title : String,
+      version : Number,
+      waveId : String,
+      waveletId : String,
+      dataDocuments : {docId : object (data), . . .}
+   }
+   blips : {
+      blipId : Blip, . . .
+   }
+}
+Event objects are in the following format:
+{
+   modifiedBy : String (wave address),
+   timestamp : Number (of ms),
+   type : String,
+   properties : object (type defined)
+}
+And Blips are in the following format:
+{
+   annotations : [Annotation . . .],
+   elements : 
+   blipId : String,
+   childBlipIds : [String . . .],
+   contributors : [String (wave address) . . .],
+   creator : String (wave address),
+   content : String,
+   lastModifiedTime : Number (of ms),
+   version : Number,
+   waveletId : String,
+   waveId : String
+}
+The annotations there are formatted:
+{
+   range : {
+      start : Number,
+      end : Number,
+   },
+   key : String,
+   value : Integer,
+}
+
+Types:
+---
+Wavelet:
+--
+ Properties		Description
+ ----------		-----------
+ creationTime		Number of milliseconds from epoch till wave started.
+ creator		The user who created the wave.
+ lastModifiedTime	Number of milliseconds from epoch till last change.
+ participants		Array of the wave addresses of the participants
+			on the wave.
+ rootBlipId		The ID of the root blip as a String.
+ title			The title of the wave as a String.
+ version		The numbered version of the wave.
+ waveId			The waveId of the containing wave as a String.
+ waveletId		The waveletId of the wavelet.
+ dataDocuments		Object associating document IDs to objects of their 
+			data.
+
+Blip:
+--
+ Properties		Description
+ ----------		-----------
+ blipId			contains the ID of blip in which the event 
+			occurred.
+ childBlipIds		contains an array of blip IDs for each of the 
+			blip's children.
+ contributors		denotes participants who have contributed to the 
+			state of this blip.
+ creator		denotes the participant who created this blip.
+ lastModifiedTime	denotes the Unix time at which this blip was last 
+			modified by any participant.
+ content		contains the textual content of this blip.
+ version		contains the version of this blip. Each atomic 
+			operation on a blip increases this version number.
+ waveId			contains the Wave ID associated with this blip.
+ waveletId		contains the wavelet ID associated with this blip. 
+
+ (optional:)
+ annotations		array of annotations associated with the blip. The 
+			annotation is represented by an object with range 
+			(containing start and end properties), key, and 
+			value.
+ elements		contains gadgets, controls, and attachments 
+			associated with the blip.
+
+Events:
+--
+ Properties		Description
+ ----------		-----------
+ type			A string designating the event, possible values are 
+			listed in the following "Event Types" table.
+ modifiedBy		The wave address of the user who made this change 
+			as a String.
+ timestamp		The unix timestamp of when the update accord.
+ properties		An object with properties donoted by the type 
+			property.
+
+Event Types:
+---
+ Event			Properties		Description
+ -----			----------		-----------
+ WAVELET_BLIP_CREATED	blipId			BlipId of root blip as String
+			newBlipId		BlipId of the new blip
+ WAVELET_BLIP_REMOVED	blipId			BlipId of root blip
+			removedBlipId		BlipId of removed blip
+ WAVELET_PARTICAPANTS-	blipId			BlipId of root blip
+   _CHANGED		participantsAdded	Array of the addresses of 
+						added participants
+			participantsRemoved	Array of the addresses of 
+						removed participants.
+ WAVELET_SELF_ADDED	blipId			blipId of root blip.
+ WAVELET_SELF_REMOVED	blipId			blipId of root blip.
+ WAVELET_TAGS_CHANGED	blipId			blipId of root blip.
+ WAVELET_TITLE_CHANGED	blipId			blipId of root blip.
+			title			New title as String.
+ BLIP_CONTRIBUTORS_-	blipId			blipId of root blip.
+   _CHANGED		contributorsAdded	Array of the addresses of 
+						added contributors.
+			contributorsRemoved	Array of the addresses of 
+						removed contributors.
+ BLIP_SUBMITTED		blipId			blipId of submitted blip.
+ DOCUMENT_SUBMITTED	blipId			blipId of blip where change 
+						acoord.
+ FORM_BUTTON_CLICKED	blipId			blipId of containing blip.
+			button			name of the clicked button as 
+						String.
+ GADGET_STATE_CHANGED	blipId			blipId of containing blip.
+			index			index of the gadget that 
+						changed as a Number.
+			oldState		previous state of the gadget 
+						as object
+ ANNOTATED_TEXT_CHANGED	blipId			blipId of blip where change 
+						accord.
+			range			Object containing the start 
+						and end indexes in the blip.
+			name			name of annotation as String.
+			value			value of annotation as String.
