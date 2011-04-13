@@ -53,7 +53,8 @@ The following is a table of all methods and parameters provided by Operations. P
  auth.logout				Cancels authentication.	
 
  robot.notifyCapabilitiesHash		Sends an XML file to the server registering 
-   (cababilitiesHash : String)		the client for events identified.
+   (cababilitiesHash : String)		the client for events identified. Sends events
+                                                        to the source port in event methods. 
  robot.createWavelet			Creates a new wavelet from waveletData and 
    (waveletData : WaveletData,		identifies with message. (NOTE: TBD_ prefix may 
       message : String)			be used for temporary ID's)
