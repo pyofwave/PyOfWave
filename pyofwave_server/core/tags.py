@@ -7,9 +7,10 @@ class Tag(object):
    """Simplified document interface."""
    def __init__(self, doc, item):
       #provide default values if parameters not passed.
+      #Use a retain delta.
       self._doc = doc
       self._item = item
-      self._delta = Delta()
+      self._delta = delta.deltaop()
 
       self._content = []
       #retrieve all direct children of item from doc as tags
@@ -34,10 +35,12 @@ class Tag(object):
 
    def __setattr__(self, attr, value):
         #edit delta to set the attr
+        pass
 
     def __delattr__(self, attr, value):
         #ensure delta is is a deltaBoundary
         #edit delta to delete the attr
+        pass
 
    #delta creation
    def _contentdelta(self, deltas):
@@ -46,13 +49,14 @@ class Tag(object):
 
    def sendDelta(self):
       """Sends a beta delta."""
-      from delta import betaDeltaObservable
-
       #create delta
-      betaDeltaObservable.applyDelta(self._doc, delta)
+      delta.betaDeltaObservable.applyDelta(self._doc, delta)
 
 class Text(object):
    """Represents textual changes. """
+   def __init__(self, text):
+      #create insertain delta
+      pass
 
-class Retain(object):
-   """Represents unchanged content. """
+   def _contentdelta(self, deltas):
+      deltas.appand(self.__delta)
