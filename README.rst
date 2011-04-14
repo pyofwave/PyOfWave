@@ -28,12 +28,12 @@ It is written using the JavaScriptMVC library and jQuery (as well as a port of D
 
 Used jQuery Plugins
 ------------------------------
-- JavaScriptMVC (http://javascriptmvc.org/)
+- JavaScriptMVC (http://javascriptmvc.com/)
 
-- farbtastic
+- farbtastic (https://github.com/mattfarina/farbtastic/)
 
 - editabletext (slightly altered for lower level use, with added cursor location, http://niichavo.wordpress.com/2009/01/06/contenteditable-div-cursor-position/)
 
-- treeview
+- treeview (http://bassistance.de/jquery-plugins/jquery-plugin-treeview/)
 
-- JSON plugin encoder (derived for easy access)
+- JSON plugin encoder (derived for easy access, http://www.ramirezcobos.com/2009/12/30/json-jquery-plugin/)
