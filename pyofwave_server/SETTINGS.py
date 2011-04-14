@@ -10,7 +10,7 @@ from protocols import federation
 
 STORAGE_OBJECT = files.FileStorage("waves/", True)
 CACHE_OBJECT = files.FileStorage("temp/", False)
-FEDERATION_OBJECT = federation.DataModel
+FEDERATION_OBJECT = federation.DataModel()
 
 #setup datasource
 from core import delta
