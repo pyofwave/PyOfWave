@@ -14,7 +14,7 @@ Dependancies
 
 + Twisted (requires zope.interface)  - http://twistedmatrix.com/
 
-+ python-xmpp-server (requires tornado - tornadoweb.org)  - https://github.com/thisismedium/python-xmpp-server/
++ python-xmpp-server (requires tornado - http://tornadoweb.org/)  - https://github.com/thisismedium/python-xmpp-server/
 
 
 Client
