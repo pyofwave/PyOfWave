@@ -10,11 +10,11 @@ The server provides protocols around some core functionality (authentication, pr
 Dependancies
 --------------------
 
-+ Python 2.7+  @*python.org*
++ Python 2.7+ -  python.org
 
-+ Twisted (requires zope.interface)  @*twistedmatrix.com*
++ Twisted (requires zope.interface)  - twistedmatrix.com
 
-+ python-xmpp-server (requires tornado @*tornadoweb.org*)  @*https://github.com/thisismedium/python-xmpp-server/*
++ python-xmpp-server (requires tornado - tornadoweb.org)  - https://github.com/thisismedium/python-xmpp-server/
 
 
 Client
