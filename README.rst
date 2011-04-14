@@ -16,6 +16,8 @@ Dependancies
 
 + python-xmpp-server (requires tornado - http://tornadoweb.org/)  - https://github.com/thisismedium/python-xmpp-server/
 
++ CouchDB - http://couchdb.apache.org/ or any Relational Database System (Optional, recommended for production)
+
 
 Client
 ====
