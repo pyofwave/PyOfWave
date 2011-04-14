@@ -32,7 +32,7 @@ Used jQuery Plugins
 
 - farbtastic (https://github.com/mattfarina/farbtastic/)
 
-- editabletext (slightly altered for lower level use, with added cursor location, http://niichavo.wordpress.com/2009/01/06/contenteditable-div-cursor-position/)
+- editabletext - http://valums.com/edit-in-place/ (slightly altered for lower level use, with added cursor location, http://niichavo.wordpress.com/2009/01/06/contenteditable-div-cursor-position/)
 
 - treeview (http://bassistance.de/jquery-plugins/jquery-plugin-treeview/)
 
