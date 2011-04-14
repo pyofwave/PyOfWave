@@ -25,3 +25,15 @@ Client
 The client provides a dynamic web based interface to PyOfWave_server, using the Wave Simple Data Protocol. It is designed to be embedded in the frame of your site and delivers great customizability and ease.  
 
 It is written using the JavaScriptMVC library and jQuery (as well as a port of Django's templating), both of which are included in this project.
+
+Used jQuery Plugins
+------------------------------
+- JavaScriptMVC (http://javascriptmvc.org/)
+
+- farbtastic
+
+- editabletext (slightly altered for lower level use, with added cursor location, http://niichavo.wordpress.com/2009/01/06/contenteditable-div-cursor-position/)
+
+- treeview
+
+- JSON plugin encoder (derived for easy access)
