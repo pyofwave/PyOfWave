@@ -62,9 +62,14 @@ class Tag(object):
        if opName != "annotationBoundary":
           #backup information
           annotations = self._delta.args[annotationOffset[opName]]
-          #combine with existing annotations
 
-          self._delta = delta.Operation("annotationsBoundary", [], annotations)
+          #combine with existing annotations
+          keys = set().union(set(annotations.keys()), set(self._item.annotations.keys())
+
+          ann = {}
+          for key in keys: ann[key] = (self._item.annotations[key], annotations[key]) 
+
+          self._delta = delta.Operation("annotationsBoundary", [], ann)
        #edit delta to delete the attr
        self._delta.args[0].append(attr)
 
