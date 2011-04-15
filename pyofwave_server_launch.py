@@ -3,4 +3,4 @@ Executes imports to launch pygowave_server, errors are thrown from doing this in
 """
 
 #perform system setup via import
-import pygowave_server
+import pyofwave_server

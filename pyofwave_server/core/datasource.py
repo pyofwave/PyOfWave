@@ -1,7 +1,6 @@
 """
 Contains standard interfaces for dataSources. 
 """
-from .. import SETTINGS
 import delta
 from zope import interface
 

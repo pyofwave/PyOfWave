@@ -16,4 +16,4 @@
 # limitations under the License.
 #
 
-import SETTINGS, protocols
+import PREFERENCES

@@ -3,16 +3,24 @@ This file provides access to a simplified interface upon deltas and documents ca
 """
 import delta, datasource
 
-annotationOffsets = {}
+annotationOffsets = {
+   "updateAttributes" : 1,
+   "elementStart" : 1,
+   "annotationsBoundary" : 1
+}
 
 class Tag(object):
    """Simplified document interface."""
    def __init__(self, doc, item, op = "retain"):
       #correct parameters
       if isinstance(doc, Tag): doc = doc._doc
+      
       if isinstance(doc, str):
          item = datasource.Item(datasource.Item.OPEN_TAG, item)
          if op == "retain": op = "elementStart"
+         
+      if op == "elementStart": self._closeTag = True
+      else self._closeTag = False
       
       self._doc = doc
       self._item = item
@@ -46,9 +54,12 @@ class Tag(object):
    def __getattr__(self, attr):
       return self._item.annotations[attr]
 
-   def __setattr__(self, attr, value):      
+   def __setattr__(self, attr, value):
       #edit delta to set the attr
       index = self._delta.operation.__name__
+      if index == "retain":
+         self._delta = delta.Operation("updateAttributes", self._item.annotations)
+         index = "updateAttributes"
       self._delta.args[index][attr] = value
 
     def __delattr__(self, attr):
@@ -64,7 +75,7 @@ class Tag(object):
           annotations = self._delta.args[annotationOffset[opName]]
 
           #combine with existing annotations
-          keys = set().union(set(annotations.keys()), set(self._item.annotations.keys())
+          keys = set().union(set(annotations.keys()), set(self._item.annotations.keys()))
 
           ann = {}
           for key in keys: ann[key] = (self._item.annotations[key], annotations[key]) 
@@ -83,7 +94,22 @@ class Tag(object):
       #create delta
       ops = []
       self._contentdelta(ops)
-      delta = delta.Delta(*ops)
+
+      #collapse retains
+      fops = []
+      curop = None
+      for op in ops:
+         if curop and op.operation.__name__ == curop.operation.__name__ == "retain":
+            curop.args[0]++
+         elif op.operation.__name__ == "retain":
+            op.args[0] = 1
+            fops.append(op)
+            curop = op
+         else:
+            curop = op
+            fops.append(op)
+            
+      delta = delta.Delta(*fops)
       
       delta.betaDeltaObservable.applyDelta(self._doc, delta)
 

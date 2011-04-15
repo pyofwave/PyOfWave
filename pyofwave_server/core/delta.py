@@ -1,6 +1,9 @@
 """
 This file defines a simple observer system for responding to updates on waves.
 """
+from multiprocessing import Pool
+from .. import SETTINGS
+
 class ImproperDelta(Exception):
     """If this is recieved, you should reload the delta."""
     
@@ -37,6 +40,8 @@ class Message(object):
         self.message = message
         self.version = version
 
+DeltaObserverPool = Pool(SETTINGS.DELTA_OBSERVER_PROCESSES,
+                         None, None, SETTINGS.DELTA_OBSERVER_TIMEOUT)
 class DeltaObservable(object):
     """The subject in the observer pattern."""
     def __init__(self):
@@ -44,7 +49,7 @@ class DeltaObservable(object):
         
     def applyDelta(self, doc, delta):
         """Notifiers observers. """
-        for observer in self.observers: observer(doc, delta)
+        for observer in self.observers: DeltaObserverPool.apply_async(observer, (doc, delta))
 
     def addObserver(self, observer):
         self.observers.append(observer)

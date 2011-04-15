@@ -1,22 +1,10 @@
 """
-This file contains settings for easily setting up the PyGoWave for your server system.
+This file provides settings which you will need to provide for your system.
 """
 #URL settings
 DOMAIN = ""
 
-#datasource settings
-from storage import files
-from protocols import federation
-
-STORAGE_OBJECT = files.FileStorage("waves/", True)
-CACHE_OBJECT = files.FileStorage("temp/", False)
-FEDERATION_OBJECT = federation.DataModel()
-
-#setup datasource
-from core import delta
-
-STORAGE_OBJECT.successor = CACHE_OBJECT
-CACHE_OBJECT.successor = FEDERATION_OBJECT
-delta.betaDeltaObservable.addObserver(STORAGE_OBJECT)
-delta.betaDeltaObservable.addObserver(CACHE_OBJECT)
-delta.betaDeltaObservable.addObserver(FEDERATION_OBJECT)
+#Multiprocess settings
+from multiprocessing import cpu_count
+DELTA_OBSERVER_PROCESSES = cpu_count()
+DELTA_OBSERVER_TIMEOUT = None
