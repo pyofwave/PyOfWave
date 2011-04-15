@@ -15,6 +15,10 @@ class DataSource(interface.Interface):
 
    def getDocumentVersion(doc, start, end, limit):
       """Returns the delta for the specified versions. """
+
+   def applyDelta(doc, delta):
+      """Apply delta to doc and save."""
+
    successor = interface.Attribute('DataSource')
 
 class Document(object):
