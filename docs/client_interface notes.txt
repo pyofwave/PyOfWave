@@ -2,3 +2,6 @@ I have 2 illustrations of the client interface here, a png image which contains 
 The png file was created using Steve Spring's Brushes for iPad.
 The OOo draw file was created using that software and requires OpenOffice.org to open. 
 Any suggestions on the interface can be added to the OOo draw file, and if I like them, I'll add it to the png.
+
+This interface was inspired by a design on http://www.waveprotocol.org/. 
+This software shall not include the frame (which I'll have to redraw sometime), but leave it to the providers who use it. 
