@@ -1,4 +1,5 @@
-/*Events for the event protocol, eventHandlers defined in wQuery.*/
+/*Events for the event protocol, eventHandlers defined in wQuery.
+For the most part, KVO will take care of these.*/
 eventHandlers = {
    WAVELET_BLIP_CREATED : function(evt) {},
    WAVELET_BLIP_REMOVED : function(evt ) {},
