@@ -1,7 +1,9 @@
 /*Wave views which presents a wave to the user and allows editing.*/
 /*Each displays a particular piece of the wave structure*/
-var sessionId; //to be provided by server
+var sessionId; //to be provided by server TODO: Implement this.
 
+/*Controller representing a "wavelet".
+TODO: create waveletView.html*/
 $.Controller('WaveletView', {
    init : function(el, options) {
       $(el).append("waveletView.html");
@@ -9,6 +11,8 @@ $.Controller('WaveletView', {
       $(el, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
       $(el '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
 });
+
+/*Controller Representing a list of participants on a wavelet.*/
 $.Controller('ParticipantsBar', {
    init : function(el, options) {
       $(el).append("participants.html", {participants : options.participants});
@@ -20,6 +24,8 @@ $.Controller('ParticipantsBar', {
       });
    }
 });
+
+/*Controller representing a "thread" or wavelet of "blips".*/
 $.Controller('BlipsListView', {
    init : function(el, options) {
       $(el).append("blipsList.html", {blips : options.blips});
@@ -33,13 +39,17 @@ $.Controller('BlipsListView', {
    }
 });
 
+
+/*Controller Representing a "blip" or individual message.*/
 $.Controller('BlipView', {
+   /*Initializes the controller with an element and options.*/
    init : function(el, options) {
+      //Retrieve appropriate blip.
       if (options.blip && options.blip.class == "KVO") var blip = options.blip;
       else if (options.id) var blip = blips[options.id];
       else var blip = blips[options.blip];
 
-      $(el).append("node.html", {blip : blip,});
+      $(el).append("node.ejs", {blip : blip,});  //TODO: implement node.ejs
       this.blip = blip;
 
       //tie to observers
@@ -51,9 +61,11 @@ $.Controller('BlipView', {
       kvoIDs.push(blip.get('elements').observe(renderContent));
       kvoIDs.push(blip.get('content').observe(renderContent));
    },
+   /*Give an option of replying or editing when clicking on the blip.*/
    '> .blip .content click' : function(evt) {
       createMenu({x:evt.mousex, y:evt.mousey}, {
          reply : function() {
+            //Send the operation to the server.
             sendOperations(["document.modify", {
                waveId : this.blip.get('waveId'),
                waveletId : this.blip.get('waveletId'),
@@ -70,15 +82,18 @@ $.Controller('BlipView', {
          edit : this.callback(this.edit)
       }]);
    },
+   /*Give a number of options when the status is clicked.*/
    '> .blip .status click' : function(evt) {
       //generate menu. 
-      el = $(el '> .blip .status');
+      el = $(this.el '> .blip .status');
       createMenu({x : el.style('left'), y : el.style('bottom')}, {
          edit : this.callback(this.edit),
          reply : function() {
+            //Add a new blip to the thread.
             $(this.el, '> .thread').BlipsListView('newBlip');
          },
          delete : function() {
+            //Send the operation to the server.
             sendOperations(["blip.remove", {
                waveId : this.blip.get('waveId'),
                waveletId : this.blip.get('waveletId'),
@@ -86,10 +101,12 @@ $.Controller('BlipView', {
             }]);
          },
          'copy link' : function() {
+            //Show the URL for this wave.
             prompt("The URL for this blip is: ", "wave://"+this.blip.get('blipId'));
          }
-   }
-}).extend({
+   },
+
+   /*Map the content of the blip to the page.*/
    renderContent : function() {
       var content = this.blip.get('content');
       var lastIndex = 0;
@@ -166,6 +183,7 @@ $.Controller('BlipView', {
             EL_TYPES[element.get('type')](element));
       }
    },
+   /*Enable editing on this blip and create edit toolbar.*/
    edit : function() {
       function sendModification(modification) {
          sendOperations(
