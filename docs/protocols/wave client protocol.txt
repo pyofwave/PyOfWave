@@ -62,6 +62,10 @@ The following is a table of all methods and parameters provided by Operations. P
 					& children with an optional search property 
 					(defaults to "in:"key). Icon is a URL, and 
 					children is an Array of the same objects.
+ robot.fetchProfile(userID : String)       Responds with an object representing the 
+                                                        User's profile. Contains properties avatar,
+                                                        firstName, lastName, status, and note.
+
  robot.fetchwavelet(waveID : String,	Responds with data in identified wave in 
    waveletId:String, message:String)	properties wavelet of type WaveletData and 
 					blips Array of BlipData.
