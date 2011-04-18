@@ -195,6 +195,7 @@ $.Controller('BlipView', {
                modifyHow : modification
             }]
          );
+      }
       $(this.blip, ' > .blip .content').editableText().change(function(evt) {
          sendModifications({content : evt.text,});
       });
@@ -259,15 +260,20 @@ $.Controller('BlipView', {
                      "Please enter Gadget address.")},});
                }
             });
-         })
+         });
       )
+
+      //TODO: Add done button and hide updates buttons (stacks updates instead of sending straight away).
    },
 });
 
+/*A collaborative "gadget"*/
 $.Controller('GadgetView', {
    init : function(el, options) {
-      $(el).append("gadget.html", options);
-      $(el, 'iframe').get()[0].message = function(text) {
+      $(el).append("gadget.ejs", options);  //TODO: Implement gadget.ejs
+
+      //apply to recieve updates from the iframe.
+      $(el, 'iframe')[0].message = function(text) {
          var public, name, value;
          [public, name, value] = text.spllit(',');
          var doc = public == "public" ? options.publicDoc : options.privateDoc;
@@ -282,7 +288,8 @@ $.Controller('GadgetView', {
                dataDocValue : doc
             }]);
    }
-}).extend({
+   /*Called by a change to the data document
+      TODO: Bind to some event.*/
    update : function(delta) {
       $(this.el, 'iframe').get()[0].postMessage($.encode(delta));
    }
