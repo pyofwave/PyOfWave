@@ -37,24 +37,34 @@ class Tag(object):
          i = doc.items.index(item.end) + 1
 
    @property
-   def _name(self): return self._item.name
+   def _name(self): 
+      """Returns the tag name/text of the tag, readonly."""
+      return self._item.name
 
    #itterable properties
    def __len__(self):
+      """Returns the number of direct children of the tag."""
       return len(self._content)
 
    def __getitem__(self, index):
+      """Returns the child at specified index."""
       return self._content[i]
 
    def __setitem__(self, index, value):
+      """Inserts (not replaces, use del for that) an object at index.
+         Accepts Tag-like objects and strings.
+         TODO: Correct processing to yield proper deltas."""
       if isinstance(value, str): value = Text(object)
       self.content[i] = value
 
    #psuedo-properties
    def __getattr__(self, attr):
+      """Returns the appropriate annotation value."""
       return self._item.annotations[attr]
 
    def __setattr__(self, attr, value):
+      """Edits delta to set the appropriate annotation. 
+         :warning: This does note apply it until you call :ref:sendDelta. """
       #edit delta to set the attr
       index = self._delta.operation.__name__
       if index == "retain":
@@ -63,6 +73,8 @@ class Tag(object):
       self._delta.args[index][attr] = value
 
     def __delattr__(self, attr):
+       """Edits delta to remove an annotation.
+           :warning: This does not apply it until you call :ref:sendDelta.""""
        opName = self._delta.operation.__name__
        #handle new tags appropriately
        if opName = "elementStart":
@@ -86,11 +98,12 @@ class Tag(object):
 
    #delta creation
    def _contentdelta(self, deltas):
+      """Generates the list of operations for :ref:sendDelta."""
       deltas.append(self._delta)
       for child in self._content: child._contentdelta(deltas)
 
    def sendDelta(self):
-      """Sends a beta delta."""
+      """Sends a beta delta based on the changes to this object and it's children."""
       #create delta
       ops = []
       self._contentdelta(ops)
