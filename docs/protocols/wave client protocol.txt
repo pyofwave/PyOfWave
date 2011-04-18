@@ -46,10 +46,10 @@ The following is a table of all methods and parameters provided by Operations. P
  ------					-----------
  auth.port(protocol)                    Returns port number in port argument, representing 
                                         the port number to use for protocol, out of fed and http. 
- auth.authMethod			Returns how containing an array containing a 
-					selection of ("Oauth", "SSL") appropriately for 
-					the methods of authentication the server supports. 
-					(Note: The list may be expanded.)
+ auth.authMethod			Returns how containing an object containing a 
+					selection of keys ("Oauth", "SSL") mapping to port numbers 
+					appropriately for the methods of authentication the server 
+					supports. (Note: The list may be expanded.)
  auth.logout				Cancels authentication.	
 
  robot.notifyCapabilitiesHash		Sends an XML file to the server registering 
@@ -62,9 +62,9 @@ The following is a table of all methods and parameters provided by Operations. P
 					& children with an optional search property 
 					(defaults to "in:"key). Icon is a URL, and 
 					children is an Array of the same objects.
- robot.fetchProfile(userID : String)       Responds with an object representing the 
-                                                        User's profile. Contains properties avatar,
-                                                        firstName, lastName, status, and note.
+ robot.fetchProfile(userID : String)	Responds with an object representing the 
+					User's profile. Contains properties avatar,
+					firstName, lastName, status, and note.
 
  robot.fetchwavelet(waveID : String,	Responds with data in identified wave in 
    waveletId:String, message:String)	properties wavelet of type WaveletData and 

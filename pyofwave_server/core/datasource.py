@@ -15,6 +15,10 @@ class DataSource(interface.Interface):
    def getDocumentVersion(doc, start, end, limit):
       """Returns the delta for the specified versions. """
 
+   def searchDocuments(user, query):
+      """Returns an iterable of all documents that match the query.
+         This query  should be in the form found in the client protocol standard."""
+
    def applyDelta(doc, delta):
       """Apply delta to doc and save."""
 
@@ -22,10 +26,9 @@ class DataSource(interface.Interface):
 
 class Document(object):
    """Stores a series of items representing start tags, end tags, and text. """
-   def __init__(self, participants, *items):
+   def __init__(self, *items):
       """Initializes document as a collection of passed items. """
       self.items = [item for item in items]
-      self.participants = participants
 
       #transform properties
       self.cursor = -1
