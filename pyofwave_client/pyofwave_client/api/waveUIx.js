@@ -1,11 +1,12 @@
 /*Wave views which may not be wave specific.*/
 /*Included jQuery plugins:
+-jQuery UI slider
 -farbtastic
--editabletext (slightly altered for lower level use, with added cursor location, http://niichavo.wordpress.com/2009/01/06/contenteditable-div-cursor-position/)
+-editabletext
 -treeview
 -JSON plugin encoder (derived for easy access)*/
 
-//displays a menu and wha for selection. Options is a object mapping labels to callbacks. 
+/*displays a menu for selection. Options is a object mapping labels to callbacks. */
 function createMenu(pos, options) {
   var menu = $('<ul>').class("menu").style("top", pos.x).style("left", pos.y);
   $('body').append(menu);
@@ -14,13 +15,13 @@ function createMenu(pos, options) {
   });}
 }
 
-//A pop up card showing contact details. 
+/*A pop up card showing contact details. */
 function contactCard(pos, user, buttons) {
    //retrieve keys from buttons
    var bttnNames = new Array();
    for (var bttn in buttons) bttnNames.push(bttn);
 
-   var view = $('body').append("card.dtemp", {pos : pos, user : user, buttons : bttnNames});
+   var view = $('body').append("card.ejs", {pos : pos, user : user, buttons : bttnNames});  //TODO: Implement card.ejs
 
    //register handlers
    for (bttn in buttons) $(view).byID(bttn).click(function(evt) {
@@ -29,24 +30,28 @@ function contactCard(pos, user, buttons) {
 }
 
 //toolbar creation
-/*toolbar uses 'ul#wave-toolbar' element and takes a sequence of toolbarOptions.*/
+/*toolbar uses 'ul#wave-toolbar' element and takes a sequence of toolbarOptions to populate it. (for flexibility)
+  This is the 'sub' toolbar for the wave section, used for editting and playback.*/
 function toolbar() {
    var el = $('ul#wave-toolbar').clear();
 
    //fill with arguments.
    for (var i = 0; i < arguments.length; i++) el.append($('<li>').append(arguments[i]));
 }
+/*A toolbar option in above.*/
 function toolbarOption(icon, action) {
    return $('<img>').attr('href', icon).click(action);
 }
 
 //advanced 
+/*A toolbar option that can be toggled on and off.*/
 function toolbarCheck(icon, onToggle) {
    return toolbarOption(icon, function() {
       var on = $(this).parent().toggle("selected"); 
       onToggle(on);
    });
 }
+/*A toolbar option that contains a menu.*/
 function toolbarDropdown(icon, options, onSelect) {
    $(this).data('selected', options[0]);
    var menuOptions = new Array();
@@ -54,12 +59,15 @@ function toolbarDropdown(icon, options, onSelect) {
       menuOptions[options[i]] = function() {
          $(this).data('selected', options[i]); 
          onSelect(options[i]);
+         //TODO: Check selected option.
       });
 
    return toolbarOption(icon, function() {
       createMenu({x : $(this).style('left'), y : $(this).style('bottom')}, options);
    }
 }
+/*A toolbar checkbox of which only one in a group can be checked.
+  A group is identified by a name.*/
 function toolbarRadio(icon, name, onSelect) {
    //create and return toolbarCheck.
    var el =  toolbarOption(icon, function() {
@@ -70,21 +78,31 @@ function toolbarRadio(icon, name, onSelect) {
    el.parent().class(name);
    return el;
 }
+/*An element for the toolbar that includes a jQuery UI slider.*/
 function toolbarSlider(value, max, onChange) {
    return $('<span>').slider({value : value, max : max}).change(onChange);
 }
+/*A toolbar option that drops down a Farbtastic colour picker.*/
 toolbarColor(icon, onChange, onSubmit) {
    return toolbarOption(icon, function() {
-      var color = $(this).parent().style('background-color');
+      var color = $(this).parent().style('background-color');  //get current colour to revert
 
-      var picker = $('<div>').farbtastic($(this).parent(), onChange);
-      var el = $('<div>').append(picker).append($('<p>').append(
-         $('<a>').text('Cancel').attr('href', "#").click(function() {
-            $(el).remove();
-            onChange(color); $(this).parent().style('background-color', color);
-         }).append(
-         $('<a>').text('Select').attr('href', "#").click(function() {
-            $(el).remove();
-            onSubmit($(this).parent().style('background-color'));
-         })).style('position', 'absolute');
-      $('body').append($(el).style('top', $(this).style('bottom')).style('left', $(this).style('left'));
+      var picker = $('<div>').farbtastic($(this).parent(), onChange);  //create the picker
+      var el = $('<div>').append(picker
+         ).append(
+            $('<p>').append(
+               $('<a>').text('Cancel').attr('href', "#").click(function() {
+                  $(el).remove();  //Hide
+                  onChange(color); $(this).parent().style('background-color', color);  //Revert
+               }).append(
+                  $('<a>').text('Select').attr('href', "#").click(function() {
+                     $(el).remove();  //Hide
+                     onSubmit($(this).parent().style('background-color'));  //Submit
+                  })).style('position', 'absolute')
+               )
+            )
+         )
+      );
+      $('body').append($(el).style('top', $(this).style('bottom')).style('left', $(this).style('left'));  //Display the dropdown
+   });
+}
