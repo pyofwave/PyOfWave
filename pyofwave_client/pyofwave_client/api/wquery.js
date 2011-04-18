@@ -1,8 +1,11 @@
-/*API to work with the Simple Data Protocal and Event Protocal.*/
+/*API to work with the Simple Data Protocal and Event Protocal.
+  TODO: Provide development alternative which just sends back what you send.*/
 cons OPERATIONS_URL, EVENTS_URL, EVENTS_PORT; //providers should assign values, but left blank here. 
 
-//accepts Arrays containing method string, parameter object, callback. 
+/*Sends a Wave Simple Data Protocol operation to the server.
+  Accepts Arrays containing method string, parameter object, callback. */
 function sendOperations() {
+   //reformat from convenient arguments to JSON interface.
    var operations = new Array();
    var callbacks = {}
    for (var arg in arguements) {
@@ -12,7 +15,7 @@ function sendOperations() {
    }
 
    $.post(OPERATIONS_URL, "text/json", operations, function(req, data) {
-      for (var id in data) if (callbacks[id]) callbacks[id](data[id]);
+      for (var id in data) if (callbacks[id]) callbacks[id](data[id]);   //Send to server.
    }
 }
 
@@ -20,18 +23,21 @@ function sendOperations() {
 var wavelets = new Array();
 var blips = {}
 
+/*Wraps a wavelet with KVO and stores it for later access.
 function wavelet(obj) {
    obj = new KVO(obj);
    wavelets.push(obj);
    return obj;
 }
+/*Same as above but for blips.*/
 function blip(obj) {
    obj = new KVO(obj);
    blips[obj.get("blipId")] = obj;
    return obj;
 }
 
-//events protocol
+//events protocol TODO: Rewrite in Twisted
+//Reads a continuous stream from the server for events.
 var eventHandlers = {}
 var eventStream = Orbitted.TCPStream();
 
