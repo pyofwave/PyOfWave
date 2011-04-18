@@ -13,7 +13,7 @@ class Delta(object):
         self.ops = ops
 
     def applyToDoc(self, doc):
-        """Use to apply changes described to a document."""
+        """Use to apply changes described to a document doc."""
         from datasource import Document
         
         rep = Document()
@@ -30,7 +30,8 @@ class Operation(object):
         except (AttributeError): raise ImproperDelta
         self.args = args
 
-    def applyToDoc(doc, new):
+    def applyToDoc(self, doc, new):
+        """Applies the particulor operation to a document new based on data in doc."""
         try: self.operation(doc, new, *self.args)
         except (ArgumentError): raise ImproperDelta
 
@@ -52,9 +53,12 @@ class DeltaObservable(object):
         for observer in self.observers: DeltaObserverPool.apply_async(observer, (doc, delta))
 
     def addObserver(self, observer):
+        """Call to be called whenever a new delta is sent in through the DeltaObservable.
+            You will be called in a seperate process than the main server, so as to avoid overhead in handling requests."""
         self.observers.append(observer)
 
     def removeObserver(self, observer):
+        """Call to remove a function from being called by applyDelta."""
         self.observers.remove(observer)
 
 #central objects
