@@ -5,7 +5,7 @@ from importlib import import_module
 
 def performOperation(operation, kwargs):
    module, op = operation.split(".")
-   opFunction = import_module('..operations.'+module, 'pygowave_server.core')
+   opFunction = import_module('..operations.'+module, 'pyofwave_server.core')
    try: opFunction = getattr(opFunction, op)
    except (AttributeError, evt): print evt
    return opFunction(**kwargs)
