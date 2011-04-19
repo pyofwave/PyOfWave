@@ -52,10 +52,10 @@
             
   <div class="section" id="using-pyofwave-s-core-module">
 <h1>Using PyOfWave&#8217;s Core module<a class="headerlink" href="#using-pyofwave-s-core-module" title="Permalink to this headline">¶</a></h1>
-<p>pyofwave_server.core provides facilities that are shared, somehow, by all protocols and extensions. Specifics for extending this are provided by my :doc:&#8217;Authentication&#8217; , :doc:&#8217;DataStorage&#8217; , :doc:&#8217;Operations&#8217; , and :doc:&#8217;Protocols&#8217; .</p>
+<p>pyofwave_server.core provides facilities that are shared, somehow, by all protocols and extensions. Specifics for extending this are provided by my <a class="reference internal" href="Authentication.html"><em>Standard PyOfWave Document Authentication</em></a>, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>, <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>, and <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
 <div class="section" id="core-auth">
 <h2>core.auth<a class="headerlink" href="#core-auth" title="Permalink to this headline">¶</a></h2>
-<p>Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use :py:data:SETTINGS.AUTH .</p>
+<p>Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use <tt class="xref py py-data docutils literal"><span class="pre">SETTINGS.AUTH</span></tt>.</p>
 <p>This object has the following methods.</p>
 <dl class="method">
 <dt id="signin">
@@ -75,13 +75,13 @@ changes their password to password. Returns a boolean indicating success.</p>
 <dt id="getUser">
 <tt class="descname">getUser</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#getUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the user logged in on the specified IP address. Returns a
-:py:class:User object.</p>
+<a class="reference internal" href="#User" title="User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="saveFolder">
 <tt class="descname">saveFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#saveFolder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves a :py:class:Folder object to wherever the service saves it&#8217;s data,
+<dd><p>Saves a <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> object to wherever the service saves it&#8217;s data,
 providing the fid property has not changed.</p>
 </dd></dl>
 
@@ -92,7 +92,7 @@ providing the fid property has not changed.</p>
 success.</p>
 </dd></dl>
 
-<p>When calling the :py:meth:&#8217;getUser&#8217; method, you will get a :py:class:&#8217;User&#8217; object. This class is effectively a structure:</p>
+<p>When calling the <a class="reference internal" href="#getUser" title="getUser"><tt class="xref py py-meth docutils literal"><span class="pre">getUser()</span></tt></a> method, you will get a <a class="reference internal" href="#User" title="User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object. This class is effectively a structure:</p>
 <dl class="class">
 <dt id="User">
 <em class="property">class </em><tt class="descname">User</tt><big>(</big><em>name</em>, <em>doc</em>, <em>folder</em><big>)</big><a class="headerlink" href="#User" title="Permalink to this definition">¶</a></dt>
@@ -109,7 +109,7 @@ anything.</p>
 <dl class="attribute">
 <dt id="User.doc">
 <tt class="descname">doc</tt><a class="headerlink" href="#User.doc" title="Permalink to this definition">¶</a></dt>
-<dd><p>A :py:class:Document object representing the user&#8217;s profile. In PyOfWave,
+<dd><p>A <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> object representing the user&#8217;s profile. In PyOfWave,
 this isn&#8217;t expected to be anything, but gadgets will have expectations
 and other servers. I discuss these required annotations in my
 Federation Format standard (in repository docs/protocols/
@@ -119,7 +119,7 @@ federationFormat.txt).</p>
 <dl class="attribute">
 <dt id="User.folder">
 <tt class="descname">folder</tt><a class="headerlink" href="#User.folder" title="Permalink to this definition">¶</a></dt>
-<dd><p>A :py:class:Folder which illustrates the user&#8217;s organisation of waves.
+<dd><p>A <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> which illustrates the user&#8217;s organisation of waves.
 You&#8217;ll need to use search to get the waves inside these, though.</p>
 </dd></dl>
 
@@ -133,7 +133,7 @@ You&#8217;ll need to use search to get the waves inside these, though.</p>
 <dt id="Folder.fid">
 <tt class="descname">fid</tt><a class="headerlink" href="#Folder.fid" title="Permalink to this definition">¶</a></dt>
 <dd><p>The ID specified by the :py:class:AuthService to identify the folder.
-This should not be changed (or you cannot :meth:saveFolder it), and
+This should not be changed (or you cannot <a class="reference internal" href="#saveFolder" title="saveFolder"><tt class="xref py py-meth docutils literal"><span class="pre">saveFolder()</span></tt></a> it), and
 can be whatever the service wants it to be.</p>
 </dd></dl>
 
@@ -166,7 +166,81 @@ can be whatever the service wants it to be.</p>
 </div>
 <div class="section" id="core-datasource">
 <h2>core.datasource<a class="headerlink" href="#core-datasource" title="Permalink to this headline">¶</a></h2>
-<p>This module has exactly the same architecture of the core.auth module.</p>
+<p>This module has exactly the same architecture of the core.auth module. The &#8220;interface&#8221; in this module is DataSource and it stores objects of <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> which contains a number of <a class="reference internal" href="#Item" title="Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> objects.</p>
+<dl class="method">
+<dt id="newDocument">
+<tt class="descname">newDocument</tt><big>(</big><em>doc</em><big>)</big><a class="headerlink" href="#newDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new document in the DataSource. Returns the blank :py:class:Document object if successful.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="getDocument">
+<tt class="descname">getDocument</tt><big>(</big><em>doc</em><big>)</big><a class="headerlink" href="#getDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the document from the DataSource. Returns a <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="getDocumentVersion">
+<tt class="descname">getDocumentVersion</tt><big>(</big><em>doc</em>, <em>start</em>, <em>end</em>, <em>limit</em><big>)</big><a class="headerlink" href="#getDocumentVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the document at the specified times. Returns a iterable <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="searchDocuments">
+<tt class="descname">searchDocuments</tt><big>(</big><em>user</em>, <em>search</em><big>)</big><a class="headerlink" href="#searchDocuments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of wave documents that match the source. The tags that may be specified in the search are provided by <a class="reference internal" href="#setTags" title="setTags"><tt class="xref py py-meth docutils literal"><span class="pre">setTags()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="setTags">
+<tt class="descname">setTags</tt><big>(</big><em>doc</em>, <em>user</em>, <em>**tags</em><big>)</big><a class="headerlink" href="#setTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the tags for the documentation for use by search.</p>
+</dd></dl>
+
+<p>Classes:</p>
+<dl class="class">
+<dt id="Document">
+<em class="property">class </em><tt class="descname">Document</tt><big>(</big><em>*items</em><big>)</big><a class="headerlink" href="#Document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a single &#8220;document&#8221; in the DataSource.</p>
+<dl class="attribute">
+<dt id="Document.items">
+<tt class="descname">items</tt><a class="headerlink" href="#Document.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of <a class="reference internal" href="#Item" title="Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> objects that make up the document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.cursor">
+<tt class="descname">cursor</tt><a class="headerlink" href="#Document.cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>An integer representing the current location of the &#8220;cursor&#8221; in the document, used for delta processing.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Item">
+<em class="property">class </em><tt class="descname">Item</tt><big>(</big><em>type</em>, <em>name</em>, <em>**annotations</em><big>)</big><a class="headerlink" href="#Item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a single &#8220;item&#8221; that makes up a document in the DataSource.</p>
+<dl class="attribute">
+<dt id="Item.type">
+<tt class="descname">type</tt><a class="headerlink" href="#Item.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which type of item this is, as an integer. Values are specified by the class attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Item.name">
+<tt class="descname">name</tt><a class="headerlink" href="#Item.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name or text of the item.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Item.annotations">
+<tt class="descname">annotations</tt><a class="headerlink" href="#Item.annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mapping of the &#8220;annotations&#8221; attached to the tag.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>If this appears to be a bit imprecise, that&#8217;s because you use this to store whatever data you need to, adhering to appropriate standards.</p>
 </div>
 </div>
 

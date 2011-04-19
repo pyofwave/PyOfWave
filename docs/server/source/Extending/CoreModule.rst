@@ -1,11 +1,11 @@
 Using PyOfWave's Core module
 ****************************
 
-pyofwave_server.core provides facilities that are shared, somehow, by all protocols and extensions. Specifics for extending this are provided by my :doc:'Authentication' , :doc:'DataStorage' , :doc:'Operations' , and :doc:'Protocols' .
+pyofwave_server.core provides facilities that are shared, somehow, by all protocols and extensions. Specifics for extending this are provided by my :doc:`Authentication`, :doc:`DataStorage`, :doc:`Operations`, and :doc:`Protocols`.
 
 core.auth
 =========
-Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use :py:data:SETTINGS.AUTH . 
+Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use :py:data:`SETTINGS.AUTH`. 
 
 This object has the following methods.
 
@@ -22,11 +22,11 @@ This object has the following methods.
 .. py:method:: getUser(ip)
 
    Gets the user logged in on the specified IP address. Returns a 
-   :py:class:User object.
+   :py:class:`User` object.
 
 .. py:method:: saveFolder(folder)
 
-   Saves a :py:class:Folder object to wherever the service saves it's data, 
+   Saves a :py:class:`Folder` object to wherever the service saves it's data, 
    providing the fid property has not changed.
 
 .. py:method:: logout(ip)
@@ -34,7 +34,7 @@ This object has the following methods.
    Cancels the user authentication on a IP. Returns a boolean indicating 
    success.
 
-When calling the :py:meth:'getUser' method, you will get a :py:class:'User' object. This class is effectively a structure:
+When calling the :py:meth:`getUser` method, you will get a :py:class:`User` object. This class is effectively a structure:
 
 .. py:class:: User(name, doc, folder)
 
@@ -49,7 +49,7 @@ When calling the :py:meth:'getUser' method, you will get a :py:class:'User' obje
 
    .. py:attribute:: doc
 
-      A :py:class:Document object representing the user's profile. In PyOfWave, 
+      A :py:class:`Document` object representing the user's profile. In PyOfWave, 
       this isn't expected to be anything, but gadgets will have expectations 
       and other servers. I discuss these required annotations in my 
       Federation Format standard (in repository docs/protocols/
@@ -57,7 +57,7 @@ When calling the :py:meth:'getUser' method, you will get a :py:class:'User' obje
 
    .. py:attribute:: folder
 
-      A :py:class:Folder which illustrates the user's organisation of waves. 
+      A :py:class:`Folder` which illustrates the user's organisation of waves. 
       You'll need to use search to get the waves inside these, though.
 
 .. py:class:: Folder(fid, name, icon, search, children)
@@ -67,7 +67,7 @@ When calling the :py:meth:'getUser' method, you will get a :py:class:'User' obje
    .. py:attribute:: fid
 
       The ID specified by the :py:class:AuthService to identify the folder. 
-      This should not be changed (or you cannot :meth:saveFolder it), and 
+      This should not be changed (or you cannot :meth:`saveFolder` it), and 
       can be whatever the service wants it to be.
 
    .. py:attribute:: name
@@ -88,7 +88,7 @@ When calling the :py:meth:'getUser' method, you will get a :py:class:'User' obje
 
 core.datasource
 ===============
-This module has exactly the same architecture of the core.auth module. The \"interface\" in this module is DataSource and it stores objects of :py:class:'Document' which contains a number of :py:class:'Item' objects. 
+This module has exactly the same architecture of the core.auth module. The \"interface\" in this module is DataSource and it stores objects of :py:class:`Document` which contains a number of :py:class:`Item` objects. 
 
 .. py:method:: newDocument(doc)
 
@@ -96,15 +96,15 @@ This module has exactly the same architecture of the core.auth module. The \"int
 
 .. py:method:: getDocument(doc)
 
-   Loads the document from the DataSource. Returns a :py:class:Document object. 
+   Loads the document from the DataSource. Returns a :py:class:`Document` object. 
 
 .. py:method:: getDocumentVersion(doc, start, end, limit)
 
-   Loads the document at the specified times. Returns a iterable :py:class:Delta objects. 
+   Loads the document at the specified times. Returns a iterable :py:class:`Delta` objects. 
 
 .. py:method:: searchDocuments(user, search)
 
-   Returns a list of wave documents that match the source. The tags that may be specified in the search are provided by :py:meth:setTags . 
+   Returns a list of wave documents that match the source. The tags that may be specified in the search are provided by :py:meth:`setTags`. 
 
 .. py:method:: setTags(doc, user, **tags)
 
@@ -118,7 +118,7 @@ Classes:
 
    .. py:attribute:: items
 
-      A list of :py:class:Item objects that make up the document. 
+      A list of :py:class:`Item` objects that make up the document. 
 
    .. py:attribute:: cursor
 
