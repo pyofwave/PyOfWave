@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" /> 
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="up" title="For Programmers" href="index.html" />
+    <link rel="next" title="Data Storage Extensions" href="DataStorage.html" />
+    <link rel="prev" title="For Programmers" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +34,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="DataStorage.html" title="Data Storage Extensions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Programmers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -42,6 +52,122 @@
             
   <div class="section" id="using-pyofwave-s-core-module">
 <h1>Using PyOfWave&#8217;s Core module<a class="headerlink" href="#using-pyofwave-s-core-module" title="Permalink to this headline">¶</a></h1>
+<p>pyofwave_server.core provides facilities that are shared, somehow, by all protocols and extensions. Specifics for extending this are provided by my :doc:&#8217;Authentication&#8217; , :doc:&#8217;DataStorage&#8217; , :doc:&#8217;Operations&#8217; , and :doc:&#8217;Protocols&#8217; .</p>
+<div class="section" id="core-auth">
+<h2>core.auth<a class="headerlink" href="#core-auth" title="Permalink to this headline">¶</a></h2>
+<p>Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use :py:data:SETTINGS.AUTH .</p>
+<p>This object has the following methods.</p>
+<dl class="method">
+<dt id="signin">
+<tt class="descname">signin</tt><big>(</big><em>ip</em>, <em>username</em>, <em>password</em><big>)</big><a class="headerlink" href="#signin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a user in with specified username and password on specified IP
+Address. Returns a boolean indicating success.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="setPassword">
+<tt class="descname">setPassword</tt><big>(</big><em>ip</em>, <em>oldpassword</em>, <em>password</em><big>)</big><a class="headerlink" href="#setPassword" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the user logged in on IP has an existing password of oldpassword,
+changes their password to password. Returns a boolean indicating success.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="getUser">
+<tt class="descname">getUser</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#getUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the user logged in on the specified IP address. Returns a
+:py:class:User object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="saveFolder">
+<tt class="descname">saveFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#saveFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves a :py:class:Folder object to wherever the service saves it&#8217;s data,
+providing the fid property has not changed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="logout">
+<tt class="descname">logout</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancels the user authentication on a IP. Returns a boolean indicating
+success.</p>
+</dd></dl>
+
+<p>When calling the :py:meth:&#8217;getUser&#8217; method, you will get a :py:class:&#8217;User&#8217; object. This class is effectively a structure:</p>
+<dl class="class">
+<dt id="User">
+<em class="property">class </em><tt class="descname">User</tt><big>(</big><em>name</em>, <em>doc</em>, <em>folder</em><big>)</big><a class="headerlink" href="#User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a user, and wraps whatever authentication service is used.
+This represents the basic profile you&#8217;ll need with Wave.</p>
+<dl class="attribute">
+<dt id="User.name">
+<tt class="descname">name</tt><a class="headerlink" href="#User.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The user&#8217;s wave address with your domain name cut off as a string.
+Strictly, it is allowed to be changed, but it will not change
+anything.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="User.doc">
+<tt class="descname">doc</tt><a class="headerlink" href="#User.doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>A :py:class:Document object representing the user&#8217;s profile. In PyOfWave,
+this isn&#8217;t expected to be anything, but gadgets will have expectations
+and other servers. I discuss these required annotations in my
+Federation Format standard (in repository docs/protocols/
+federationFormat.txt).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="User.folder">
+<tt class="descname">folder</tt><a class="headerlink" href="#User.folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>A :py:class:Folder which illustrates the user&#8217;s organisation of waves.
+You&#8217;ll need to use search to get the waves inside these, though.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Folder">
+<em class="property">class </em><tt class="descname">Folder</tt><big>(</big><em>fid</em>, <em>name</em>, <em>icon</em>, <em>search</em>, <em>children</em><big>)</big><a class="headerlink" href="#Folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents an &#8220;inbox&#8221; for the user to store their waves in.</p>
+<dl class="attribute">
+<dt id="Folder.fid">
+<tt class="descname">fid</tt><a class="headerlink" href="#Folder.fid" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ID specified by the :py:class:AuthService to identify the folder.
+This should not be changed (or you cannot :meth:saveFolder it), and
+can be whatever the service wants it to be.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Folder.name">
+<tt class="descname">name</tt><a class="headerlink" href="#Folder.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The display name of the folder as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Folder.icon">
+<tt class="descname">icon</tt><a class="headerlink" href="#Folder.icon" title="Permalink to this definition">¶</a></dt>
+<dd><p>The display icon of the folder as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Folder.search">
+<tt class="descname">search</tt><a class="headerlink" href="#Folder.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string to pass to :py:class:DataSource to get contained waves.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Folder.children">
+<tt class="descname">children</tt><a class="headerlink" href="#Folder.children" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of &#8220;child&#8221; Folder objects of the Folder.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="core-datasource">
+<h2>core.datasource<a class="headerlink" href="#core-datasource" title="Permalink to this headline">¶</a></h2>
+<p>This module has exactly the same architecture of the core.auth module.</p>
+</div>
 </div>
 
 
@@ -50,6 +176,21 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using PyOfWave&#8217;s Core module</a><ul>
+<li><a class="reference internal" href="#core-auth">core.auth</a></li>
+<li><a class="reference internal" href="#core-datasource">core.datasource</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">For Programmers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="DataStorage.html"
+                        title="next chapter">Data Storage Extensions</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Extending/CoreModule.txt"
@@ -78,7 +219,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="DataStorage.html" title="Data Storage Extensions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Programmers"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

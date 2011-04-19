@@ -9,16 +9,12 @@ Welcome to PyOfWave's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   Usage/install
-   Extending/CoreModule
-   Extending/Protocols
-   Extending/DataStorage
-   Extending/Operations
-   StandardPlugins/Protocols
-   StandardPlugins/DataStorage
-   StandardPlugins/Operations
+   Interface/index
+   Usage/index
+   Extending/index
+   StandardPlugins/index
 
 Indices and tables
 ==================
