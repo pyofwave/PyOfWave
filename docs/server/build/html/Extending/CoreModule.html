@@ -132,7 +132,7 @@ You&#8217;ll need to use search to get the waves inside these, though.</p>
 <dl class="attribute">
 <dt id="Folder.fid">
 <tt class="descname">fid</tt><a class="headerlink" href="#Folder.fid" title="Permalink to this definition">¶</a></dt>
-<dd><p>The ID specified by the :py:class:AuthService to identify the folder.
+<dd><p>The ID specified by the <tt class="xref py py-class docutils literal"><span class="pre">AuthService</span></tt> to identify the folder.
 This should not be changed (or you cannot <a class="reference internal" href="#saveFolder" title="saveFolder"><tt class="xref py py-meth docutils literal"><span class="pre">saveFolder()</span></tt></a> it), and
 can be whatever the service wants it to be.</p>
 </dd></dl>
@@ -152,7 +152,7 @@ can be whatever the service wants it to be.</p>
 <dl class="attribute">
 <dt id="Folder.search">
 <tt class="descname">search</tt><a class="headerlink" href="#Folder.search" title="Permalink to this definition">¶</a></dt>
-<dd><p>The string to pass to :py:class:DataSource to get contained waves.</p>
+<dd><p>The string to pass to <tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> to get contained waves.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -170,7 +170,8 @@ can be whatever the service wants it to be.</p>
 <dl class="method">
 <dt id="newDocument">
 <tt class="descname">newDocument</tt><big>(</big><em>doc</em><big>)</big><a class="headerlink" href="#newDocument" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new document in the DataSource. Returns the blank :py:class:Document object if successful.</p>
+<dd><p>Creates a new document in the DataSource. Returns the
+blank <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> object if successful.</p>
 </dd></dl>
 
 <dl class="method">
@@ -182,13 +183,15 @@ can be whatever the service wants it to be.</p>
 <dl class="method">
 <dt id="getDocumentVersion">
 <tt class="descname">getDocumentVersion</tt><big>(</big><em>doc</em>, <em>start</em>, <em>end</em>, <em>limit</em><big>)</big><a class="headerlink" href="#getDocumentVersion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads the document at the specified times. Returns a iterable <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects.</p>
+<dd><p>Loads the document at the specified times. Returns a iterable <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt>
+objects.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="searchDocuments">
 <tt class="descname">searchDocuments</tt><big>(</big><em>user</em>, <em>search</em><big>)</big><a class="headerlink" href="#searchDocuments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of wave documents that match the source. The tags that may be specified in the search are provided by <a class="reference internal" href="#setTags" title="setTags"><tt class="xref py py-meth docutils literal"><span class="pre">setTags()</span></tt></a>.</p>
+<dd><p>Returns a list of wave documents that match the source. The tags that may be
+specified in the search are provided by <a class="reference internal" href="#setTags" title="setTags"><tt class="xref py py-meth docutils literal"><span class="pre">setTags()</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -211,7 +214,8 @@ can be whatever the service wants it to be.</p>
 <dl class="attribute">
 <dt id="Document.cursor">
 <tt class="descname">cursor</tt><a class="headerlink" href="#Document.cursor" title="Permalink to this definition">¶</a></dt>
-<dd><p>An integer representing the current location of the &#8220;cursor&#8221; in the document, used for delta processing.</p>
+<dd><p>An integer representing the current location of the &#8220;cursor&#8221; in the
+document, used for delta processing.</p>
 </dd></dl>
 
 </dd></dl>
@@ -223,13 +227,14 @@ can be whatever the service wants it to be.</p>
 <dl class="attribute">
 <dt id="Item.type">
 <tt class="descname">type</tt><a class="headerlink" href="#Item.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Which type of item this is, as an integer. Values are specified by the class attributes.</p>
+<dd><p>Which type of item this is, as an integer. Values are specified by the class
+attributes.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Item.name">
 <tt class="descname">name</tt><a class="headerlink" href="#Item.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name or text of the item.</p>
+<dd><p>The name or text of the item as a string.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -238,9 +243,35 @@ can be whatever the service wants it to be.</p>
 <dd><p>The mapping of the &#8220;annotations&#8221; attached to the tag.</p>
 </dd></dl>
 
+<dl class="data">
+<dt id="Item.TYPE_START_TAG">
+<tt class="descname">TYPE_START_TAG</tt><a class="headerlink" href="#Item.TYPE_START_TAG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setting <a class="reference internal" href="#Item.type" title="Item.type"><tt class="xref py py-attr docutils literal"><span class="pre">type</span></tt></a> to this represents that it&#8217;s a start tag, which is
+closed by a following <a class="reference internal" href="#Item.TYPE_END_TAG" title="Item.TYPE_END_TAG"><tt class="xref py py-data docutils literal"><span class="pre">TYPE_END_TAG</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="Item.TYPE_END_TAG">
+<tt class="descname">TYPE_END_TAG</tt><a class="headerlink" href="#Item.TYPE_END_TAG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setting <a class="reference internal" href="#Item.type" title="Item.type"><tt class="xref py py-attr docutils literal"><span class="pre">type</span></tt></a> to this represents that it closes the
+previous <a class="reference internal" href="#Item" title="Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> object with type <a class="reference internal" href="#Item.TYPE_START_TAG" title="Item.TYPE_START_TAG"><tt class="xref py py-data docutils literal"><span class="pre">TYPE_START_TAG</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="Item.TYPE_TEXT">
+<tt class="descname">TYPE_TEXT</tt><a class="headerlink" href="#Item.TYPE_TEXT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setting <a class="reference internal" href="#Item.type" title="Item.type"><tt class="xref py py-attr docutils literal"><span class="pre">type</span></tt></a> to this indicates that it represents the single
+charactor <a class="reference internal" href="#Item.name" title="Item.name"><tt class="xref py py-attr docutils literal"><span class="pre">name</span></tt></a>, and does not need a closing item.</p>
+</dd></dl>
+
 </dd></dl>
 
 <p>If this appears to be a bit imprecise, that&#8217;s because you use this to store whatever data you need to, adhering to appropriate standards.</p>
+</div>
+<div class="section" id="core-delta">
+<h2>core.delta<a class="headerlink" href="#core-delta" title="Permalink to this headline">¶</a></h2>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">core.delta</span></tt>, this time, uses the architecture of a classic observer pattern. This module is used to distribute changes to documents, &#8220;deltas&#8221;, generated by the Federation and other protocols. These deltas can be in either &#8220;alpha&#8221; or &#8220;beta&#8221; state (after and before being commited to storage). In addition to just being passed around, they can also be applied to a document (which should only be done if you&#8217;re creating a new datasource, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>).</p>
+<p>Any one has the ability to distribute deltas on a <tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt>, but you should only do it on <tt class="xref py py-class docutils literal"><span class="pre">BetaDeltaObservable</span></tt> leaving <tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects to distribute on <cite>AlphaDeltaObservable</cite>, so as that the distributed <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects distributed there are truly in alpha state</p>
 </div>
 </div>
 
@@ -255,6 +286,7 @@ can be whatever the service wants it to be.</p>
 <li><a class="reference internal" href="#">Using PyOfWave&#8217;s Core module</a><ul>
 <li><a class="reference internal" href="#core-auth">core.auth</a></li>
 <li><a class="reference internal" href="#core-datasource">core.datasource</a></li>
+<li><a class="reference internal" href="#core-delta">core.delta</a></li>
 </ul>
 </li>
 </ul>
