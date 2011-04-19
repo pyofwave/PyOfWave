@@ -88,4 +88,56 @@ When calling the :py:meth:'getUser' method, you will get a :py:class:'User' obje
 
 core.datasource
 ===============
-This module has exactly the same architecture of the core.auth module.
+This module has exactly the same architecture of the core.auth module. The \"interface\" in this module is DataSource and it stores objects of :py:class:'Document' which contains a number of :py:class:'Item' objects. 
+
+.. py:method:: newDocument(doc)
+
+   Creates a new document in the DataSource. Returns the blank :py:class:Document object if successful. 
+
+.. py:method:: getDocument(doc)
+
+   Loads the document from the DataSource. Returns a :py:class:Document object. 
+
+.. py:method:: getDocumentVersion(doc, start, end, limit)
+
+   Loads the document at the specified times. Returns a iterable :py:class:Delta objects. 
+
+.. py:method:: searchDocuments(user, search)
+
+   Returns a list of wave documents that match the source. The tags that may be specified in the search are provided by :py:meth:setTags . 
+
+.. py:method:: setTags(doc, user, **tags)
+
+   Sets the tags for the documentation for use by search. 
+
+Classes:
+
+.. py:class:: Document(*items)
+
+   Represents a single \"document\" in the DataSource. 
+
+   .. py:attribute:: items
+
+      A list of :py:class:Item objects that make up the document. 
+
+   .. py:attribute:: cursor
+
+      An integer representing the current location of the \"cursor\" in the document, used for delta processing. 
+
+.. py:class:: Item(type, name, **annotations)
+
+   Represents a single \"item\" that makes up a document in the DataSource. 
+
+   .. py:attribute:: type
+
+      Which type of item this is, as an integer. Values are specified by the class attributes. 
+
+   .. py:attribute:: name
+
+      The name or text of the item. 
+
+   .. py:attribute:: annotations
+
+      The mapping of the \"annotations\" attached to the tag. 
+
+If this appears to be a bit imprecise, that's because you use this to store whatever data you need to, adhering to appropriate standards. 
