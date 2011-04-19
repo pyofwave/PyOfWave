@@ -21,3 +21,5 @@ publicState.observe(function(obj, key, val) {
 private.observe(function(obj, key, val) {
    parent.postMessage("public,"+key+","+val, trustedSource);
 });
+
+//TODO: Tie the view to the display.
