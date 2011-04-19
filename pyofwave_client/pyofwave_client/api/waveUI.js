@@ -2,7 +2,7 @@
 /*Each displays a particular piece of the wave structure*/
 var sessionId; //to be provided by server TODO: Implement this.
 
-/*Controller representing a "wavelet".
+/*Widget representing a "wavelet".
 TODO: create waveletView.html*/
 $.Controller('WaveletView', {
    init : function(el, options) {
@@ -12,7 +12,7 @@ $.Controller('WaveletView', {
       $(el '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
 });
 
-/*Controller Representing a list of participants on a wavelet.*/
+/*Widget representing a list of participants on a wavelet.*/
 $.Controller('ParticipantsBar', {
    init : function(el, options) {
       $(el).append("participants.html", {participants : options.participants});
@@ -25,7 +25,7 @@ $.Controller('ParticipantsBar', {
    }
 });
 
-/*Controller representing a "thread" or wavelet of "blips".*/
+/*Widget representing a "thread" or wavelet of "blips".*/
 $.Controller('BlipsListView', {
    init : function(el, options) {
       $(el).append("blipsList.html", {blips : options.blips});
@@ -40,7 +40,7 @@ $.Controller('BlipsListView', {
 });
 
 
-/*Controller Representing a "blip" or individual message.*/
+/*Widget representing a "blip" or individual message.*/
 $.Controller('BlipView', {
    /*Initializes the controller with an element and options.*/
    init : function(el, options) {
@@ -267,7 +267,7 @@ $.Controller('BlipView', {
    },
 });
 
-/*A collaborative "gadget"*/
+/*A collaborative "gadget" widget*/
 $.Controller('GadgetView', {
    init : function(el, options) {
       $(el).append("gadget.ejs", options);  //TODO: Implement gadget.ejs
