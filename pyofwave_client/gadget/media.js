@@ -1,11 +1,15 @@
 /*Loads various types of files for the gadget, as well as the gadget and API themselves.*/
+
+/*Load a resource at URL with a MIME type of type.*/
 function load(url, type) {
    load.loaders[type.split("/")[0]](url, load.loaders[type])
 }
 load.loaders = {}
+/*The plain text loader.*/
 load.loaders.text = function(url, loader) {
     $.get(url, "", loader);
 }
+
 
 load.loaders["text/javascript"] = function(script) {
     function processString(string, pattern, callback) {
@@ -51,7 +55,10 @@ load.loaders["text/javascript"] = function(script) {
    
    return self;
 }
+
+/*Create shared methods for use by JavaScript interpretor.*/
 var sharedMethods = {}
+/*Get all keys of an object.*/
 sharedMethods.keys = function() {
    if (this.keys != undefined) this.keys();  //Don't overwrite children.
    
