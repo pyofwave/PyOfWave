@@ -7,42 +7,55 @@ load.loaders.text = function(url, loader) {
     $.get(url, "", loader);
 }
 
-load.loaders["text/javascript"] = function(text) {
-    function replaceRegex(pattern, params, callback) {
-      //find pattern in text
-      //find params
-      //replace matched string with return of callback
-   }
-   function insertAfter(text, after, text) {
-      //find charactor
-      //insert after it.
-   }
-
-   var sharedMethods = sharedMethods.keys();
-   replaceRegex(/^;\w*sharedMethods\.\n+\w*=\w*function(.*) {.*}$/, [/^\.\n$/, /^(.*)$/], function(text, method, args) {
-      sharedMethods.push(method.substr(1,method.length);
-      //do not overwrite existing.
-      text = insertAfter(text, "{", "if (this"+method+") this"+method+args+";//PRESERVE");
-      return text;
-   }
-   replaceRegex(/^;.+=[.|\{.*\}|(.*)|'.*'|".*"]+;$/, [], function(text) {
-      //replace = with .set()
-   }
-   for (var i=0; i < sharedMethods.length; i++) {
-      method = sharedMethods[i];
-      replaceRegex("."+method, [/;.*;/, /^\\\\PRESERVE$/], function(text, preserve) {
-         if (preserve) return text;
-         //split by method
-         //place call at beginning and call "sharedMethods."method".call(" obj", " args")"
-      }
+load.loaders["text/javascript"] = function(script) {
+    function processString(string, pattern, callback) {
+      //Seperate content between curly brackets (they complicate regex)
+      
+      //Retrieve from cache if possible
+      //Generate main regex
+      //Generate parameter regex pairs
+      //Add to cache
+      
+      //If curly brackets in pattern, replace one level of curly brackets.
+      
+      //Match regex
+      //Extract parameters
+      //Call callback.
+   }  //TODO: Implement
+   function process(pattern, callback) {
+      script = processString(script, pattern, callback);
    }
 
-    eval(text);
-    return self;
+   //Replace = with set method.
+   script.replace( /\w*=\w*/, ".set(");
+   process(";(.+);", function(text) {
+      var unmatched = text.match("(").length - text.match(")").length;
+      return ";"+text+(")" * unmatched)+";";
+   });
+   
+   //retrieve all shared method names
+   var shared = sharedMethods.keys();
+   process("sharedMethod.(\w+)\w*=\w*function\((.*)\)\w*{(.*)}",
+     function(method, args, code) {
+       shared.push(method);
+       return "sharedMethods."+method+"=function("+args+"){" +
+         "if(this."+method+"!=undefined) return this."+method+"("+args+");"
+         +code+"}"
+    });
+    
+    //correct calls to sharedMethods
+    var methRegex = shared.join("|");
+    process(";\w*(.+).(["+methRegex+"])\((.*)\)", function(obj, method, args) {
+      return ";sharedMethods."+method+".apply("+obj+",["+args+"])";
+    });
+   
+   return self;
 }
 var sharedMethods = {}
 sharedMethods.keys = function() {
+   if (this.keys != undefined) this.keys();  //Don't overwrite children.
+   
    var keys = ["keys",];
-   for (var key in this) keys.push key;
+   for (var key in this) keys.push(key);
    return keys;
 }
