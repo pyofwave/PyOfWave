@@ -17,6 +17,9 @@ class AuthService(interface.Interface):
    def saveFolder(folder):
       """Saves changes to the folder."""
 
+   def deleteFolder(folder):
+      """Deletes a folder."""
+
    def logout(ip):
       """Logs a user out. """
 
