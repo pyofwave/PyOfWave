@@ -144,6 +144,9 @@ def TagDoc(doc):
 
 def TagItem(doc, index):
    """Returns a Tag from the Item at index of the parent's document, and the index of it's end."""
+   if doc.items[index] == datasource.Item.TYPE_TEXT:
+      return Text(doc.items[index].name)
+   
    tag = Tag(doc, doc.items[index], "retain")
 
    index += 1
