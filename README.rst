@@ -7,6 +7,8 @@ Server
 
 The server provides protocols around some core functionality (authentication, profiles, "document" access, and sending and recieving "deltas"). These protocols are documented in docs/protocols. 
 
+The client and server acts as 2 different programs. The server is a customizable application while the client is limited CGI and "static" web files. 
+
 Dependancies
 --------------------
 
@@ -28,6 +30,9 @@ It is written using the JavaScriptMVC library and jQuery (as well as a port of D
 
 Used jQuery Plugins
 ------------------------------
+
+- jQuery UI slider
+
 - JavaScriptMVC (http://javascriptmvc.com/)
 
 - farbtastic (https://github.com/mattfarina/farbtastic/)
@@ -37,3 +42,8 @@ Used jQuery Plugins
 - treeview (http://bassistance.de/jquery-plugins/jquery-plugin-treeview/)
 
 - JSON plugin encoder (derived for easy access, http://www.ramirezcobos.com/2009/12/30/json-jquery-plugin/)
+
+P. S. 
+====
+
+If any collaborators have friends near Berlin, please get them to attend the W3C Federated Social Web Conference, http://d-cent.org/fsw2011/. Please send any news along these lines to me (alcinnz) and I'll setup a discussion. 
