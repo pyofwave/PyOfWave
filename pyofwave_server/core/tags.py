@@ -30,11 +30,9 @@ class Tag(object):
       self._content = []
       
       i = doc.items.index(self._item) + 1
-      end = doc.items.index(self._item.end)
-      while i < end:
-         item = doc.items[i]
-         self._content.append(Tag(doc, item))
-         i = doc.items.index(item.end) + 1
+      while self._doc[i].type = datasource.Item.TYPE_TAG_END:
+         i, tag = TagItem(doc, i)
+         self._content.append(tag)
 
    @property
    def _name(self): 
@@ -55,7 +53,7 @@ class Tag(object):
          Accepts Tag-like objects and strings.
          TODO: Correct processing to yield proper deltas."""
       if isinstance(value, str): value = Text(object)
-      self.content[i] = value
+      self._content.insert(index, value)
 
    #psuedo-properties
    def __getattr__(self, attr):
@@ -133,3 +131,14 @@ class Text(object):
 
    def _contentdelta(self, deltas):
       deltas.appand(self.__delta)
+
+#utitlity functions
+def TagDoc(doc):
+   """Returns a list of Tags representing the doc.
+      Adds a method sendDelta to send the delta."""
+
+def TagItem(parent, index):
+   """Returns a Tag from the Item at index of the parent's document, and the index of it's end."""
+                          
+def TagDelta(doc):
+   """Returns a list of Tags representing the delta."""

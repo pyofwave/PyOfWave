@@ -2,10 +2,11 @@
 Standard interface for connecting client protocols to the operation extensions. 
 """
 from importlib import import_module
+from ..operations import OperationError
 
-def performOperation(operation, kwargs):
+def performOperation(ip, operation, kwargs):
    module, op = operation.split(".")
    opFunction = import_module('..operations.'+module, 'pyofwave_server.core')
-   try: opFunction = getattr(opFunction, op)
-   except (AttributeError, evt): print evt
-   return opFunction(**kwargs)
+   try: rep = getattr(opFunction, op)(ip, **kwargs)
+   except (AttributeError, TypeError): raise OperationError(405)
+   return rep

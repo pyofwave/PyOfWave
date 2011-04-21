@@ -40,7 +40,6 @@ class Item(object):
       self.type = typeI
       self.name = name
       self.annotations = annotations
-      self.end = None
 
    TYPE_START_TAG = 0
    TYPE_END_TAG = 1

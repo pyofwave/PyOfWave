@@ -3,6 +3,7 @@ This file defines a simple observer system for responding to updates on waves.
 """
 from multiprocessing import Pool
 from .. import SETTINGS
+import deltaop
 
 class ImproperDelta(Exception):
     """If this is recieved, you should reload the delta."""
@@ -12,28 +13,27 @@ class Delta(object):
     def __init__(self, *ops):
         self.ops = ops
 
-    def applyToDoc(self, doc):
+    def applyToDoc(self, doc, mod=deltaop):
         """Use to apply changes described to a document doc."""
         from datasource import Document
         
         rep = Document()
         doc.cursor = 0
-        for op in self.ops: ops.apply(doc, rep)
+        for op in self.ops: op.apply(doc, rep)
         return rep
 
 class Operation(object):
     """A single change in a delta. """
     def __init__(self, operation, *args):
-        import deltaop
-
-        try: self.operation = getattr(deltaop, operation)
-        except (AttributeError): raise ImproperDelta
+        self.operation = operation
         self.args = args
 
     def applyToDoc(self, doc, new):
         """Applies the particulor operation to a document new based on data in doc."""
-        try: self.operation(doc, new, *self.args)
-        except (ArgumentError): raise ImproperDelta
+        try:
+            op = getattr(mod, self.operation)(doc, new, *self.args)
+            op(doc, new, *args)
+        except (AttributeError, TypeError): raise ImproperDelta
 
 class Message(object):
     """A message version. """
