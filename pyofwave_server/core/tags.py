@@ -155,3 +155,12 @@ def TagItem(doc, index):
                           
 def TagDelta(doc):
    """Returns a list of Tags representing the delta."""
+   import tagop
+   from datasource import Item
+
+   class xList(list):
+      def addTag(self, *args, **kwargs):
+         #TODO: Manage a hierarchy.
+         self.append(Tag(None, Item(*args, **kwargs)))
+   
+   return delta.applyToDoc(xList(), tagop)
