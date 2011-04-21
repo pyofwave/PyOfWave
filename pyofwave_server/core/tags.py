@@ -11,13 +11,12 @@ annotationOffsets = {
 
 class Tag(object):
    """Simplified document interface."""
-   def __init__(self, doc, item, op = "retain"):
+   def __init__(self, doc, item, op = "elementStart"):
       #correct parameters
       if isinstance(doc, Tag): doc = doc._doc
       
-      if isinstance(doc, str):
+      if isinstance(item, str):
          item = datasource.Item(datasource.Item.OPEN_TAG, item)
-         if op == "retain": op = "elementStart"
          
       if op == "elementStart": self._closeTag = True
       else self._closeTag = False
@@ -25,14 +24,7 @@ class Tag(object):
       self._doc = doc
       self._item = item
       self._delta = delta.Operation(op)
-
-      #extract children
-      self._content = []
-      
-      i = doc.items.index(self._item) + 1
-      while self._doc[i].type = datasource.Item.TYPE_TAG_END:
-         i, tag = TagItem(doc, i)
-         self._content.append(tag)
+      self._content = []      
 
    @property
    def _name(self): 
@@ -100,30 +92,6 @@ class Tag(object):
       deltas.append(self._delta)
       for child in self._content: child._contentdelta(deltas)
 
-   def sendDelta(self):
-      """Sends a beta delta based on the changes to this object and it's children."""
-      #create delta
-      ops = []
-      self._contentdelta(ops)
-
-      #collapse retains
-      fops = []
-      curop = None
-      for op in ops:
-         if curop and op.operation.__name__ == curop.operation.__name__ == "retain":
-            curop.args[0]++
-         elif op.operation.__name__ == "retain":
-            op.args[0] = 1
-            fops.append(op)
-            curop = op
-         else:
-            curop = op
-            fops.append(op)
-            
-      delta = delta.Delta(*fops)
-      
-      delta.betaDeltaObservable.applyDelta(self._doc, delta)
-
 class Text(object):
    """Represents textual changes. """
    def __init__(self, text):
@@ -137,8 +105,53 @@ def TagDoc(doc):
    """Returns a list of Tags representing the doc.
       Adds a method sendDelta to send the delta."""
 
-def TagItem(parent, index):
+   class xList(list):
+      def sendDelta(self):
+         """Sends a beta delta based on the changes to this object and it's children."""
+         #create delta
+         ops = []
+
+         for tag in self: tag._contentDelta(ops)
+
+         #collapse retains
+         fops = []
+         curop = None
+         for op in ops:
+            if curop and op.operation.__name__ == curop.operation.__name__ == "retain":
+               curop.args[0]++
+            elif op.operation.__name__ == "retain":
+               op.args[0] = 1
+               fops.append(op)
+               curop = op
+            else:
+               curop = op
+               fops.append(op)
+            
+         deltaO = delta.Delta(*fops)
+         
+         delta.betaDeltaObservable.applyDelta(self._doc, deltaO)
+      
+   # generation variables
+   i = 0
+   rep = []
+
+   while i <= len(doc.items):
+      i, tag = TagItem(doc, i)
+      rep.append(tag)
+
+   rep.sendDelta = sendDelta
+   return rep
+
+def TagItem(doc, index):
    """Returns a Tag from the Item at index of the parent's document, and the index of it's end."""
+   tag = Tag(doc, doc.items[index], "retain")
+
+   index += 1
+   while doc[index].type = datasource.Item.TYPE_TAG_END:
+         index, tag = TagItem(doc, i)
+         tag._content.append(tag)
+
+   return tag, index + 1
                           
 def TagDelta(doc):
    """Returns a list of Tags representing the delta."""
