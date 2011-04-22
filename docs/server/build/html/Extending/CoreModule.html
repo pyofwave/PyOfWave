@@ -52,10 +52,10 @@
             
   <div class="section" id="using-pyofwave-s-core-module">
 <h1>Using PyOfWave&#8217;s Core module<a class="headerlink" href="#using-pyofwave-s-core-module" title="Permalink to this headline">¶</a></h1>
-<p>pyofwave_server.core provides facilities that are shared, somehow, by all protocols and extensions. Specifics for extending this are provided by my <a class="reference internal" href="Authentication.html"><em>Standard PyOfWave Document Authentication</em></a>, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>, <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>, and <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
+<p>pyofwave_server.core provides facilities that are shared, in various methods, by all protocols and extensions. Specifics for extending this are provided by <a class="reference internal" href="Authentication.html"><em>Integrating Your Own Authentication Scheme</em></a>, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>, <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>, and <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
 <div class="section" id="core-auth">
 <h2>core.auth<a class="headerlink" href="#core-auth" title="Permalink to this headline">¶</a></h2>
-<p>Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use <tt class="xref py py-data docutils literal"><span class="pre">SETTINGS.AUTH</span></tt>.</p>
+<p>Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use <tt class="xref py py-data docutils literal"><span class="pre">PREFERENCES.AUTH</span></tt>.</p>
 <p>This object has the following methods.</p>
 <dl class="method">
 <dt id="signin">
@@ -83,6 +83,23 @@ changes their password to password. Returns a boolean indicating success.</p>
 <tt class="descname">saveFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#saveFolder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves a <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> object to wherever the service saves it&#8217;s data,
 providing the fid property has not changed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is provided here to ease integration of
+authentication schemes.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="deleteFolder">
+<tt class="descname">deleteFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#deleteFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> object from wherever the service saves it&#8217;s
+data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is provided here to ease integration of
+authentication schemes.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -311,6 +328,27 @@ HTTP Error codes), or return a mapping.</p>
 
 <p>Instructions for adding operations are in <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>.</p>
 </div>
+<div class="section" id="core-tags">
+<h2>core.tags<a class="headerlink" href="#core-tags" title="Permalink to this headline">¶</a></h2>
+<p>This module allows provides an alternate way to examine <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> and <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects and create <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects than by hand. The Tag class this module provides allows you to work with Documents simalor to how you work with XML with eTree. It lets you think of each tagname as a different object.</p>
+<p>Annotation are now properties and children are accessed like the <tt class="xref py py-class docutils literal"><span class="pre">Tag</span></tt> object was a <tt class="xref py py-class docutils literal"><span class="pre">List</span></tt>. With this new ease, there&#8217;s a few things to keep in mind:</p>
+<ol class="arabic">
+<li><p class="first">Property changes don&#8217;t take effect until you call <tt class="xref py py-meth docutils literal"><span class="pre">sendDelta()</span></tt>.</p>
+</li>
+<li><p class="first">When you assign a value to an index, it is inserted there and the previous value will be after it. &#8216;&#8217;del&#8217;&#8217; it if you want to delete it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is to avoid problems in deltas.</p>
+</div>
+</li>
+<li><p class="first">Simalor to point 1, when you &#8216;&#8217;del&#8217;&#8217; an index, it is replaced with an object representing a deleted item. Call <tt class="xref py py-meth docutils literal"><span class="pre">sendDelta()</span></tt> to send changes.</p>
+</li>
+</ol>
+<div class="section" id="importing-objects-to-tags">
+<h3>Importing Objects to Tags<a class="headerlink" href="#importing-objects-to-tags" title="Permalink to this headline">¶</a></h3>
+<p>This module provides 3 functions which &#8220;import&#8221; objects to <tt class="xref py py-class docutils literal"><span class="pre">Tag</span></tt> objects: <tt class="xref py py-func docutils literal"><span class="pre">TagDoc()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">TagItem()</span></tt>, &amp; <tt class="xref py py-func docutils literal"><span class="pre">TagDelta()</span></tt>.</p>
+</div>
+</div>
 </div>
 
 
@@ -330,6 +368,10 @@ HTTP Error codes), or return a mapping.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#core-operation">core.operation</a></li>
+<li><a class="reference internal" href="#core-tags">core.tags</a><ul>
+<li><a class="reference internal" href="#importing-objects-to-tags">Importing Objects to Tags</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

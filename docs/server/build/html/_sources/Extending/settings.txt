@@ -1,0 +1,2 @@
+Settings in PyOfWave Server
+***************************

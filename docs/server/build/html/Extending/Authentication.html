@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Standard PyOfWave Document Authentication &mdash; PyOfWave v0.1 documentation</title>
+    <title>Integrating Your Own Authentication Scheme &mdash; PyOfWave v0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -40,8 +40,47 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="standard-pyofwave-document-authentication">
-<h1>Standard PyOfWave Document Authentication<a class="headerlink" href="#standard-pyofwave-document-authentication" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="integrating-your-own-authentication-scheme">
+<h1>Integrating Your Own Authentication Scheme<a class="headerlink" href="#integrating-your-own-authentication-scheme" title="Permalink to this headline">¶</a></h1>
+<p>If your are integrating PyOfWave into your own system, it may well be the case that you want to integrate it with your existing authentication system. This is easy to do, providing you can do the following:</p>
+<ul class="simple">
+<li>Access the scheme from Python in PyOfWave&#8217;s runtime.</li>
+<li>Add new fields to the authentication service (a PyOfWave document link and a personal folder scheme).</li>
+</ul>
+<div class="section" id="preparing-the-auth-service">
+<h2>1. Preparing the Auth Service<a class="headerlink" href="#preparing-the-auth-service" title="Permalink to this headline">¶</a></h2>
+<p>Due to the differences between different schemes, there&#8217;s not much to be said here, except to:</p>
+<ul>
+<li><p class="first">Ensure access from PyOfWave&#8217;s Python runtime.</p>
+</li>
+<li><p class="first">Add to extra fields to the authentication service, doc (A link to a PyOfWave &#8220;document&#8221;) and a link to a folder structure.</p>
+<blockquote>
+<div><ul class="simple">
+<li>This folder structure should have fields for an ID, name, icon, search query (folders are actually saved searches), and children (or parent appropriately).</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="implementing-the-adaptor">
+<h2>2. Implementing the Adaptor<a class="headerlink" href="#implementing-the-adaptor" title="Permalink to this headline">¶</a></h2>
+<p>Now create a Python file somewhere inside <tt class="xref py py-mod docutils literal"><span class="pre">pyofwave_server</span></tt>. It does not matter what this file is called or exactly where it is. Inside it, code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">core</span> <span class="kn">import</span> <span class="n">datasource</span> <span class="c">#may change depending on where you put the file</span>
+<span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
+</pre></div>
+</div>
+<p>Now implement all the methods to refer back to your authentication scheme.</p>
+</div>
+<div class="section" id="integrate-the-adaptor">
+<h2>3. Integrate the Adaptor<a class="headerlink" href="#integrate-the-adaptor" title="Permalink to this headline">¶</a></h2>
+<p>Now open <tt class="file docutils literal"><span class="pre">PREFERENCES.py</span></tt> and</p>
+<ol class="arabic simple">
+<li>Import the file you just created.</li>
+<li>Set AUTHENTICATION to an instance of your adaptor.</li>
+</ol>
+<p>Congratulations! Now when you run the server, it should be using your existing authentication service.</p>
+<p>That wasn&#8217;t hard, was it.</p>
+</div>
 </div>
 
 
@@ -50,6 +89,16 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Integrating Your Own Authentication Scheme</a><ul>
+<li><a class="reference internal" href="#preparing-the-auth-service">1. Preparing the Auth Service</a></li>
+<li><a class="reference internal" href="#implementing-the-adaptor">2. Implementing the Adaptor</a></li>
+<li><a class="reference internal" href="#integrate-the-adaptor">3. Integrate the Adaptor</a></li>
+</ul>
+</li>
+</ul>
+
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Extending/Authentication.txt"
