@@ -7,7 +7,7 @@ Server
 
 The server provides protocols around some core functionality (authentication, profiles, "document" access, and sending and recieving "deltas"). These protocols are documented in docs/protocols. 
 
-The client and server acts as 2 different programs. The server is a customizable application while the client is limited CGI and "static" web files. 
+The client and server acts as 2 different programs. The server is a customizable application while the client is some CGI and "static" web files. 
 
 Dependancies
 --------------------
@@ -26,7 +26,7 @@ Client
 
 The client provides a dynamic web based interface to PyOfWave_server, using the Wave Simple Data Protocol. It is designed to be embedded in the frame of your site and delivers great customizability and ease.  
 
-It is written using the JavaScriptMVC library and jQuery (as well as a port of Django's templating), both of which are included in this project.
+It is written using the JavaScriptMVC library and jQuery, both of which are included in this project.
 
 Used jQuery Plugins
 ------------------------------
@@ -37,7 +37,7 @@ Used jQuery Plugins
 
 - farbtastic (https://github.com/mattfarina/farbtastic/)
 
-- editabletext - http://valums.com/edit-in-place/ (slightly altered for lower level use, with added cursor location, http://niichavo.wordpress.com/2009/01/06/contenteditable-div-cursor-position/)
+- editabletext (https://github.com/alcinnz/editableText/)
 
 - treeview (http://bassistance.de/jquery-plugins/jquery-plugin-treeview/)
 
