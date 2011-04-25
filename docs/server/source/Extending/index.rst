@@ -7,6 +7,8 @@ Table Of Contents:
    :maxdepth: 2
 
    CoreModule
+   Authentication
    DataStorage
    Operations
    Protocols
+   settings

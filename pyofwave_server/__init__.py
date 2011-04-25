@@ -1,7 +1,7 @@
 
 #
-# PyGoWave Server
-# Copyright (C) 2010 Patrick "p2k" Schneider <patrick.schneider@wavexperts.de>
+# PyOfWave Server
+# Copyright (C) 2011 'alcinnz'
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +16,4 @@
 # limitations under the License.
 #
 
-import PREFERENCES
+import PREFERENCES # for production

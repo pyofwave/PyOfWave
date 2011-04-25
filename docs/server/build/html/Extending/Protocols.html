@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
-    <link rel="next" title="For Contributors" href="../StandardPlugins/index.html" />
+    <link rel="next" title="Settings in PyOfWave Server" href="settings.html" />
     <link rel="prev" title="Protocol Operators" href="Operations.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../StandardPlugins/index.html" title="For Contributors"
+          <a href="settings.html" title="Settings in PyOfWave Server"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Operations.html" title="Protocol Operators"
@@ -52,6 +52,11 @@
             
   <div class="section" id="adding-new-protocols-to-the-pyofwave-server">
 <h1>Adding New Protocols to the PyOfWave Server<a class="headerlink" href="#adding-new-protocols-to-the-pyofwave-server" title="Permalink to this headline">¶</a></h1>
+<p>Protocols are programmed in PyOfWave using <a class="reference external" href="http://twistedmatrix.com/trac">Twisted</a>. Integration is provided by <tt class="xref py py-mod docutils literal"><span class="pre">core</span></tt> as documented in <a class="reference internal" href="CoreModule.html"><em>Using PyOfWave&#8217;s Core module</em></a>. Saying that, there&#8217;s a few organizational things we do to keep things tidy.</p>
+<ol class="arabic simple">
+<li>Place your protocol in it&#8217;s own folder inside protocols.</li>
+<li>Tie it into the system in <tt class="file docutils literal"><span class="pre">__index__.py</span></tt>.</li>
+</ol>
 </div>
 
 
@@ -64,8 +69,8 @@
   <p class="topless"><a href="Operations.html"
                         title="previous chapter">Protocol Operators</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../StandardPlugins/index.html"
-                        title="next chapter">For Contributors</a></p>
+  <p class="topless"><a href="settings.html"
+                        title="next chapter">Settings in PyOfWave Server</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Extending/Protocols.txt"
@@ -95,7 +100,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../StandardPlugins/index.html" title="For Contributors"
+          <a href="settings.html" title="Settings in PyOfWave Server"
              >next</a> |</li>
         <li class="right" >
           <a href="Operations.html" title="Protocol Operators"

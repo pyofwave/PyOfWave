@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" /> 
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="up" title="For Programmers" href="index.html" />
+    <link rel="next" title="Data Storage Extensions" href="DataStorage.html" />
+    <link rel="prev" title="Using PyOfWave’s Core module" href="CoreModule.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +34,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="DataStorage.html" title="Data Storage Extensions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CoreModule.html" title="Using PyOfWave’s Core module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -67,9 +77,30 @@
 <p>Now create a Python file somewhere inside <tt class="xref py py-mod docutils literal"><span class="pre">pyofwave_server</span></tt>. It does not matter what this file is called or exactly where it is. Inside it, code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">core</span> <span class="kn">import</span> <span class="n">datasource</span> <span class="c">#may change depending on where you put the file</span>
 <span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
+
+<span class="k">class</span> <span class="nc">MyAuthentication</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="n">implements</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">AuthService</span><span class="p">)</span>
+
+   <span class="k">def</span> <span class="nf">signin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Sign the user in and return a boolean for success.&quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">setPassword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Check the old password and set the new one.&quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Returns the user as a User object.&quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">saveFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Save the folder based on it&#39;s fid property.&quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">deleteFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Delete the folder based on it&#39;s fid property.&quot;&quot;&quot;</span>
+
+   <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Log the user out.&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<p>Now implement all the methods to refer back to your authentication scheme.</p>
+<p>Now implement all the methods to refer back to your authentication scheme. The ip is the IP address for the user requesting this.</p>
 </div>
 <div class="section" id="integrate-the-adaptor">
 <h2>3. Integrate the Adaptor<a class="headerlink" href="#integrate-the-adaptor" title="Permalink to this headline">¶</a></h2>
@@ -99,6 +130,12 @@
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CoreModule.html"
+                        title="previous chapter">Using PyOfWave&#8217;s Core module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="DataStorage.html"
+                        title="next chapter">Data Storage Extensions</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Extending/Authentication.txt"
@@ -127,7 +164,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="DataStorage.html" title="Data Storage Extensions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CoreModule.html" title="Using PyOfWave’s Core module"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

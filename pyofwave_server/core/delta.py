@@ -33,8 +33,8 @@ class Operation(object):
     def applyToDoc(self, doc, new):
         """Applies the particulor operation to a document new based on data in doc."""
         try:
-            op = getattr(mod, self.operation)(doc, new, *self.args)
-            op(doc, new, *args)
+            op = getattr(mod, self.operation)
+            op(doc, new, *self.args)
         except (AttributeError, TypeError): raise ImproperDelta
 
 class Message(object):

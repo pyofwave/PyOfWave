@@ -19,7 +19,7 @@ class Tag(object):
          item = datasource.Item(datasource.Item.OPEN_TAG, item)
          
       if op == "elementStart": self._closeTag = True
-      else self._closeTag = False
+      else: self._closeTag = False
       
       self._doc = doc
       self._item = item
@@ -62,29 +62,29 @@ class Tag(object):
          index = "updateAttributes"
       self._delta.args[index][attr] = value
 
-    def __delattr__(self, attr):
-       """Edits delta to remove an annotation.
-           :warning: This does not apply it until you call :ref:sendDelta.""""
-       opName = self._delta.operation.__name__
-       #handle new tags appropriately
-       if opName = "elementStart":
-          del self._delta.args[1][attr]
-          return
+   def __delattr__(self, attr):
+      """Edits delta to remove an annotation.
+         .. warning:: This does not apply it until you call :py:meth:`sendDelta`."""
+      opName = self._delta.operation.__name__
+      #handle new tags appropriately
+      if opName == "elementStart":
+         del self._delta.args[1][attr]
+         return
          
-       #ensure delta is is a annotationsBoundary
-       if opName != "annotationBoundary":
-          #backup information
-          annotations = self._delta.args[annotationOffset[opName]]
+      #ensure delta is is a annotationsBoundary
+      if opName != "annotationBoundary":
+         #backup information
+         annotations = self._delta.args[annotationOffset[opName]]
 
-          #combine with existing annotations
-          keys = set().union(set(annotations.keys()), set(self._item.annotations.keys()))
+         #combine with existing annotations
+         keys = set().union(set(annotations.keys()), set(self._item.annotations.keys()))
 
-          ann = {}
-          for key in keys: ann[key] = (self._item.annotations[key], annotations[key]) 
+         ann = {}
+         for key in keys: ann[key] = (self._item.annotations[key], annotations[key]) 
 
-          self._delta = delta.Operation("annotationsBoundary", [], ann)
-       #edit delta to delete the attr
-       self._delta.args[0].append(attr)
+         self._delta = delta.Operation("annotationsBoundary", [], ann)
+      #edit delta to delete the attr
+      self._delta.args[0].append(attr)
 
    #delta creation
    def _contentdelta(self, deltas):
@@ -118,7 +118,7 @@ def TagDoc(doc):
          curop = None
          for op in ops:
             if curop and op.operation.__name__ == curop.operation.__name__ == "retain":
-               curop.args[0]++
+               curop.args[0] += 1
             elif op.operation.__name__ == "retain":
                op.args[0] = 1
                fops.append(op)
@@ -150,7 +150,7 @@ def TagItem(doc, index):
    tag = Tag(doc, doc.items[index], "retain")
 
    index += 1
-   while doc[index].type = datasource.Item.TYPE_TAG_END:
+   while doc[index].type == datasource.Item.TYPE_TAG_END:
          index, tag = TagItem(doc, i)
          tag._content.append(tag)
 

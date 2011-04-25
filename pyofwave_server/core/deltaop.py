@@ -15,7 +15,7 @@ def retain(old, new, itemCount):
 
 def updateAtrributes(old, new, oldAttributes, newAttributes):
     old.cursor += 1
-    if not (old.items[old.cursor].annotations = oldAttributes):
+    if not (old.items[old.cursor].annotations == oldAttributes):
         raise DeltaNotMatch
     
     item = copy(old.items[old.cursor])
@@ -49,13 +49,13 @@ def deleteCharactors(old, new, charactors):
 def deleteElementStart(old, new, typeI, attrs):
     old.cursor += 1
     item = old.items[old.cursor]
-    if not (item.type = Item.TYPE_TAG_START and
+    if not (item.type == Item.TYPE_TAG_START and
         item.name == typeI and item.annotations == attrs):
         raise DeltaNotMatch
 
 def deleteElementEnd(old, new):
     old.cursor += 1
-    if not (old.items[old.cursor].type = Item.TYPE_TAG_END):
+    if not (old.items[old.cursor].type == Item.TYPE_TAG_END):
         raise DeltaNotMatch
 
 def annotationsBoundary(old, new, ends, changes):

@@ -19,6 +19,9 @@ class DataSource(interface.Interface):
       """Returns an iterable of all documents that match the query.
          This query  should be in the form found in the client protocol standard."""
 
+   def setTags(doc, user, **tags):
+      """Apply the tags to the document/user combination to be searched."""
+
    def applyDelta(doc, delta):
       """Apply delta to doc and save."""
 

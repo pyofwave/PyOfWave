@@ -26,7 +26,28 @@ Now create a Python file somewhere inside :py:mod:`pyofwave_server`. It does not
    from core import datasource #may change depending on where you put the file
    from zope.interface import implements
 
-Now implement all the methods to refer back to your authentication scheme. 
+   class MyAuthentication(object):
+      implements(auth.AuthService)
+
+      def signin(self, ip, user, password):
+         """Sign the user in and return a boolean for success."""
+
+      def setPassword(self, ip, old, password):
+         """Check the old password and set the new one."""
+
+      def getUser(self, ip):
+         """Returns the user as a User object."""
+
+      def saveFolder(self, folder):
+         """Save the folder based on it's fid property."""
+
+      def deleteFolder(self, folder):
+         """Delete the folder based on it's fid property."""
+
+      def logout(self, ip):
+         """Log the user out."""
+
+Now implement all the methods to refer back to your authentication scheme. The ip is the IP address for the user requesting this.
 
 3. Integrate the Adaptor
 =================
