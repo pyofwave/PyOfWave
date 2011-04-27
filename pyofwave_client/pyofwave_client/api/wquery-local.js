@@ -11,7 +11,7 @@ function sendOperations() {
 var wavelets = new Array();
 var blips = {}
 
-/*Wraps a wavelet with KVO and stores it for later access.
+/*Wraps a wavelet with KVO and stores it for later access.*/
 function wavelet(obj) {
    obj = new KVO(obj);
    wavelets.push(obj);
