@@ -15,6 +15,7 @@ Contents:
    Usage/index
    Extending/index
    StandardPlugins/index
+   WebInterface/index
 
 Indices and tables
 ==================

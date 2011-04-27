@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" /> 
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="up" title="For Programmers" href="index.html" />
+    <link rel="next" title="For Contributors" href="../StandardPlugins/index.html" />
+    <link rel="prev" title="Adding New Protocols to the PyOfWave Server" href="Protocols.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +34,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../StandardPlugins/index.html" title="For Contributors"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Protocols.html" title="Adding New Protocols to the PyOfWave Server"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -42,6 +52,58 @@
             
   <div class="section" id="settings-in-pyofwave-server">
 <h1>Settings in PyOfWave Server<a class="headerlink" href="#settings-in-pyofwave-server" title="Permalink to this headline">¶</a></h1>
+<p>This file documents all the values in <tt class="file docutils literal"><span class="pre">SETTINGS.py</span></tt>, <tt class="file docutils literal"><span class="pre">PREFERENCES.py</span></tt>, and <tt class="file docutils literal"><span class="pre">__init__.py</span></tt> you can customise.</p>
+<div class="section" id="settings-py">
+<h2>SETTINGS.py<a class="headerlink" href="#settings-py" title="Permalink to this headline">¶</a></h2>
+<p>It is <em>highly</em> recommended to set these settings, or PyOfWave may not function correct in your setup.</p>
+<dl class="data">
+<dt id="DOMAIN">
+<tt class="descname">DOMAIN</tt><a class="headerlink" href="#DOMAIN" title="Permalink to this definition">¶</a></dt>
+<dd><p>This value represents your domain name. This is used by the protocols to
+identify documents and users belonging to you. Should be a string.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="DELTA_OBSERVER_PROCESSES">
+<tt class="descname">DELTA_OBSERVER_PROCESSES</tt><a class="headerlink" href="#DELTA_OBSERVER_PROCESSES" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of processes to launch to handle changes in documents
+&#8220;deltas&#8221;. Should be a integer.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="DELTA_OBSERVER_TIMEOUT">
+<tt class="descname">DELTA_OBSERVER_TIMEOUT</tt><a class="headerlink" href="#DELTA_OBSERVER_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of tasks a process should run before it times out. Should be
+a integer.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="preferences-py">
+<h2>PREFERENCES.py<a class="headerlink" href="#preferences-py" title="Permalink to this headline">¶</a></h2>
+<p>If you wish to customize how data is handled in PyOfWave, use this file. If you need more details, please see <a class="reference internal" href="CoreModule.html"><em>Using PyOfWave&#8217;s Core module</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This file is seperate to handle seperate dependancies (Python
+yells if I have both settings using the objects and used by the objects
+in the core server).</p>
+</div>
+<dl class="data">
+<dt id="STORAGE_OBJECT">
+<tt class="descname">STORAGE_OBJECT</tt><a class="headerlink" href="#STORAGE_OBJECT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main storage object used by all protocols and extensions.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="CACHE_OBJECT">
+<tt class="descname">CACHE_OBJECT</tt><a class="headerlink" href="#CACHE_OBJECT" title="Permalink to this definition">¶</a></dt>
+<dd><p>The datasource set to <tt class="docutils literal"><span class="pre">STORAGE_OBJECT.successor</span></tt>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="init-py">
+<h2>__init__.py<a class="headerlink" href="#init-py" title="Permalink to this headline">¶</a></h2>
+<p>In this file, you setup any changes to the protocols you have in your runtime. Instructions for doing this can be found at <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
+</div>
 </div>
 
 
@@ -50,6 +112,22 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Settings in PyOfWave Server</a><ul>
+<li><a class="reference internal" href="#settings-py">SETTINGS.py</a></li>
+<li><a class="reference internal" href="#preferences-py">PREFERENCES.py</a></li>
+<li><a class="reference internal" href="#init-py">__init__.py</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Protocols.html"
+                        title="previous chapter">Adding New Protocols to the PyOfWave Server</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../StandardPlugins/index.html"
+                        title="next chapter">For Contributors</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Extending/settings.txt"
@@ -78,7 +156,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../StandardPlugins/index.html" title="For Contributors"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Protocols.html" title="Adding New Protocols to the PyOfWave Server"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

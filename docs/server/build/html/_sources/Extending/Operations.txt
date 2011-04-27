@@ -18,7 +18,7 @@ Operators have several parts guiding it's form in the protocols:
 
 These map to the following syntax in python (with the namespace being the file your in):
 
-   *def* **name**(ip, **arguments comma seperated**):
+   def :strong:`name` (ip, :strong:`arguments comma seperated`):
       **routine**
 
       return {
