@@ -23,6 +23,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="next" title="UI Design Principles" href="design.html" />
     <link rel="prev" title="&lt;no title&gt;" href="../StandardPlugins/Protocols/index.html" /> 
   </head>
   <body>
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="design.html" title="UI Design Principles"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../StandardPlugins/Protocols/index.html" title="&lt;no title&gt;"
              accesskey="P">previous</a> |</li>
@@ -46,6 +50,26 @@
             
   <div class="section" id="for-web-developers">
 <h1>For Web Developers<a class="headerlink" href="#for-web-developers" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="design.html">UI Design Principles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design.html#apple-hig-principles">Apple HIG Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#pow-specific-design">POW Specific Design</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The client is built using <a class="reference external" href="http://javascriptmvc.com/">JavaScriptMVC</a> and <a class="reference external" href="http://jquery.com/">jQuery</a> .</p>
+<p>It is also built upon strict organization:</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">pyofwave_client/pyofwave_client.html</span></tt> stores the final user experience along with the files in the same directory.</li>
+<li><tt class="file docutils literal"><span class="pre">api/</span></tt> stores all dependancies.</li>
+<li><tt class="file docutils literal"><span class="pre">pyofwave_client/api/</span></tt> stores the building blocks upon which <tt class="file docutils literal"><span class="pre">pyofwave_client.html</span></tt> is built.</li>
+<li><tt class="file docutils literal"><span class="pre">gadget/</span></tt> stores the gadget iframe environment.</li>
+</ul>
+</div>
 </div>
 
 
@@ -54,9 +78,20 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">For Web Developers</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="../StandardPlugins/Protocols/index.html"
                         title="previous chapter">&lt;no title&gt;</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="design.html"
+                        title="next chapter">UI Design Principles</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/WebInterface/index.txt"
@@ -85,6 +120,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="design.html" title="UI Design Principles"
+             >next</a> |</li>
         <li class="right" >
           <a href="../StandardPlugins/Protocols/index.html" title="&lt;no title&gt;"
              >previous</a> |</li>
