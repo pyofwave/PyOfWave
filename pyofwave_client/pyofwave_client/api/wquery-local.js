@@ -1,5 +1,5 @@
 /* Replace wquery.js with this file to unbind yourself from PyOfWave Server or any Wave Server.*/
-
+steal('kvo.js', 'events.js').then(function() {
 function sendOperations() {
   for (var arg in arguments) {
     res = operations[arg[0]](arg[1]);
@@ -30,3 +30,4 @@ var eventHandlers = {}
 var operations = {
   
 }
+});

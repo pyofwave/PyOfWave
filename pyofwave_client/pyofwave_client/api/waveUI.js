@@ -2,6 +2,7 @@
 /*Each displays a particular piece of the wave structure*/
 var sessionId; //to be provided by server TODO: Implement this.
 
+steal('../../api/jquerymx-1.0.custom.min.js', 'wquery-local.js', 'waveUIx.js').then(function() {
 /*Widget representing a "wavelet".
 TODO: create waveletView.html*/
 $.Controller('WaveletView', {
@@ -10,6 +11,7 @@ $.Controller('WaveletView', {
 
       $(el, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
       $(el '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
+    }
 });
 
 /*Widget representing a list of participants on a wavelet.*/
@@ -287,10 +289,12 @@ $.Controller('GadgetView', {
                dataDocName : doc.__name__,
                dataDocValue : doc
             }]);
+        }
    }
    /*Called by a change to the data document
       TODO: Bind to some event.*/
    update : function(delta) {
       $(this.el, 'iframe').get()[0].postMessage($.encode(delta));
    }
+});
 });

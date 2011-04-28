@@ -1,5 +1,6 @@
 /*Small class which wraps dynamic objects to form loose coupling between model and view.*/
 
+steal('../../api/jquerymx-1.0.custom.min.js').then(function() {
 /*Wraps a value and adds "observers"*/
 $.Class('KVO', {
    /*Initializes KVO with an object.*/
@@ -39,4 +40,5 @@ $.Class('KVO', {
 
       for (var o in this._observers) o(this, key, obj);
    }
-}
+});
+});

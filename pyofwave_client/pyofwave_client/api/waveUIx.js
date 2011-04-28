@@ -1,11 +1,8 @@
 /*Wave views which may not be wave specific.*/
-/*Included jQuery plugins:
--jQuery UI slider
--farbtastic
--editabletext
--treeview
--JSON plugin encoder (derived for easy access)*/
 
+steal('../../api/jquery/jquery-1.5.min.js', 
+'../../api/jquery/jqueryui-1.8.12.custom.min.js', //TODO: Include jQueryUI slider, doesn't unzip on my machine.
+'../../api/jquery/farbtastic.js').then(function() {
 /*displays a menu for selection. Options is a object mapping labels to callbacks. */
 function createMenu(pos, options) {
   var menu = $('<ul>').class("menu").style("top", pos.x).style("left", pos.y);
@@ -103,6 +100,7 @@ toolbarColor(icon, onChange, onSubmit) {
             )
          )
       );
-      $('body').append($(el).style('top', $(this).style('bottom')).style('left', $(this).style('left'));  //Display the dropdown
+      $('body').append($(el).style('top', $(this).style('bottom')).style('left', $(this).style('left')));  //Display the dropdown
    });
 }
+});

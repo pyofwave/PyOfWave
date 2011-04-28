@@ -2,6 +2,7 @@
   TODO: Provide development alternative which just sends back what you send.*/
 cons OPERATIONS_URL, EVENTS_URL, EVENTS_PORT; //providers should assign values, but left blank here. 
 
+steal('kvo.js', 'events.js', '../../api/jquery/json.js').then(function() {
 /*Sends a Wave Simple Data Protocol operation to the server.
   Accepts Arrays containing method string, parameter object, callback. */
 function sendOperations() {
@@ -9,21 +10,21 @@ function sendOperations() {
    var operations = new Array();
    var callbacks = {}
    for (var arg in arguements) {
-      var id = toString(math.random())
-      operations.push({method : arg[0], params : arg[1], id : id}
+      var id = toString(math.random());
+      operations.push({method : arg[0], params : arg[1], id : id});
       callbacks[id] = arg[2];
    }
 
    $.post(OPERATIONS_URL, "text/json", operations, function(req, data) {
       for (var id in data) if (callbacks[id]) callbacks[id](data[id]);   //Send to server.
-   }
+   });
 }
 
 //keep track of wavelets and blips for event handling use. 
 var wavelets = new Array();
 var blips = {}
 
-/*Wraps a wavelet with KVO and stores it for later access.
+/*Wraps a wavelet with KVO and stores it for later access.*/
 function wavelet(obj) {
    obj = new KVO(obj);
    wavelets.push(obj);
@@ -54,3 +55,4 @@ eventStream.onRead = function(msg) {
       eventHandlers[evt.type](evt.properties);
    }
 }
+});
