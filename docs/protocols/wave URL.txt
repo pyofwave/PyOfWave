@@ -17,7 +17,7 @@ Wave URLs accept query values as follows:
         described by Federation Format. 
 -content - Plain text content for the wave. (ONLY FOR __new__)
 -gadget - A URL to a gadget to be added after content. (ONLY FOR __new__)
--title - A Plain text title. (ONLY FOR __new__)
+-participant - A wave address to add to the participants. (ONLY FOR __new__)
 
 Action
 ---
