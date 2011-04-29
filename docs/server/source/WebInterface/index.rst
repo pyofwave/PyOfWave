@@ -5,6 +5,7 @@ For Web Developers
    :maxdepth: 2
 
    design
+   api
 
 Overview
 ========
