@@ -10,3 +10,5 @@ $(document).ready(function() {
    $('#client').client().toolbar();
 });
 });
+
+navigator.registerURLHandler("wave", "wave.html#%s");

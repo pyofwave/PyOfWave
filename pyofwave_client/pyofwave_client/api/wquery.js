@@ -21,19 +21,21 @@ function sendOperations() {
 }
 
 //keep track of wavelets and blips for event handling use. 
-var wavelets = new Array();
+var wavelets = {};
 var blips = {}
 
 /*Wraps a wavelet with KVO and stores it for later access.*/
 function wavelet(obj) {
-   obj = new KVO(obj);
-   wavelets.push(obj);
-   return obj;
+   nobj = wavelets[obj.waveletId]|new KVO({});
+   nobj.change(obj)
+   wavelets[obj.waveletID] = nobj;
+   return nobj;
 }
 /*Same as above but for blips.*/
 function blip(obj) {
-   obj = new KVO(obj);
-   blips[obj.get("blipId")] = obj;
+   nobj = blips[obj.blipId]|new KVO({});
+   nobj.change(obj);
+   blips[obj.blipId] = nobj;
    return obj;
 }
 

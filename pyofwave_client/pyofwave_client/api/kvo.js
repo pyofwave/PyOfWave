@@ -32,6 +32,13 @@ $.Class('KVO', {
 
       for (var o in observers) o(this);  //notify observers. 
    }
+   /*Changes wrapped object to match passed object and calls appropriate observers.*/
+   change : function(obj) {
+      if (!this._obj) this.set(obj);
+      
+      for (var key in obj) if (obj[key] != this._obj[key])
+         this.get(key).set(obj[key]);
+   }
    /*Observer for all children of the represented value.*/
    _notify : function(obj) {
       //called when a property of obj changes, via observer system. """

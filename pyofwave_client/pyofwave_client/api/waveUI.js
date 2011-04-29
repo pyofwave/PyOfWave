@@ -2,7 +2,7 @@
 /*Each displays a particular piece of the wave structure*/
 var sessionId; //to be provided by server TODO: Implement this.
 
-steal('../../api/jquerymx-1.0.custom.min.js', 'wquery-local.js', 'waveUIx.js').then(function() {
+steal('../../api/jquerymx-1.0.custom.min.js', 'wquery-local.js', 'elements.js', 'waveUIx.js').then(function() {
 /*Widget representing a "wavelet".
 TODO: create waveletView.html*/
 $.Controller('WaveletView', {
