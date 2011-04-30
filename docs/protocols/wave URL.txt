@@ -21,4 +21,7 @@ Wave URLs accept query values as follows:
 
 Action
 ---
-Either the Simple Data API or the Wave Client Protocol should be used to access data from the wave server. If the default wave server has the user logged in, use that account, but otherwise identify the user as "__anonymous__@"wave provider domain. 
+Either the Simple Data API or the Wave Client Protocol should be used to access data from the wave server. If the default wave server has the user logged in, use that account, but otherwise identify the user as "__anonymous__@"wave provider domain.
+
+If alias is supplied, send that server a request to "https:///alias/login/" sending user & alias keys via POST. That will authenticate the alias as an alias (the user's real account will be appended using a "/"). 
+Note: it is the server's duty to protect the confidentiality of their users. 
