@@ -10,7 +10,8 @@ if (uri.host == "__new__") {
    // Send operations to create a new wave with URI options. 
 }
 else {
-   // Send operations to retrieve uri.host
+   sendOperations(
+      ["robot.fetchWavelet", {waveId : uri.host, waveletId : uri.host, message : "read"
 }
 });
 
