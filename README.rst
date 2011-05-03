@@ -46,4 +46,4 @@ Used jQuery Plugins
 P. S. 
 ====
 
-If any collaborators have friends near Berlin, please get them to attend the W3C Federated Social Web Conference, http://d-cent.org/fsw2011/. Please send any news along these lines to me (alcinnz) and I'll setup a discussion. 
+I, alcinnz, will roster off extension tasks for the server next week (my time), with Mozilla Drumbeat promotion. Please message me what you'd like to do (the list will come online shortly).
