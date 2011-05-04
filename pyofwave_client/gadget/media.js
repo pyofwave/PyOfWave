@@ -14,18 +14,17 @@ load.loaders.text = function(url, loader) {
 load.loaders["text/javascript"] = function(script) {
     function processString(string, pattern, callback) {
       //Seperate content between curly brackets (they complicate regex)
+      var curly = RegEx('^[.*({[.*|{.*}]*}).*]*$').exec(string);
+      string = string.replace( /{.*}/, '{}');
       
-      //Retrieve from cache if possible
-      //Generate main regex
-      //Generate parameter regex pairs
-      //Add to cache
+      args = RegEx('^'+pattern+'$').exec(string);
       
       //If curly brackets in pattern, replace one level of curly brackets.
+      if (pattern.contains('{')) 
+         string.replace('{}', curly);
       
-      //Match regex
-      //Extract parameters
-      //Call callback.
-   }  //TODO: Implement
+      callback.apply(self, args);
+   }  //TODO: Implement internal replacement and replacement.
    function process(pattern, callback) {
       script = processString(script, pattern, callback);
    }
