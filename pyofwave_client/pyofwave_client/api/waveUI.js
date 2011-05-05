@@ -2,76 +2,52 @@
 /*Each displays a particular piece of the wave structure*/
 var sessionId; //to be provided by server TODO: Implement this.
 
-steal('../../api/jquerymx-1.0.custom.min.js', 'wquery-local.js', 'elements.js', 'waveUIx.js').then(function() {
-/*Widget representing a "wavelet".
-TODO: create waveletView.html*/
-$.Controller('WaveletView', {
-   init : function(el, options) {
-      $(el).append("waveletView.html");
-
-      $(el, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
-      $(el '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
-    }
+steal('../../api/jquerymx-1.0.custom.min.js', 'widget.js', 'wquery-local.js', 'elements.js', 'waveUIx.js').then(function() {
+/*Widget representing a "wavelet".*/
+$.WvWidget('WaveletView', 'waveletView.html', {}, {}, {
+   init : function(options) {
+      $(this, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
+      $(this, '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
+   }
 });
 
 /*Widget representing a list of participants on a wavelet.*/
-$.Controller('ParticipantsBar', {
-   init : function(el, options) {
-      $(el).append("participants.html", {participants : options.participants});
-      this.kvoID = options.participants.observe(function(obj, index, value) {
-         if (value) {
-            //redraw participant value at index
-         }
-         else $(el.children[index]).remove();
-      });
+$.WvWidget('ParticipantsBar', 'participants.html', {
+   participants : function(obj, index, value) {
+      if (value) {
+         //TODO: Redraw participant value at index.
+      }
+      else $(el.children[index]).remove();
    }
 });
 
 /*Widget representing a "thread" or wavelet of "blips".*/
-$.Controller('BlipsListView', {
-   init : function(el, options) {
-      $(el).append("blipsList.html", {blips : options.blips});
-
-      this.kvoID = options.blips.observe(function(obj, index, value) {
-         if (value) {
-            //redraw blip at Index
-         }
-         else $(el.children[index]).remove();
-      });
+$.WvWidget('BlipsListView', 'blipsList.html', {
+   blips : function(obj, index, value) {
+      if (value) {
+         //redraw blip at Index
+      }
+      else $(el.children[index]).remove();
    }
 });
 
 
 /*Widget representing a "blip" or individual message.*/
-$.Controller('BlipView', {
-   /*Initializes the controller with an element and options.*/
-   init : function(el, options) {
-      //Retrieve appropriate blip.
-      if (options.blip && options.blip.class == "KVO") var blip = options.blip;
-      else if (options.id) var blip = blips[options.id];
-      else var blip = blips[options.blip];
-
-      $(el).append("node.ejs", {blip : blip,});  //TODO: implement node.ejs
-      this.blip = blip;
-
-      //tie to observers
-      var kvoIDs = new Array();
-      renderContent = this.callback(this.renderContent);
-      renderContent();
-
-      kvoIDs.push(blip.get('annotations').observe(renderContent));
-      kvoIDs.push(blip.get('elements').observe(renderContent));
-      kvoIDs.push(blip.get('content').observe(renderContent));
-   },
+$.WvWidget('BlipView', 'blip.ejs', {
+   'blip.annotations' : function() {$(this).BlipView('_renderContent');},
+   'blip.elements' : function() {$(this).BlipView('_renderContent');},
+   'blip.content' : funciton() {$(this).BlipView('_renderContent');},
+    blipId : function(value) {$(this).BlipView('option', 'blip', blips[value]);},
+}, {
    /*Give an option of replying or editing when clicking on the blip.*/
    '> .blip .content click' : function(evt) {
       createMenu({x:evt.mousex, y:evt.mousey}, {
          reply : function() {
             //Send the operation to the server.
             sendOperations(["document.modify", {
-               waveId : this.blip.get('waveId'),
-               waveletId : this.blip.get('waveletId'),
-               blipId : this.blip.get('blipId'),
+               waveId : $(this).BlipView('blip').get('waveId'),
+               waveletId : $(this).BlipView('blip').get('waveletId'),
+               blipId : $(this).BlipView('blip').get('blipId'),
                index : //calculate index of selection. ,
                modifyHow : {
                   elements : [{
@@ -81,7 +57,7 @@ $.Controller('BlipView', {
                }
             }]);
          },
-         edit : this.callback(this.edit)
+         edit : function() {$(this).BlipView('edit');}
       }]);
    },
    /*Give a number of options when the status is clicked.*/
@@ -89,26 +65,27 @@ $.Controller('BlipView', {
       //generate menu. 
       el = $(this.el '> .blip .status');
       createMenu({x : el.style('left'), y : el.style('bottom')}, {
-         edit : this.callback(this.edit),
+         edit : function() {$(this).BlipView('edit');},
          reply : function() {
             //Add a new blip to the thread.
-            $(this.el, '> .thread').BlipsListView('newBlip');
+            $(this, '> .thread').BlipsListView('newBlip');
          },
          delete : function() {
             //Send the operation to the server.
             sendOperations(["blip.remove", {
-               waveId : this.blip.get('waveId'),
-               waveletId : this.blip.get('waveletId'),
-               dblipId : this.blip.get('blipId')
+               waveId : $(this).BlipView('blip').get('waveId'),
+               waveletId : $(this).BlipView('blip').get('waveletId'),
+               dblipId : $(this).BlipView('blip').get('blipId')
             }]);
          },
          'copy link' : function() {
             //Show the URL for this wave.
-            prompt("The URL for this blip is: ", "wave://"+this.blip.get('blipId'));
+            prompt("The URL for this blip is: ", "wave://"+$(this).BlipView('blip').get('blipId'));
          }
-   },
-
-   /*Map the content of the blip to the page.*/
+   }
+}, {
+   /*Map the content of the blip to the page.
+   TODO: Correct for custom factory.*/
    renderContent : function() {
       var content = this.blip.get('content');
       var lastIndex = 0;
@@ -185,7 +162,8 @@ $.Controller('BlipView', {
             EL_TYPES[element.get('type')](element));
       }
    },
-   /*Enable editing on this blip and create edit toolbar.*/
+   /*Enable editing on this blip and create edit toolbar.
+   TODO: Correct for custom factory.*/
    edit : function() {
       function sendModification(modification) {
          sendOperations(
@@ -266,16 +244,15 @@ $.Controller('BlipView', {
       )
 
       //TODO: Add done button and hide updates buttons (stacks updates instead of sending straight away).
-   },
+   }
 });
 
 /*A collaborative "gadget" widget*/
-$.Controller('GadgetView', {
-   init : function(el, options) {
-      $(el).append("gadget.ejs", options);  //TODO: Implement gadget.ejs
-
-      //apply to recieve updates from the iframe.
-      $(el, 'iframe')[0].message = function(text) {
+$.WvWidget('GadgetView', 'gadget.ejs', {
+   peer : function(obj) {(el, 'iframe')[0].postMessage($.encode(obj));}
+}, {}, {
+   init : function(options) {
+      $(this, 'iframe')[0].message = function(text) {
          var public, name, value;
          [public, name, value] = text.spllit(',');
          var doc = public == "public" ? options.publicDoc : options.privateDoc;
@@ -290,11 +267,6 @@ $.Controller('GadgetView', {
                dataDocValue : doc
             }]);
         }
-   }
-   /*Called by a change to the data document
-      TODO: Bind to some event.*/
-   update : function(delta) {
-      $(this.el, 'iframe').get()[0].postMessage($.encode(delta));
-   }
+    }
 });
 });
