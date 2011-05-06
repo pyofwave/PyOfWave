@@ -20,26 +20,68 @@ function newWave() {
 $.Controller('table', {
    init : function(el, ops) {
       $.table = this;
-      this.headers = ops.headers;
+      this.headers = {};
+      for (var header in ops.headers) 
+         this.headers[header] = ops.headers[header].split('?');
+      this.rowHeight = $(el, 'tr').style('height');
+
+      // set initial values.
+      this._selected = [];
+      this._top = 0;
+      this.resize();
    },
    setRows : function(rows, index, height) {
-      
+      index |= this.top();
+      height |= this.height();
+
+      var replace = $(this.el, 'tr').slice(index, index + height);
+
+      // generate rows.
+      var rowEl = $('<div>');
+      $.foreach(rows, function(row) {
+         var el = $('<tr>').data('table-data', row)
+
+         for (var header in this.headers) {
+            var td = $('td');
+            $.foreach(this.headers[header], function(key) {
+               if (!row[key].find('?')) td.append(row[key]);
+               else {
+                  var key = key.split('?')
+                  if (row[key[0]]) td.append($('<img>').attr(key[1]);
+               }
+            });
+         }
+         $(rowEl).append();
+      });
+
+      $(rowEl, 'tr').replace(replace);
    },
    selected : function() {
-      
+      return $(this.el, '.selected');
    },
-   top : function() {
-      
+   top : function(val) {
+      if (val != undefined) this._top = val;
+      else return this._top;
    },
    height : function() {
-      
+      if (val != undefined) this._height = val;
+      else return this._top;
    },
 
-   'scroll' : function(evt) {
-      
+   'scroll' : function() {
+      this.top(($(this.el).offset().top / this.rowHeight
+      ).toDecimalPlaces(0));
+   },
+   resize : function() {
+      this.height(($(this.el).style('height') / this.rowHeight
+         ).toDecimalPlaces(0);
    },
    'tr click' : function(evt) {
-      
+      if (!evt.shiftKey)
+         $(this.el, '.selected').removeClass('selected');
+
+      $(evt.target).toggleClass('selected');
+      $(this.el).change();
    }
 });
 var selWave = new KVO({});
@@ -80,14 +122,14 @@ function waves() {
       headers : {"unread" : "unreadCount?unread.png", "wave" : "title snippet", "last changed" : "lastModified"},
       }).scroll(function(evt) {
          sendOperations(["robot.search", {query : $('#client-search').serialize()['search'],
-               index : evt.index,
-               numResults : evt.range}, 
+               index : $.table.top(),
+               numResults : $.table.height()}, 
             function(response) {
                $.table.setRows(response.results, index, numResults);
             }]
          );
       }).change(function() {
-         selWave.set($.table.selected()[0]);
+         selWave.set($($.table.selected()[0]).data('table-data').waveId);
       });
 }
 inbox.toolbar = [
@@ -97,7 +139,7 @@ inbox.toolbar = [
          return function() {
             args = {
                modifyHow : op,
-               waveId : $.table.getSelected().join(" ")
+               waveId : $.table.selected().join(" ")
             }
             if (tag) args.tag = prompt("Enter tag(s):");
 
