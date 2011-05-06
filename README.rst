@@ -46,4 +46,4 @@ Used jQuery Plugins
 P. S. 
 ====
 
-I, alcinnz, will roster off extension tasks for the server next week (my time), with Mozilla Drumbeat promotion. Please message me what you'd like to do (the list will come online shortly).
+I, alcinnz, will roster off extension tasks for the server sometime after the 5th of June (the Federated Social Web Conference), with Mozilla Drumbeat promotion. Please message me what you'd like to do (the list will come online shortly).
