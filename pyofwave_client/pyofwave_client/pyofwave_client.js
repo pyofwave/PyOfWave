@@ -1,19 +1,38 @@
 /*Main file of PyOfWave client. Please acknowledge that I've chosen my own folder structure which I think will work well for PyOfWave over the preset.*/
 
-/*Widget representing the full client area, excluding the toolbar.
-That is covered seperately.*/
+/*Specific details for the sections are in sections.js.*/
 steal('../api/jquery/jquerymx-1.0.custom.min.js', '../api/jquery/jquery-1.5.min.js' 'api/widget.js', 'sections.js').then(function() {
-$.section = function(id, creator) {
+$.fn.section = function(id, creator) {
       var toolbar = $('<div>').id('client-toolbar');
       for (var i=0;i < creator.toolbar.length;i++) 
          toolbar.append(creator.toolbar[i]);
 
-      return $('<div>').append(toolbar).append(creator());
+      $(this).append($('<div>').append(toolbar).append(creator()).id(id));
 }
+$.Controller('Splitter', {
+   init : function() {
+      this.down = false;
+   },
+   mousedown : function() {
+      this.down = true;
+   },
+   mouseup : function() {
+      this.down = false;
+   },
+   mousemove : function(evt) {
+      if (this.down) {
+         var prev = $(this.element).prev();
+         $(prev).style('width', event.mousex - $(prev).position().left);
+         // With float, other side should change too.
+      }
+   }
+});
+
 $(document).ready(function() {
-   $('#client').append($.section('inbox', sections.inbox))
-   .append($.section('waves', section.waves))
-   .append($.section('wave', section.wave));
+   $('#client').section('inbox', sections.inbox)
+   .section('waves', section.waves))
+   .append($('<div>').Splitter({dir : "v"}))
+   .section('wave', section.wave));
 });
 });
 
