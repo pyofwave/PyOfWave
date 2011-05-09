@@ -28,6 +28,17 @@ function blip(obj) {
 var eventHandlers = {}
 
 var operations = {
-  
+  'robot.createWavelet' : function(args) {
+    
+  },
+  'robot.fetchFolders' : function(args) {
+    
+  },
+  'robot.fetchWavelet' : function(args) {
+    
+  },
+  'robot.search' : function(args) {
+    
+  }
 }
 });
