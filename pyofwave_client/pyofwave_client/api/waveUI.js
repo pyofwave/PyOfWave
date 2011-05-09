@@ -5,9 +5,9 @@ var sessionId; //to be provided by server TODO: Implement this.
 steal('../../api/jquerymx-1.0.custom.min.js', 'widget.js', 'wquery-local.js', 'elements.js', 'waveUIx.js').then(function() {
 /*Widget representing a "wavelet".*/
 $.WvWidget('WaveletView', 'waveletView.html', {}, {}, {
-   init : function(options) {
-      $(this, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
-      $(this, '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
+   init : function(el, options) {
+      $(el, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
+      $(el, '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
    }
 });
 
@@ -17,7 +17,7 @@ $.WvWidget('ParticipantsBar', 'participants.html', {
       if (value) {
          //TODO: Redraw participant value at index.
       }
-      else $(el.children[index]).remove();
+      else $($(this.element).children()[index]).remove();
    }
 });
 
@@ -27,17 +27,17 @@ $.WvWidget('BlipsListView', 'blipsList.html', {
       if (value) {
          //redraw blip at Index
       }
-      else $(el.children[index]).remove();
+      else $($(this.element).children()[index]).remove();
    }
 });
 
 
 /*Widget representing a "blip" or individual message.*/
 $.WvWidget('BlipView', 'blip.ejs', {
-   'blip.annotations' : function() {$(this).BlipView('_renderContent');},
-   'blip.elements' : function() {$(this).BlipView('_renderContent');},
-   'blip.content' : funciton() {$(this).BlipView('_renderContent');},
-    blipId : function(value) {$(this).BlipView('option', 'blip', blips[value]);},
+   'blip.annotations' : function() {this._renderContent();},
+   'blip.elements' : function() {this._renderContent();},
+   'blip.content' : funciton() {this._renderContent();},
+    blipId : function(value) {this.options.get('blip').set(blips[value]);},
 }, {
    /*Give an option of replying or editing when clicking on the blip.*/
    '> .blip .content click' : function(evt) {
@@ -45,9 +45,9 @@ $.WvWidget('BlipView', 'blip.ejs', {
          reply : function() {
             //Send the operation to the server.
             sendOperations(["document.modify", {
-               waveId : $(this).BlipView('blip').get('waveId'),
-               waveletId : $(this).BlipView('blip').get('waveletId'),
-               blipId : $(this).BlipView('blip').get('blipId'),
+               waveId : this.options.get('blip').get('waveId'),
+               waveletId : this.get('blip').get('waveletId'),
+               blipId : this.get('blip').get('blipId'),
                index : //calculate index of selection. ,
                modifyHow : {
                   elements : [{
@@ -57,15 +57,15 @@ $.WvWidget('BlipView', 'blip.ejs', {
                }
             }]);
          },
-         edit : function() {$(this).BlipView('edit');}
+         edit : function() {this.edit();}
       }]);
    },
    /*Give a number of options when the status is clicked.*/
    '> .blip .status click' : function(evt) {
       //generate menu. 
-      el = $(this.el '> .blip .status');
+      el = $(this.element '> .blip .status');
       createMenu({x : el.style('left'), y : el.style('bottom')}, {
-         edit : function() {$(this).BlipView('edit');},
+         edit : function() {this.edit();},
          reply : function() {
             //Add a new blip to the thread.
             $(this, '> .thread').BlipsListView('newBlip');
@@ -73,21 +73,22 @@ $.WvWidget('BlipView', 'blip.ejs', {
          delete : function() {
             //Send the operation to the server.
             sendOperations(["blip.remove", {
-               waveId : $(this).BlipView('blip').get('waveId'),
-               waveletId : $(this).BlipView('blip').get('waveletId'),
-               dblipId : $(this).BlipView('blip').get('blipId')
+               waveId : this.options.get('blip').get('waveId'),
+               waveletId : this.options.get('blip').get('waveletId'),
+               dblipId : this.options.get('blip').get('blipId')
             }]);
          },
          'copy link' : function() {
             //Show the URL for this wave.
-            prompt("The URL for this blip is: ", "wave://"+$(this).BlipView('blip').get('blipId'));
+            prompt("The URL for this blip is: ", 
+                     "wave://"+this.options.get('blip').get('blipId'));
          }
    }
 }, {
    /*Map the content of the blip to the page.
    TODO: Correct for custom factory.*/
    renderContent : function() {
-      var content = this.blip.get('content');
+      var content = this.options.get('blip').get('content');
       var lastIndex = 0;
       var prevChild = $();
       var el = $('<p>').data('start', 0);
@@ -168,16 +169,16 @@ $.WvWidget('BlipView', 'blip.ejs', {
       function sendModification(modification) {
          sendOperations(
             ["document.modify", {
-               waveId : this.blip.get('waveId'),
-               waveletId : this.blip.get('waveletId'),
-               blipId : this.blip.get('blipId'),
-               range : $(this, '[contenteditable]').editableText('selection'),
+               waveId : this.options.get('blip').get('waveId'),
+               waveletId : this.options.get('blip').get('waveletId'),
+               blipId : this.options.get('blip').get('blipId'),
+               range : $(this.element, '[contenteditable]').editableText('selection'),
                modifyHow : modification
             }]
          );
       }
       $(this.blip, ' > .blip .content').editableText().change(function(evt) {
-         sendModifications({content : evt.text,});
+         sendModifications({content : evt.value,});
       });
 
       //create edit toolbar.
@@ -249,7 +250,7 @@ $.WvWidget('BlipView', 'blip.ejs', {
 
 /*A collaborative "gadget" widget*/
 $.WvWidget('GadgetView', 'gadget.ejs', {
-   peer : function(obj) {(el, 'iframe')[0].postMessage($.encode(obj));}
+   peer : function(obj) {$(this.element, 'iframe')[0].postMessage($.encode(obj));}
 }, {}, {
    init : function(options) {
       $(this, 'iframe')[0].message = function(text) {
