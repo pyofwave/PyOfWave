@@ -80,6 +80,8 @@ Data Objects
 		length			The number of objects in this. 
 		prototype		Allows extension of the class. 
 
+                set(obj)                Assigns all contained objects to the values 
+                                        in Array obj, or default.
 		concat()		Concatenates all passed arrays to this one. 
 		join()			Joins all contained objects into a string. 
 		pop()			Removes and returns the last object. 
@@ -100,25 +102,25 @@ Data Objects
 		constructor		The constructor that created the object. 
 		prototype		Allows extending the class. 
 
-		get/setDay()		The day of the week. 
-		get/setDate()		The day of the month. 
-		get/setFullYear()	The year. 
-		get/setHours()		The hour of the day. 
-		get/setMinutes()	The minutes of the hour. 
-		get/setSeconds()	The seconds of the minute. 
-		get/setMilliseconds()	The millisecond of the second. 
-		get/setMonth()		The month of the year as a number. 
-		get/setTime()		The number of milliseconds since the epoch. 
-		get/setTimezoneOffset() The number of hours different from GMT. 
+		day()		The day of the week. 
+		date()		The day of the month. 
+		year()	The year. 
+		hours()		The hour of the day. 
+		minutes()	The minutes of the hour. 
+		seconds()	The seconds of the minute. 
+		milliseconds()	The millisecond of the second. 
+		month()		The month of the year as a number. 
+		time()		The number of milliseconds since the epoch. 
+		timezoneOffset() The number of hours different from GMT. 
 
-		get/setUTCDay()	The day of the week at GMT. 
-		get/setUTCDate()	The day of the month at GMT. 
-		get/setUTCFullYear()	The year at GMT. 
-		get/setUTCHours()	The hour of the day at GMT. 
-		get/setUTCMinutes()	The minutes of the hour at GMT. 
-		get/setUTCSeconds()	The seconds of the minute at GMT. 
-		get/setUTCMilliseconds() The millisecond of the second at GMT. 
-		get/setUTCMonth()	The month of the year as a number at GMT. 
+		UTCDay()	The day of the week at GMT. 
+		UTCDate()	The day of the month at GMT. 
+		UTCFullYear()	The year at GMT. 
+		UTCHours()	The hour of the day at GMT. 
+		UTCMinutes()	The minutes of the hour at GMT. 
+		UTCSeconds()	The seconds of the minute at GMT. 
+		UTCMilliseconds() The millisecond of the second at GMT. 
+		UTCMonth()	The month of the year as a number at GMT. 
 		UTC()			The number of milliseconds since the epoch at 
 					GMT. 
 
@@ -172,17 +174,17 @@ Data Objects
 
 Rendering
 --
-This part of the API may be implemented as far as what has meaning to your client, and it's the same for Roles and positioning. However, the Node, NodeStyle, NodeEvents, ARIA, and controls must be defined if not implemented or have their properties defined.
+This part of the API may be implemented as far as what has meaning to your client, and it's the same for Roles and positioning. However, the Node, NodeStyle, NodeEvents, ARIA, and controls must be defined if not implemented or have their properties defined. 
  Class		Property	Description
  -----		--------	-----------
  Node(style, aria, content)	A node in the presentation of the gadget.
 		content		The contained children of the node as an Array of Nodes 
 				and Strings.
 		style		The applied NodeStyle object.
-		aria		The applied ARIA object.
+		aria		The applied ARIA role object, see Roles.
 		events		The applied NodeEvents object.
- NodeStyle			The displayed/spoken presentation settings for attached 
-				Node.
+ NodeStyle()			The displayed/spoken presentation settings for attached 
+				Node. May be provided as a partial literal object.
 		background	Represents the background content of the Node. Contains 
 				properties: attached (Boolean), image (Image), colour 
 				(Array<Integer> or String), repeatX (Boolean), repeatY 
@@ -255,20 +257,6 @@ This part of the API may be implemented as far as what has meaning to your clien
 				fingers from touching Node.
 		gesturecanceled	Called by multitouch clients when the OS interrupts a 
 				gesture.
- ARIA				(Accessible Rich Internet Applications) Provides 
-				metadata to ensure that the Node behaves as expected.
-		role		A standard object representing a role.
-		tabindex	An Integer. All ordered aria.tabindex properties of 
-				Nodes represent the tab order.
-		live		The preference of updates in Nodes out of ("polite", 
-				"assertive", "rude", or "off"), where each listed 
-				String increases in queue wait.
-		busy		Boolean indicating whether this Node is in the queue to 
-				be spoken.
-		relevant	Array of all Nodes from Content which contain relevant 
-				information for this node to be placed on the speach 
-				queue.
-		alt		Content to be spoken if content cannot be spoken.
  Control(type, name, value)	A Node representing a standard OS control.
 		type		A string donoting the type of control represented. 
 				Possible values include ().
@@ -347,11 +335,21 @@ State
 		viewer		The participant represented by the running client.
 		host		The paricipant who added this gadget to the wave, may 
 				no longer be in participants.
+                getConnection   Returns a Stream object which uses the specified 
+                   (protocol)   transport technology. Handles creation/subscription
+                                to an IP multicast group.
  User				Represents a participant on the Wave/using the gadget.
 		address		String representing the user's Wave Address.
 		thumbnail	A scaled down version of avatar.
 		avatar		The user's specified "avatar" Image.
 		note		The user's specified "note" String.
+ Stream                         Represents a IP multicast stream you can use to message
+                                other active users. Nonactive or nonsupporting users will 
+                                never get this message and playback wont replay it. The 
+                                IP is stored in publicState as "streamIP".
+                 set(obj)       Sends the String object to all other active users.
+                 recieve        Callback which handles any recieved data from the IP group
+                                as an argument.
 
 Utilities
 --
@@ -377,7 +375,7 @@ Utilities
 				global properties of that script. 
 				If the object is a movie or audio, the object has the 
 				properties: play(), pause(), seek (in milliseconds), 
-				and playSpeed.
+				playSpeed, and data().
 				The Image class referred throughout this standard does
  				not have any standard methods, but is returned by load 
 				for image types. Also, the term media means an object 
@@ -386,6 +384,11 @@ Utilities
    callback, repeat)     If repeat (default false), the function will be called repeatedly
                                  on the interval after being called. Returns a function 
                                 which cancels the timer.
+ media                          Stores standard icons. (more may be added)
+                nullAvatar      The avatar image to use as a placeholder.
+                bell            The system bell.
+                camera          The user's camera input (with permission).
+                microphone      The user's microphone input (with permission).
 
 Rendering
 --
