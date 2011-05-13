@@ -39,6 +39,39 @@ var operations = {
   },
   'robot.search' : function(args) {
     
+  },
+  'robot.folderAction' : function(args) {
+    
+  },
+  'robot.getUserData' : function(args) {
+    
+  },
+
+  'wavelet.appendBlip' : function(args) {
+    
+  },
+  'wavelet.setTitle' : function(args) {
+    
+  },
+  'wavelet.addParticipant' : function(args) {
+    
+  },
+  'wavelet.setDataDoc' : function(args) {
+    
+  },
+
+  'blip.createChild' : function(args) {
+    
+  },
+  'blip.delete' : function(args) {
+    
+  },
+
+  'document.appendMarkup' : function(args) {
+    
+  },
+  'document.modify' : function(args) {
+    
   }
 }
 });
