@@ -84,22 +84,8 @@ toolbarColor(icon, onChange, onSubmit) {
    return toolbarOption(icon, function() {
       var color = $(this).parent().style('background-color');  //get current colour to revert
 
-      var picker = $('<div>').farbtastic($(this).parent(), onChange);  //create the picker
-      var el = $('<div>').append(picker
-         ).append(
-            $('<p>').append(
-               $('<a>').text('Cancel').attr('href', "#").click(function() {
-                  $(el).remove();  //Hide
-                  onChange(color); $(this).parent().style('background-color', color);  //Revert
-               }).append(
-                  $('<a>').text('Select').attr('href', "#").click(function() {
-                     $(el).remove();  //Hide
-                     onSubmit($(this).parent().style('background-color'));  //Submit
-                  })).style('position', 'absolute')
-               )
-            )
-         )
-      );
+      var el = $('<div id="picker-box"><div id="picker"></div><p><a>O. K.</a><a>Cancel</a></p></div>')
+      $(el, "#picker-box").farbtastic($(this).parent(), onChange);  //create the picker
       $('body').append($(el).style('top', $(this).style('bottom')).style('left', $(this).style('left')));  //Display the dropdown
    });
 }
