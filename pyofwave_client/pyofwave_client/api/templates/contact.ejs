@@ -1,0 +1,13 @@
+<div class="card popup" style="left:{{pos.x}};top:{{pos.y}}">
+   <p><img src="{{user.avatar}}" alt="Avatar for {{user.name}}" /></p>
+   <div class="left">
+      <h4>{{user.address}}</h4>
+      <h5>{{user.name}}</h5>
+      <p class="note">{{note}}</p>
+   </div>
+   <div class="buttons">
+      {%forkey bttn in buttons%}
+         <button id="{{bttn}}">{{bttn}}</button>
+      {%endforkey%}
+   </div>
+</div>

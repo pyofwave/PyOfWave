@@ -4,7 +4,7 @@ var sessionId; //to be provided by server TODO: Implement this.
 
 steal('../../api/jquerymx-1.0.custom.min.js', 'widget.js', 'wquery-local.js', 'elements.js', 'waveUIx.js').then(function() {
 /*Widget representing a "wavelet".*/
-$.WvWidget('WaveletView', 'waveletView.html', {}, {}, {
+$.WvWidget('WaveletView', 'templates/waveletView.html', {}, {}, {
    init : function(el, options) {
       $(el, '.participants').ParticipantsBar({participants : options.wavelet.get("participants")});
       $(el, '.blips').BlipView({id : options.wavelet.get("rootBlipId")});
@@ -12,7 +12,7 @@ $.WvWidget('WaveletView', 'waveletView.html', {}, {}, {
 });
 
 /*Widget representing a list of participants on a wavelet.*/
-$.WvWidget('ParticipantsBar', 'participants.html', {
+$.WvWidget('ParticipantsBar', 'templates/participants.ejs', {
    participants : function(obj, index, value) {
       if (value) {
          //TODO: Redraw participant value at index.
@@ -21,8 +21,9 @@ $.WvWidget('ParticipantsBar', 'participants.html', {
    }
 });
 
-/*Widget representing a "thread" or wavelet of "blips".*/
-$.WvWidget('BlipsListView', 'blipsList.html', {
+/*Widget representing a "thread" or wavelet of "blips".
+   TODO: Rewrite as a controller for lack of template.*/
+$.WvWidget('BlipsListView', 'templates/blipsList.ejs', {
    blips : function(obj, index, value) {
       if (value) {
          //redraw blip at Index
@@ -33,7 +34,7 @@ $.WvWidget('BlipsListView', 'blipsList.html', {
 
 
 /*Widget representing a "blip" or individual message.*/
-$.WvWidget('BlipView', 'blip.ejs', {
+$.WvWidget('BlipView', 'template/blip.ejs', {
    'blip.annotations' : function() {this._renderContent();},
    'blip.elements' : function() {this._renderContent();},
    'blip.content' : funciton() {this._renderContent();},
@@ -249,7 +250,7 @@ $.WvWidget('BlipView', 'blip.ejs', {
 });
 
 /*A collaborative "gadget" widget*/
-$.WvWidget('GadgetView', 'gadget.ejs', {
+$.WvWidget('GadgetView', 'template/gadget.ejs', {
    peer : function(obj) {$(this.element, 'iframe')[0].postMessage($.encode(obj));}
 }, {}, {
    init : function(options) {

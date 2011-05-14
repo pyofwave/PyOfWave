@@ -1,0 +1,5 @@
+{%foreach partic in participants%}
+   <li class="frame-{{partic.colour}}">
+      <img src="{{partic.avatar}}" alt="Avatar" /><br />
+      {{partic.address}}</li>
+{%endforeach%}

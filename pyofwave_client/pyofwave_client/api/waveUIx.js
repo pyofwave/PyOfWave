@@ -18,7 +18,7 @@ function contactCard(pos, user, buttons) {
    var bttnNames = new Array();
    for (var bttn in buttons) bttnNames.push(bttn);
 
-   var view = $('body').append("card.ejs", {pos : pos, user : user, buttons : bttnNames});  //TODO: Implement card.ejs
+   var view = $('body').append("templates/contact.ejs", {pos : pos, user : user, buttons : bttnNames});  //TODO: Implement card.ejs
 
    //register handlers
    for (bttn in buttons) $(view).byID(bttn).click(function(evt) {
