@@ -12,19 +12,12 @@ This standard makes the gadget a JavaScript (with some extensions) in it's own f
 
 Form
 ---
-A gadget is an extended JavaScript available via URL. 
+A gadget is a script written in a derivative of "CoffeeScript" called "ObjectScript" (language designed to compile into JavaScript, but greatly simplifies the language for implementation as well) available via a URL. 
 
-ECMEAScript Extensions
----
-Certain features, which aren't part of the ECMEAScript standard, proved very handy in designing an API. These features should be easy to implement, either by processing the script or by embedding in the runtime.
-
-Shared Methods
+The language
 --
-A shared method is a method available on all objects. They are stored in the "sharedMethods" objects, and any calls to one of it's properties on any object should redirect to sharedMethods, if not provided in the object, with "this" being the object it was accessed from. 
 
-Method Assignment
---
-The syntax "variable = value" should be interpreted as a call to the shared method "set" passing value as an argument (variable.set(value);). 
+Statements in ObjectScript are seperated by newlines or semicolons. Indentation is used to delimanate blocks, which is used in some syntax. 
 
 API
 ---
