@@ -17,7 +17,23 @@ A gadget is a script written in a derivative of "CoffeeScript" called "ObjectScr
 The language
 --
 
-Statements in ObjectScript are seperated by newlines or semicolons. Indentation is used to delimanate blocks, which is used in some syntax. 
+Statements in ObjectScript are seperated by newlines or semicolons. Indentation is used to delaminate blocks, which is used in some syntax. 
+
+Objects
+-
+
+Literal Objects
+-
+
+Operators
+-
+
+Branching
+-
+
+Shared Methods
+-
+
 
 API
 ---
