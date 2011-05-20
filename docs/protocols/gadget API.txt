@@ -21,20 +21,46 @@ Statements in ObjectScript are seperated by newlines or semicolons. Indentation 
 
 Objects
 -
+The whole language is built upon the concept of objects. These objects are a map between keys and values (a key:value pair is referred to as a property). Some of these objects have special syntax, like operators and execution.
+
+Syntax          description
+------          -----------
+(variable)
+(property)
+(execution)
+(lookup)
+(assign = .set)
+
+Variables are scoped to the function they're created in.
 
 Literal Objects
 -
 
+Several objects have spectial syntax to create them.
+
+Object type             syntax
+-----------             ------
+
 Operators
 -
+
+Operators change the data in the basic data types. They are a symbol either in between, before, or after one or two expressions.
+
+Operator        Action
+--------        ------
 
 Branching
 -
 
+Branches change the flow of a script based on a Boolean expression. They are typically a name followed by an expression and indented code.
+
+Branch command          Action
+--------------          ------
+
 Shared Methods
 -
 
-
+Any function property on sharedMethods should be accessible on any object.
 API
 ---
 The full standard API is listed out below:
