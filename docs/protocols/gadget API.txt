@@ -19,27 +19,39 @@ The language
 
 Statements in ObjectScript are seperated by newlines or semicolons. Indentation is used to delaminate blocks, which is used in some syntax. 
 
+Hashes (#) at the beginning of a line makes the computer ignore the line.
+Parentheses in a line are executed first.
+
 Objects
 -
 The whole language is built upon the concept of objects. These objects are a map between keys and values (a key:value pair is referred to as a property). Some of these objects have special syntax, like operators and execution.
 
 Syntax          description
 ------          -----------
-(variable)
-(property)
-(execution)
-(lookup)
-(assign = .set)
+WORD            accesses a property on the current global object (local to a function/block).
+.WORD           Accesses a property on the previously accessed object.
+([comma seperated expressions])   Executes the accessed function, passing it the objects from each expression, with 
+                                  the previous (before the executed function) object assigned to this.
+[WHITESPACE expression]*          Without parentheses, single arguments should always be passed to the function
+                                  object immediately before it. Further actions are performed on final expression
+                                  in function. 
+\[expression\]  Looks up the index or property indicated by the value of the expression. 
+=               Shortcut to ".set "
 
-Variables are scoped to the function they're created in.
 
 Literal Objects
 -
 
-Several objects have spectial syntax to create them.
+Several objects have spectial syntax to create them. Most of them work with blocks.
 
-Object type             syntax
------------             ------
+Object type             syntax                        Multiline Behavior
+-----------             ------                        ------------------
+String                  "TEXT"                        Newlines are included in text.
+Number                  NUMBER                        N/A
+Function                (, SEP "ARGS") -> EXPRESSION  One expression per line.
+RegExp                  /REGEX/FLAGS                  N/A
+Array                   [, SEP EXPRESSIONS]           Separation inferred. 
+object                  {KEY : VALUE, ETC.}           Curly braces and commas optional.
 
 Operators
 -
@@ -48,19 +60,66 @@ Operators change the data in the basic data types. They are a symbol either in b
 
 Operator        Action
 --------        ------
+*               Multiplies two Integers
++               Adds two Integers or concatenates two Strings or objects with a toString method.
+-               Subtracts two Integers
+/               Divides two integers
+%               Finds the remainder from the devision of two Integers
+==   is         Returns true if the two values contain the same value.
+!=   isn't      Returns true if the two values don't contain the same value.
+<               Return true if the first Integer is less than the second.
+<=              Returns true if the first Integer is less than or equal to the second.
+>               Returns true if the first Integer is greater than to the second.
+>=              Returns true if the first Integer is greater than or equal to the second.
+!  not          Returns true if the following value is empty, 0 or False.
+&&  and         Returns true if both Booleans are true.
+||  or          Returns true if either Boolean is true.
+in              Returns true if the second object contains the first object value.
+?               Returns true or second value if the previous value previously existed.
+                If followed with equal, only assigns if the value isn't assigned.
+
 
 Branching
 -
 
-Branches change the flow of a script based on a Boolean expression. They are typically a name followed by an expression and indented code.
+Branches change the flow of a script based on a Boolean expression. They all have 3 syntaxes:
+
+* expression branch conditional
+
+* branch conditional "then" expression
+
+* branch conditional indented-expressions
+
+In addition, there is a couple of commands that can be used with these branches:
+
+* break          Jumps to after the branch.
+
+* continue       Jumps to beginning of the branch.
+
+* 'throw' string  Throws the exception to be caught with a try, etc.
+
+Most branches return the value of the final expression inside it.
 
 Branch command          Action
 --------------          ------
+if                      Executes once if the conditional's true.
+else                    Executes if previous if was false.
+
+'for' var 'in' array    Loops through each value in array, assigning it to var and executing the expression.
+while                   Loops until the conditional is false.
+
+switch                  Matches internal when's to it's value.
+when                    Inside a switch, executes if the switch's value equals it's value.
+
+try                     Executes the expression till an error is thrown.
+catch                   Executes if it's value was thrown.
+finally                 Executes whether or not there was an error in the previous try.
 
 Shared Methods
 -
 
 Any function property on sharedMethods should be accessible on any object.
+
 API
 ---
 The full standard API is listed out below:
@@ -198,6 +257,10 @@ Data Objects
 		random()		Returns a psuedo-random number between 0 and 1.
 		round(x)		Returns x rounded to a full number.
 		sqrt(x)			Returns the square root of x.
+ Function()     prototype               Used as the superObject of this when the name is prefixed with new.
+                                        Already contains constructor as the function object and length as the number of args.
+                apply(this, args)       Executes the function with more control of arguments and this.
+                bind()                  Returns a function which calls itself with the current this from the caller.
  sharedMethods	getKeys()		Returns an array of all property names. 
 		getValues()		Returns an array of all property values. 
 		length()		Returns the number of objects
@@ -206,6 +269,8 @@ Data Objects
 					this changes. Returns an ID of any type. 
 		unobserve(id)		Removes the function registered with ID from 
 					getting notified. 
+                sub(superObject)        Returns a copy of this with properties of superObject
+                                        that are not provided by this.
 
 Rendering
 --
