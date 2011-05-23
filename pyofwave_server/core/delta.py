@@ -21,7 +21,7 @@ class Delta(object):
         else: rep = doc
         
         doc.cursor = 0
-        for op in self.ops: op.apply(doc, rep)
+        for op in self.ops: op.apply(mod, doc, rep)
         return rep
 
 class Operation(object):
@@ -30,7 +30,7 @@ class Operation(object):
         self.operation = operation
         self.args = args
 
-    def applyToDoc(self, doc, new):
+    def applyToDoc(self, mod, doc, new):
         """Applies the particulor operation to a document new based on data in doc."""
         try:
             op = getattr(mod, self.operation)

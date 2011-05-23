@@ -156,7 +156,7 @@ def TagItem(doc, index):
 
    return tag, index + 1
                           
-def TagDelta(doc):
+def TagDelta(delta):
    """Returns a list of Tags representing the delta."""
    import tagop
    from datasource import Item
