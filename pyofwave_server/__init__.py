@@ -16,4 +16,8 @@
 # limitations under the License.
 #
 
-import PREFERENCES # for production
+import PREFERENCES
+
+# run tests, uncomment to debug
+
+from core.tests import delta_creation
