@@ -1,4 +1,4 @@
-PyOfWave server and webclient
+PyOfWave server and webclient (in development, pre-beta)
 =======================
 Wave is a combination of existing communication technologies (eMail, forums, wikis, and instant messaging) designed by Google. PyGoWave is one implementation of Wave programmed in Python.
 
