@@ -16,7 +16,7 @@ class Tag(object):
       if isinstance(doc, Tag): doc = doc._doc
       
       if isinstance(item, str):
-         item = datasource.Item(datasource.Item.OPEN_TAG, item)
+         item = datasource.Item(datasource.Item.TYPE_START_TAG, item)
          
       if op == "elementStart": self._closeTag = True
       else: self._closeTag = False
@@ -55,6 +55,11 @@ class Tag(object):
    def __setattr__(self, attr, value):
       """Edits delta to set the appropriate annotation. 
          :warning: This does note apply it until you call :ref:sendDelta. """
+      #ensure I can still set private properties
+      if attr[0] == "_":
+         object.__setattr__(self, attr, value)
+         return
+      
       #edit delta to set the attr
       index = self._delta.operation.__name__
       if index == "retain":

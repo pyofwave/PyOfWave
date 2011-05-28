@@ -19,7 +19,7 @@ operation(s) (starting document XML, resulting document XML)
 
 The documents are printed as a list of their "items", which are individually
 printed as:
-'<item-type: item-name item-annotations>'
+'item-type: item-name item-annotations'
 """
 
 
@@ -60,7 +60,7 @@ deltaTest = delta.Delta(delta.Operation('updateAttributes',
 res = deltaTest.applyToDoc(document)
 print res
 
-print "\nreplaceAttributes (foo='bar' to foo=42)"
+print "\nreplaceAttributes (spam='eggs' to spam=42)"
 #--------------------------------------------------------
 document = ds.Document(
     ds.Item(ds.Item.TYPE_TEXT, 'w', spam='eggs'))
