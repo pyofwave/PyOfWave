@@ -50,36 +50,83 @@ res = deltaTest.applyToDoc(document)
 print res
 
 
-# elementStart, charactors, and elementEnd ('' to '<spam>eggs</spam>')
+print "elementStart, charactors, and elementEnd " + \
+"('' to '<spam foo='bar'>eggs</spam>')"
 #--------------------------------------------------------
-##document = ds.Document()
-##deltaTest = delta.Delta(delta.Operation())
-##
-##res = deltaTest.applyToDoc(document)
-##print res
+document = ds.Document()
+deltaTest = delta.Delta(
+    delta.Operation('elementStart', 'spam', {'foo':'bar',}),
+    delta.Operation('charactors', 'eggs'),
+    delta.Operation('elementEnd')
+    )
 
-# deleteCharactors  ('Spam & Eggs' to 'Spam')
-#--------------------------------------------------------
-##document = ds.Document()
-##deltaTest = delta.Delta(delta.Operation())
-##
-##res = deltaTest.applyToDoc(document)
-##print res
+res = deltaTest.applyToDoc(document)
+print res
 
-# deleteElementStart, deleteCharactors, and deleteElementEnd
-# ('<a>spam</a>' in '<a>spam</a> & </a>eggs</a>')
+print "deleteCharactors  ('Spam & Eggs!' to 'Spam!')"
 #--------------------------------------------------------
-##document = ds.Document()
-##deltaTest = delta.Delta(delta.Operation())
-##
-##res = deltaTest.applyToDoc(document)
-##print res
+document = ds.Document(
+    ds.Item(ds.Item.TYPE_TEXT, 'S'),
+    ds.Item(ds.Item.TYPE_TEXT, 'p'),
+    ds.Item(ds.Item.TYPE_TEXT, 'a'),
+    ds.Item(ds.Item.TYPE_TEXT, 'm'),
 
-# annotationsBoundary (spam='eggs' to life=42)
+    ds.Item(ds.Item.TYPE_TEXT, ' '),
+    ds.Item(ds.Item.TYPE_TEXT, '&'),
+    ds.Item(ds.Item.TYPE_TEXT, ' '),
+
+    ds.Item(ds.Item.TYPE_TEXT, 'E'),
+    ds.Item(ds.Item.TYPE_TEXT, 'g'),
+    ds.Item(ds.Item.TYPE_TEXT, 'g'),
+    ds.Item(ds.Item.TYPE_TEXT, 's'),
+    ds.Item(ds.Item.TYPE_TEXT, '!')
+    )
+deltaTest = delta.Delta(delta.Operation('retain', 4),
+                        delta.Operation('deleteCharactors', 8),
+                        delta.Operation('retain', 1))
+
+res = deltaTest.applyToDoc(document)
+print res
+
+print "deleteElementStart, deleteCharactors, and deleteElementEnd"
+print "('<a>spam</a>!' in '<a>spam</a> & </a>eggs</a>!')"
 #--------------------------------------------------------
-##document = ds.Document()
-##deltaTest = delta.Delta(delta.Operation())
-##
-##res = deltaTest.applyToDoc(document)
-##print res
+document = ds.Document(
+    ds.Item(ds.Item.TYPE_START_TAG, 'a'),
+    ds.Item(ds.Item.TYPE_TEXT, 's'),  
+    ds.Item(ds.Item.TYPE_TEXT, 'p'),
+    ds.Item(ds.Item.TYPE_TEXT, 'a'),
+    ds.Item(ds.Item.TYPE_TEXT, 'm'),
+    ds.Item(ds.Item.TYPE_END_TAG, 'a'),
+
+    ds.Item(ds.Item.TYPE_TEXT, ' '),
+    ds.Item(ds.Item.TYPE_TEXT, '&'),
+    ds.Item(ds.Item.TYPE_TEXT, ' '),
+
+    ds.Item(ds.Item.TYPE_START_TAG, 'a'),
+    ds.Item(ds.Item.TYPE_TEXT, 'e'),
+    ds.Item(ds.Item.TYPE_TEXT, 'g'),
+    ds.Item(ds.Item.TYPE_TEXT, 'g'),
+    ds.Item(ds.Item.TYPE_TEXT, 's'),
+    ds.Item(ds.Item.TYPE_END_TAG, 'a'),
+    ds.Item(ds.Item.TYPE_TEXT, '!')
+    )
+deltaTest = delta.Delta(delta.Operation('retain', 6),
+                        delta.Operation('deleteCharactors', 4),
+                        delta.Operation('deleteElementStart', 'a', {}),
+                        delta.Operation('deleteCharactors', 4),
+                        delta.Operation('deleteElementEnd'),
+                        delta.Operation('retain', 1))
+
+res = deltaTest.applyToDoc(document)
+print res
+
+print "annotationsBoundary (spam='eggs' to life=42)"
+#--------------------------------------------------------
+document = ds.Document(ds.Item(ds.Item.TYPE_TEXT, 'w', spam='eggs'))
+deltaTest = delta.Delta(delta.Operation('annotationsBoundary',
+                                        ('spam',), {'life':('', 42),}))
+
+res = deltaTest.applyToDoc(document)
+print res
 

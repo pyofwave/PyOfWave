@@ -27,9 +27,9 @@ def replaceAttributes(old, new, attributesUpdate):
     item = copy(old.items[old.cursor])
                 
     for key in attributesUpdate.keys():
-        if not (old.annotations.get(key, '') == attributesUpdate[key][0]):
+        if not (item.annotations.get(key, '') == attributesUpdate[key][0]):
             raise DeltaNotMatch
-        item.annotations[key] = attributeUpdate[key][1]
+        item.annotations[key] = attributesUpdate[key][1]
     new.items.append(item)
     old.cursor += 1
 
@@ -38,28 +38,28 @@ def charactors(old, new, charactors):
         new.items.append(Item(Item.TYPE_TEXT, char))
 
 def elementStart(old, new, typeI, attrs):
-    new.items.append(Item(Item.TYPE_TAG_START, typeI, **attrs))
+    new.items.append(Item(Item.TYPE_START_TAG, typeI, **attrs))
 
 def elementEnd(old, new):
-    new.items.append(Item(Item.TYPE_TAG_END, ''))
+    new.items.append(Item(Item.TYPE_END_TAG, ''))
 
 def deleteCharactors(old, new, charactors):
     old.cursor += charactors
 
 def deleteElementStart(old, new, typeI, attrs):
-    old.cursor += 1
     item = old.items[old.cursor]
-    if not (item.type == Item.TYPE_TAG_START and
+    print item.name, item.annotations
+    if not (item.type == Item.TYPE_START_TAG and
         item.name == typeI and item.annotations == attrs):
         raise DeltaNotMatch
+    old.cursor += 1
 
 def deleteElementEnd(old, new):
-    old.cursor += 1
-    if not (old.items[old.cursor].type == Item.TYPE_TAG_END):
+    if not (old.items[old.cursor].type == Item.TYPE_END_TAG):
         raise DeltaNotMatch
+    old.cursor += 1
 
 def annotationsBoundary(old, new, ends, changes):
-    old.cursor += 1
     item = copy(old.items[old.cursor])
 
     for end in ends: del item.annotations[end]
@@ -69,3 +69,4 @@ def annotationsBoundary(old, new, ends, changes):
             raise DeltaNotMatch
         item.annotations[key] = changes[key][1]
     new.items.append(item)
+    old.cursor += 1
