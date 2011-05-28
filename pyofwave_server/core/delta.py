@@ -32,10 +32,10 @@ class Operation(object):
 
     def applyToDoc(self, mod, doc, new):
         """Applies the particulor operation to a document new based on data in doc."""
-        ##try:
-        op = getattr(mod, self.operation)
-        op(doc, new, *self.args)
-        ##except (AttributeError, TypeError): raise ImproperDelta
+        try:
+            op = getattr(mod, self.operation)
+            op(doc, new, *self.args)
+        except (AttributeError, TypeError): raise ImproperDelta
 
 class Message(object):
     """A message version. """
