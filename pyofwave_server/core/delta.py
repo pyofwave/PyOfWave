@@ -21,7 +21,7 @@ class Delta(object):
         else: rep = doc
         
         doc.cursor = 0
-        for op in self.ops: op.apply(mod, doc, rep)
+        for op in self.ops: op.applyToDoc(mod, doc, rep)
         return rep
 
 class Operation(object):

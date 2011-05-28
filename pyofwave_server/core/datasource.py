@@ -37,12 +37,18 @@ class Document(object):
       self.cursor = -1
       self.annotations = {}
 
+   def __str__(self):
+      return str([str(item) for item in self.items])
+
 class Item(object):
    """Stores a name, type, and annotations."""
    def __init__(self, typeI, name, **annotations):
       self.type = typeI
       self.name = name
       self.annotations = annotations
+
+   def __str__(self):
+      return "<"+str(self.type)+": "+str(self.name)+" "+str(self.annotations)+">"
 
    TYPE_START_TAG = 0
    TYPE_END_TAG = 1

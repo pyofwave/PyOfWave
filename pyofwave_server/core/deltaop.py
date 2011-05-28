@@ -13,8 +13,7 @@ def retain(old, new, itemCount):
         new.items.append(old.items[i])
     old.cursor = i
 
-def updateAtrributes(old, new, oldAttributes, newAttributes):
-    old.cursor += 1
+def updateAttributes(old, new, oldAttributes, newAttributes):
     if not (old.items[old.cursor].annotations == oldAttributes):
         raise DeltaNotMatch
     
@@ -22,9 +21,9 @@ def updateAtrributes(old, new, oldAttributes, newAttributes):
     for key in newAttributes.keys():
         item.annotations[key] = newAttributes[key]
     new.items.append(item)
+    old.cursor += 1
 
 def replaceAttributes(old, new, attributesUpdate):
-    old.cursor += 1
     item = copy(old.items[old.cursor])
                 
     for key in attributesUpdate.keys():
@@ -32,6 +31,7 @@ def replaceAttributes(old, new, attributesUpdate):
             raise DeltaNotMatch
         item.annotations[key] = attributeUpdate[key][1]
     new.items.append(item)
+    old.cursor += 1
 
 def charactors(old, new, charactors):    
     for char in charactors:
