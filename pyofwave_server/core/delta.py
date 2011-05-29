@@ -28,7 +28,7 @@ class Operation(object):
     """A single change in a delta. """
     def __init__(self, operation, *args):
         self.operation = operation
-        self.args = args
+        self.args = list(args)
 
     def applyToDoc(self, mod, doc, new):
         """Applies the particulor operation to a document new based on data in doc."""

@@ -8,6 +8,18 @@ annotationOffsets = {
    "elementStart" : 1,
    "annotationsBoundary" : 1
 }
+blankArgs = {
+   'retain' : (0,),
+   'updateAttributes' : ({}, {}),
+   'replaceAttributes' : ({},),
+   'charactors' : ('',),
+   'elementStart' : ('', {}),
+   'elementEnd' : (),
+   'deleteCharactors' : (0,),
+   'deleteElementStart' : ('', {}),
+   'deleteElementEnd' : (),
+   'annotationsBoundary' : ((), {})
+}
 
 class Tag(object):
    """Simplified document interface."""
@@ -23,7 +35,7 @@ class Tag(object):
       
       self._doc = doc
       self._item = item
-      self._delta = delta.Operation(op)
+      self._delta = delta.Operation(op, *blankArgs[op])
       self._content = []      
 
    @property
@@ -38,7 +50,7 @@ class Tag(object):
 
    def __getitem__(self, index):
       """Returns the child at specified index."""
-      return self._content[i]
+      return self._content[index]
 
    def __setitem__(self, index, value):
       """Inserts (not replaces, use del for that) an object at index.
@@ -46,6 +58,10 @@ class Tag(object):
          TODO: Correct processing to yield proper deltas."""
       if isinstance(value, str): value = Text(object)
       self._content.insert(index, value)
+
+   def __delitem__(self, index):
+      """Removes an added child tag."""
+      del self._content[index]
 
    #psuedo-properties
    def __getattr__(self, attr):
@@ -61,16 +77,17 @@ class Tag(object):
          return
       
       #edit delta to set the attr
-      index = self._delta.operation.__name__
+      index = self._delta.operation
       if index == "retain":
          self._delta = delta.Operation("updateAttributes", self._item.annotations)
          index = "updateAttributes"
-      self._delta.args[index][attr] = value
+      offset = annotationOffsets[index]
+      self._delta.args[offset][attr] = value
 
    def __delattr__(self, attr):
       """Edits delta to remove an annotation.
          .. warning:: This does not apply it until you call :py:meth:`sendDelta`."""
-      opName = self._delta.operation.__name__
+      opName = self._delta.operation
       #handle new tags appropriately
       if opName == "elementStart":
          del self._delta.args[1][attr]
@@ -97,10 +114,17 @@ class Tag(object):
       deltas.append(self._delta)
       for child in self._content: child._contentdelta(deltas)
 
+   def __str__(self):
+      rep = "\n<%s>" % self._name
+      for child in self:
+         rep += "\n" + str(child)
+      rep += "\n</END>"
+      return rep
+
 class Text(object):
    """Represents textual changes. """
-   def __init__(self, text):
-      self.__delta = delta.Operation("charactors", text)
+   def __init__(self, text, op = "charactors"):
+      self.__delta = delta.Operation(op, text)
 
    def _contentdelta(self, deltas):
       deltas.appand(self.__delta)
@@ -149,17 +173,20 @@ def TagDoc(doc):
 
 def TagItem(doc, index):
    """Returns a Tag from the Item at index of the parent's document, and the index of it's end."""
-   if doc.items[index] == datasource.Item.TYPE_TEXT:
-      return Text(doc.items[index].name)
+   print "In TagItem with index of:", index, doc.items[index].name
+   if doc.items[index].type == datasource.Item.TYPE_TEXT:
+      return Text(doc.items[index].name, 'retain'), index
    
-   tag = Tag(doc, doc.items[index], "retain")
+   parentTag = Tag(doc, doc.items[index], "retain")
 
    index += 1
-   while doc[index].type == datasource.Item.TYPE_TAG_END:
-         index, tag = TagItem(doc, i)
-         tag._content.append(tag)
+   while doc.items[index].type != datasource.Item.TYPE_END_TAG:
+         tag, index = TagItem(doc, index)
+         parentTag._content.append(tag)
+         print "In loop for:", parentTag._name, "with index of:", index, doc.items[index].name
+         index += 1
 
-   return tag, index + 1
+   return parentTag, index 
                           
 def TagDelta(delta):
    """Returns a list of Tags representing the delta."""
