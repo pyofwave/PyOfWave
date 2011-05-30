@@ -21,3 +21,5 @@ tag[1] = "Hello world!"
 del tag[0]
 
 print tag[0]
+
+tag["link/manual"] = True

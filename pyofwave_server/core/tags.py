@@ -50,13 +50,21 @@ class Tag(object):
 
    def __getitem__(self, index):
       """Returns the child at specified index."""
+      # support mapping incase attributes can't be used.
+      if isinstance(index, str): return self.__getattr__(index)
+
+      
       return self._content[index]
 
    def __setitem__(self, index, value):
       """Inserts (not replaces, use del for that) an object at index.
          Accepts Tag-like objects and strings.
          TODO: Correct processing to yield proper deltas."""
-      if isinstance(value, str): value = Text(object)
+      # support mapping incase attributes can't be used
+      if isinstance(index, str): return self.__setattr__(index, value)
+
+      
+      if isinstance(value, str): value = Text(value)
       self._content.insert(index, value)
 
    def __delitem__(self, index):
@@ -125,10 +133,14 @@ class Text(object):
    """Represents textual changes. """
    def __init__(self, text, op = "charactors"):
       self.__delta = delta.Operation(op, text)
+      self.__text = text
 
    def _contentdelta(self, deltas):
       deltas.appand(self.__delta)
 
+   def __str__(self):
+      return str(self.__text) + "\t(Tag object)"
+   
 #utitlity functions
 def TagDoc(doc):
    """Returns a list of Tags representing the doc.
@@ -162,18 +174,16 @@ def TagDoc(doc):
       
    # generation variables
    i = 0
-   rep = []
+   rep = xList()
 
    while i <= len(doc.items):
       i, tag = TagItem(doc, i)
       rep.append(tag)
 
-   rep.sendDelta = sendDelta
    return rep
 
 def TagItem(doc, index):
    """Returns a Tag from the Item at index of the parent's document, and the index of it's end."""
-   print "In TagItem with index of:", index, doc.items[index].name
    if doc.items[index].type == datasource.Item.TYPE_TEXT:
       return Text(doc.items[index].name, 'retain'), index
    
@@ -183,7 +193,6 @@ def TagItem(doc, index):
    while doc.items[index].type != datasource.Item.TYPE_END_TAG:
          tag, index = TagItem(doc, index)
          parentTag._content.append(tag)
-         print "In loop for:", parentTag._name, "with index of:", index, doc.items[index].name
          index += 1
 
    return parentTag, index 
