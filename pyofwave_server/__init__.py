@@ -20,4 +20,4 @@ import PREFERENCES
 
 # run tests, uncomment to debug
 
-from core.tests import delta_creation, delta_execution, tag_creation, tag_from_doc
+from core.tests import delta_creation, delta_execution, tag_creation, tag_from_doc, tag_from_delta
