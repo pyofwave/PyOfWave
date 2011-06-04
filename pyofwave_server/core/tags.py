@@ -26,16 +26,20 @@ class Tag(object):
    def __init__(self, doc, item, op = "elementStart"):
       #correct parameters
       if isinstance(doc, Tag): doc = doc._doc
-      
-      if isinstance(item, str):
-         item = datasource.Item(datasource.Item.TYPE_START_TAG, item)
-         
+
       if op == "elementStart": self._closeTag = True
       else: self._closeTag = False
       
+      if isinstance(item, str):
+         self._delta = delta.Operation('elementStart', item, {})
+         item = datasource.Item(datasource.Item.TYPE_START_TAG, item)
+         # mark that delta has already been created, traditional means thwarted
+         # by psuedo-properties
+         op = ''
+      
       self._doc = doc
       self._item = item
-      self._delta = delta.Operation(op, *blankArgs[op])
+      if op: self._delta = delta.Operation(op, *blankArgs[op])
       self._content = []      
 
    @property
@@ -124,6 +128,7 @@ class Tag(object):
       """Generates the list of operations for :ref:sendDelta."""
       deltas.append(self._delta)
       for child in self._content: child._contentdelta(deltas)
+      if self._closeTag: deltas.append(delta.Operation("elementEnd"))
 
    def __str__(self):
       rep = "\n<%s>" % self._name
@@ -139,7 +144,7 @@ class Text(object):
       self.__text = text
 
    def _contentdelta(self, deltas):
-      deltas.appand(self.__delta)
+      deltas.append(self.__delta)
 
    def __str__(self):
       return str(self.__text) + "\t(Tag object)"
@@ -155,15 +160,15 @@ def TagDoc(doc):
          #create delta
          ops = []
 
-         for tag in self: tag._contentDelta(ops)
+         for tag in self: tag._contentdelta(ops)
 
          #collapse retains
          fops = []
          curop = None
          for op in ops:
-            if curop and op.operation.__name__ == curop.operation.__name__ == "retain":
+            if curop and op.operation == curop.operation == "retain":
                curop.args[0] += 1
-            elif op.operation.__name__ == "retain":
+            elif op.operation == "retain":
                op.args[0] = 1
                fops.append(op)
                curop = op
@@ -180,7 +185,7 @@ def TagDoc(doc):
    i = 0
    rep = xList()
 
-   while i <= len(doc.items):
+   while i < len(doc.items):
       i, tag = TagItem(doc, i)
       rep.append(tag)
 
