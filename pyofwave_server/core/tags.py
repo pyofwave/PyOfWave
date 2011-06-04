@@ -71,6 +71,9 @@ class Tag(object):
       """Removes an added child tag."""
       del self._content[index]
 
+   def append(self, item):
+      self._content.append(item)
+
    #psuedo-properties
    def __getattr__(self, attr):
       """Returns the appropriate annotation value."""
@@ -171,6 +174,7 @@ def TagDoc(doc):
          deltaO = delta.Delta(*fops)
          
          delta.betaDeltaObservable.applyDelta(self._doc, deltaO)
+         return deltaO
       
    # generation variables
    i = 0
@@ -180,6 +184,7 @@ def TagDoc(doc):
       i, tag = TagItem(doc, i)
       rep.append(tag)
 
+   rep._doc = doc
    return rep
 
 def TagItem(doc, index):
@@ -203,8 +208,17 @@ def TagDelta(delta):
    from datasource import Item
 
    class xList(list):
+      def __init__(self):
+         self.parents = [self,]
+         
       def addTag(self, *args, **kwargs):
-         #TODO: Manage a hierarchy.
-         self.append(Tag(None, Item(*args, **kwargs)))
+         parent = self.parents[-1]
+         child = Tag(None, Item(*args, **kwargs))
+         parent.append(child)
+
+         if args[0] == 0:
+            self.parents.append(child)
+         elif args[0] == 1:
+            self.parents.pop()
    
    return delta.applyToDoc(xList(), tagop)
