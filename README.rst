@@ -46,4 +46,4 @@ Used jQuery Plugins
 P. S. 
 ====
 
-I, alcinnz, will roster off extension tasks for the server sometime after the 5th of June (the Federated Social Web Conference), with Mozilla Drumbeat promotion. Please message me what you'd like to do (the list will come online shortly).
+Tasks are currently being rostered off of the roster.rst file. A few additional scripts modules will be added over the next few days as described by the file, and then I'll put this project on Mozilla Drumbeat. 
