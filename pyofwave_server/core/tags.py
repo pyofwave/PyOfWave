@@ -27,7 +27,7 @@ class Tag(object):
       #correct parameters
       if isinstance(doc, Tag): doc = doc._doc
 
-      if op == "elementStart": self._closeTag = True
+      if op == "elementStart": self._closeTag = "deleteElementEnd"
       else: self._closeTag = False
       
       if isinstance(item, str):
@@ -73,7 +73,7 @@ class Tag(object):
 
    def __delitem__(self, index):
       """Removes an added child tag."""
-      del self._content[index]
+      self._content[index]._delete()
 
    def append(self, item):
       self._content.append(item)
@@ -126,9 +126,10 @@ class Tag(object):
    #delta creation
    def _contentdelta(self, deltas):
       """Generates the list of operations for :ref:sendDelta."""
+      print "In Tag._contentdelta."
       deltas.append(self._delta)
       for child in self._content: child._contentdelta(deltas)
-      if self._closeTag: deltas.append(delta.Operation("elementEnd"))
+      if self._closeTag: deltas.append(delta.Operation(self._closeTag))
 
    def __str__(self):
       rep = "\n<%s>" % self._name
@@ -137,6 +138,12 @@ class Tag(object):
       rep += "\n</END>"
       return rep
 
+   def _delete(self):
+      self._delta = delta.Operation("deleteElementStart", self._delta.args)
+      self._closeTag = "deleteElementEnd"
+
+      for child in self._content: child._delete()
+
 class Text(object):
    """Represents textual changes. """
    def __init__(self, text, op = "charactors"):
@@ -144,7 +151,11 @@ class Text(object):
       self.__text = text
 
    def _contentdelta(self, deltas):
+      print "In text._contentdelta"
       deltas.append(self.__delta)
+
+   def _delete(self):
+      self.__delta = dalta.Operation("deleteCharactors", len(self.__text))
 
    def __str__(self):
       return str(self.__text) + "\t(Tag object)"
@@ -186,7 +197,7 @@ def TagDoc(doc):
    rep = xList()
 
    while i < len(doc.items):
-      i, tag = TagItem(doc, i)
+      tag, i = TagItem(doc, i)
       rep.append(tag)
 
    rep._doc = doc
@@ -201,9 +212,9 @@ def TagItem(doc, index):
 
    index += 1
    while doc.items[index].type != datasource.Item.TYPE_END_TAG:
-         tag, index = TagItem(doc, index)
-         parentTag._content.append(tag)
-         index += 1
+      tag, index = TagItem(doc, index)
+      parentTag._content.append(tag)
+      index += 1
 
    return parentTag, index 
                           
