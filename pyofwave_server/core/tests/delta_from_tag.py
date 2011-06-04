@@ -37,15 +37,13 @@ doc = datasource.Document(
     datasource.Item(datasource.Item.TYPE_END_TAG, ''),
     datasource.Item(datasource.Item.TYPE_END_TAG, '')
     )
-print "created doc"
 tag = tags.TagDoc(doc)
-print "created tag"
 
 tag[0]._delete()
-print "deleted tag."
 
 # print tag.sendDelta()
 delta = tag.sendDelta()
 
 for op in delta.ops:
     print op.operation, ' '.join(map(str, op.args)), ';'
+

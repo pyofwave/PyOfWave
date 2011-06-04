@@ -27,15 +27,14 @@ class Tag(object):
       #correct parameters
       if isinstance(doc, Tag): doc = doc._doc
 
-      if op == "elementStart": self._closeTag = "deleteElementEnd"
+      if op == "elementStart": self._closeTag = 'elementEnd'
       else: self._closeTag = False
       
       if isinstance(item, str):
-         self._delta = delta.Operation('elementStart', item, {})
-         item = datasource.Item(datasource.Item.TYPE_START_TAG, item)
-         # mark that delta has already been created, traditional means thwarted
-         # by psuedo-properties
+         self._delta = delta.Operation("elementStart", item, {})
          op = ''
+         
+         item = datasource.Item(datasource.Item.TYPE_START_TAG, item)
       
       self._doc = doc
       self._item = item
@@ -126,10 +125,18 @@ class Tag(object):
    #delta creation
    def _contentdelta(self, deltas):
       """Generates the list of operations for :ref:sendDelta."""
-      print "In Tag._contentdelta."
       deltas.append(self._delta)
       for child in self._content: child._contentdelta(deltas)
-      if self._closeTag: deltas.append(delta.Operation(self._closeTag))
+      if self._closeTag:
+         deltas.append(delta.Operation(self._closeTag))
+
+   def _delete(self):
+      """Sets this tag to be deleted by outputted delta."""
+      self._delta = delta.Operation("deleteElementStart", self._name, self._item.annotations)
+      self._closeTag = "deleteElementEnd"
+
+      for child in self._content:
+         child._delete()
 
    def __str__(self):
       rep = "\n<%s>" % self._name
@@ -138,12 +145,6 @@ class Tag(object):
       rep += "\n</END>"
       return rep
 
-   def _delete(self):
-      self._delta = delta.Operation("deleteElementStart", self._delta.args)
-      self._closeTag = "deleteElementEnd"
-
-      for child in self._content: child._delete()
-
 class Text(object):
    """Represents textual changes. """
    def __init__(self, text, op = "charactors"):
@@ -151,11 +152,10 @@ class Text(object):
       self.__text = text
 
    def _contentdelta(self, deltas):
-      print "In text._contentdelta"
       deltas.append(self.__delta)
 
    def _delete(self):
-      self.__delta = dalta.Operation("deleteCharactors", len(self.__text))
+      self.__delta = delta.Operation("deleteCharactors", len(self.__text))
 
    def __str__(self):
       return str(self.__text) + "\t(Tag object)"
@@ -198,13 +198,15 @@ def TagDoc(doc):
 
    while i < len(doc.items):
       tag, i = TagItem(doc, i)
+      i += 1 # otherwise i is on an end item.
       rep.append(tag)
 
    rep._doc = doc
    return rep
 
 def TagItem(doc, index):
-   """Returns a Tag from the Item at index of the parent's document, and the index of it's end."""
+   """Returns a Tag from the Item at index of the parent's document,
+   and the index of it's end."""
    if doc.items[index].type == datasource.Item.TYPE_TEXT:
       return Text(doc.items[index].name, 'retain'), index
    
@@ -212,9 +214,9 @@ def TagItem(doc, index):
 
    index += 1
    while doc.items[index].type != datasource.Item.TYPE_END_TAG:
-      tag, index = TagItem(doc, index)
-      parentTag._content.append(tag)
-      index += 1
+         tag, index = TagItem(doc, index)
+         parentTag._content.append(tag)
+         index += 1
 
    return parentTag, index 
                           

@@ -16,12 +16,13 @@ document = ds.Document(
     ds.Item(ds.Item.TYPE_END_TAG, ''),
     ds.Item(ds.Item.TYPE_START_TAG, 'blip'),
     ds.Item(ds.Item.TYPE_END_TAG, ''),
-    ds.Item(ds.Item.TYPE_END_TAG, '')
+    ds.Item(ds.Item.TYPE_END_TAG, ''),
     )
 tag, i = tags.TagItem(document, 0)
 tagList = tags.TagDoc(document)
 
-print tag
+print "TagItem:\n", tag
 
+print "TagDoc:"
 for tag in tagList:
     print tag
