@@ -62,6 +62,8 @@ Look at this as an opportunity, for you may be implementing a reference implemen
 
 - RSS notification (optional)
 
+- Test Web-app
+
 Storage Schemes
 ---------------
 
