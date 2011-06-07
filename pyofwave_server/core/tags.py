@@ -77,6 +77,20 @@ class Tag(object):
    def append(self, item):
       self._content.append(item)
 
+   def __contains__(self, item):
+      if isinstance(item, str):
+         if self._name == item: return True
+      else: # tag-like
+         if self._item.type == item.type and self._name == item.name:
+            # check annotations
+            count = 0
+            for key in item.annotations.keys():
+               if self[key] == item[key]: count += 1
+            if count == len(item.annotations): return True
+            
+      for child in self:
+         if item in child: return True
+
    #psuedo-properties
    def __getattr__(self, attr):
       """Returns the appropriate annotation value."""

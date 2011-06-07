@@ -29,9 +29,11 @@ class DataSource(interface.Interface):
 
 class Document(object):
    """Stores a series of items representing start tags, end tags, and text. """
-   def __init__(self, *items, **tags):
+   def __init__(self, docId, *items, **tags):
       """Initializes document as a collection of passed items. """
-      self.items = [item for item in items]
+      self.id = docId
+      self.items = list(items)
+      tags = tags
 
       #transform properties
       self.cursor = -1

@@ -5,7 +5,7 @@ authentication.
 from zope import interface
 
 class AuthService(interface.Interface):
-   def signin(ip, username, password):
+   def signin(ip, username, password, alias=""):
       """Signs a user in. """
 
    def setPassword(ip, oldpassword, password):
