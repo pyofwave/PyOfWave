@@ -18,7 +18,7 @@ To participate,
 
 #. Fork this project, setup a repository on your machine, and install Twisted and zope.interface.
 
-#. Get hacking!
+#. Get hacking! I'll be watching.
 
 I still have a couple of quick modules to add to ease writing of these extensions, and I will get to them over next week.
 
@@ -29,6 +29,8 @@ If you wish to help me on them, message me. These modules are:
 - A pickled file datasource (for development use only)
 
 - A Twisted HTTP resource (pages are added to it by decorators)
+
+Documentation is located at docs/protocols and http://code.google.com/r/alcinnz-wave/source/browse/#hg%2Fspec%2Frevised04.06.11 where the Google Code repository overwrites anything in this repository due to agreement with Wave In A Box.
 
 Roster Tasks
 ============
