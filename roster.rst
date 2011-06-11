@@ -50,7 +50,10 @@ Look at this as an opportunity, for you may be implementing a reference implemen
 
 - Simple Data Protocol
 
-- Events Protocol (don't add Athena dependancy, Twisted can easily do it)
+- Events Protocol
+   NOTES:
+   - Implementing this should be as easy as activating websockets for the client protocol.
+   - Athena will buy little extra and POW should be light in dependancies.
 
 - Wave Client Protocol  -- alcinnz ( )
 
