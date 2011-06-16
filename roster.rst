@@ -20,17 +20,7 @@ To participate,
 
 #. Get hacking! I'll be watching.
 
-I still have a couple of quick modules to add to ease writing of these extensions, and I will get to them over next week.
-
-If you wish to help me on them, message me. These modules are:
-
-- A bogus authentication scheme (containing a single account for John Smith)
-
-- A pickled file datasource (for development use only)
-
-- A Twisted HTTP resource (pages are added to it by decorators)
-
-Documentation is located at docs/protocols and http://code.google.com/r/alcinnz-wave/source/browse/#hg%2Fspec%2Frevised04.06.11 where the Google Code repository overwrites anything in this repository due to agreement with Wave In A Box.
+Standards will be standardized on XCCC. A link will be provided soon.
 
 Roster Tasks
 ============
@@ -55,13 +45,13 @@ Look at this as an opportunity, for you may be implementing a reference implemen
    - Implementing this should be as easy as activating websockets for the client protocol.
    - Athena will buy little extra and POW should be light in dependancies.
 
-- Wave Client Protocol  -- alcinnz ( )
+- Wave Client Protocol (required for basic features) -- alcinnz ( )
 
 - Authentication Protocols
 
    - OAuth
 
-   - SSL
+   - SSL (required for basic features)
 
    - alias (via HTTP for groups)
 
@@ -69,14 +59,14 @@ Look at this as an opportunity, for you may be implementing a reference implemen
 
 - Test Web-app
 
-Storage Schemes
+Storage Schemes (either of these can be implemented for basic features)
 ---------------
 
 - SQL
 
 - CouchDB
 
-Miscellaneous
+Miscellaneous (all required for basic features)
 -------------
 
 - Operations (listed "domains")
