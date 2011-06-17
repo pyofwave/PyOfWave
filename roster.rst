@@ -40,18 +40,18 @@ Look at this as an opportunity, for you may be implementing a reference implemen
 
 - Simple Data Protocol
 
-- Events Protocol
+- Events Protocol  (required for basic features)
    NOTES:
    - Implementing this should be as easy as activating websockets for the client protocol.
    - Athena will buy little extra and POW should be light in dependancies.
 
-- Wave Client Protocol (required for basic features) -- alcinnz ( )
+- Wave Client Protocol -- alcinnz ( )
 
 - Authentication Protocols
 
-   - OAuth
+   - OAuth (required for basic features)
 
-   - SSL (required for basic features)
+   - SSL
 
    - alias (via HTTP for groups)
 
