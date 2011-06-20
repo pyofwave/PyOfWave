@@ -40,24 +40,24 @@ Look at this as an opportunity, for you may be implementing a reference implemen
 
 - Simple Data Protocol
 
-- Events Protocol  (required for basic features)
+- Events Protocol  <web basic>
    NOTES:
    - Implementing this should be as easy as activating websockets for the client protocol.
    - Athena will buy little extra and POW should be light in dependancies.
 
-- Wave Client Protocol -- alcinnz ( )
+- Wave Client Protocol <client basic> -- alcinnz ( )
 
 - Authentication Protocols
 
-   - OAuth (required for basic features)
+   - OAuth (would be web basic if I encouraged people to use the web connection, but I encourage ShareJS instead)
 
-   - SSL
+   - SSL <client basic>
 
    - alias (via HTTP for groups)
 
 - RSS notification (optional)
 
-- Test Web-app
+- Test Web-app ( *extremely* nice feature)
 
 Storage Schemes (either of these can be implemented for basic features)
 ---------------
