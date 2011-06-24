@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>POW demo</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="blocks.css" />
+		<link rel="stylesheet" type="text/css"  media="handheld" href="hendheld.css" />
+		<link rel="shortcut icon" href="img/favicon.png" />
+		<link rel="apple-touch-icon" href="img/apple-touch-icon.png" />	
+	</head>
+	<body id="client">
+			<header>
+				<h1><img src="img/logo.png" alt="PyOfWave" width="189px" height="105px" /></h1>
+				<input type="search" name="search" placeholder="find your waves" value="" size="50"/>
+			</header>
+			<nav class="treeview">
+				<ul class="expandable">
+					<li class="block">
+						<h1 class="hitarea expandable-hitarea">All Waves</h1>
+						<ul>
+							<li>Inbox</li>
+							<li>Recycling</li>
+							<li>Notes</li>
+						</ul>
+					</li>
+					<li class="block">
+						<h1 class="hitarea expandable-hitarea">Folders</h1>
+						<ul>
+							<li>Some folder</li>
+						</ul>
+					</li>
+					<li class="block">
+						<h1 class="hitarea expandable-hitarea">Contacts</h1>
+						<ul>
+							<li>Some Contact</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<div class="content">
+			<section id="waves">
+				<aside class="toolbar">
+					<ul class="buttons">
+						<li id="add"><a href="" title="Add new wave"></a></li>
+						<li id="tags"><a href="" title="Tags"></a></li>
+					</ul>
+				</aside>
+				<div class="tableContainer">
+					<section class="blip">
+						<div class="labelBlip">
+							<img src="img/unread.png" title="You don&apos;t read this yet" alt="Unread" />
+						</div>
+						<div class="contentBlip">
+							<p>Hey Guys! I'm Coming Over Next Break</p>
+							<p>some big big big big text and more and more etc</p>
+						</div>
+						<footer>
+							<span class="date">01/02/03</span>
+							<address title="sender&apos;s e-mail">FSW.James@demo.wave-in-a-box.org</address>
+						</footer>
+					</section>
+				</div>
+			</section>
+			<section id="wave">
+				<aside class="toolbar">
+					<ul class="ParticipantsView">
+						<li>
+							<div class="avatar">
+								<img src="img/participant.png" title="Philip" />
+							</div>
+							<p class="author">FSW.Philip@demo.wave-in-a-box.org</p>
+						</li>
+						<li>
+							<div class="avatar">
+								<img src="img/participant.png" title="Alex" />
+							</div>
+							<p class="author">FSW.Alex@demo.wave-in-a-box.org</p>
+						</li>
+						<li>
+							<div class="avatar">
+								<img src="img/participant.png" title="Thomas" />
+							</div>
+							<p class="author">FSW.Thomas@demo.wave-in-a-box.org</p>
+						</li>
+						<li>
+							<div class="avatar">
+								<img src="img/participant.png" title="James" />
+							</div>
+							<p class="author">FSW.James@demo.wave-in-a-box.org</p>
+						</li>
+					</ul>
+					<ul class="buttons">
+						<li id="play"><a href="" title="Playback this wave"></a></li>
+						<li id="view"><a href="" title="View this wave in a new window"></a></li>
+					</ul>
+				</aside>
+				<div>
+					<!--blips, widgets-->
+				</div>
+			</section>
+			</div>
+	</body>
+</html>
