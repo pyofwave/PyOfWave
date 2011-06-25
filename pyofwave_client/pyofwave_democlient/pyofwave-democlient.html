@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<title>POW demo</title>
 		<link rel="stylesheet" type="text/css" media="screen" href="blocks.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="gray-style.css" />
 		<link rel="stylesheet" type="text/css"  media="handheld" href="hendheld.css" />
 		<link rel="shortcut icon" href="img/favicon.png" />
 		<link rel="apple-touch-icon" href="img/apple-touch-icon.png" />	
@@ -18,49 +19,26 @@
 					<li class="block">
 						<h1 class="hitarea expandable-hitarea">All Waves</h1>
 						<ul>
-							<li>Inbox</li>
-							<li>Recycling</li>
-							<li>Notes</li>
+							<li><a href="">Inbox</a></li>
+							<li><a href="">Recycling</a></li>
+							<li><a href="">Notes</a></li>
 						</ul>
 					</li>
 					<li class="block">
 						<h1 class="hitarea expandable-hitarea">Folders</h1>
 						<ul>
-							<li>Some folder</li>
+							<li><a href="">Some folder</a></li>
 						</ul>
 					</li>
 					<li class="block">
 						<h1 class="hitarea expandable-hitarea">Contacts</h1>
 						<ul>
-							<li>Some Contact</li>
+							<li><a href="">Some Contact</a></li>
 						</ul>
 					</li>
 				</ul>
 			</nav>
 			<div class="content">
-			<section id="waves">
-				<aside class="toolbar">
-					<ul class="buttons">
-						<li id="add"><a href="" title="Add new wave"></a></li>
-						<li id="tags"><a href="" title="Tags"></a></li>
-					</ul>
-				</aside>
-				<div class="tableContainer">
-					<section class="blip">
-						<div class="labelBlip">
-							<img src="img/unread.png" title="You don&apos;t read this yet" alt="Unread" />
-						</div>
-						<div class="contentBlip">
-							<p>Hey Guys! I'm Coming Over Next Break</p>
-							<p>some big big big big text and more and more etc</p>
-						</div>
-						<footer>
-							<span class="date">01/02/03</span>
-							<address title="sender&apos;s e-mail">FSW.James@demo.wave-in-a-box.org</address>
-						</footer>
-					</section>
-				</div>
-			</section>
 			<section id="wave">
 				<aside class="toolbar">
 					<ul class="ParticipantsView">
@@ -96,6 +74,29 @@
 				</aside>
 				<div>
 					<!--blips, widgets-->
+				</div>
+			</section>
+			<section id="waves">
+				<aside class="toolbar">
+					<ul class="buttons">
+						<li id="add"><a href="" title="Add new wave"></a></li>
+						<li id="tags"><a href="" title="Tags"></a></li>
+					</ul>
+				</aside>
+				<div class="tableContainer">
+					<section class="blip">
+						<div class="labelBlip">
+							<img src="img/unread.png" title="You don&apos;t read this yet" alt="Unread" />
+						</div>
+						<div class="contentBlip">
+							<p>Hey Guys! I'm Coming Over Next Break</p>
+							<p>some big big big big text and more and more etc</p>
+						</div>
+						<footer>
+							<time datetime="2003-02-01">01/02/03</time>
+							<address title="sender&apos;s e-mail">FSW.James@demo.wave-in-a-box.org</address>
+						</footer>
+					</section>
 				</div>
 			</section>
 			</div>
