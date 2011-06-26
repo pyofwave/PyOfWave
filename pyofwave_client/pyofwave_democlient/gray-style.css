@@ -1,0 +1,83 @@
+/* ----------colors, borders & other style-------------- */
+header {
+	background-color: #fff;
+	border: 2px solid #ddd;
+	border-radius: 15px;
+	box-shadow: 0px 0px 10px #eee;
+}
+nav {
+	height: 100px;
+	color: #222;
+	background-color: #eee;
+	border: 1px solid #222;
+	box-shadow: 0px 2px 5px #444;
+}
+section#waves {
+	color: #222;
+	background-color: #eee;
+	border: 1px solid #222;
+	border-radius: 5px;
+	box-shadow: -2px 2px 5px #444;
+}
+section#wave {
+	color: #222;
+	background-color: #eee;
+	border: 1px solid #222;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px #444;
+}
+aside.toolbar {
+	color: #f00;
+	background-color: #333;
+	border-radius: 5px;
+	box-shadow: 0px 1px 2px #444;
+}
+/* Image Sprites for toolbars*/
+#add {
+	left: 4px;
+	width: 24px;
+	background:url('img/buttons.png') -1px -1px;
+}
+#add:hover {
+	background:url('img/buttons.png') -1px -26px;
+}
+#tags {
+	left: 32px;
+	width: 24px;
+	background:url('img/buttons.png') -26px -1px;
+}
+#tags:hover {
+	background:url('img/buttons.png') -26px -26px;
+}
+#play {
+	right: 32px;
+	width: 24px;
+	background:url('img/buttons.png') -76px -1px;
+}
+#play:hover {
+	background:url('img/buttons.png') -76px -26px;
+}
+#view {
+	right: 4px;
+	width: 24px;
+	background:url('img/buttons.png') -51px -1px;
+}
+#view:hover {
+	background:url('img/buttons.png') -51px -26px;
+}
+/* ----------"blip" in id-WAVES----------- */
+section.blip {
+	border: 1px solid red;
+	border-radius: 5px;
+}
+/* ----------activity-------------- */
+:focus {
+	outline: red solid 1px;
+}	
+/* -----------hyperlink---------- */
+a {
+	color: #600;
+}
+a:hover {
+	color: #e00;
+}
