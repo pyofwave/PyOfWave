@@ -38,26 +38,24 @@ Look at this as an opportunity, for you may be implementing a reference implemen
 
 - Federation Protocol (via python-xmpp-server) -- mor1 ( )
 
-- Simple Data Protocol <web basic> (Will be removed if we find a suitable websocket implementation)
-
-- Events Protocol  <web basic> (Will be removed if we find a suitable websocket implementation)
-   NOTES:
-   - Implementing this should be as easy as activating websockets for the client protocol.
-   - Athena will buy little extra and POW should be light in dependancies.
-
 - Wave Client Protocol <client basic> -- alcinnz ( )
 
 - Authentication Protocols
 
-   - OAuth (would be web basic if I encouraged people to use the web connection, but I encourage ShareJS instead)
+   - IP authentication
 
    - SSL <client basic>
 
    - alias (via HTTP for groups)
 
-- RSS notification (optional)
+Integration (nice, but not necessary)
+-----------
 
-- Test Web-app ( *extremely* nice feature)
+- RSS notification
+
+- SMTP receive (robot for more challenging sending/reply)
+
+- Test Web-app
 
 Storage Schemes (either of these can be implemented for basic features)
 ---------------
