@@ -1,13 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<!-- Tested in all major browsers except IE (I don't think it's worth the trouble as questioned versions wouldn't support necessary features). -->
 <html>
 <head>
 <meta http-equiv="Content-Language" content="en" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PyOfWave</title>
+
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="splitter.js"></script>
+
 <script type="text/javascript" src="jquery.treeview.js"></script>
 <link href="jquery.treeview.css" rel="stylesheet" type="text/css"/>
+
 
 <link href="blocks.css" type="text/css" rel="stylesheet"/>
 <link href="grey-style.css" type="text/css" rel="stylesheet"/>
@@ -34,14 +38,22 @@ $().ready(function() {
 	});
 
 	$('#client #inboxes .content').treeview();
+
+	//Fix searchbox appearance for non-safari users (Safari has a nonstandard way to get the full control).
+	applesearch.init();
 });
 </script>
 <link href="/site.css" rel="stylesheet" type="text/css"/>
+
+<link rel="stylesheet" type="text/css" href="osx_searchbox_v1/default.css" name="default"  />
+<link rel="stylesheet" type="text/css" href="osx_searchbox_v1/dummy.css" id="dummy_css"  />
+<script type="text/javascript" src="osx_searchbox_v1/applesearch.js"></script>
+
 </head>
 <body>
 
 <header>
-    <ul id="nav">
+<!--    <ul id="nav">
       <li>Home</li>
       <li><a href="about/" title="About PyOfWave">About</a></li>
       <li><a href="http://pyofwave.wikispaces.com" title="View wiki pages on design and usage">Wiki</a></li>
@@ -50,7 +62,7 @@ $().ready(function() {
       <li><a href="http://github.com/alcinnz/PyOfWave/zipball/masterz" title="Download PyOfWave Server and Web Client">Download</a></li>
       <li class="current">Demo</li>
       <li><a href="logout.html" title="logout of your demo Wave account">Log Out</a></li>
-    </ul>
+    </ul> -->
 
 
 	<img src="img/logo.png" alt="PyOfWave logo"/>
@@ -61,15 +73,19 @@ $().ready(function() {
   <section id="inboxes">
 	<div class="wrapper">
 	<aside>
-		<form><input type="search" name="query"/></form>
+		<form><input type="search" id="srch_fld" autosave="bsn_srch" results="5" />
+		</form>
 	</aside>
 	<ul class="content">
 		<li><span><img src="w.png" alt="folder icon" />All Waves</span> <ul>
-			<li><span><img src="w.png" alt="folder icon" />Unread</span></li>
-			<li><span><img src="w.png" alt="folder icon" />Chats</span></li>
-			<li><span><img src="w.png" alt="folder icon" />Spam</span></li>
-			<li><span><img src="w.png" alt="folder icon" />Trash</span></li>
-			<li><span><img src="w.png" alt="folder icon" />Searches</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Unread</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Chats</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Spam</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Trash</span></li>
+			<li><span><img src="img/search.png" alt="folder's icon" />Searches</span> <ul>
+				<li><span><img src="img/search.png" alt="folder's icon"/>Preferences</span></li>
+				<li><span><img src="img/search.png" alt="folder's icon"/>PyOfWave</span></li>
+			</ul></li>
 		</ul></li>
 	</ul>
 	</div>
@@ -87,7 +103,7 @@ $().ready(function() {
 		<a class="folder right" title="Storage options. . ."></a>
 	</aside>
 	<ul class="content">
-		<li style="border-color: #9CA0EF;"><h2>spock@federation.org <time>04:05:06 07/08/09</time></h2>
+		<li style="border-color: #9CA0EF;" class="selected"><h2>spock@federation.org <time>04:05:06 07/08/09</time></h2>
 		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
 		</li>
 		<li style="border-color: #EFCC9C;"><h2>malcom@serenity.ship <time>05:06:07 08/09/10</time></h2>
@@ -127,7 +143,7 @@ $().ready(function() {
 	</aside>
 	<!-- Wave widgets will be here -->
 	<aside class="bottom"><ul class="tags">
-		<li>Inbox</li>
+		<li class="private">Inbox</li>
 		<li>rank:0</li>
 		<li>+</li>
 	</ul></aside>

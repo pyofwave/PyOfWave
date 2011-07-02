@@ -85,7 +85,10 @@ html, body {
 
 /* section specific CSS */
 #client #inboxes input[type=search] {
-	width: 100%;
+	width: 90%;
+	border-radius: 10px;
+	padding-left: 18px;
+	background: url('img/search.png') left center no-repeat white;
 }
 
 #client #wavelist ul.content li {

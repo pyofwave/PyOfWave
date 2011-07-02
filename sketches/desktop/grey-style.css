@@ -22,6 +22,15 @@
 	color: #f00;
 }
 
+/* Colors indicating state */
+#client #wavelist ul.content li.selected {
+	background-color: #ccc;
+}
+
+#client #wave aside.bottom li.private {
+	background-color: #700;
+}
+
 /* Image Sprites for toolbars*/
 #client .buttons a {
 	height: 48px;
