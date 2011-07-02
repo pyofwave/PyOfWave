@@ -1,0 +1,107 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;	/* Remove scroll bars on browser window */
+}
+
+#client {
+	/* Height is set to match window size in $().ready() below */
+	border: 1px solid black;
+	min-width:  600px;
+	min-height: 300px;
+}
+#client section {
+	margin: 0px;
+	padding: 0px;
+}
+
+#client .content {
+	margin: 0px;
+	padding: 0px;
+	height: 91%; /*Works best for scrollbar*/
+	overflow: auto;
+}
+
+/* fix "toolbar" aside's */
+#client aside {
+	height: 50px;
+	width: 100%;
+	line-height:3em;
+	overflow: hidden;
+}
+#client aside.bottom {
+	position: absolute;
+	bottom: 0px;
+}
+
+/* Inside toolbars */
+#client aside * {
+	display: inline;
+}
+#client ul {
+	list-style-type: none;
+}
+#client .right {
+	float: right;
+}
+#client .left {
+	float: left;
+}
+
+/*ParticipantsBar style*/
+#client ul.ParticipantsBar {
+	padding: 0px;
+	margin: 0px;
+}
+#client ul.ParticipantsBar li {
+	display: block;
+	float: left;
+	width: 3em;
+	padding: 0px;
+	margin: 2px 2px 0 0;
+	text-align: center;
+}
+#client ul.ParticipantsBar img {
+	width: 35px;
+	height: 35px;
+	padding: 0px;
+	display: block;
+	border: 2px solid; /*Color specified as user selected in HTML*/
+}
+#client ul.ParticipantsBar span {
+	display: block;
+	height: 10px;
+	line-height: 10px;
+	text-align: left;
+	font-size: 8px;
+	margin: 0px;
+	overflow-y: hidden;
+}
+#client ul.ParticipantsBar li.sep {
+	height: 40px;
+	width: 2px;
+	background-color: black;
+}
+
+/* section specific CSS */
+#client #inboxes input[type=search] {
+	width: 100%;
+}
+
+#client #wavelist ul.content li {
+	margin-top: 5px;
+	cursor: pointer;
+
+	border: 5px solid; /*Color specified as user selected in HTML*/
+	border-radius: 20px;
+}
+
+#client #wave aside.bottom li {
+	border: 2px solid red;
+	border-radius: 10px;
+	padding: 3px;
+	cursor: text;
+}
+
+/* Cursors */
+#client {cursor: default;}
