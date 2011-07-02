@@ -23,8 +23,11 @@
 }
 
 /* Colors indicating state */
-#client #wavelist ul.content li.selected {
+#client #wavelist ul.content li {
 	background-color: #ccc;
+}
+#client #wavelist ul.content li.selected {
+	background-color: transparent;
 }
 
 #client #wave aside.bottom li.private {
