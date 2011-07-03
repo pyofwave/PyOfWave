@@ -92,11 +92,20 @@ html, body {
 }
 
 #client #wavelist ul.content li {
-	margin-top: 5px;
+	margin-top: 5px; padding: 0px;
 	cursor: pointer;
 
 	border: 5px solid; /*Color specified as user selected in HTML*/
 	border-radius: 20px;
+}
+
+#client #wavelist ul.content h2 {
+	margin: 0px;
+	font-size: 1em;
+}
+
+#client #wavelist p {
+	margin: 1px;
 }
 
 #client #wave aside.bottom li {

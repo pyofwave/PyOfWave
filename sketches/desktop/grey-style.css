@@ -22,6 +22,10 @@
 	color: #f00;
 }
 
+#client #wavelist ul.content time {
+	color: #666;
+}
+
 /* Colors indicating state */
 #client #wavelist ul.content li {
 	background-color: #ccc;
