@@ -39,7 +39,7 @@
 }
 
 /* Image Sprites for toolbars*/
-#client .buttons a {
+#client .buttons a, #client .ParticipantsBar li.add {
 	height: 48px;
 	width: 48px;
 	cursor: pointer;
