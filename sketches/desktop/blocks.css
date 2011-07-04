@@ -1,3 +1,10 @@
+/* Activate HTML5 */
+artical, aside, details, summary, figure, figcaption, footer, header, nav, progress, section {
+        display: block;
+}
+
+
+
 html, body {
 	margin: 0;
 	padding: 0;
@@ -97,6 +104,7 @@ html, body {
 
 	border: 5px solid; /*Color specified as user selected in HTML*/
 	border-radius: 20px;
+        height: 63px;
 }
 
 #client #wavelist ul.content h2 {
