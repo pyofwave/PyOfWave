@@ -104,7 +104,9 @@ html, body {
 
 	border: 5px solid; /*Color specified as user selected in HTML*/
 	border-radius: 20px;
+
         height: 63px;
+        overflow: hidden;
 }
 
 #client #wavelist ul.content h2 {
