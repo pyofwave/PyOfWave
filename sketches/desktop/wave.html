@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- This mockup is a wave display concept. TODO: Add style. -->
 <html>
 <head>
    <meta http-equiv="Content-Language" content="en"/>
@@ -8,66 +9,91 @@
 <body>
    <div class="WaveletView">
       <ul class="ParticipantsBar">
-         <li></li>
+	<li><img style="border-color: #EFCC9C;" src="img/participant.png" alt="malcom@serenity.ship's avatar" title="malcom@serenity.ship"/>
+		<span>malcom</span></li>
+	<li><img style="border-color: #9CEFBD;" src="img/participant.png" alt="shepherd@serenity.ship's avatar" title="shepherd@serenity.ship"/>
+		<span>shepherd</span></li>
+	<li class="sep"></li>
+	<li><img style="border: none;" src="img/participant.png" alt="spock@federation.org's avatar" title="spock@federation.org"/>
+		<span>spock</span></li>
+	<li class="add" title="Add Participant. . ."></li>
       </ul>
       <ul class="ThreadView">
-         <li class="BlipView">
-            <!-- Due to coding difficulties, this won't be symantic unless it's a control. -->
+         <li class="BlipView" style="border-color: #EFCC9C;">
             <div class="control">
             </div>
             <div class="inner">
+               <h1>POW Wave Display Mockup</h1>
+               <p>Have you noticed that the frame surrounding this blip ("wave post") identifies it's last contributor. This makes for a lighter weight and more versitile design (especially with soft, rounded corners) for now the only dominant item contained inside the blip is it's content.</p>
+               <p>Yet still we maintained all the metadata presented in Google Wave, and more. Miracle isn't it. I acknowledge <i>Edward Tufte</i>'s <u>Envisioning Information</u>.</p>
             </div>
             <ul class="ThreadView">
-               <li class="BlipView">
+               <li class="BlipView" style="border-color: #9CEFBD;">
                   <div class="control">
                   </div>
                   <div class="inner">
+                     <p>This is a blip in a thread. You notice that it is visually seperated from the last thread through use of padding?
                   </div>
                   <ul class="ThreadView">
                      <li class="BlipView addBlip">
                         <div class="inner">
+                           Add a post
                         </div>
                      </li>
                   </ul>
                </li>
-               <li class="BlipView">
+               <li class="BlipView" style="border-color: #9CA0EF;">
                   <div class="control">
                   </div>
                   <div class="inner">
+                     <p>Yet all the blips are held closely together, making a solid thread.</p>
                   </div>
-                  <ul class="ThreadView">
+                  <ul class="ThreadView" style="border-color: #EFCC9C;">
                      <li class="BlipView">
                         <div class="control">
                         </div>
                         <div class="inner">
+                           <p>And another layer in, so as to show that embedded comments work well. Don't they?</p>
                         </div>
                         <ul class="ThreadView">
                            <li class="BlipView addBlip">
                               <div class="inner">
+                                 Add a post
                               </div>
                            </li>
                         </ul>
                      </li>
                      <li class="BlipView addBlip">
                         <div class="inner">
+                           Add a post
                         </div>
                      </li>
                   </ul>
                </li>
                <li class="BlipView addBlip">
                   <div class="inner">
+                     Add a post.
                   </div>
                </li>
             </ul>
          </li>
-         <li class="BlipView">
+         <li class="BlipView" style="border-color: #9CA0EF;">
             <div class="control">
             </div>
             <div class="inner">
+               <p>We have also avoided breaks in reading, for the Apple HIG said "Only show the user what they want to see" and Edward Tufte consoles to keep comparible items within an eyespan. Don't you prefer it?</p>
+               <p class="p">And while I've got a wave here, I'd like to take the time to say that when we demo PyOfWave, we'll use it for all communication. In particular:</p>
+               <ul>
+               <li>dev@pyofwave.info group in place of a mailing list.</li>
+               <li>support@pyofwave.info group for user support (a link will direct them to it and tell them to just type their problem or suggestion without need to "send" it)</li>
+               <li>An issue tracker robot will be used, and would watch the dev and support groups for issues that are brought up, as well as the GitHub commits.</li>
+               </ul>
+               <p>The service would have limited storage to avoid competition with future clients and maintain costs.</p>
             </div>
             <ul class="ThreadView">
                <li class="BlipView addBlip">
                   <div class="inner">
+                     Add a post
                   </div>
                </li>
             </ul>
