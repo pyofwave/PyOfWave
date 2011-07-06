@@ -10,7 +10,7 @@
       ul.ThreadView > li {
          list-style-type: none;
       }
-      ul.ThreadView > li > .inner {
+      ul.ThreadView > li > .wrapper {
          border: 3px solid;
          border-radius: 10px;
       }
@@ -21,8 +21,7 @@
       /* control panels */
       .control {
          width: 20px;
-         position: absolute;
-         right: 10px;
+         float: right;
       }
       .control .parts li {
          width: 5px;
@@ -45,6 +44,7 @@
       </ul>
       <ul class="ThreadView">
          <li class="BlipView">
+            <div class="wrapper" style="border-color: #EFCC9C;">
             <div class="control">
                <time>09:23:30 21/12/2012</time>
                <ul class="parts">
@@ -52,11 +52,12 @@
                <li style="background-color: #9CEFBD;"></li>
                </ul>
             </div>
-            <div class="inner" style="border-color: #EFCC9C;">
+            <div class="inner">
                <h1>POW Wave Display Mockup</h1>
                <p>Have you noticed that the frame surrounding this blip ("wave post") identifies it's last contributor. This makes for a lighter weight and more versitile design (especially with soft, rounded corners) for now the only dominant item contained inside the blip is it's content.</p>
                <p>Yet still we maintained all the metadata presented in Google Wave, and more. Miracle isn't it. I acknowledge <i>Edward Tufte</i>'s <u>Envisioning Information</u>.</p>
             </div>
+            <div>
             <ul class="ThreadView">
                <li class="BlipView">
                   <div class="control">
