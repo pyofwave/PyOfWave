@@ -1,0 +1,87 @@
+ul.ThreadView > li {
+   list-style-type: none;
+   padding: 0px; margin: 0px;
+}
+ul.ThreadView > li > .inner {
+   border: 3px solid;
+   border-radius: 10px;
+}
+ul.ThreadView > li.addBlip > .inner {
+   border-color: #ccc;
+}
+ul.ThreadView {padding-top: 5px; padding-bottom: 5px;}
+ul.ThreadView.collapsed, ul.ThreadView .expand {
+   content: url(thread.png);
+   float: right;
+   position: relative;
+   top: -25px;
+   cursor: pointer;
+}
+
+/* control panels */
+/*.control {
+   width: 20px;
+   float: right;
+}
+.control .parts li {
+   width: 5px;
+   display: inline;
+   padding: 3px;
+}*/
+.control {display: none;}
+
+/*Participants bar*/
+ul.ParticipantsBar {
+	padding: 0px; margin: 0px;
+	height: 50px;
+	border-radius: 10px;
+}
+ul.ParticipantsBar li {
+	display: block;
+	float: left;
+	width: 3em;
+	padding: 0px;
+	margin: 0 4px 0 4px;
+	text-align: center;
+}
+ul.ParticipantsBar img {
+	width: 35px;
+	height: 35px;
+	padding: 0px;
+	display: block;
+	border: 2px solid; /*Color specified as user selected in HTML*/
+}
+ul.ParticipantsBar span {
+	display: block;
+	height: 10px;
+	line-height: 10px;
+	text-align: left;
+	font-size: 8px;
+	margin: 0px;
+	overflow-y: hidden;
+}
+ul.ParticipantsBar li.sep {
+	height: 40px;
+	width: 2px;
+	background-color: black;
+}
+
+.WaveletView > ul.ThreadView {
+   padding: 0px; margin: 0px;
+}
+
+/*Customizable*/
+ul.ParticipantsBar {
+   background-color: #aaa;
+   color: #f00;
+}
+
+.add {
+	height: 48px;
+	width: 48px;
+	cursor: pointer;
+	background:url('img/buttons.png') -2px -2px;
+}
+.add:hover {
+	background:url('img/buttons.png') -2px -52px;
+}

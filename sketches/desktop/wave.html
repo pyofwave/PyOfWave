@@ -6,29 +6,19 @@
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    <title>Wave</title>
 
-   <style type="text/css">
-      ul.ThreadView > li {
-         list-style-type: none;
-      }
-      ul.ThreadView > li > .wrapper {
-         border: 3px solid;
-         border-radius: 10px;
-      }
-      ul.ThreadView > li.addBlip > .inner {
-         border-color: #ccc;
-      }
-
-      /* control panels */
-      .control {
-         width: 20px;
-         float: right;
-      }
-      .control .parts li {
-         width: 5px;
-         display: inline;
-         padding: 3px;
-      }
-   </style>
+   <link href="wave.css" rel="stylesheet" type="text/css"/>
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+   <script type="text/javascript">
+      $(function() {
+         function showHide(el) {$(el).toggleClass('collapsed');}
+         $('ul.ThreadView.collapsed').click(function(evt) {
+            if ($(this).hasClass('collapsed')) $(this).removeClass('collapsed');
+         });
+         $('ul.ThreadView li.expand').click(function(evt) {
+            $(this).parent().addClass('collapsed');
+         });
+      });
+   </script>
 </head>
 <body>
    <div class="WaveletView">
@@ -44,7 +34,6 @@
       </ul>
       <ul class="ThreadView">
          <li class="BlipView">
-            <div class="wrapper" style="border-color: #EFCC9C;">
             <div class="control">
                <time>09:23:30 21/12/2012</time>
                <ul class="parts">
@@ -52,13 +41,13 @@
                <li style="background-color: #9CEFBD;"></li>
                </ul>
             </div>
-            <div class="inner">
+            <div class="inner" style="border-color: #EFCC9C;">
                <h1>POW Wave Display Mockup</h1>
                <p>Have you noticed that the frame surrounding this blip ("wave post") identifies it's last contributor. This makes for a lighter weight and more versitile design (especially with soft, rounded corners) for now the only dominant item contained inside the blip is it's content.</p>
-               <p>Yet still we maintained all the metadata presented in Google Wave, and more. Miracle isn't it. I acknowledge <i>Edward Tufte</i>'s <u>Envisioning Information</u>.</p>
+               <p>Yet still we maintained all the metadata presented in Google Wave, and more. Miracle, isn't it? I acknowledge <i>Edward Tufte</i>'s <u>Envisioning Information</u>.</p>
             </div>
-            <div>
-            <ul class="ThreadView">
+            <ul class="ThreadView collapsed">
+               <li class="expand"></li>
                <li class="BlipView">
                   <div class="control">
                      <time>10:24:31 22/12/2012</time>
@@ -69,7 +58,8 @@
                   <div class="inner" style="border-color: #9CEFBD;">
                      <p>This is a blip in a thread. You notice that it is visually seperated from the last thread through use of padding?
                   </div>
-                  <ul class="ThreadView">
+                  <ul class="ThreadView collapsed">
+                     <li class="expand"></li>
                      <li class="BlipView addBlip">
                         <div class="inner">
                            Add a post
@@ -87,7 +77,8 @@
                   <div class="inner" style="border-color: #9CA0EF;">
                      <p>Yet all the blips are held closely together, making a solid thread.</p>
                   </div>
-                  <ul class="ThreadView">
+                  <ul class="ThreadView collapsed">
+                     <li class="expand"></li>
                      <li class="BlipView">
                         <div class="control">
                            <time>12:26:33 30/12/2012</time>
@@ -98,7 +89,8 @@
                         <div class="inner" style="border-color: #EFCC9C;">
                            <p>And another layer in, so as to show that embedded comments work well. Don't they?</p>
                         </div>
-                        <ul class="ThreadView">
+                        <ul class="ThreadView collapsed">
+                           <li class="expand"></li>
                            <li class="BlipView addBlip">
                               <div class="inner">
                                  Add a post
@@ -137,13 +129,19 @@
                </ul>
                <p>The service would have limited storage to avoid competition with future clients and maintain costs.</p>
             </div>
-            <ul class="ThreadView">
+            <ul class="ThreadView collapsed">
+               <li class="expand"></li>
                <li class="BlipView addBlip">
                   <div class="inner">
                      Add a post
                   </div>
                </li>
             </ul>
+         </li>
+         <li class="BlipView addBlip">
+            <div class="inner">
+               Add a post
+            </div>
          </li>
       </ul>
    </div>
