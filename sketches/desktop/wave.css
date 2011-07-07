@@ -11,24 +11,29 @@ ul.ThreadView > li.addBlip > .inner {
 }
 ul.ThreadView {padding-top: 5px; padding-bottom: 5px;}
 ul.ThreadView.collapsed, ul.ThreadView .expand {
-   content: url(thread.png);
    float: right;
    position: relative;
    top: -25px;
    cursor: pointer;
 }
+ul.ThreadView.collapsed {content: url(threado.png);}
+ul.ThreadView .expand {content: url(threadc.png);}
 
 /* control panels */
-/*.control {
-   width: 20px;
-   float: right;
+.control {
+   width: 55px;
+   position: absolute;
+   right: 5px;
+   font-size: 10px;
 }
+.control .parts {display: blocks;}
 .control .parts li {
-   width: 5px;
+   width: 2px;
+   height: 2px;
    display: inline;
    padding: 3px;
-}*/
-.control {display: none;}
+}
+/*.control {display: none;}*/
 
 /*Participants bar*/
 ul.ParticipantsBar {
@@ -70,6 +75,9 @@ ul.ParticipantsBar li.sep {
    padding: 0px; margin: 0px;
 }
 
+.WaveletView {
+   width: 100%;
+}
 /*Customizable*/
 ul.ParticipantsBar {
    background-color: #aaa;

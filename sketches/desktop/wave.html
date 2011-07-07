@@ -10,13 +10,20 @@
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
    <script type="text/javascript">
       $(function() {
-         function showHide(el) {$(el).toggleClass('collapsed');}
-         $('ul.ThreadView.collapsed').click(function(evt) {
+         function applyEvents() {
+            $('ul.ThreadView.collapsed').click(show);
+            $('ul.ThreadView li.expand').click(hide);
+         }
+         function show() {
             if ($(this).hasClass('collapsed')) $(this).removeClass('collapsed');
-         });
-         $('ul.ThreadView li.expand').click(function(evt) {
+            applyEvents();
+         }
+         function hide(evt) {
             $(this).parent().addClass('collapsed');
-         });
+            applyEvents();
+            evt.stopPropagation();
+         }
+         applyEvents();
       });
    </script>
 </head>
@@ -46,7 +53,7 @@
                <p>Have you noticed that the frame surrounding this blip ("wave post") identifies it's last contributor. This makes for a lighter weight and more versitile design (especially with soft, rounded corners) for now the only dominant item contained inside the blip is it's content.</p>
                <p>Yet still we maintained all the metadata presented in Google Wave, and more. Miracle, isn't it? I acknowledge <i>Edward Tufte</i>'s <u>Envisioning Information</u>.</p>
             </div>
-            <ul class="ThreadView collapsed">
+            <ul class="ThreadView">
                <li class="expand"></li>
                <li class="BlipView">
                   <div class="control">
@@ -120,7 +127,7 @@
                </ul>
             </div>
             <div class="inner" style="border-color: #9CA0EF;">
-               <p>We have also avoided breaks in reading, for the Apple HIG said "Only show the user what they want to see" and Edward Tufte consoles to keep comparible items within an eyespan. Don't you prefer it?</p>
+               <p>We have also avoided breaks in reading, for the Apple HIG said "Only show the user what they want to see" and Edward Tufte counsels to keep comparible items within an eyespan. Don't you prefer it?</p>
                <p class="p">And while I've got a wave here, I'd like to take the time to say that when we demo PyOfWave, we'll use it for all communication. In particular:</p>
                <ul>
                <li>dev@pyofwave.info group in place of a mailing list.</li>
