@@ -28,7 +28,8 @@
 		<span>spock</span></li>
 	<li class="add" title="Add Participant. . ."></li>
       </ul>
-      <ul class="ThreadView">
+      <div class="ThreadView collapsed">
+      <ul>
          <li class="BlipView">
             <div class="control">
                <time>09:23:30 21/12/2012</time>
@@ -42,8 +43,9 @@
                <p>Have you noticed that the frame surrounding this blip ("wave post") identifies it's last contributor. This makes for a lighter weight and more versitile design (especially with soft, rounded corners) for now the only dominant item contained inside the blip is it's content.</p>
                <p>Yet still we maintained all the metadata presented in Google Wave, and more. Miracle, isn't it? I acknowledge <i>Edward Tufte</i>'s <u>Envisioning Information</u>.</p>
             </div>
-            <ul class="ThreadView">
-               <li class="expand"></li>
+            <div class="ThreadView collapsed">
+            <p class="expand"></p>
+            <ul>
                <li class="BlipView">
                   <div class="control">
                      <time>10:24:31 22/12/2012</time>
@@ -54,8 +56,9 @@
                   <div class="inner" style="border-color: #9CEFBD;">
                      <p>This is a blip in a thread. You notice that it is visually seperated from the last thread through use of padding?
                   </div>
-                  <ul class="ThreadView collapsed">
-                     <li class="expand"></li>
+                  <div class="ThreadView collapsed">
+                  <p class="expand"></p>
+                  <ul>
                      <li class="BlipView addBlip">
                         <div class="inner">
                            Add a post
@@ -73,8 +76,9 @@
                   <div class="inner" style="border-color: #9CA0EF;">
                      <p>Yet all the blips are held closely together, making a solid thread.</p>
                   </div>
-                  <ul class="ThreadView collapsed">
-                     <li class="expand"></li>
+                  <div class="ThreadView collapsed">
+                  <p class="expand"></p>
+                  <ul>
                      <li class="BlipView">
                         <div class="control">
                            <time>12:26:33 30/12/2012</time>
@@ -85,14 +89,16 @@
                         <div class="inner" style="border-color: #EFCC9C;">
                            <p>And another layer in, so as to show that embedded comments work well. Don't they?</p>
                         </div>
-                        <ul class="ThreadView collapsed">
-                           <li class="expand"></li>
+                        <div class="ThreadView collapsed">
+                        <p class="expand"></p>
+                        <ul>
                            <li class="BlipView addBlip">
                               <div class="inner">
                                  Add a post
                               </div>
                            </li>
                         </ul>
+                        </div>
                      </li>
                      <li class="BlipView addBlip">
                         <div class="inner">
@@ -100,6 +106,7 @@
                         </div>
                      </li>
                   </ul>
+                  </div>
                </li>
                <li class="BlipView addBlip">
                   <div class="inner">
@@ -107,6 +114,7 @@
                   </div>
                </li>
             </ul>
+            </div>
          </li>
          <li class="BlipView">
             <div class="control">
@@ -125,7 +133,8 @@
                </ul>
                <p>The service would have limited storage to avoid competition with future clients and maintain costs.</p>
             </div>
-            <ul class="ThreadView collapsed">
+            <div class="ThreadView collapsed">
+            <ul>
                <li class="expand"></li>
                <li class="BlipView addBlip">
                   <div class="inner">
@@ -140,6 +149,7 @@
             </div>
          </li>
       </ul>
+      </div>
    </div>
 </body>
 </html>

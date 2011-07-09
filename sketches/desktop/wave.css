@@ -1,15 +1,16 @@
-ul.ThreadView > li {
+.ThreadView > ul > li {
    list-style-type: none;
    padding: 0px; margin: 0px;
 }
-ul.ThreadView > li > .inner {
+.ThreadView > ul > li > .inner {
    border: 3px solid;
    border-radius: 10px;
 }
-ul.ThreadView > li.addBlip > .inner {
+.ThreadView > ul> li.addBlip > .inner {
    border-color: #ccc;
+   color: #444;
 }
-ul.ThreadView {
+.ThreadView > ul {
    padding-top: 5px; padding-bottom: 5px;
 
    transition: all 1s ease;
@@ -17,9 +18,10 @@ ul.ThreadView {
    -webkit-transition: all 1s ease;
    -o-transition: all 1s ease;
 }
+.ThreadView {padding: 0px;}
 
 /* quote button in threadviews */
-ul.ThreadView li.expand {
+.ThreadView .expand {
    float: right;
    position: relative;
    top: -25px;
@@ -28,13 +30,17 @@ ul.ThreadView li.expand {
    height: 20px; width: 20px;
    display: block;
 }
-ul.ThreadView .expand {background: url(threadc.png);}
-ul.ThreadView.collapsed .expand {background: url(threado.png);}
+.ThreadView .expand {background: url(threadc.png);}
+.ThreadView.collapsed .expand {background: url(threado.png);}
 
 /* collapsed threadviews */
-ul.ThreadView.collapsed {padding: 0; height: 0;}
-.ThreadView.collapsed li {height: 0px;}
-.ThreadView.collapsed li * {display: none;}
+.ThreadView.collapsed > ul {
+   padding: 0; height: 0px; 
+   overflow: hidden;
+}
+.ThreadView.collapsed .control {
+   display: none;
+}
 
 /* control panels */
 .control {
