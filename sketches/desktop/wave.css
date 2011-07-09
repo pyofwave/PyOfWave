@@ -9,15 +9,32 @@ ul.ThreadView > li > .inner {
 ul.ThreadView > li.addBlip > .inner {
    border-color: #ccc;
 }
-ul.ThreadView {padding-top: 5px; padding-bottom: 5px;}
-ul.ThreadView.collapsed, ul.ThreadView .expand {
+ul.ThreadView {
+   padding-top: 5px; padding-bottom: 5px;
+
+   transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -webkit-transition: all 1s ease;
+   -o-transition: all 1s ease;
+}
+
+/* quote button in threadviews */
+ul.ThreadView li.expand {
    float: right;
    position: relative;
    top: -25px;
    cursor: pointer;
+
+   height: 20px; width: 20px;
+   display: block;
 }
-ul.ThreadView.collapsed {content: url(threado.png);}
-ul.ThreadView .expand {content: url(threadc.png);}
+ul.ThreadView .expand {background: url(threadc.png);}
+ul.ThreadView.collapsed .expand {background: url(threado.png);}
+
+/* collapsed threadviews */
+ul.ThreadView.collapsed {padding: 0; height: 0;}
+.ThreadView.collapsed li {height: 0px;}
+.ThreadView.collapsed li * {display: none;}
 
 /* control panels */
 .control {

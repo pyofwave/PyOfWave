@@ -10,20 +10,9 @@
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
    <script type="text/javascript">
       $(function() {
-         function applyEvents() {
-            $('ul.ThreadView.collapsed').click(show);
-            $('ul.ThreadView li.expand').click(hide);
-         }
-         function show() {
-            if ($(this).hasClass('collapsed')) $(this).removeClass('collapsed');
-            applyEvents();
-         }
-         function hide(evt) {
-            $(this).parent().addClass('collapsed');
-            applyEvents();
-            evt.stopPropagation();
-         }
-         applyEvents();
+         $('ul.ThreadView .expand').click(function(evt) {
+            $(evt.target).parent().toggleClass('collapsed');
+         });
       });
    </script>
 </head>
