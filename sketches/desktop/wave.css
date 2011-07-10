@@ -94,7 +94,7 @@ ul.ParticipantsBar li.sep {
 	background-color: black;
 }
 
-.WaveletView > ul.ThreadView {
+.WaveletView > .ThreadView {
    padding: 0px; margin: 0px;
 }
 
