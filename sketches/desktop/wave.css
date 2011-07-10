@@ -24,7 +24,7 @@
 .ThreadView .expand {
    float: right;
    position: relative;
-   top: -50px;
+   top: -40px;
    cursor: pointer;
 
    height: 20px; width: 20px;
