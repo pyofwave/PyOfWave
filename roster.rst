@@ -67,7 +67,7 @@ Storage Schemes (either of these can be implemented for basic features)
 Miscellaneous (all required for basic features)
 -------------
 
-- Operations (listed "domains")
+- Operations (listed "domains")- txusinho ( )
 
   - auth
 
