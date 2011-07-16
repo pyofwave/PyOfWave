@@ -39,16 +39,11 @@ $().ready(function() {
 
 	$('#client #inboxes .content').treeview();
 
-	//Fix searchbox appearance for non-safari users (Safari has a nonstandard way to get the full control).
-	applesearch.init();
+	//Fix searchbox appearance for chrome users (Safari has a nonstandard way to get the full control).
+	if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) $('input[type=search]').css('-webkit-appearance: none;');
 });
 </script>
 <link href="/site.css" rel="stylesheet" type="text/css"/>
-
-<link rel="stylesheet" type="text/css" href="osx_searchbox_v1/default.css" name="default"  />
-<link rel="stylesheet" type="text/css" href="osx_searchbox_v1/dummy.css" id="dummy_css"  />
-<script type="text/javascript" src="osx_searchbox_v1/applesearch.js"></script>
-
 </head>
 <body>
 
