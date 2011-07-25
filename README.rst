@@ -9,14 +9,14 @@ The server provides protocols around some core functionality (authentication, pr
 
 The client and server acts as 2 different programs. The server is a customizable application while the client is some CGI and "static" web files. 
 
+When launched, PyOfWave appears to do nothing, but don't worry, it sets up API and shortly Internet access to them. 
+
 Dependancies
 --------------------
 
-+ Python 2.7+ -  http://python.org/
++ Python 2.7+ -  http://python.org/ (older versions can be used with installation of importlib)
 
 + Twisted (requires zope.interface)  - http://twistedmatrix.com/
-
-+ python-xmpp-server (requires Tornado - http://tornadoweb.org/)  - https://github.com/thisismedium/python-xmpp-server/
 
 + CouchDB - http://couchdb.apache.org/ or any Relational Database System (Optional, recommended for production)
 
@@ -46,4 +46,4 @@ Used jQuery Plugins
 P. S. 
 ====
 
-Tasks are currently being rostered off of the roster.rst file. A few additional scripts modules will be added over the next few days as described by the file, and then I'll put this project on Mozilla Drumbeat. 
+Tasks are currently being rostered off of the roster.rst file. 
