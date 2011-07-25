@@ -44,7 +44,7 @@ class Message(object):
         self.version = version
 
 DeltaObserverPool = Pool(SETTINGS.DELTA_OBSERVER_PROCESSES,
-                         None, None, SETTINGS.DELTA_OBSERVER_TIMEOUT)
+                         None, SETTINGS.DELTA_OBSERVER_TIMEOUT)
 class DeltaObservable(object):
     """The subject in the observer pattern."""
     def __init__(self):
