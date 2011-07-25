@@ -1,14 +1,15 @@
 """
 Central resource for all HTTP protocols.
 """
-
+from twisted.web.resource import Resource
+from twisted.web.server import Site
 root = Resource()
 
 sys = Resource()
-root.put("sys", sys)
+root.putChild("sys", sys)
 client = Resource()
-root.put("client", client)
+root.putChild("client", client)
 auth = Resource()
-root.put("auth", auth)
+root.putChild("auth", auth)
 
 factory = Site(root)
