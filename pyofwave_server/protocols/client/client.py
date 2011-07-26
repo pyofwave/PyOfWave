@@ -10,8 +10,7 @@ from ...core.operation import performOperation
 
 class ClientProtocol(Protocol):
     """Interface for clients to call operations on the server."""
-    def __init__(self, *args, **kwargs):
-        super(ClientProtocol, self).__init__(*args, **kwargs)
+    def connectionMade(self):
         self._mname = ""
         self._mmethod = ""
         self._mkwargs = {}
@@ -31,12 +30,18 @@ class ClientProtocol(Protocol):
             value = value.strip()
             
             self._mkwargs[key] = value #TODO change key to a nested dictionary path.
+            print self._mkwargs
         else:
             pass #TODO send error.500 response
     
+    def connectionLost(self, reason):
+        """Calls the final operation."""
+        self.call()
+        
     def call(self):
         """Calls the method specified from the parsed request."""
-        performOperation(self.transport.getPeer(), self._mmethod, self._mkwargs)
+        if self._mmethod: 
+            performOperation(self.transport.getPeer(), self._mmethod, self._mkwargs)
         self._mname = ""
         self._mmethod = ""
         self._mkwargs = {}
