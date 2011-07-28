@@ -6,7 +6,7 @@ core.tags.Tag objects.
 from .. import tags, datasource as ds
 
 print "\n\nThis test ensures that tag objects can be created from documents."
-document = ds.Document(
+document = ds.Document("",
     ds.Item(ds.Item.TYPE_START_TAG, 'conversation'),
     ds.Item(ds.Item.TYPE_START_TAG, 'blip'),
     ds.Item(ds.Item.TYPE_TEXT, 'w'),

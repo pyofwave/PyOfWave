@@ -25,7 +25,7 @@ printed as:
 
 print "\nretain  ('<a>spam</a>' in '<a>spam</a> & </a>eggs</a>')"
 #--------------------------------------------------------
-document = ds.Document(
+document = ds.Document("",
     ds.Item(ds.Item.TYPE_START_TAG, 'a'),
     ds.Item(ds.Item.TYPE_TEXT, 's'),  # The standard stores each charactor seperately.
     ds.Item(ds.Item.TYPE_TEXT, 'p'),
@@ -51,7 +51,7 @@ print res
 
 print "\nupdateAttributes (spam='eggs' to spam=42)"
 #--------------------------------------------------------
-document = ds.Document(
+document = ds.Document("",
     ds.Item(ds.Item.TYPE_TEXT, 'w', spam = 'eggs'))
 print document
 deltaTest = delta.Delta(delta.Operation('updateAttributes',
@@ -62,7 +62,7 @@ print res
 
 print "\nreplaceAttributes (spam='eggs' to spam=42)"
 #--------------------------------------------------------
-document = ds.Document(
+document = ds.Document("",
     ds.Item(ds.Item.TYPE_TEXT, 'w', spam='eggs'))
 print document
 deltaTest = delta.Delta(
@@ -75,7 +75,7 @@ print res
 print "\nelementStart, charactors, and elementEnd " + \
 "('' to '<spam foo='bar'>eggs</spam>')"
 #--------------------------------------------------------
-document = ds.Document()
+document = ds.Document("")
 print document
 deltaTest = delta.Delta(
     delta.Operation('elementStart', 'spam', {'foo':'bar',}),
@@ -88,7 +88,7 @@ print res
 
 print "\ndeleteCharactors  ('Spam & Eggs!' to 'Spam!')"
 #--------------------------------------------------------
-document = ds.Document(
+document = ds.Document("",
     ds.Item(ds.Item.TYPE_TEXT, 'S'),
     ds.Item(ds.Item.TYPE_TEXT, 'p'),
     ds.Item(ds.Item.TYPE_TEXT, 'a'),
@@ -115,7 +115,7 @@ print res
 print "\ndeleteElementStart, deleteCharactors, and deleteElementEnd"
 print "('<a>spam</a>!' in '<a>spam</a> & </a>eggs</a>!')"
 #--------------------------------------------------------
-document = ds.Document(
+document = ds.Document("",
     ds.Item(ds.Item.TYPE_START_TAG, 'a'),
     ds.Item(ds.Item.TYPE_TEXT, 's'),  
     ds.Item(ds.Item.TYPE_TEXT, 'p'),
@@ -148,7 +148,7 @@ print res
 
 print "\nannotationsBoundary (spam='eggs' to life=42)"
 #--------------------------------------------------------
-document = ds.Document(ds.Item(ds.Item.TYPE_TEXT, 'w', spam='eggs'))
+document = ds.Document("", ds.Item(ds.Item.TYPE_TEXT, 'w', spam='eggs'))
 print document
 deltaTest = delta.Delta(delta.Operation('annotationsBoundary',
                                         ('spam',), {'life':('', 42),}))

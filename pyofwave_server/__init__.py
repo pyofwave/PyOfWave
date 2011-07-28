@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-import PREFERENCES, internet
+import PREFERENCES 
+import internet
 
 # run tests, uncomment to debug
 

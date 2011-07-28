@@ -7,7 +7,7 @@ from .. import tags, datasource as ds
 print "\nThis script creates and minipulates core.tags.Tag objects. It outputs" + \
       " various values which should be 'eggs', 'blip', 0, and a core.tags.Text object."
 
-tag = tags.Tag(ds.Document(), "blip")
+tag = tags.Tag(ds.Document(""), "blip")
 tag1 = tags.Tag(tag, ds.Item(ds.Item.TYPE_START_TAG, "blip", spam="eggs"))
 
 tag1.spam = 42

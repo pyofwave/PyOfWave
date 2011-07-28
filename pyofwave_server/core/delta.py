@@ -17,7 +17,7 @@ class Delta(object):
         """Use to apply changes described to a document doc."""
         from datasource import Document
         
-        if isinstance(doc, Document): rep = Document()
+        if isinstance(doc, Document): rep = Document(doc.id)
         else: rep = doc
         
         doc.cursor = 0
