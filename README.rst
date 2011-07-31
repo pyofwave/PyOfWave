@@ -24,24 +24,22 @@ Dependancies
 Client
 ====
 
-The client provides a dynamic web based interface to PyOfWave_server, using the Wave Simple Data Protocol. It is designed to be embedded in the frame of your site and delivers great customizability and ease.  
+The client provides a dynamic web based interface to PyOfWave_server, using websockets on the client protocol or a backup protocol. It is designed to be embedded in the frame of your site and delivers great customizability and ease.  
 
-It is written using the JavaScriptMVC library and jQuery, both of which are included in this project.
+It is written using Agility.js and jQuery, both of which are included in this project.
 
 Used jQuery Plugins
 ------------------------------
 
-- jQuery UI slider
+- jQuery UI slider & dialog (http://jqueryui.com/)
 
-- JavaScriptMVC (http://javascriptmvc.com/)
+- Agility.js (https://github.com/arturadib/agility/)
 
 - farbtastic (https://github.com/mattfarina/farbtastic/)
 
 - editabletext (https://github.com/alcinnz/editableText/)
 
 - treeview (http://bassistance.de/jquery-plugins/jquery-plugin-treeview/)
-
-- JSON plugin encoder (derived for easy access, http://www.ramirezcobos.com/2009/12/30/json-jquery-plugin/)
 
 P. S. 
 ====

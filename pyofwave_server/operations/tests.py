@@ -1,2 +1,2 @@
-def operation(foo):
+def operation(ip, foo):
     """A simple Operation to test against."""
