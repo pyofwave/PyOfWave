@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<!-- Tested in all major browsers except IE (I don't think it's worth the trouble as questioned versions wouldn't support necessary features). -->
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PyOfWave</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="splitter.js"></script>
+
+<script type="text/javascript" src="jquery.treeview.js"></script>
+<link href="jquery.treeview.css" rel="stylesheet" type="text/css"/>
+
+
+<link href="blocks.css" type="text/css" rel="stylesheet"/>
+<link href="grey-style.css" type="text/css" rel="stylesheet"/>
+<style type="text/css" media="all">
+header { padding: 1em; }
+</style>
+<script type="text/javascript">
+$().ready(function() {
+
+	// Main vertical splitter, anchored to the browser window
+	$("#client").splitter({
+		type: "v",
+		sizeLeft: 200,
+		anchorToWindow: true,
+		accessKey: "L",
+		cursor: 'move'
+	});
+	// Second vertical splitter, nested in the right pane of the main one.
+	$("#client #wave-views").splitter({
+		type: "v",
+		sizeRight: 500,
+		accessKey: "R",
+		cursor: 'move'
+	});
+
+	$('#client #inboxes .content').treeview();
+
+	//Fix searchbox appearance for chrome users (Safari has a nonstandard way to get the full control).
+	if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) $('input[type=search]').css('-webkit-appearance: none;');
+});
+</script>
+<link href="/site.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<header>
+    <ul id="nav">
+      <li>Home</li>
+      <li><a href="about/" title="About PyOfWave">About</a></li>
+      <li><a href="http://pyofwave.wikispaces.com" title="View wiki pages on design and usage">Wiki</a></li>
+      <li><a href="docs/" title="PyOfWave Documentation">Documentation</a></li>
+      <li><a href="https://github.com/alcinnz/PyOfWave" title="View PyOfWave on GitHub.">Project</a></li>
+      <li><a href="http://github.com/alcinnz/PyOfWave/zipball/masterz" title="Download PyOfWave Server and Web Client">Download</a></li>
+      <li class="current">Demo</li>
+      <li><a href="logout.html" title="logout of your demo Wave account">Log Out</a></li>
+    </ul>
+
+
+	<img src="img/logo.png" alt="PyOfWave logo"/>
+</header>
+
+<div id="client">
+
+  <section id="inboxes">
+	<aside>
+		<form><input type="search" id="srch_fld" autosave="bsn_srch" results="5" />
+		</form>
+	</aside>
+	<ul class="content">
+		<li><span><img src="w.png" alt="folder icon" />All Waves</span> <ul>
+			<li><span><img src="w.png" alt="folder's icon" />Unread</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Chats</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Spam</span></li>
+			<li><span><img src="w.png" alt="folder's icon" />Archive</span></li>
+			<li><span><img src="img/search.png" alt="folder's icon" />Searches</span> <ul>
+				<li><span><img src="img/search.png" alt="folder's icon"/>Preferences</span></li>
+				<li><span><img src="img/search.png" alt="folder's icon"/>PyOfWave</span></li>
+			</ul></li>
+		</ul></li>
+	</ul>
+        <aside class="buttons bottom">
+		<a class="add left" title="Add new folder. . ."></a>
+		<a class="remove left" title="Remove selected folder"></a>
+		<a class="edit left" title="Edit selected folder"></a>
+	</aside>
+  </section> 
+  
+  <div id="wave-views">
+  <section id="wavelist">
+	<aside class="buttons">
+		<a class="add left" title="Create new wave"></a>
+		<a class="folder right" title="Storage options. . ."></a>
+	</aside>
+	<ul class="content">
+		<li style="border-color: #9CA0EF;" class="selected" title="View this wave">
+                    <p><img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>spock@federation.gov <time>04:05:06 07/08/09</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EFCC9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>malcom@serenity.ship <time>05:06:07 08/09/10</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EF7778;" title="View this wave">
+                        <p><img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/>
+				<img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/></p>
+                        <h2>master@timelords.gal <time>06:07:08 09/10/11</time></h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #9CEFBD;" title="View this wave">
+                    <p><img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+                    </p>
+                    <h2>shepherd@serenity.ship <time>07:08:09 10/11/12</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #B1EF9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/>
+			<img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/></p>
+		    <h2><img src="img/unread.png" alt="Unread wave"/>yoda@jedi.org <time>08:09:10 11/12/13</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+                <li style="border-color: #9CA0EF;" title="View this wave">
+                    <p><img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>spock@federation.gov <time>04:05:06 07/08/09</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EFCC9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>malcom@serenity.ship <time>05:06:07 08/09/10</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EF7778;" title="View this wave">
+                        <p><img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/>
+				<img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/></p>
+                        <h2>master@timelords.gal <time>06:07:08 09/10/11</time></h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #9CEFBD;" title="View this wave">
+                    <p><img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+                    </p>
+                    <h2>shepherd@serenity.ship <time>07:08:09 10/11/12</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #B1EF9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/>
+			<img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/></p>
+		    <h2><img src="img/unread.png" alt="Unread wave"/>yoda@jedi.org <time>08:09:10 11/12/13</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+                <li style="border-color: #9CA0EF;" title="View this wave">
+                    <p><img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>spock@federation.gov <time>04:05:06 07/08/09</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EFCC9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>malcom@serenity.ship <time>05:06:07 08/09/10</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EF7778;" title="View this wave">
+                        <p><img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/>
+				<img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/></p>
+                        <h2>master@timelords.gal <time>06:07:08 09/10/11</time></h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #9CEFBD;" title="View this wave">
+                    <p><img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+                    </p>
+                    <h2>shepherd@serenity.ship <time>07:08:09 10/11/12</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #B1EF9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/>
+			<img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/></p>
+		    <h2><img src="img/unread.png" alt="Unread wave"/>yoda@jedi.org <time>08:09:10 11/12/13</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+                <li style="border-color: #9CA0EF;" title="View this wave">
+                    <p><img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>spock@federation.gov <time>04:05:06 07/08/09</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EFCC9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+                    </p>
+                    <h2>malcom@serenity.ship <time>05:06:07 08/09/10</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #EF7778;" title="View this wave">
+                        <p><img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/>
+				<img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/></p>
+                        <h2>master@timelords.gal <time>06:07:08 09/10/11</time></h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #9CEFBD;" title="View this wave">
+                    <p><img src="img/participant.png" alt="shepherd's avatar" title="shepherd@serenity.ship" style="border: 3px solid #9CEFBD;" class="left"/>
+			<img src="img/participant.png" alt="spock's avatar" title="spock@federation.gov" style="border: 3px solid #9CA0EF;" class="left"/>
+			<img src="img/participant.png" alt="malcom's avatar" title="malcom@serenity.ship" style="border: 3px solid #EFCC9C;" class="left"/>
+                    </p>
+                    <h2>shepherd@serenity.ship <time>07:08:09 10/11/12</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+		<li style="border-color: #B1EF9C;" title="View this wave">
+                    <p><img src="img/participant.png" alt="yoda's avatar" title="yoda@jedi.org" style="border: 3px solid #B1EF9C;" class="left"/>
+			<img src="img/participant.png" alt="master's avatar" title="master@timelords.gal" style="border: 3px solid #EF7778;" class="left"/></p>
+		    <h2><img src="img/unread.png" alt="Unread wave"/>yoda@jedi.org <time>08:09:10 11/12/13</time></h2>
+		    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula massa, imperdiet vitae ultricies in, scelerisque non tellus. Sed vel.</p>
+		</li>
+	</ul>
+  </section>
+	
+  <section id="wave">
+	<div class="wrapper">
+	<aside>
+		<div class="buttons">
+			<a class="view right" title="View this wave in a new window" target="__new__" href="wave.html"></a>
+			<a class="play right" title="Playback this wave"></a>
+		</div>
+
+		<ul class="ParticipantsBar">
+			<li><img style="border-color: #EFCC9C;" src="img/participant.png" alt="malcom@serenity.ship's avatar" title="malcom@serenity.ship"/>
+				<span>malcom</span></li>
+			<li><img style="border-color: #9CEFBD;" src="img/participant.png" alt="shepherd@serenity.ship's avatar" title="shepherd@serenity.ship"/>
+				<span>shepherd</span></li>
+			<li class="sep"></li>
+			<li><img style="border: none;" src="img/participant.png" alt="spock@federation.gov's avatar" title="spock@federation.gov"/>
+				<span>spock</span></li>
+			<li class="add" title="Add Participant. . ."></li>
+		</ul>
+	</aside>
+	<!-- Wave widgets will be here -->
+	<aside class="bottom"><ul class="tags">
+		<li class="private">Inbox</li>
+		<li>rank:0</li>
+		<li>+</li>
+	</ul></aside>
+  </section>	
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+.ThreadView > ul > li {
+   list-style-type: none;
+   padding: 0px; margin: 0px;
+}
+.ThreadView > ul > li > .inner {
+   border: 3px solid;
+   border-radius: 10px;
+}
+.ThreadView > ul> li.addBlip > .inner {
+   border-color: #ccc;
+   color: #444;
+}
+.ThreadView > ul {
+   padding-top: 5px; padding-bottom: 5px;
+
+   transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -webkit-transition: all 1s ease;
+   -o-transition: all 1s ease;
+}
+.ThreadView {padding: 0px;}
+
+/* quote button in threadviews */
+.ThreadView .expand {
+   float: right;
+   position: relative;
+   top: -40px;
+   cursor: pointer;
+
+   height: 20px; width: 20px;
+   display: block;
+}
+.ThreadView .expand {background: url(threadc.png);}
+.ThreadView.collapsed .expand {background: url(threado.png);}
+
+/* collapsed threadviews */
+.ThreadView.collapsed > ul {
+   padding: 0; height: 0px; 
+   overflow: hidden;
+}
+.ThreadView.collapsed .control {
+   display: none;
+}
+
+/* control panels */
+.control {
+   width: 55px;
+   position: absolute;
+   right: 5px;
+   font-size: 10px;
+}
+.control .parts {display: blocks;}
+.control .parts li {
+   width: 2px;
+   height: 2px;
+   display: inline;
+   padding: 3px;
+}
+/*.control {display: none;}*/
+
+/*Participants bar*/
+ul.ParticipantsBar {
+	padding: 0px; margin: 0px;
+	height: 50px;
+	border-radius: 10px;
+}
+ul.ParticipantsBar li {
+	display: block;
+	float: left;
+	width: 3em;
+	padding: 0px;
+	margin: 0 4px 0 4px;
+	text-align: center;
+}
+ul.ParticipantsBar img {
+	width: 35px;
+	height: 35px;
+	padding: 0px;
+	display: block;
+	border: 2px solid; /*Color specified as user selected in HTML*/
+}
+ul.ParticipantsBar span {
+	display: block;
+	height: 10px;
+	line-height: 10px;
+	text-align: left;
+	font-size: 8px;
+	margin: 0px;
+	overflow-y: hidden;
+}
+ul.ParticipantsBar li.sep {
+	height: 40px;
+	width: 2px;
+	background-color: black;
+}
+
+.WaveletView > .ThreadView, .WaveletView > .ThreadView > ul {
+   padding: 0px; margin: 0px;
+}
+
+.WaveletView {
+   width: 100%;
+}
+/*Customizable*/
+ul.ParticipantsBar {
+   background-color: #aaa;
+   color: #f00;
+}
+
+.add {
+	height: 48px;
+	width: 48px;
+	cursor: pointer;
+	background:url('img/buttons.png') -2px -2px;
+}
+.add:hover {
+	background:url('img/buttons.png') -2px -52px;
+}
