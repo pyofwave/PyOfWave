@@ -22,6 +22,7 @@ def processFile(script, path):
 	# remove comments
 	# remove whitespace
 	re.sub('//.*', '', script)
+	re.sub('/\*.*\*/', '', script)
 	re.sub('\s+', ' ', script)
 
 	return script
