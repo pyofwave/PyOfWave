@@ -7,7 +7,7 @@ processed = [sys.argv[1],]
 
 def processFile(script, path):
 	# include any JavaScripts that are imported with import.js
-  def loadScript(match):
+	def loadScript(match):
 		rep = ""
 		for script in match.groups():
 			if script not in processed:
