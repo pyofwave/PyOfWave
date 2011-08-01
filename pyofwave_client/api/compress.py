@@ -1,9 +1,10 @@
 # simple javascript compression script
 import re, os
 
-i = open(sys.argv[1], 'r');
+path = sys.argv[1]
+i = open(path, 'r');
 o = open(sys.argv[2], 'w');
-processed = [sys.argv[1],]
+processed = [path,]
 
 def processFile(script, path):
 	# include any JavaScripts that are imported with import.js
@@ -13,8 +14,10 @@ def processFile(script, path):
 			if script not in processed:
 				fpath = os.path.join(path, script)
 				scriptfile = open(fpath, 'r')
-				rep += processFile(scriptFile.read(), fpath)
+				rep += processFile(scriptFile.read(), OS.path.dirname(fpath))
 				scriptfile.close()
+
+				processed.append(processed)
 		return rep
 
 	re.sub('import\([\s*[\'|"](.*)[\'|"][,\s*]?\);', loadScript(), script)
@@ -27,7 +30,7 @@ def processFile(script, path):
 
 	return script
 
-o.write(processFile(i.read(), sys.argv[1]))
+o.write(processFile(i.read(), os.path.dirname(path)))
 i.close()
 o.close()
 
