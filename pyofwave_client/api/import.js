@@ -4,7 +4,7 @@ function import() {
     var request = new XMLHTTPRequest();
     request.open("get", m, false);
     request.send();
-    eval(request.responseText);
+    new Function(request.responseText)()
 
     import.loaded.push(m);
   }
