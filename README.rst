@@ -37,9 +37,9 @@ Used jQuery Plugins
 
 - farbtastic (https://github.com/mattfarina/farbtastic/)
 
-- editabletext (https://github.com/alcinnz/editableText/)
+- jsTree (http://www.jstree.com/)
 
-- treeview (http://bassistance.de/jquery-plugins/jquery-plugin-treeview/)
+- jQuery Splitter (http://methvin.com/splitter/)
 
 P. S. 
 ====
