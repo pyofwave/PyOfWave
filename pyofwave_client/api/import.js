@@ -18,7 +18,7 @@
 
   // import script
   window.import = function() {
-    for (var script in arguments) {
+    for (var i in arguments) {var script = arguments[i];
       if (loaded.indexOf(script) <= 0) {
         request.open("GET", script, false);
         request.send();
