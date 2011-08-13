@@ -13,4 +13,4 @@ def result(ip, foo, bar):
 def error(ip):
     """A simple Operation to test errors against."""
     from .. import operations
-    raise operations.OperationError(500, cause="I can't let you do that.",  reason="DON'T SHUT ME DOWN!")
+    raise operations.OperationError(501, cause="I can't let you do that.",  reason="DON'T SHUT ME DOWN!")
