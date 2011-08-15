@@ -13,7 +13,7 @@ ul#nav li {display : inline; list-style-marker : none;}
 ul#nav a {color: #f00; font-weight: normal;}
 ul#nav > *:after {content: " |";}
 
-.footer { text-align:center; padding-top:30px; font-style: italic; }
+.footer { text-align:center; padding-top:30px; font-style: italic; font-weight: bold;}
 
 /* content styles.*/
 body {
