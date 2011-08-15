@@ -20,3 +20,8 @@ body {
   background: #ddd;
   font: Times New Roman, serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #810000;
+  border-bottom: thin solid #810000;
+}
