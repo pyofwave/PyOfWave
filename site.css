@@ -7,10 +7,11 @@ ul#nav {
 
   background-color: #bbb; font-weight: bold;
   border-bottom-left-radius: 50px;
-  font: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 ul#nav li {display : inline; list-style-marker : none;}
 ul#nav a {color: #f00; font-weight: normal;}
+ul#nav * {before: "|";}
 
 .footer { text-align:center; padding-top:30px; font-style: italic; }
 
