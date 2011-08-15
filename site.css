@@ -1,14 +1,21 @@
-    ul#nav {
-      width : auto;
-      text-align:right;
+ul#nav {
+  width : auto;
+  text-align:right;
 
-      position: absolute;
-      right: 0px; top: -16px;
+  position: absolute;
+  right: 0px; top: -16px;
 
-      background-color: #bbb; font-weight: bold;
-      border-bottom-left-radius: 50px;
-    }
-    ul#nav li {display : inline; list-style-marker : none;}
-    ul#nav a {color: #f00; font-weight: normal;}
+  background-color: #bbb; font-weight: bold;
+  border-bottom-left-radius: 50px;
+  font: Arial, sans-serif;
+}
+ul#nav li {display : inline; list-style-marker : none;}
+ul#nav a {color: #f00; font-weight: normal;}
 
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+.footer { text-align:center; padding-top:30px; font-style: italic; }
+
+/* content styles.*/
+body {
+  background: #ddd;
+  font: Times New Roman, serif;
+}
