@@ -8,6 +8,7 @@ A few additional operations are supported, for optimisations.
 from twisted.internet.protocol import Protocol, Factory
 from ...core.operation import performOperation
 from ...operations import OperationError
+import dictOps
 
 class ClientProtocol(Protocol):
     """Interface for clients to call operations on the server."""
@@ -55,6 +56,7 @@ class ClientProtocol(Protocol):
         
     def sendResponse(self, name, method, kwargs):
         """Writes a response back."""
+        kwargs = dictOps.flatten(kwargs)
         if name: self.transport.write("#"+name)
         self.transport.write("["+method)
         
