@@ -1,6 +1,7 @@
 .ThreadView > ul > li {
    list-style-type: none;
    padding: 0px; margin: 0px;
+   padding-top: 1px;
 }
 .ThreadView > ul > li > .inner {
    border: 3px solid;
