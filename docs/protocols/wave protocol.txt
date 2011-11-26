@@ -50,3 +50,5 @@ A number of XML namespaces are employed, with the main ones being:
 	The client is sent their own actions in confirmation.
 - wave
 	Represents the structure of a wave.
+
+I will provide a folder containing DTDs for these namespaces.
