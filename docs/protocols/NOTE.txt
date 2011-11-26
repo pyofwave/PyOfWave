@@ -1,1 +1,3 @@
-Most of the protocols are old in favor of a new architecture. This file will document changed protocols. 
+Most of the protocols are old in favor of a new architecture. This file will document updated protocols. 
+
+- wave URL.

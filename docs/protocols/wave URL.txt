@@ -1,27 +1,45 @@
 Wave URL
 --------
-Job: To define a method for linking to waves.
-Existing Standards: W3C URL, CSS, Federation Format (illustrative)
+Job: To define a method for linking to and embedding waves, as well as identifying wave components. 
+Existing Standards: W3C URL, (CSS, XML eventually)
+
+Wave Address
+------------
+A Wave Address, is in the same form as a XMPP identifier (JID) or eMail address.
 
 Form
 ---
-The Wave URL starts with "wave://" and followed by a waveID including the domain name. This waveID is in the form "automatic ID!server domain". 
-If you want to create a new wave, use "wave://__new__". 
+The Wave URL starts with "wave://" and is followed by the following components (seperated by slashes (/)):
+- Wave Address of the account which created the wave
+	The domain part does not signal handling by that domain, but serves
+	as a means to ensure unique wave IDs.
+- wave ID
+- wavelet ID
+- post ID
+- (optional) thread ID
+	Prefixed by an ampersand (&). Neglecting infers the replies thread.
+- (repeating post IDs & thread IDs drilling the XML heirarchy of the identified wave)
+
+IDs are relative to previous component. Later components are optional. 
+
+Neglecting all components indicate the creation of a new wave, which can take extra arguments.
 
 Query
 --
 Wave URLs accept query values as follows:
--css - A URL pointing to a CSS file styling the Federation Format tags.
-	It is not neccessary to respect this query.
+-css - A URL pointing to a CSS file styling the wave XML tags.
+	It is not neccessary to respect this query, and will not be 
+	considered a critical feature in PyOfWave. 
 -alias - A Wave Address to act as an alias for users not on the wave, as 
         described by Federation Format. 
--content - Plain text content for the wave. (ONLY FOR __new__)
--gadget - A URL to a gadget to be added after content. (ONLY FOR __new__)
--participant - A wave address to add to the participants. (ONLY FOR __new__)
+
+For new waves (URLs with no components), extra queries may be added:
+-content - Plain text content for the wave. 
+-gadget - A URL to a gadget to be added to the new wave. 
+-participant - A wave address to add to the participants, if several specified, all added.
+
+content and gadget queries are added to the wave in the order they are specified.
 
 Action
 ---
-Either the Simple Data API or the Wave Client Protocol should be used to access data from the wave server. If the default wave server has the user logged in, use that account, but otherwise identify the user as "__anonymous__@"wave provider domain.
-
-If alias is supplied, send that server a request to "https:///alias/login/" sending user & alias keys via POST. That will authenticate the alias as an alias (the user's real account will be appended using a "/"). 
-Note: it is the server's duty to protect the confidentiality of their users. 
+These URLs can be sent straight to the Wave Protocol.
