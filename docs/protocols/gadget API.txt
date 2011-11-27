@@ -2,7 +2,7 @@ Gadget API
 ----------
 
 Job: A minimal API for gadget developers to use and wave clients to implement.
-Existing Standards: ECMAScript (a.k.a. JavaScript), W3C JavaScript API (derived), W3C URL
+Existing Standards: ECMAScript (a.k.a. JavaScript), W3C JavaScript API, W3C URL, W3C WAI-ARIA, W3C CSS
 
 Format
 ------
@@ -16,7 +16,7 @@ Conceptual
 
 Gadgets are included in Wave as an extension point, thereby providing more flexible usage. Conceptually they are mini-applications with shared state which use the participant information of the wave (more specifically post) which it's embedded in.
 
-In order to decrease size of gadget implementations and gadgets themselves (and ease gadget creation), this standard will embrace that by their very nature gadgets are RIAs (Rich Internet Applications). This means they are highly interactive, and such systems are best programmed in JavaScript. For this reason this standard only supports JavaScript, thereby avoiding the verbage of HTML in RIAs. It will also provide additional functions as utilities.
+In order to decrease size of gadget implementations and gadgets themselves (and ease gadget creation), this standard will embrace that by their very nature gadgets are RIAs (Rich Internet Applications). This means they are highly interactive, and such systems are best programmed in JavaScript. For this reason this standard only supports JavaScript, thereby avoiding the verbage of HTML in RIAs. It will also provide additional functions as utilities to help create gadgets and encourage WAI-ARIA accessibility.
 
 KVO (Key Value Observing) APIs will be provided (which can accomadate assignment in browser using a number of short lasting get/set syntax) to simplify the live state APIs and as a utility. KVO would be a nice component since it helps deal with changing data.
 
@@ -42,11 +42,76 @@ This ensures users are confident their data private and happier with sharing wit
 APIs
 ----
 
-This section documents additional APIs to the W3C JavaScript APIs. CoffeeScript-style parameters (... after parameter means that it takes all arguments after it, = indicates a default value). CoffeeScript is not standardized, but an overview is in the https://github.com/pyofwave/PyOfWave repository.
+This section documents additional APIs to the W3C JavaScript APIs. CoffeeScript-style parameters (... after parameter means that it takes all arguments after it, = (JSON value) indicates a default value). CoffeeScript is not standardized, but an overview is in the https://github.com/pyofwave/PyOfWave repository. 
+Asterisks (*) surrounding words in the descriptions refer to the argument of that name.
 
 DOM utils:
 - load(MIMEtype = "", urls...)
+	Sends requests to load each of the *urls* of type *MIMEtype*.
+	Returns an Array of serializations of loaded resources, determined 
+	by *MIMEtype*.
+- resources
+	Object of standard resources. Properties yet to be fully decided, but contains:
+	- camera	-- Still picture from camera with confirmation.
+	- video		-- Live picture and audio with confirmation.
+	- canvas	-- Blank canvas.
+
+- document.build(aria, style, events = {}, children...)
+	DOM builder in JavaScript. 
+	Returns a new element with properties:
+	- data = *aria*		- style = *style*
+	- children = *children*
+	- extended with *events* with all keys prefixed with "on".
+
+	For non-browser environments, this means *aria* specifies metadata 
+	which may be useful on certain platforms as in WAI ARIA, *style* 
+	specifies CSS style properties, *events* specifies DOM events 
+	properties and *children* are visually contained by the return 
+	element.
+- document.buildInput(type, value, placeholder="", events={}, style={})
+	Builds an input element.
+	Returns a new input element with properties:
+	- type = *type*		- value = *value*
+	- style = *style*
+	- extended with *events* with all keys prefixed with "on"
+	- *placeholder* usage decided by input type
+
+	Input type will be derived from W3C input element types, but will 
+	be extended to support other form elements.
+- dialog(title, children..., buttons = ["Cancel", "@O.K."])
+	Displays a dialog with title *title*, content *children*, and 
+	buttons labeled *buttons*. "@" indicates the default button and "&" 
+	indicates keyboard shortcut.
+	Returns the label (without "@" or "&") of the button which closed 
+	the dialog or "Cancel".
+
+Elements with data.user property can be used to show identification of the specified user on hover. 
 
 KVO:
+- observe = $(obj, callback)
+	When *obj* changes, call function *callback*.
+	Returns a function which stops the function from being called.
+- bind = $$(objs...)
+	If only one argument specified, returns a reference to obj which 
+	binds to assigned value when assigned.
+	Otherwise set all arguments to the new value when one changes.
 
 State:
+- state.public
+	Ordinary object which represents state synced with other runtimes 
+	via the embedding wave.
+- state.private
+	State stored in the wave for the particular user.
+- participants.participants
+	Iterable object pairing Wave Addresses to participant profiles.
+- participants.viewer
+	Participant profile of the viewer.
+- participants.openStream(protocol = "UDP")
+	Opens a stream. 
+	Returns an object which when assigned a value is sent directly to 
+	other participants and has properties of each Wave Address and 
+	values of the object sent from the Wave Address.
+
+	*protocol* determines whether to use "TCP" or "UDP". Objects know 
+	how to serialize. Details will be added on how communication should 
+	take place.
