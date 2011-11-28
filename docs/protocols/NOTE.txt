@@ -1,4 +1,0 @@
-Most of the protocols are old in favor of a new architecture. This file will document updated protocols. 
-
-- wave URL.
-- wave protocol (formerly "wave client protocol")
