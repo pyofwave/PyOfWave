@@ -5,10 +5,13 @@ Copyright (C) 2010 "alcinnz"
 This software contains code derived from the Google Wave APIs
 and documentation by Google Inc.
 
-The client part of this software makes use of JavaScriptMVC,
-Copyright 2010 Jupiter IT & Contributors
+The client part of this software makes use of jQuery,
+Copyright jQuery Foundation and contributors
 
-The server part of this software is driven by Twisted,
+The server part of this software uses Twisted,
 Copyright 2001-2004 Twisted Matrix Laboratories
 
+The server part of this software is run by Tornado
+Tornado Copyright Facebook Inc.
 
+Various other technologies used are listed in the README. 
