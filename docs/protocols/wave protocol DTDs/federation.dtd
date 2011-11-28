@@ -1,0 +1,12 @@
+<!-- Provides a method of adding and/or removing a new participant -->
+<!DOCTYPE fed [
+
+<!ENTITY % wave SYSTEM "wave.dtd">
+
+<!ELEMENT selfAdded (version+)>		<!-- Sent by a wave provider to added (and online) providers or users. -->
+<!ELEMENT version (#PCDATA,wave:wave)>	<!-- Contains full wave data to be stored by the provider -->
+
+<!ELEMENT selfRemoved EMPTY>		<!-- Sent by a wave provider to removed (and online) providers and users. -->
+<!ATTLIST selfRemoved href PCDATA #REQUIRED>	<!-- Identifies wave the client's removed from -->
+
+]>
