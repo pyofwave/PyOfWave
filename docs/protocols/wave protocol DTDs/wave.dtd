@@ -4,9 +4,9 @@
 <!ELEMENT wavelet (participant|tags|thread)>
 <!ELEMENT participant (#PCDATA)>
 <!ELEMENT tags EMPTY>
-<!ELEMENT thread (blip|data)>
+<!ELEMENT thread (post|data)>
 <!ELEMENT data EMPTY>
-<!ELEMENT blip (participant|tags|thread|version|body)>
+<!ELEMENT post (participant|tags|thread|version|body)>
 <!ELEMENT body (#PCDATA|p|a|file|wavelet|thread)>
 
 <!ELEMENT p (#PCDATA)>		<!-- A line -->
