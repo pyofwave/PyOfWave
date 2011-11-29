@@ -18,48 +18,49 @@ Basic
 
 CoffeeScript makes use of whitespace for block delimitation (in POW 2 spaces), this is as opposed to `{` and `}` in JavaScript. New lines delimitate expressions instead of `;`, but if you want to continue an expression, continue it in a new block. 
 
-<table>
-<tr><th>Syntax</th>            <th>Action</th></tr>
-<tr><td>*var*</td>                 <td>Looks up variable *var* and define in scope if needed (no `var`)</td></tr>
-<tr><td>`.`*prop*</td>           <td>Looks up property *prop* on previous object. </td></tr>
-<tr><td>`[`*exp*`]`</td>        <td>Looks up result of running expression. </td></tr>
-<tr><td>`(`*exps*`)`</td>      <td>Executes previous object as a function, passing it comma separated *exps*</td></tr>
-<tr><td>` `*exps*</td>          <td>" "                                              " "</td></tr>
+<pre>
+Syntax            Action
+*var*                 Looks up variable *var* and define in scope if needed (no `var`)
+`.`*prop*           Looks up property *prop* on previous object. 
+`[`*exp*`]`        Looks up result of running expression. 
+`(`*exps*`)`      Executes previous object as a function, passing it comma separated *exps*
+` `*exps*          " "                                              " "
 
-<tr><td>`@`</td>                   <td>Shortcut for `this[`.`]. </td></tr>
-<tr><td>`::`</td>                     <td>Shortcut for `.prototype.`. </td></tr>
-<tr><td>`?`</td>                    <td>Existential operator. Various usage centering around "is the property defined?"</td></tr>
-<tr><td>`(`*exp*`)`</td>        <td>Executes *exp* before anything else. </td></tr>
-<tr><td>`#` *. . .*</td>           <td>Comment. (also between `###`s). </td></tr>
-</table>
+`@`                   Shortcut for `this[`.`]. 
+`::`                     Shortcut for `.prototype.`. 
+`?`                    Existential operator. Various usage centering around "is the property defined?"
+`(`*exp*`)`        Executes *exp* before anything else. 
+`#` *. . .*           Comment. (also between `###`s). 
+</pre>
 
 Data Types
 -----------
 
-<table>
-<tr><th>Syntax</th>                     <th>Class</th>           <th>Description</th></tr>
-<tr><td>[`(`*exps*`)`] `->`</td>    <td>Function</td>    <td>Callable code from inline or indented code, accepting array-like arguments *exps*. </td></tr>
-<tr><td>[`(`*exps*`)`] `=>`</td>              <td></td>           <td>The "fat arrow" keeps the external block's definition of `this`</td></tr>
+<pre>
+Syntax                     Class           Description
+[`(`*exps*`)`] `->`    Function    Callable code from inline or indented code, accepting array-like arguments *exps*. 
+[`(`*exps*`)`] `=>`                         The "fat arrow" keeps the external block's definition of `this`
 
-<tr><td>`[`*exps*`]`</td>                <td>Array</td>         <td>Stores the value of *exps*, separated by newlines and commas. </td></tr>
-<tr><td>-     *exp*...</td>                        <td></td>                <td>Indicates a "splat", a "greedy" object which takes all the rest of the items when on other side of a literal array assignment. </td></tr>
-<tr><td>-     *num1*`..[.]`*num2*</td>         <td></td>         <td>Makes the array a "range", containing all values between num1 & num2. 
-                                                          <br />Extra dot indicates exclusion of num2. May be used in accesses to get a subset. </td></tr>
-<tr><td>[`{`]*key*`:`*val*`,`*. . .*[`}`]</td>   <td>Object</td>        <td>Arbitrary object with specified properties of *key* s = *val* s
-                                  <br />Newlines may be used in stead of `,`, providing indentation. </td></tr>
+`[`*exps*`]`                Array         Stores the value of *exps*, separated by newlines and commas. 
+     *exp*...                                        Indicates a "splat", a "greedy" object which takes all the rest of the items when on other side of a literal array assignment. 
+     *num1*`..[.]`*num2*                  Makes the array a "range", containing all values between num1 & num2. 
+                                                          Extra dot indicates exclusion of num2. May be used in accesses to get a subset. 
+[`{`]*key*`:`*val*`,`   Object        Arbitrary object with specified properties of *key* s = *val* s
+    *. . .*[`}`]                                      Newlines may be used in stead of `,`, providing indentation. 
 
-<tr><td>`"`*text*`"`</td>                 <td>String</td>         <td>Stores a sequence of characters. Whitespace collapsed. 
-             <br />Also uses `'` and `"""` or `'''` (includes whitespace). </td></tr>
-<tr><td>-      `#{`*exp*`}`</td>                 <td></td>             <td>Contained within strings to insert value of *exp*.</td></tr> 
-<tr><td>*number*</td>                    <td>Number</td>      <td>Stores a mathematical number. </td></tr>
-<tr><td>(as in JS)</td>                  <td>Regex</td>        <td>String analyzation tool. `///` ignores whitespace. </td></tr>
-</table
+`"`*text*`"`                 String         Stores a sequence of characters. Whitespace collapsed. 
+             Also uses `'` and `"""` or `'''` (includes whitespace). 
+      `#{`*exp*`}`                              Contained within strings to insert value of *exp*. 
+*number*                    Number      Stores a mathematical number. 
+(as in JS)                  Regex        String analyzation tool. `///` ignores whitespace. 
+</pre>
 
 Operators
 ----------
 
 Operators, like in JS, perform an action on one or two expressions, *exp1* & *exp2*. 
 
+<pre>
 Operator           Description
 =                          Sets first expression to the value of the second. 
     When *exp1* is a literal object or array, assigns all variables in *exp1* to values of *exp2*. 
@@ -74,6 +75,7 @@ in                         Is the value *exp1* in *exp2*?
 of                        Is the property *exp1* in *exp2*?
 
 do                        Executes following function with parameters as arguments. 
+</pre>
 
 Branching
 ----------
@@ -86,6 +88,7 @@ OR
 
 *code* *action* [*conditional*]
 
+<pre>
 *Action*          Description
 if                       Executes *code* only if required *conditional* is true. 
 else                  Executes *code* if previous if was false. 
@@ -103,3 +106,4 @@ finally               Executes after try/catch. 
 switch             Contains `when`s and `else`. 
 when                Executes *code* if `switch`'s *expression* is this *expression*. 
 else                  Executes if any `when`s are false
+</pre>
