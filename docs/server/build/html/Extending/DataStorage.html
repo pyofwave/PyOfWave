@@ -104,7 +104,7 @@
 </div>
 <div class="section" id="integrate-the-adaptor">
 <h2>3. Integrate the Adaptor<a class="headerlink" href="#integrate-the-adaptor" title="Permalink to this headline">¶</a></h2>
-<p>Open <tt class="file docutils literal"><span class="pre">PREFERENCES.py</span></tt> and import your file. Then set one of the storage options (either <tt class="xref py py-data docutils literal"><span class="pre">CACHE_OBJECT</span></tt> and/or <tt class="xref py py-data docutils literal"><span class="pre">STORAGE_OBJECT</span></tt>) to an instance of your adaptor.</p>
+<p>Open <tt class="file docutils literal"><span class="pre">PREFERENCES.py</span></tt> and import your file. Then set one of the storage options (either <a class="reference internal" href="settings.html#CACHE_OBJECT" title="CACHE_OBJECT"><tt class="xref py py-data docutils literal"><span class="pre">CACHE_OBJECT</span></tt></a> and/or <a class="reference internal" href="settings.html#STORAGE_OBJECT" title="STORAGE_OBJECT"><tt class="xref py py-data docutils literal"><span class="pre">STORAGE_OBJECT</span></tt></a>) to an instance of your adaptor.</p>
 <p>Also ensure that the applyDelta method is set to observe betaDeltaObservable, <tt class="docutils literal"><span class="pre">betaDeltaObservable.addObserver(STORAGE_OBJECT.applyDelta)</span></tt> and that it has a value for the successor property.</p>
 </div>
 </div>
