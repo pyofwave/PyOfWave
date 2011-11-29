@@ -88,7 +88,7 @@ Operator           Description
 
 *op*=                  Shortcut for *exp1* `=` *exp1* *op* *exp2*
 
-+ - * / %          Math operators (+ also concats on strings). 
+`+` `-` `*` `/` `%`          Math operators (+ also concats on strings). 
 
 
 < > == != >=     Comparison operators. (can be chained as in Python). 
