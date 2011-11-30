@@ -1,3 +1,5 @@
+NS = "pyofwave.info/test"
+
 def operation(ip, foo):
     """A simple Operation to test against."""
     

@@ -3,39 +3,45 @@ Standard interface for connecting client protocols to the operation extensions.
 """
 ## import delta
 import opdev
+import delta
 
 # Load operations
-def loadModules(path)
+def _loadModules(path):
     import os, runpy
+    path = os.path.join(os.path.dirname(__file__), path)
     rep = []
 
     listing = os.listdir(path)
     for mod in listing:
-        rep.append(runpy.run_path(mod))
-
+        if ".py" in mod and ".pyc" not in mod:
+            rep.append(runpy.run_path(os.path.join(path, mod), {
+                "Operation" : opdev.Operation,
+                "delta" : delta}))
     return rep
 
-def classesBySuper(mod, supr):
+def _classesBySuper(mod, supr):
+    import inspect
+    
     rep = {}
-    for key in mod.keys():
-        if issubclass(mod[key], supr):
-            rep[key] = mod[key]
+    for key, val in mod.items():
+        if inspect.isclass(val) and issubclass(val, supr):
+            rep[key] = val
     return rep
 
-def loadOperations():
-    mods = loadModules("../operations/")
+def _loadOperations():
+    mods = _loadModules("../operations/")
     rep = {}
     
     for mod in mods:
         ns = mod["NS"]
-        ops = classesBySuper(mod, opdev.Operation)
+        ops = _classesBySuper(mod, opdev.Operation)
 
-        for key in ops.keys:
-            rep["{"+NS+"}"+key] = ops[key]
+        for key in ops.keys():
+            rep["{"+ns+"}"+key] = ops[key]
 
     return rep
 
-_ops = loadOperations()
+_ops = _loadOperations()
 
 # Perform operation
 def performOperation(events, tag):
@@ -59,6 +65,6 @@ class Events(object):
         else: self._events[url].remove(event)
 
     @delta.alphaDeltaObservable.addObserver
-    @static
+    @staticmethod
     def applyDelta(doc, delta):
         """ Calculate and send events. """
