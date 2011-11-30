@@ -52,11 +52,16 @@
             
   <div class="section" id="adding-new-protocols-to-the-pyofwave-server">
 <h1>Adding New Protocols to the PyOfWave Server<a class="headerlink" href="#adding-new-protocols-to-the-pyofwave-server" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not fully implemented.</p>
+</div>
 <p>Protocols are programmed in PyOfWave using <a class="reference external" href="http://twistedmatrix.com/trac">Twisted</a>. Integration is provided by <tt class="xref py py-mod docutils literal"><span class="pre">core</span></tt> as documented in <a class="reference internal" href="CoreModule.html"><em>Using PyOfWave&#8217;s Core module</em></a>. Saying that, there&#8217;s a few organizational things we do to keep things tidy.</p>
 <ol class="arabic simple">
 <li>Place your protocol in it&#8217;s own folder inside protocols.</li>
 <li>Tie it into the system in <tt class="file docutils literal"><span class="pre">__index__.py</span></tt>.</li>
 </ol>
+<p>Use <tt class="xref py py-mod docutils literal"><span class="pre">Tornado</span></tt> &#8216;s reactor module in place of <tt class="xref py py-mod docutils literal"><span class="pre">Twisted</span></tt> &#8216;s, as to avoid networking classes between the modules. <tt class="xref py py-mod docutils literal"><span class="pre">Tornado</span></tt> is used because py:mod:<cite>Python XMPP Server</cite> (which we use for the main protocol) uses it.</p>
 </div>
 
 

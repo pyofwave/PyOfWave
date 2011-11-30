@@ -36,9 +36,6 @@ If you wish to customize how data is handled in PyOfWave, use this file. If you 
 
    The main storage object used by all protocols and extensions.
 
-.. py:data:: CACHE_OBJECT
-
-   The datasource set to ``STORAGE_OBJECT.successor``.
 
 __init__.py
 ===========

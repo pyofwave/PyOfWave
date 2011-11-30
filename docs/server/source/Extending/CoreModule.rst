@@ -1,6 +1,8 @@
 Using PyOfWave's Core module
 ****************************
 
+.. note:: Not yet fully implemented.
+
 pyofwave_server.core provides facilities that are shared, in various methods, by all protocols and extensions. Specifics for extending this are provided by :doc:`Authentication`, :doc:`DataStorage`, :doc:`Operations`, and :doc:`Protocols`.
 
 core.datasource
@@ -39,12 +41,7 @@ The interface DataSource provides access to persistant XML following the wave sc
 
 .. py:method:: searchDocuments(user, search)
 
-   Returns a list of wave URLs to documents that match the source. The tags that may be 
-   specified in the search are provided by :py:meth:`setTags`. 
-
-.. py:method:: setTags(doc, user, **tags)
-
-   Sets the tags for the documentation for use by search. 
+   Returns a list of wave URLs to documents that match the search in the form of an xQuery conditional :py:class:`String` object.
 
 core.delta
 ==========
@@ -64,12 +61,18 @@ core.delta
 
 Any one has the ability to distribute deltas on a :py:class:`DeltaObservable`, but you should only do it on :py:data:`BetaDeltaObservable` leaving :py:class:`DataSource` objects to distribute on :py:data:`AlphaDeltaObservable`, so as that the Deltas distributed there are truly in alpha state.
 
+Use the :py:func:`applyDelta` function to apply a delta to XML. This is mostly for persistance extensions.
+
+.. py:function:: applyDelta(doc, delta)
+
+  Combines the LXML eTree elements passed to it. Elements with a :py:data:`delete` attribute are deleted. 
+
 DeltaObservable
 ---------------
 
 :py:class:`DeltaObservable` distributes :py:class:`Delta` objects throughout all extensions. 
 
-.. py:class:: pyofwave_server.core.delta.DeltaObservable
+.. py:class:: DeltaObservable
 
   Distributes deltas between different components of PyOfWave server.
 
@@ -127,5 +130,9 @@ core.operation
    .. py:method:: unregister(url, event = "*")
 
       Stops notifying the callback when *event* happens in document identified by *url*.
+
+   .. py:data:: authzid
+
+      The Python SASL authorization ID.
 
 Instructions for adding operations are in :doc:`Operations`.

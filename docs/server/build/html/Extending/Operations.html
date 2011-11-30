@@ -52,30 +52,42 @@
             
   <div class="section" id="protocol-operators">
 <h1>Protocol Operators<a class="headerlink" href="#protocol-operators" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet implemented.</p>
+</div>
 <p>An operator is a function called by a client request to minipulate the server. These operators can be called by either the Simple Data Protocol or the Wave Client Protocol. These operators should be implemented to those standards.</p>
 <div class="section" id="basic-form">
 <h2>Basic Form<a class="headerlink" href="#basic-form" title="Permalink to this headline">¶</a></h2>
 <p>Operators have several parts guiding it&#8217;s form in the protocols:</p>
 <ul class="simple">
-<li>A namespace</li>
-<li>A name</li>
-<li>Arguments</li>
-<li>Return value map</li>
+<li>A XML tagname</li>
+<li>Attributes and children</li>
+<li>Return element</li>
+<li>Event condition (determines when it is sent to client)</li>
 </ul>
 <p>These map to the following syntax in python (with the namespace being the file your in):</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>def <strong>name</strong> (ip, <strong>arguments comma seperated</strong>):</dt>
-<dd><p class="first"><strong>routine</strong></p>
-<dl class="last docutils">
-<dt>return {</dt>
-<dd><strong>return map</strong>
-}</dd>
+<div><p>from ..core import opdev
+from lxml import etree as xml</p>
+<p>NS = &#8221; <strong>XML namespace</strong> &#8220;</p>
+<dl class="docutils">
+<dt>class <strong>local tagname</strong> (opdev.Operation):</dt>
+<dd><p class="first">&#8220;&#8221;&#8221; <strong>description</strong> &#8220;&#8221;&#8220;</p>
+<dl class="docutils">
+<dt>def s(events, <strong>expected children</strong>, <strong>attributes</strong>):</dt>
+<dd><p class="first"><strong>action</strong></p>
+<p class="last">return <strong>return element</strong></p>
+</dd>
+<dt>def r(tag, delta):</dt>
+<dd>if <strong>conditional</strong>: return <strong>event element</strong></dd>
 </dl>
+<p class="last">q = &#8221; <strong>xQuery conditional</strong> &#8220;</p>
 </dd>
 </dl>
 </div></blockquote>
-<p>If you want to minipulate the wave, it is reccomended that you use <tt class="xref py py-mod docutils literal"><span class="pre">core.auth</span></tt>.</p>
+<p>As a shortcut, when PyOfWave receives an operation, it will distribute it as an event without checking the conditionals. You will not be able to block it.</p>
+<p>Instead the conditionals are to check if the same effective action has been applied.</p>
 </div>
 </div>
 
