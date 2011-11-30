@@ -1,10 +1,35 @@
 """
 Standard interface for connecting client protocols to the operation extensions. 
 """
-from importlib import import_module
-import delta
+## import delta
+import opdev
 
-# TODO: load all operations, implement.
+# Load operations
+def loadModules(path)
+    import os, runpy
+    rep = []
+
+    listing = os.listdir(path)
+    for mod in listing:
+        rep.append(runpy.run_path(mod))
+
+    return rep
+
+def classesBySuper(mod, supr):
+    rep = {}
+    for key in mod.keys():
+        if issubclass(mod[key], supr):
+            rep[key] = mod[key]
+    return rep
+
+def loadOperations():
+    mods = loadModules("../operations/")
+    for mod in mods:
+        ns = mod["NS"]
+        ops = classesBySuper(mod, opdev.Operation)
+        # compile list
+
+_ops = loadOperations()
 
 def performOperation(events, tag):
     """ Execute a operation."""
