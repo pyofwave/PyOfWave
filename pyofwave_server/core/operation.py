@@ -24,16 +24,25 @@ def classesBySuper(mod, supr):
 
 def loadOperations():
     mods = loadModules("../operations/")
+    rep = {}
+    
     for mod in mods:
         ns = mod["NS"]
         ops = classesBySuper(mod, opdev.Operation)
-        # compile list
+
+        for key in ops.keys:
+            rep["{"+NS+"}"+key] = ops[key]
+
+    return rep
 
 _ops = loadOperations()
 
+# Perform operation
 def performOperation(events, tag):
     """ Execute a operation."""
+    return _ops[tag.tag].r(events, *list(tag), **tag.attrib)
 
+# Events
 class Events(object):
     """Keeps track of all the events a user registers to."""
     def __init__(self, user, callback):

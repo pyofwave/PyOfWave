@@ -28,12 +28,12 @@ These map to the following syntax in python (with the namespace being the file y
    class :strong:`local tagname` (opdev.Operation):
       """ :strong:`description` """
 
-      def s(events, :strong:`expected children`, :strong:`attributes`):
+      def r(events, :strong:`expected children`, :strong:`attributes`):
          :strong:`action`
 
          return :strong:`return element`
 
-      def r(tag, delta):
+      def s(tag, delta):
          if :strong:`conditional`: return :strong:`event element`
 
       q = " :strong:`xQuery conditional` "
