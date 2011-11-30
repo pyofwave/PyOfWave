@@ -119,9 +119,9 @@ core.operation
 
    Handles notification of selected events.
 
-   .. py:method:: __init__(authzid, callback)
+   .. py:method:: __init__(user, callback)
 
-      Initiates an object for user identified by *authzid*, and calls *callback* to notify the caller of new events.
+      Initiates an object for user identified by *user*, and calls *callback* to notify the caller of new events.
 
    .. py:method:: register(url, event)
 
@@ -131,8 +131,8 @@ core.operation
 
       Stops notifying the callback when *event* happens in document identified by *url*.
 
-   .. py:data:: authzid
+   .. py:data:: user
 
-      The Python SASL authorization ID.
+      The Wave Address for the user.
 
 Instructions for adding operations are in :doc:`Operations`.

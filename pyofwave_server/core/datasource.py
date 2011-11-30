@@ -27,32 +27,3 @@ class DataSource(interface.Interface):
 
    successor = interface.Attribute('DataSource')
 
-class Document(object):
-   """Stores a series of items representing start tags, end tags, and text. """
-   def __init__(self, docId, *items, **tags):
-      """Initializes document as a collection of passed items. """
-      self.id = docId
-      self.items = list(items)
-      tags = tags
-
-      #transform properties
-      self.cursor = -1
-      self.annotations = {}
-
-   def __str__(self):
-      return str([str(item) for item in self.items])
-
-class Item(object):
-   """Stores a name, type, and annotations."""
-   def __init__(self, typeI, name, **annotations):
-      self.type = typeI
-      self.name = name
-      self.annotations = annotations
-
-   def __str__(self):
-      return ("start", "end", "text")[self.type]+": "+str(self.name)+ \
-         " "+str(self.annotations)
-
-   TYPE_START_TAG = 0
-   TYPE_END_TAG = 1
-   TYPE_TEXT = 2

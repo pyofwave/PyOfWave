@@ -2,12 +2,29 @@
 Standard interface for connecting client protocols to the operation extensions. 
 """
 from importlib import import_module
-from ..operations import OperationError
+import delta
 
-def performOperation(ip, operation, kwargs):
-    module, op = operation.split(".")
-    opFunction = import_module('..operations.'+module, 'pyofwave_server.core')
-##    try: 
-    rep = getattr(opFunction, op)(ip, **kwargs)
-##    except (AttributeError, TypeError): raise OperationError(404)
-    return rep
+# TODO: load all operations, implement.
+
+def performOperation(events, tag):
+    """ Execute a operation."""
+
+class Events(object):
+    """Keeps track of all the events a user registers to."""
+    def __init__(self, user, callback):
+        self.user = user
+        self._sendEvent= callback
+        self._events = {}
+
+    def register(self, url, event):
+        if not self._events.get(url): self._events[url] = []
+        self._events[url].append(event)
+
+    def unregister(self, url, event= "*"):
+        if event == "*": del self._events[url]
+        else: self._events[url].remove(event)
+
+    @delta.alphaDeltaObservable.addObserver
+    @static
+    def applyDelta(doc, delta):
+        """ Calculate and send events. """
