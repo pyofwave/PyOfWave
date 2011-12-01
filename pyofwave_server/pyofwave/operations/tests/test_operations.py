@@ -1,5 +1,8 @@
 from twisted.trial import unittest
 
+from lxml.builder import ElementMaker
+from pyofwave.core.opdev import Operation
+
 class TestOperations(unittest.TestCase):
     def testNewOperation(self):
         NS = "pyofwave.info/test"
