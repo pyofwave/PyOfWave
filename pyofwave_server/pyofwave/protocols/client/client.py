@@ -6,8 +6,10 @@ This format uses JSON and is centred around method calls.
 A few additional operations are supported, for optimisations.
 """
 from twisted.internet.protocol import Protocol, Factory
-from ...core.operation import performOperation
-from ...operations import OperationError
+
+from pyofwave.core.operation import performOperation
+from pyofwave.operations import OperationError
+
 import dictOps
 
 class ClientProtocol(Protocol):
@@ -66,6 +68,8 @@ class ClientProtocol(Protocol):
     def sendError(self, name, error):
         """Writes an ERROR response back."""
         self.sendResponse(name, "ERROR."+str(error.code), error.status)
-        
-factory = Factory()
-factory.protocol = ClientProtocol
+
+class ClientProtocolFactory(Factory):
+    protocol = ClientProtocol
+
+factory = ClientProtocolFactory()

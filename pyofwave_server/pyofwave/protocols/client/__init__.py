@@ -1,1 +1,1 @@
-from client import ClientProtocol, factory
+from client import ClientProtocol, ClientProtocolFactory, factory

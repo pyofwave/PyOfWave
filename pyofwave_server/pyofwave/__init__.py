@@ -16,9 +16,15 @@
 # limitations under the License.
 #
 
-import PREFERENCES 
-## import internet
+def start():
+    from twisted.internet import reactor
+    import protocols
+    
+    # Protocol interface
+    protocol_server = reactor.listenTCP(8080, protocols.http.factory)
 
-# run tests, uncomment to debug
+    # Internet
+    internet_server = reactor.listenTCP(9283, protocols.client.factory)
+    
+    reactor.run()
 
-from core.tests import operation

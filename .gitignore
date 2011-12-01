@@ -1,2 +1,6 @@
 *.pyc
 *~
+pyofwave_server/docs/build/*
+pyofwave_server/build/*
+*#
+.#*
