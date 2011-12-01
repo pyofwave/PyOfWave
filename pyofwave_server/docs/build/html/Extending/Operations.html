@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Protocol Operators &mdash; PyOfWave 0.1 documentation</title>
-    
+    <title>Protocol Operators &mdash; PyOfWave v0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave 0.1 documentation" href="../index.html" />
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
     <link rel="next" title="Adding New Protocols to the PyOfWave Server" href="Protocols.html" />
     <link rel="prev" title="Data Storage Extensions" href="DataStorage.html" /> 
@@ -43,7 +40,7 @@
         <li class="right" >
           <a href="DataStorage.html" title="Data Storage Extensions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
@@ -69,28 +66,29 @@
 <li>Return element</li>
 <li>Event condition (determines when it is sent to client)</li>
 </ul>
-<p>These map to the following syntax in python (with the namespace being the file your in):</p>
-<blockquote>
-<div><p>from ..core import opdev
-from lxml import etree as xml</p>
-<p>NS = &#8221; <strong>XML namespace</strong> &#8220;</p>
-<dl class="docutils">
-<dt>class <strong>local tagname</strong> (opdev.Operation):</dt>
-<dd><p class="first">&#8220;&#8221;&#8221; <strong>description</strong> &#8220;&#8221;&#8220;</p>
-<dl class="docutils">
-<dt>def r(events, <strong>expected children</strong>, <strong>attributes</strong>):</dt>
-<dd><p class="first"><strong>action</strong></p>
-<p class="last">return <strong>return element</strong></p>
-</dd>
-<dt>def s(tag, delta):</dt>
-<dd>if <strong>conditional</strong>: return <strong>event element</strong></dd>
-</dl>
-<p class="last">q = &#8221; <strong>xQuery conditional</strong> &#8220;</p>
-</dd>
-</dl>
-</div></blockquote>
+<p>These map to the following syntax in python (with <cite>&lt;</cite> and <cite>&gt;</cite> surrounding parts specific to your tag):</p>
+<div class="highlight-python"><pre>from ..core.opdev import OperationNS as Ops
+NS = Ops("&lt;XML namespace&gt;")
+
+@NS
+def &lt;tagname&gt;(events, &lt;expected children&gt;, &lt;attributes&gt;):
+   &lt;action&gt;
+   return &lt;return element&gt;
+
+@NS("&lt;xQuery conditional&gt;")
+def _&lt;tagname&gt;(S, tag, delta):
+   if &lt;conditional&gt;: return S(&lt;event element content&gt;)</pre>
+</div>
 <p>As a shortcut, when PyOfWave receives an operation, it will distribute it as an event without checking the conditionals. You will not be able to block it.</p>
 <p>Instead the conditionals are to check if the same effective action has been applied.</p>
+<div class="section" id="operationns-e">
+<h3>OperationNS.E<a class="headerlink" href="#operationns-e" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="CoreModule.html#OperationNS" title="OperationNS"><tt class="xref py py-class docutils literal"><span class="pre">OperationNS</span></tt></a> has a property of <tt class="xref py py-data docutils literal"><span class="pre">E</span></tt> of class <tt class="xref py py-class docutils literal"><span class="pre">lxml.builder.ElementMaker</span></tt> setup with the specified namespace.</p>
+<p>If you don&#8217;t know how to use this factory (it&#8217;s the same as <tt class="xref py py-data docutils literal"><span class="pre">lxml.builder.E</span></tt>), it allows you to create XML tags using the following syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">NS</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="o">*</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -103,7 +101,10 @@ from lxml import etree as xml</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Protocol Operators</a><ul>
-<li><a class="reference internal" href="#basic-form">Basic Form</a></li>
+<li><a class="reference internal" href="#basic-form">Basic Form</a><ul>
+<li><a class="reference internal" href="#operationns-e">OperationNS.E</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -122,7 +123,7 @@ from lxml import etree as xml</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -148,13 +149,13 @@ from lxml import etree as xml</p>
         <li class="right" >
           <a href="DataStorage.html" title="Data Storage Extensions"
              >previous</a> |</li>
-        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, alcinnz.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>
