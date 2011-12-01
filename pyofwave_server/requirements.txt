@@ -1,0 +1,3 @@
+lxml
+sphinx
+setuptools-trial
