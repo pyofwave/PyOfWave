@@ -36,6 +36,7 @@ def _loadOperations():
     for mod in mods:
         ns = mod["NS"]
         ops = _classesBySuper(mod, opdev.Operation)
+        mod["E"] = mod["E"](namespace = ns)
 
         for key in ops.keys():
             rep["{"+ns+"}"+key] = ops[key]

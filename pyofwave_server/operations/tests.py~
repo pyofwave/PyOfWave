@@ -12,5 +12,5 @@ class op(Operation):
 		print g["NS"], g["op"]
 		## print "args:", args
 		## print "kwargs:", kwargs
-		print g["E"], g.keys()
+		print g["E"], g
 		return E.response("success", status = 400)
