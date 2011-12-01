@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using PyOfWave’s Core module &mdash; PyOfWave 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PyOfWave 0.1 documentation" href="../index.html" />
+    <link rel="up" title="For Programmers" href="index.html" />
+    <link rel="next" title="Integrating Your Own Authentication Scheme" href="Authentication.html" />
+    <link rel="prev" title="For Programmers" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Authentication.html" title="Integrating Your Own Authentication Scheme"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Programmers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="using-pyofwave-s-core-module">
+<h1>Using PyOfWave&#8217;s Core module<a class="headerlink" href="#using-pyofwave-s-core-module" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet fully implemented.</p>
+</div>
+<p>pyofwave_server.core provides facilities that are shared, in various methods, by all protocols and extensions. Specifics for extending this are provided by <a class="reference internal" href="Authentication.html"><em>Integrating Your Own Authentication Scheme</em></a>, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>, <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>, and <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
+<div class="section" id="core-datasource">
+<h2>core.datasource<a class="headerlink" href="#core-datasource" title="Permalink to this headline">¶</a></h2>
+<p>The interface DataSource provides access to persistant XML following the wave schema. LXML is used to represent the XML files.</p>
+<dl class="method">
+<dt id="newDocument">
+<tt class="descname">newDocument</tt><big>(</big><big>)</big><a class="headerlink" href="#newDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new document in the DataSource. Returns the
+blank <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree.ElementBase</span></tt> object if successful.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="getDocument">
+<tt class="descname">getDocument</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#getDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the document from the DataSource. Returns a <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree.ElementBase</span></tt> object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="getDocumentVersion">
+<tt class="descname">getDocumentVersion</tt><big>(</big><em>url</em>, <em>start</em>, <em>end</em>, <em>limit</em><big>)</big><a class="headerlink" href="#getDocumentVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the document at the specified times. Returns a iterable of <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree.ElementBase</span></tt> objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="searchDocuments">
+<tt class="descname">searchDocuments</tt><big>(</big><em>user</em>, <em>search</em><big>)</big><a class="headerlink" href="#searchDocuments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of wave URLs to documents that match the search in the form of an xQuery conditional <tt class="xref py py-class docutils literal"><span class="pre">String</span></tt> object.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="core-delta">
+<h2>core.delta<a class="headerlink" href="#core-delta" title="Permalink to this headline">¶</a></h2>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">core.delta</span></tt>, provides a classic Observer interface. This module is used to distribute changes to documents, &#8220;deltas&#8221;, generated by the operations in the Wave Protocol. These deltas can be in either &#8220;alpha&#8221; or &#8220;beta&#8221; state (after and before being commited to storage).</p>
+<p>Any one has the ability to distribute deltas on a <a class="reference internal" href="#DeltaObservable" title="DeltaObservable"><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt></a>, but you should only do it on <a class="reference internal" href="#BetaDeltaObservable" title="BetaDeltaObservable"><tt class="xref py py-data docutils literal"><span class="pre">BetaDeltaObservable</span></tt></a> leaving <tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects to distribute on <a class="reference internal" href="#AlphaDeltaObservable" title="AlphaDeltaObservable"><tt class="xref py py-data docutils literal"><span class="pre">AlphaDeltaObservable</span></tt></a>, so as that the Deltas distributed there are truly in alpha state.</p>
+<p>Use the <a class="reference internal" href="#applyDelta" title="applyDelta"><tt class="xref py py-func docutils literal"><span class="pre">applyDelta()</span></tt></a> function to apply a delta to XML. This is mostly for persistance extensions.</p>
+<dl class="function">
+<dt id="applyDelta">
+<tt class="descname">applyDelta</tt><big>(</big><em>doc</em>, <em>delta</em><big>)</big><a class="headerlink" href="#applyDelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines the LXML eTree elements passed to it. Elements with a <tt class="xref py py-data docutils literal"><span class="pre">delete</span></tt> attribute are deleted.</p>
+</dd></dl>
+
+<div class="section" id="deltaobservable">
+<h3>DeltaObservable<a class="headerlink" href="#deltaobservable" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="#DeltaObservable" title="DeltaObservable"><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt></a> distributes <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects throughout all extensions.</p>
+<dl class="class">
+<dt id="DeltaObservable">
+<em class="property">class </em><tt class="descname">DeltaObservable</tt><a class="headerlink" href="#DeltaObservable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Distributes deltas between different components of PyOfWave server.</p>
+<dl class="method">
+<dt id="DeltaObservable.applyDelta">
+<tt class="descname">applyDelta</tt><big>(</big><em>doc</em>, <em>delta</em><big>)</big><a class="headerlink" href="#DeltaObservable.applyDelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies all observers that doc has/will (depending on object) had the changes in delta applied.</p>
+<p>Delta is a partial LXML tree with <tt class="xref py py-data docutils literal"><span class="pre">delete</span></tt> properties marking elements to remove.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="DeltaObservable.addObserver">
+<tt class="descname">addObserver</tt><big>(</big><em>observer</em>, <em>url = &quot;&quot;</em><big>)</big><a class="headerlink" href="#DeltaObservable.addObserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <em>observer</em> when <a class="reference internal" href="#applyDelta" title="applyDelta"><tt class="xref py py-meth docutils literal"><span class="pre">applyDelta()</span></tt></a> is called, passing the same arguments.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="DeltaObservable.removeObserver">
+<tt class="descname">removeObserver</tt><big>(</big><em>observer</em><big>)</big><a class="headerlink" href="#DeltaObservable.removeObserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops calling <em>observer</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>There&#8217;s two instances of this class you&#8217;ll use to distribute <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects:</p>
+<dl class="data">
+<dt id="AlphaDeltaObservable">
+<tt class="descname">AlphaDeltaObservable</tt><a class="headerlink" href="#AlphaDeltaObservable" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects pushes deltas through this
+<a class="reference internal" href="#DeltaObservable" title="DeltaObservable"><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt></a>, which indicates that all <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt>
+objects from this object has been commited to storage.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="BetaDeltaObservable">
+<tt class="descname">BetaDeltaObservable</tt><a class="headerlink" href="#BetaDeltaObservable" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects are observers of this object, which means
+that by sending <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects on this object, you are
+commiting them to memory.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="core-operation">
+<h2>core.operation<a class="headerlink" href="#core-operation" title="Permalink to this headline">¶</a></h2>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">core.operation</span></tt> has only one function, which imports a function from pyofwave_server.operations and executes it with given arguments.</p>
+<dl class="function">
+<dt id="performOperation">
+<tt class="descname">performOperation</tt><big>(</big><em>ip</em>, <em>operation</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#performOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the operation operation and provides it ip and kwargs. It will either
+raise a <tt class="xref py py-exc docutils literal"><span class="pre">OperationError</span></tt> providing a status dictionary and code (as in
+HTTP Error codes), or return a mapping.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Events">
+<em class="property">class </em><tt class="descname">Events</tt><a class="headerlink" href="#Events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles notification of selected events.</p>
+<dl class="method">
+<dt id="Events.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>user</em>, <em>callback</em><big>)</big><a class="headerlink" href="#Events.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiates an object for user identified by <em>user</em>, and calls <em>callback</em> to notify the caller of new events.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Events.register">
+<tt class="descname">register</tt><big>(</big><em>url</em>, <em>event</em><big>)</big><a class="headerlink" href="#Events.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts notifying the callback when <em>event</em> happens in document identified by <em>url</em>. <em>event</em> is either an <tt class="xref py py-class docutils literal"><span class="pre">Operation</span></tt> or a <tt class="xref py py-class docutils literal"><span class="pre">String</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Events.unregister">
+<tt class="descname">unregister</tt><big>(</big><em>url</em>, <em>event = &quot;*&quot;</em><big>)</big><a class="headerlink" href="#Events.unregister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops notifying the callback when <em>event</em> happens in document identified by <em>url</em>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="Events.user">
+<tt class="descname">user</tt><a class="headerlink" href="#Events.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Wave Address for the user.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Instructions for adding operations are in <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using PyOfWave&#8217;s Core module</a><ul>
+<li><a class="reference internal" href="#core-datasource">core.datasource</a></li>
+<li><a class="reference internal" href="#core-delta">core.delta</a><ul>
+<li><a class="reference internal" href="#deltaobservable">DeltaObservable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#core-operation">core.operation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">For Programmers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Authentication.html"
+                        title="next chapter">Integrating Your Own Authentication Scheme</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Extending/CoreModule.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Authentication.html" title="Integrating Your Own Authentication Scheme"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Programmers"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >For Programmers</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, alcinnz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

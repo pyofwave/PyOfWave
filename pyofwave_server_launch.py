@@ -1,6 +1,7 @@
 """
 Executes imports to launch pygowave_server, errors are thrown from doing this inside.
 """
-
+import sys
 #perform system setup via import
-import pyofwave_server
+sys.path.append('pyofwave_server')
+import pyofwave

@@ -1,0 +1,3 @@
+distutils2
+lxml
+sphinx
