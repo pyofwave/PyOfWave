@@ -1,0 +1,183 @@
+/* ---------------a little bit of reset --------------- */
+html, body, header, nav, footer, div, aside, section, span, h1, h2, p, address, img, dl, dt, dd, ol, ul, li, form {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;
+}
+a, input {
+	margin:0;
+	padding:0;
+	font-size:100%;
+	vertical-align:baseline;
+	background:transparent;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display:block;
+}
+nav ul {
+	 list-style:none;
+}
+/* --------------flexible (for screen)-------------- */
+html {
+	height: 100%;
+	font-family: sans-serif;
+	font-size: 16px;
+	background: #666;
+}
+body {
+	clear: both;
+	min-width: 600px;
+	max-width: 960px;
+	border: dotted;
+	min-height: 100%;
+	padding: 0;
+	margin: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* --------collums of navigation list-------- */
+nav ul {
+	padding: 0 5px 0 5px;
+}
+nav li.block {
+	display: block;
+	float: left;
+	margin: 0 2% 0 0;
+	padding: 0 0 0 0;
+	width: 32%;
+	height: 6em;
+	text-align:center;
+}
+li.block:last-child {
+	margin: 0 0 0 0;
+}
+/* -------------header in the center-------------- */
+header {
+	width: 475px;
+	position: relative;
+	z-index: 2;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0.4em;
+}
+header h1 {
+	padding-left: 3px;
+	padding-top: 3px;
+}
+header input {
+	width: 445px;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-bottom: 5px;
+}
+/* -------nav under the header-------- */
+nav {
+	padding-top: 25px;
+	position: relative;
+	top: -25px;
+	z-index: 1;
+}
+/* ---The size and position block of content (waves)--- */
+div.content {
+	clear: both;
+	min-width: 600px;
+	max-width: 960px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+section#waves {
+	width: 39%;
+	float: right;
+	margin: 0 0 0 1%;
+	padding: 0 0 0 0;
+	resize: both;
+	overflow: auto;
+}
+section#wave {
+	width: 59%;
+	min-height: 150px;
+	float: left;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	resize: both;
+	overflow: auto;
+}
+/* ----------toolbars----------- */
+aside.toolbar {
+	position: relative;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	width: 100%;
+}
+/*------small toolbar--------- */
+section#waves .toolbar {
+	height: 30px;
+}
+section#wave .buttons li {
+	float: right;
+}
+/* ----tollbar with participoants------- */
+section#wave .toolbar {
+	height: 70px;
+}
+ul.ParticipantsView {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+ul.ParticipantsView li {
+	display: block;
+	float: left;
+	width: 3em;
+	padding: 0 0 0 0;
+	margin: 0 7px 0 0;
+}
+div.avatar {
+	width: 48px;
+	height: 48px;
+	margin: 0.2em;
+}
+div.avatar img {
+	width: 48px;
+	height: 48px;
+	padding: 0 0 0 0;
+}
+p.author {
+	height: 1.2em;
+	text-align: left;
+	font-size: 0.5em;
+	word-wrap:break-word;
+	margin: 0;
+	overflow-y: hidden;
+}
+p.author:hover {
+	overflow-y: visible;
+}
+/* ------Image Sprites for toolbars------- */
+.buttons {
+	position: relative;
+}
+.buttons li {
+	margin: 3px 0 3px 0;
+	padding:0;
+	list-style:none;
+	position:absolute;
+	top:0;
+}
+.buttons li, .buttons a {
+	height:24px;
+	display:block;
+}
+/* -------------id-WAVES--------------- */
+/* ----------internal visual structure of a "blip" in id-WAVES----------- */
+section.blip {
+	margin: 0.2em 0.2em 0.8em 0.2em;
+}
+div.labelBlip {
+	position: relative;
+	float: left;
+	width: 1em;
+}
+
