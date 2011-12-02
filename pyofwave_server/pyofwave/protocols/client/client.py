@@ -37,7 +37,7 @@ class ClientProtocol(Protocol):
             value = value.strip()
             
             self._mkwargs[key] = value #TODO change key to a nested dictionary path.
-            print self._mkwargs
+            logging.debug("Data (as dict) received by client : %s" % self._mkwargs)
         else:
             self.sendError(self._mname, OperationError(500, method=self._mmethod, keys=str(self._mkwargs)))
     
