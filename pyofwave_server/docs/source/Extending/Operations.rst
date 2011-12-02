@@ -18,26 +18,29 @@ Operators have several parts guiding it's form in the protocols:
 
 - Event condition (determines when it is sent to client)
 
-These map to the following syntax in python (with the namespace being the file your in):
+These map to the following syntax in python (with `<` and `>` surrounding parts specific to your tag)::
 
-   from ..core import opdev
-   from lxml import etree as xml
+   from ..core.opdev import OperationNS as Ops
+   NS = Ops("<XML namespace>")
 
-   NS = " :strong:`XML namespace` "
+   @NS
+   def <tagname>(events, <expected children>, <attributes>):
+      <action>
+      return <return element>
 
-   class :strong:`local tagname` (opdev.Operation):
-      """ :strong:`description` """
-
-      def r(events, :strong:`expected children`, :strong:`attributes`):
-         :strong:`action`
-
-         return :strong:`return element`
-
-      def s(tag, delta):
-         if :strong:`conditional`: return :strong:`event element`
-
-      q = " :strong:`xQuery conditional` "
+   @NS("<xQuery conditional>")
+   def _<tagname>(S, tag, delta):
+      if <conditional>: return S(<event element content>)
 
 As a shortcut, when PyOfWave receives an operation, it will distribute it as an event without checking the conditionals. You will not be able to block it. 
 
 Instead the conditionals are to check if the same effective action has been applied. 
+
+OperationNS.E
+-------------
+
+The :py:class:`OperationNS` has a property of :py:data:`E` of class :py:class:`lxml.builder.ElementMaker` setup with the specified namespace. 
+
+If you don't know how to use this factory (it's the same as :py:data:`lxml.builder.E`), it allows you to create XML tags using the following syntax::
+
+   NS.E.tag(*children, **attributes)

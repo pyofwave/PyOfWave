@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using PyOfWave’s Core module &mdash; PyOfWave 0.1 documentation</title>
-    
+    <title>Using PyOfWave’s Core module &mdash; PyOfWave v0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave 0.1 documentation" href="../index.html" />
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
     <link rel="next" title="Integrating Your Own Authentication Scheme" href="Authentication.html" />
     <link rel="prev" title="For Programmers" href="index.html" /> 
@@ -43,7 +40,7 @@
         <li class="right" >
           <a href="index.html" title="For Programmers"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
@@ -188,7 +185,56 @@ HTTP Error codes), or return a mapping.</p>
 
 </dd></dl>
 
+<div class="section" id="opdev-operationns">
+<h3>opdev.OperationNS<a class="headerlink" href="#opdev-operationns" title="Permalink to this headline">¶</a></h3>
+<p>OperationNS is the plugin system for adding operations. It is a class with the following methods:</p>
+<dl class="class">
+<dt id="OperationNS">
+<em class="property">class </em><tt class="descname">OperationNS</tt><big>(</big><em>object</em><big>)</big><a class="headerlink" href="#OperationNS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operation plugin system.</p>
+<dl class="method">
+<dt id="OperationNS.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>namespace</em><big>)</big><a class="headerlink" href="#OperationNS.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes with the given <em>namespace</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="OperationNS.receive">
+<tt class="descname">receive</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#OperationNS.receive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator, registers an operation of <cite>callback.__name__</cite> under
+<em>namespace</em> which calls <em>callback</em> . Preceding underscores are
+stripped.</p>
+<p><em>callback</em> returns an optional eTree element.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="OperationNS.shouldSend">
+<tt class="descname">shouldSend</tt><big>(</big><em>xQuery</em><big>)</big><a class="headerlink" href="#OperationNS.shouldSend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a decorator which decides whether a delta constitutes
+as an event for the element named by the decorated function.</p>
+<p>Decorated function returns an eTree Element or <tt class="xref py py-data xref docutils literal"><span class="pre">False</span></tt>
+value and takes an <tt class="xref py py-class docutils literal"><span class="pre">ElementMaker</span></tt> factory for it&#8217;s
+element, the selected tag, and it&#8217;s delta.</p>
+<p><cite>(S, tag, delta) -&gt; False or lxml.eTree.Element object</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="OperationNS.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#OperationNS.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on whether arg is a callable or string, forwards to
+<a class="reference internal" href="#OperationNS.receive" title="OperationNS.receive"><tt class="xref py py-meth docutils literal"><span class="pre">receive()</span></tt></a> or <a class="reference internal" href="#OperationNS.shouldSend" title="OperationNS.shouldSend"><tt class="xref py py-meth docutils literal"><span class="pre">shouldSend()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="OperationNS.E">
+<tt class="descname">E</tt><a class="headerlink" href="#OperationNS.E" title="Permalink to this definition">¶</a></dt>
+<dd><p>ElementMaker factory for <em>namespace</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
 <p>Instructions for adding operations are in <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>.</p>
+</div>
 </div>
 </div>
 
@@ -206,7 +252,10 @@ HTTP Error codes), or return a mapping.</p>
 <li><a class="reference internal" href="#deltaobservable">DeltaObservable</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#core-operation">core.operation</a></li>
+<li><a class="reference internal" href="#core-operation">core.operation</a><ul>
+<li><a class="reference internal" href="#opdev-operationns">opdev.OperationNS</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -225,7 +274,7 @@ HTTP Error codes), or return a mapping.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -251,13 +300,13 @@ HTTP Error codes), or return a mapping.</p>
         <li class="right" >
           <a href="index.html" title="For Programmers"
              >previous</a> |</li>
-        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, alcinnz.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

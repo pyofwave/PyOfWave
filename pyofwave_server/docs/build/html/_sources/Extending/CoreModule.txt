@@ -135,4 +135,45 @@ core.operation
 
       The Wave Address for the user.
 
+opdev.OperationNS
+-----------------
+
+OperationNS is the plugin system for adding operations. It is a class with the following methods:
+
+.. py:class:: OperationNS(object)
+
+   Operation plugin system.
+
+   .. py:method:: __init__(namespace)
+
+      Initializes with the given *namespace*.
+
+   .. py:method:: receive(callback)
+
+      Decorator, registers an operation of `callback.__name__` under 
+      *namespace* which calls *callback* . Preceding underscores are 
+      stripped.
+
+      *callback* returns an optional eTree element.
+
+   .. py:method:: shouldSend(xQuery)
+
+      Returns a decorator which decides whether a delta constitutes 
+      as an event for the element named by the decorated function. 
+
+      Decorated function returns an eTree Element or :py:data:`False` 
+      value and takes an :py:class:`ElementMaker` factory for it's 
+      element, the selected tag, and it's delta. 
+
+      `(S, tag, delta) -> False or lxml.eTree.Element object`
+
+   .. py:method:: __call__(arg)
+
+      Depending on whether arg is a callable or string, forwards to 
+      :py:meth:`receive` or :py:meth:`shouldSend`.
+
+   .. py:data:: E
+
+      ElementMaker factory for *namespace*. 
+
 Instructions for adding operations are in :doc:`Operations`.
