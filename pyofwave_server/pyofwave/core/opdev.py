@@ -1,31 +1,42 @@
 """
 Underlaying API for creating operations.
 """
-from types import FunctionType
+from lxml.builder import ElementMaker
 
-def _MetaClassFactory(function):
-    class MetaClass(type):
-        def __new__(meta, classname, bases, classDict):
-            newClassDict = {}
-            for attributeName, attribute in classDict.items():
-                if type(attribute) == FunctionType:
-                    attribute = function(attribute)
+_receive = {}
+_shouldSend = {}
 
-                newClassDict[attributeName] = attribute
-            return  type.__new__(meta, classname, bases, newClassDict)
-    return MetaClass
+class OperationNS(object):
+	""" Plugin interface for operations."""
+	def __init__(self, namespace):
+		self.namespace = namespace
+		self.E = ElementMaker(namespace = namespace)
 
-_OpMeta = _MetaClassFactory(classmethod)
+	def receive(self, callback):
+		"""Register callback to be called for 
+			"{%s}%s" % self.namespace, callback.__name__."""
+		return self._register(_receive, callback.__name__, callback)
+		
+	def shouldSend(self, xQuery):
+		"""Determines if a delta translates to this event (tag). """
+		S = None
+		cb = None
+		def inner(fn):
+			name = fn.__name__
+			S = getattr(self.E, name)
+			cb = fn
 
-class Operation(object):
-    """Superclass for all operations, serves for identification, AOP via _OpMeta, and hooks. """
-    ## __metaclass__ = _OpMeta
+			self._register(_shouldSend, name, callback)
+			return inner
 
-    def r(*args):
-        pass
+		def callback(doc, delta):
+			""" Checks xQuery then cb. """
 
-    def s(*args):
-        pass
+		return inner
 
-    q = ""
-    
+	def __call__(self, arg):
+		if callable(arg): return self.receive(arg)
+		else: return self.shouldSend(arg)
+
+	def _register(self, dikt, name, value):
+		dikt["{"+self.namespace+"}"+name] = value
