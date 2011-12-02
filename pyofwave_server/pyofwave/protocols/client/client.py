@@ -5,25 +5,28 @@ This format uses JSON and is centred around method calls.
 
 A few additional operations are supported, for optimisations.
 """
+import logging
+
 from twisted.internet.protocol import Protocol, Factory
 
 from pyofwave.core.operation import performOperation
 from pyofwave.operations import OperationError
 
 import dictOps
-import logging
+
+logger = logging.getLogger("pyofwave.server")
 
 class ClientProtocol(Protocol):
     """Interface for clients to call operations on the server."""
     def connectionMade(self):
-        logging.debug("Connection made with client")
+        logger.debug("Connection made with client")
         self._mname = ""
         self._mmethod = ""
         self._mkwargs = {}
         
     def dataReceived(self, data):
         """Parses into a method call."""
-        logging.debug("Data %s received by client" % data)
+        logger.debug("Data %s received by client" % data)
         firstChar = data[0]
         if firstChar == "#":
             self.call()
@@ -37,7 +40,7 @@ class ClientProtocol(Protocol):
             value = value.strip()
             
             self._mkwargs[key] = value #TODO change key to a nested dictionary path.
-            logging.debug("Data (as dict) received by client : %s" % self._mkwargs)
+            logger.debug("Data (as dict) received by client : %s" % self._mkwargs)
         else:
             self.sendError(self._mname, OperationError(500, method=self._mmethod, keys=str(self._mkwargs)))
     

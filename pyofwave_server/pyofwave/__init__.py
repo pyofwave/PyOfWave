@@ -16,24 +16,30 @@
 # limitations under the License.
 #
 
-import SETTINGS, logging
 
-def start():
+def start(settings_mod=None):
+    # Setup the configuration using a configuration file
+    from conf import setup_environ
+    setup_environ(settings_mod)
+    
     from twisted.internet import reactor
     import protocols
     import logging
-    
+    logger = logging.getLogger("pyofwave.server")
+
     # Protocol interface
     protocol_server_port = 8080
-    logging.debug("Start http protocol server on http://127.0.0.1:%s" % protocol_server_port)
+    logger.debug("Starting http protocol server on port %s" % protocol_server_port)
     protocol_server = reactor.listenTCP(protocol_server_port, 
                                         protocols.http.factory)
-
+    logger.debug("HTTP protocol server started on %s" % protocol_server.getHost())
+    
     # Internet
     internet_server_port = 9283
-    logging.debug("Start internet/client server on http://127.0.0.1:%s" % internet_server_port)
+    logger.debug("Starting internet/client server on port %s" % internet_server_port)
     internet_server = reactor.listenTCP(internet_server_port, 
                                         protocols.client.factory)
+    logger.debug("HTTP internet server started on %s" % internet_server.getHost())
     
     reactor.run()
 

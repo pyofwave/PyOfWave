@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Data Storage Extensions &mdash; PyOfWave v0.1 documentation</title>
+    <title>Data Storage Extensions &mdash; PyOfWave 0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="top" title="PyOfWave 0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
     <link rel="next" title="Protocol Operators" href="Operations.html" />
     <link rel="prev" title="Integrating Your Own Authentication Scheme" href="Authentication.html" /> 
@@ -40,7 +43,7 @@
         <li class="right" >
           <a href="Authentication.html" title="Integrating Your Own Authentication Scheme"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
@@ -64,7 +67,7 @@
 <div class="section" id="implement-the-adaptor">
 <h2>2. Implement the Adaptor<a class="headerlink" href="#implement-the-adaptor" title="Permalink to this headline">¶</a></h2>
 <p>Add a new Python file in datasource (doesn&#8217;t really matter if you put it there) and code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">datasource</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyofwave.core</span> <span class="kn">import</span> <span class="n">datasource</span>
 <span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
 
 <span class="k">class</span> <span class="nc">MyDataStorage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -91,10 +94,28 @@
 </pre></div>
 </div>
 <p>Implement the methods.</p>
+<p>Make sure you allow your users to override the default config by using
+variables coming from their <tt class="file docutils literal"><span class="pre">settings.py</span></tt>. Here&#8217;s an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyofwave.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="k">class</span> <span class="nc">MyDataSource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">checkDomain</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">settings</span><span class="o">.</span><span class="n">MYDATASOURCE_PATH</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">checkDomain</span> <span class="o">=</span> <span class="n">checkDomain</span> <span class="ow">or</span> <span class="n">settings</span><span class="o">.</span><span class="n">MYDATASOURCE_CHECKDOMAIN</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="integrate-the-adaptor">
 <h2>3. Integrate the Adaptor<a class="headerlink" href="#integrate-the-adaptor" title="Permalink to this headline">¶</a></h2>
-<p>Open <tt class="file docutils literal"><span class="pre">PREFERENCES.py</span></tt> and import your file. Then set <a class="reference internal" href="settings.html#STORAGE_OBJECT" title="STORAGE_OBJECT"><tt class="xref py py-data docutils literal"><span class="pre">STORAGE_OBJECT</span></tt></a> to an instance of your adaptor.</p>
+<p>In your <tt class="file docutils literal"><span class="pre">settings.py</span></tt> set <tt class="xref py py-data docutils literal"><span class="pre">DATASOURCE_STORAGE</span></tt> to the
+path of your adaptor. For example, to use the file storage backend:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DATASOURCE_STORAGE</span> <span class="o">=</span> <span class="s">&#39;storage.files.FileStorage&#39;</span>
+</pre></div>
+</div>
+<p>Then, declare the variables required by the backend such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FILESTORAGE_PATH</span> <span class="o">=</span> <span class="s">&#39;waves/&#39;</span>
+</pre></div>
+</div>
 <p>Also ensure that the applyDelta method is set to observe betaDeltaObservable, <tt class="docutils literal"><span class="pre">betaDeltaObservable.addObserver(STORAGE_OBJECT.applyDelta)</span></tt>.</p>
 </div>
 </div>
@@ -129,7 +150,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -155,13 +176,13 @@
         <li class="right" >
           <a href="Authentication.html" title="Integrating Your Own Authentication Scheme"
              >previous</a> |</li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, alcinnz.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>
