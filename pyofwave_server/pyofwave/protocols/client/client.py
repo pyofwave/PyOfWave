@@ -11,16 +11,19 @@ from pyofwave.core.operation import performOperation
 from pyofwave.operations import OperationError
 
 import dictOps
+import logging
 
 class ClientProtocol(Protocol):
     """Interface for clients to call operations on the server."""
     def connectionMade(self):
+        logging.debug("Connection made with client")
         self._mname = ""
         self._mmethod = ""
         self._mkwargs = {}
         
     def dataReceived(self, data):
         """Parses into a method call."""
+        logging.debug("Data %s received by client" % data)
         firstChar = data[0]
         if firstChar == "#":
             self.call()

@@ -16,15 +16,24 @@
 # limitations under the License.
 #
 
+import SETTINGS, logging
+
 def start():
     from twisted.internet import reactor
     import protocols
+    import logging
     
     # Protocol interface
-    protocol_server = reactor.listenTCP(8080, protocols.http.factory)
+    protocol_server_port = 8080
+    logging.debug("Start http protocol server on http://127.0.0.1:%s" % protocol_server_port)
+    protocol_server = reactor.listenTCP(protocol_server_port, 
+                                        protocols.http.factory)
 
     # Internet
-    internet_server = reactor.listenTCP(9283, protocols.client.factory)
+    internet_server_port = 9283
+    logging.debug("Start internet/client server on http://127.0.0.1:%s" % internet_server_port)
+    internet_server = reactor.listenTCP(internet_server_port, 
+                                        protocols.client.factory)
     
     reactor.run()
 
