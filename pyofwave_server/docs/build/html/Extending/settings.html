@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Settings in PyOfWave Server &mdash; PyOfWave v0.1 documentation</title>
+    <title>Settings in PyOfWave Server &mdash; PyOfWave 0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="top" title="PyOfWave 0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
     <link rel="next" title="For Contributors" href="../StandardPlugins/index.html" />
     <link rel="prev" title="Adding New Protocols to the PyOfWave Server" href="Protocols.html" /> 
@@ -40,7 +43,7 @@
         <li class="right" >
           <a href="Protocols.html" title="Adding New Protocols to the PyOfWave Server"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
@@ -52,50 +55,62 @@
             
   <div class="section" id="settings-in-pyofwave-server">
 <h1>Settings in PyOfWave Server<a class="headerlink" href="#settings-in-pyofwave-server" title="Permalink to this headline">¶</a></h1>
-<p>This file documents all the values in <tt class="file docutils literal"><span class="pre">SETTINGS.py</span></tt>, <tt class="file docutils literal"><span class="pre">PREFERENCES.py</span></tt>, and <tt class="file docutils literal"><span class="pre">__init__.py</span></tt> you can customise.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Shouldn&#8217;t we move part of this to the <tt class="xref doc docutils literal"><span class="pre">For</span> <span class="pre">Wave</span> <span class="pre">Providers</span></tt> section ?</p>
+</div>
+<p>This file documents all the values in <tt class="file docutils literal"><span class="pre">settings.py</span></tt>  and
+<tt class="file docutils literal"><span class="pre">protocols/__init__.py</span></tt> you can customise.</p>
 <div class="section" id="settings-py">
-<h2>SETTINGS.py<a class="headerlink" href="#settings-py" title="Permalink to this headline">¶</a></h2>
+<h2>settings.py<a class="headerlink" href="#settings-py" title="Permalink to this headline">¶</a></h2>
 <p>It is <em>highly</em> recommended to set these settings, or PyOfWave may not function correct in your setup.</p>
+<div class="section" id="general-settings">
+<h3>General settings<a class="headerlink" href="#general-settings" title="Permalink to this headline">¶</a></h3>
 <dl class="data">
 <dt id="DOMAIN">
 <tt class="descname">DOMAIN</tt><a class="headerlink" href="#DOMAIN" title="Permalink to this definition">¶</a></dt>
-<dd><p>This value represents your domain name. This is used by the protocols to
+<dd><p>Default: &#8216;&#8217; (Empty string)</p>
+<p>This value represents your domain name. This is used by the protocols to
 identify documents and users belonging to you. Should be a string.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="DELTA_OBSERVER_PROCESSES">
 <tt class="descname">DELTA_OBSERVER_PROCESSES</tt><a class="headerlink" href="#DELTA_OBSERVER_PROCESSES" title="Permalink to this definition">¶</a></dt>
-<dd><p>The number of processes to launch to handle changes in documents
+<dd><p>Default: Your CPU count</p>
+<p>The number of processes to launch to handle changes in documents
 &#8220;deltas&#8221;. Should be a integer.</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="DELTA_OBSERVER_TIMEOUT">
 <tt class="descname">DELTA_OBSERVER_TIMEOUT</tt><a class="headerlink" href="#DELTA_OBSERVER_TIMEOUT" title="Permalink to this definition">¶</a></dt>
-<dd><p>The number of tasks a process should run before it times out. Should be
+<dd><p>Default: <tt class="xref py py-data docutils literal"><span class="pre">None</span></tt></p>
+<p>The number of tasks a process should run before it times out. Should be
 a integer.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="preferences-py">
-<h2>PREFERENCES.py<a class="headerlink" href="#preferences-py" title="Permalink to this headline">¶</a></h2>
-<p>If you wish to customize how data is handled in PyOfWave, use this file. If you need more details, please see <a class="reference internal" href="CoreModule.html"><em>Using PyOfWave&#8217;s Core module</em></a>.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This file is seperate to handle seperate dependancies (Python
-yells if I have both settings using the objects and used by the objects
-in the core server).</p>
-</div>
+<div class="section" id="backing-stores">
+<h3>Backing stores<a class="headerlink" href="#backing-stores" title="Permalink to this headline">¶</a></h3>
+<p>If you wish to customize how data is handled in PyOfWave, use these variables. If you need more details, please see <a class="reference internal" href="CoreModule.html"><em>Using PyOfWave&#8217;s Core module</em></a>.</p>
 <dl class="data">
-<dt id="STORAGE_OBJECT">
-<tt class="descname">STORAGE_OBJECT</tt><a class="headerlink" href="#STORAGE_OBJECT" title="Permalink to this definition">¶</a></dt>
-<dd><p>The main storage object used by all protocols and extensions.</p>
+<dt id="DATASOURCE_STORAGE">
+<tt class="descname">DATASOURCE_STORAGE</tt><a class="headerlink" href="#DATASOURCE_STORAGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default: &#8216;storage.files.FileStorage&#8217;</p>
+<p>The main storage object used by all protocols and extensions. Use a
+dotted path that points to the module.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="init-py">
-<h2>__init__.py<a class="headerlink" href="#init-py" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="protocols-init-py">
+<h2>protocols/__init__.py<a class="headerlink" href="#protocols-init-py" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These settings have to be moved out of the package to allow
+user reconfiguration</p>
+</div>
 <p>In this file, you setup any changes to the protocols you have in your runtime. Instructions for doing this can be found at <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
 </div>
 </div>
@@ -109,9 +124,12 @@ in the core server).</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Settings in PyOfWave Server</a><ul>
-<li><a class="reference internal" href="#settings-py">SETTINGS.py</a></li>
-<li><a class="reference internal" href="#preferences-py">PREFERENCES.py</a></li>
-<li><a class="reference internal" href="#init-py">__init__.py</a></li>
+<li><a class="reference internal" href="#settings-py">settings.py</a><ul>
+<li><a class="reference internal" href="#general-settings">General settings</a></li>
+<li><a class="reference internal" href="#backing-stores">Backing stores</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#protocols-init-py">protocols/__init__.py</a></li>
 </ul>
 </li>
 </ul>
@@ -130,7 +148,7 @@ in the core server).</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -156,13 +174,13 @@ in the core server).</p>
         <li class="right" >
           <a href="Protocols.html" title="Adding New Protocols to the PyOfWave Server"
              >previous</a> |</li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, alcinnz.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>
