@@ -109,11 +109,13 @@ core.operation
 
 :py:mod:`core.operation` has only one function, which imports a function from pyofwave_server.operations and executes it with given arguments. 
 
-.. py:function:: performOperation(ip, operation, kwargs)
+.. py:function:: performOperation(event, operation)
 
-   Executes the operation operation and provides it ip and kwargs. It will either 
-   raise a :py:exc:`OperationError` providing a status dictionary and code (as in 
-   HTTP Error codes), or return a mapping.
+   Executes the operation (an :py:class:`lxml.eTree.Element` object) operation and 
+   provides the event, operation's children, and operations attributes. 
+
+   Returns the element returned by the operation. Notifies observers 
+   (via :py:class:`Events`) about the *event* operation.
 
 .. py:class:: Events
 

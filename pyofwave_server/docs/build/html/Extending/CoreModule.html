@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using PyOfWave’s Core module &mdash; PyOfWave 0.1 documentation</title>
-    
+    <title>Using PyOfWave’s Core module &mdash; PyOfWave v0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave 0.1 documentation" href="../index.html" />
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
     <link rel="next" title="Integrating Your Own Authentication Scheme" href="Authentication.html" />
     <link rel="prev" title="For Programmers" href="index.html" /> 
@@ -43,7 +40,7 @@
         <li class="right" >
           <a href="index.html" title="For Programmers"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">For Programmers</a> &raquo;</li> 
       </ul>
     </div>  
@@ -152,10 +149,11 @@ commiting them to memory.</p>
 <p><tt class="xref py py-mod docutils literal"><span class="pre">core.operation</span></tt> has only one function, which imports a function from pyofwave_server.operations and executes it with given arguments.</p>
 <dl class="function">
 <dt id="performOperation">
-<tt class="descname">performOperation</tt><big>(</big><em>ip</em>, <em>operation</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#performOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the operation operation and provides it ip and kwargs. It will either
-raise a <tt class="xref py py-exc docutils literal"><span class="pre">OperationError</span></tt> providing a status dictionary and code (as in
-HTTP Error codes), or return a mapping.</p>
+<tt class="descname">performOperation</tt><big>(</big><em>event</em>, <em>operation</em><big>)</big><a class="headerlink" href="#performOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the operation (an <tt class="xref py py-class docutils literal"><span class="pre">lxml.eTree.Element</span></tt> object) operation and
+provides the event, operation&#8217;s children, and operations attributes.</p>
+<p>Returns the element returned by the operation. Notifies observers
+(via <a class="reference internal" href="#Events" title="Events"><tt class="xref py py-class docutils literal"><span class="pre">Events</span></tt></a>) about the <em>event</em> operation.</p>
 </dd></dl>
 
 <dl class="class">
@@ -215,7 +213,7 @@ stripped.</p>
 <tt class="descname">shouldSend</tt><big>(</big><em>xQuery</em><big>)</big><a class="headerlink" href="#OperationNS.shouldSend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a decorator which decides whether a delta constitutes
 as an event for the element named by the decorated function.</p>
-<p>Decorated function returns an eTree Element or <tt class="xref py py-data docutils literal"><span class="pre">False</span></tt>
+<p>Decorated function returns an eTree Element or <tt class="xref py py-data xref docutils literal"><span class="pre">False</span></tt>
 value and takes an <tt class="xref py py-class docutils literal"><span class="pre">ElementMaker</span></tt> factory for it&#8217;s
 element, the selected tag, and it&#8217;s delta.</p>
 <p><cite>(S, tag, delta) -&gt; False or lxml.eTree.Element object</cite></p>
@@ -277,7 +275,7 @@ element, the selected tag, and it&#8217;s delta.</p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -303,13 +301,13 @@ element, the selected tag, and it&#8217;s delta.</p>
         <li class="right" >
           <a href="index.html" title="For Programmers"
              >previous</a> |</li>
-        <li><a href="../index.html">PyOfWave 0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >For Programmers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, alcinnz.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>
