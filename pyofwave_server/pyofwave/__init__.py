@@ -16,10 +16,14 @@
 # limitations under the License.
 #
 
-def start():
+def start(settings_mod=None):
+    # Setup the configuration using a configuration file
+    from conf import setup_environ
+    setup_environ(settings_mod)
+    
     from twisted.internet import reactor
     import protocols
-    
+
     # Protocol interface
     protocol_server = reactor.listenTCP(8080, protocols.http.factory)
 
