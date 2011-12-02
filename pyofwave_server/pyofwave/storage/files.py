@@ -2,25 +2,30 @@
 Provides a storage class which uses .wave & .ver files to save data.
 Not recommended for production use.  
 """
-from ..core import delta
 import cPickle
 
+from pyofwave.conf import settings
+from pyofwave.core import delta
+
 class FileStorage(object):
-   def __init__(self, path, checkDomain):
-      self.path = path
-      self.checkDomain = checkDomain
+   """
+   A simple backing store using files to store waves
+   """
+   def __init__(self, path=None, checkDomain=None):
+      self.path = path or settings.FILESTORAGE_PATH
+      self.checkDomain = checkDomain or settings.FILESTORAGE_CHECKDOMAIN
       
    def applyDelta(self, doc, delta):
       doc = self.filename(doc)
       if not doc: return
       
-      #update .wave file
+      # update .wave file
       wavelet = delta.update(self.getDocument(doc)) # apply the delta
       f = open(doc+".wave", "w") # overwrite
       pickle.dump(wavelet, f)
       f.close()
       
-      #append onto .ver file
+      # append onto .ver file
       f = open(doc+".ver", "a") # append at end of file.
       pickle.dump(delta, f)
       f.close()
@@ -48,7 +53,7 @@ class FileStorage(object):
       if type(doc) != "String": return doc
       if (end-start > limit): end = start + limit # ensure the limit is met.
 
-      #load data
+      # load data
       f = open(doc+".ver", "r")
       res = []
       i = 0
