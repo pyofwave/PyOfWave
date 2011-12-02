@@ -149,10 +149,11 @@ commiting them to memory.</p>
 <p><tt class="xref py py-mod docutils literal"><span class="pre">core.operation</span></tt> has only one function, which imports a function from pyofwave_server.operations and executes it with given arguments.</p>
 <dl class="function">
 <dt id="performOperation">
-<tt class="descname">performOperation</tt><big>(</big><em>ip</em>, <em>operation</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#performOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Executes the operation operation and provides it ip and kwargs. It will either
-raise a <tt class="xref py py-exc docutils literal"><span class="pre">OperationError</span></tt> providing a status dictionary and code (as in
-HTTP Error codes), or return a mapping.</p>
+<tt class="descname">performOperation</tt><big>(</big><em>event</em>, <em>operation</em><big>)</big><a class="headerlink" href="#performOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the operation (an <tt class="xref py py-class docutils literal"><span class="pre">lxml.eTree.Element</span></tt> object) operation and
+provides the event, operation&#8217;s children, and operations attributes.</p>
+<p>Returns the element returned by the operation. Notifies observers
+(via <a class="reference internal" href="#Events" title="Events"><tt class="xref py py-class docutils literal"><span class="pre">Events</span></tt></a>) about the <em>event</em> operation.</p>
 </dd></dl>
 
 <dl class="class">
