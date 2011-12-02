@@ -52,30 +52,43 @@
             
   <div class="section" id="protocol-operators">
 <h1>Protocol Operators<a class="headerlink" href="#protocol-operators" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet implemented.</p>
+</div>
 <p>An operator is a function called by a client request to minipulate the server. These operators can be called by either the Simple Data Protocol or the Wave Client Protocol. These operators should be implemented to those standards.</p>
 <div class="section" id="basic-form">
 <h2>Basic Form<a class="headerlink" href="#basic-form" title="Permalink to this headline">¶</a></h2>
 <p>Operators have several parts guiding it&#8217;s form in the protocols:</p>
 <ul class="simple">
-<li>A namespace</li>
-<li>A name</li>
-<li>Arguments</li>
-<li>Return value map</li>
+<li>A XML tagname</li>
+<li>Attributes and children</li>
+<li>Return element</li>
+<li>Event condition (determines when it is sent to client)</li>
 </ul>
-<p>These map to the following syntax in python (with the namespace being the file your in):</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>def <strong>name</strong> (ip, <strong>arguments comma seperated</strong>):</dt>
-<dd><p class="first"><strong>routine</strong></p>
-<dl class="last docutils">
-<dt>return {</dt>
-<dd><strong>return map</strong>
-}</dd>
-</dl>
-</dd>
-</dl>
-</div></blockquote>
-<p>If you want to minipulate the wave, it is reccomended that you use <tt class="xref py py-mod docutils literal"><span class="pre">core.auth</span></tt>.</p>
+<p>These map to the following syntax in python (with <cite>&lt;</cite> and <cite>&gt;</cite> surrounding parts specific to your tag):</p>
+<div class="highlight-python"><pre>from ..core.opdev import OperationNS as Ops
+NS = Ops("&lt;XML namespace&gt;")
+
+@NS
+def &lt;tagname&gt;(events, &lt;expected children&gt;, &lt;attributes&gt;):
+   &lt;action&gt;
+   return &lt;return element&gt;
+
+@NS("&lt;xQuery conditional&gt;")
+def _&lt;tagname&gt;(S, tag, delta):
+   if &lt;conditional&gt;: return S(&lt;event element content&gt;)</pre>
+</div>
+<p>As a shortcut, when PyOfWave receives an operation, it will distribute it as an event without checking the conditionals. You will not be able to block it.</p>
+<p>Instead the conditionals are to check if the same effective action has been applied.</p>
+<div class="section" id="operationns-e">
+<h3>OperationNS.E<a class="headerlink" href="#operationns-e" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="CoreModule.html#OperationNS" title="OperationNS"><tt class="xref py py-class docutils literal"><span class="pre">OperationNS</span></tt></a> has a property of <tt class="xref py py-data docutils literal"><span class="pre">E</span></tt> of class <tt class="xref py py-class docutils literal"><span class="pre">lxml.builder.ElementMaker</span></tt> setup with the specified namespace.</p>
+<p>If you don&#8217;t know how to use this factory (it&#8217;s the same as <tt class="xref py py-data docutils literal"><span class="pre">lxml.builder.E</span></tt>), it allows you to create XML tags using the following syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">NS</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="o">*</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -88,7 +101,10 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Protocol Operators</a><ul>
-<li><a class="reference internal" href="#basic-form">Basic Form</a></li>
+<li><a class="reference internal" href="#basic-form">Basic Form</a><ul>
+<li><a class="reference internal" href="#operationns-e">OperationNS.E</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

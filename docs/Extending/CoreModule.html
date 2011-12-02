@@ -52,252 +52,85 @@
             
   <div class="section" id="using-pyofwave-s-core-module">
 <h1>Using PyOfWave&#8217;s Core module<a class="headerlink" href="#using-pyofwave-s-core-module" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet fully implemented.</p>
+</div>
 <p>pyofwave_server.core provides facilities that are shared, in various methods, by all protocols and extensions. Specifics for extending this are provided by <a class="reference internal" href="Authentication.html"><em>Integrating Your Own Authentication Scheme</em></a>, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>, <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>, and <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
-<div class="section" id="core-auth">
-<h2>core.auth<a class="headerlink" href="#core-auth" title="Permalink to this headline">¶</a></h2>
-<p>Auth provides basic services for authentication and profiles in PyOfWave. To access a solid object, use <tt class="xref py py-data docutils literal"><span class="pre">PREFERENCES.AUTH</span></tt>.</p>
-<p>This object has the following methods.</p>
-<dl class="method">
-<dt id="signin">
-<tt class="descname">signin</tt><big>(</big><em>ip</em>, <em>username</em>, <em>password</em><big>)</big><a class="headerlink" href="#signin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs a user in with specified username and password on specified IP
-Address. Returns a boolean indicating success.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="setPassword">
-<tt class="descname">setPassword</tt><big>(</big><em>ip</em>, <em>oldpassword</em>, <em>password</em><big>)</big><a class="headerlink" href="#setPassword" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the user logged in on IP has an existing password of oldpassword,
-changes their password to password. Returns a boolean indicating success.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="getUser">
-<tt class="descname">getUser</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#getUser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the user logged in on the specified IP address. Returns a
-<a class="reference internal" href="#User" title="User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="saveFolder">
-<tt class="descname">saveFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#saveFolder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves a <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> object to wherever the service saves it&#8217;s data,
-providing the fid property has not changed.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This method is provided here to ease integration of
-authentication schemes.</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="deleteFolder">
-<tt class="descname">deleteFolder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#deleteFolder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> object from wherever the service saves it&#8217;s
-data.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This method is provided here to ease integration of
-authentication schemes.</p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="logout">
-<tt class="descname">logout</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#logout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cancels the user authentication on a IP. Returns a boolean indicating
-success.</p>
-</dd></dl>
-
-<p>When calling the <a class="reference internal" href="#getUser" title="getUser"><tt class="xref py py-meth docutils literal"><span class="pre">getUser()</span></tt></a> method, you will get a <a class="reference internal" href="#User" title="User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> object. This class is effectively a structure:</p>
-<dl class="class">
-<dt id="User">
-<em class="property">class </em><tt class="descname">User</tt><big>(</big><em>name</em>, <em>doc</em>, <em>folder</em><big>)</big><a class="headerlink" href="#User" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a user, and wraps whatever authentication service is used.
-This represents the basic profile you&#8217;ll need with Wave.</p>
-<dl class="attribute">
-<dt id="User.name">
-<tt class="descname">name</tt><a class="headerlink" href="#User.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The user&#8217;s wave address with your domain name cut off as a string.
-Strictly, it is allowed to be changed, but it will not change
-anything.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="User.doc">
-<tt class="descname">doc</tt><a class="headerlink" href="#User.doc" title="Permalink to this definition">¶</a></dt>
-<dd><p>A <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> object representing the user&#8217;s profile. In PyOfWave,
-this isn&#8217;t expected to be anything, but gadgets will have expectations
-and other servers. I discuss these required annotations in my
-Federation Format standard (in repository docs/protocols/
-federationFormat.txt).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="User.folder">
-<tt class="descname">folder</tt><a class="headerlink" href="#User.folder" title="Permalink to this definition">¶</a></dt>
-<dd><p>A <a class="reference internal" href="#Folder" title="Folder"><tt class="xref py py-class docutils literal"><span class="pre">Folder</span></tt></a> which illustrates the user&#8217;s organisation of waves.
-You&#8217;ll need to use search to get the waves inside these, though.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Folder">
-<em class="property">class </em><tt class="descname">Folder</tt><big>(</big><em>fid</em>, <em>name</em>, <em>icon</em>, <em>search</em>, <em>children</em><big>)</big><a class="headerlink" href="#Folder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents an &#8220;inbox&#8221; for the user to store their waves in.</p>
-<dl class="attribute">
-<dt id="Folder.fid">
-<tt class="descname">fid</tt><a class="headerlink" href="#Folder.fid" title="Permalink to this definition">¶</a></dt>
-<dd><p>The ID specified by the <tt class="xref py py-class docutils literal"><span class="pre">AuthService</span></tt> to identify the folder.
-This should not be changed (or you cannot <a class="reference internal" href="#saveFolder" title="saveFolder"><tt class="xref py py-meth docutils literal"><span class="pre">saveFolder()</span></tt></a> it), and
-can be whatever the service wants it to be.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Folder.name">
-<tt class="descname">name</tt><a class="headerlink" href="#Folder.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The display name of the folder as a string.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Folder.icon">
-<tt class="descname">icon</tt><a class="headerlink" href="#Folder.icon" title="Permalink to this definition">¶</a></dt>
-<dd><p>The display icon of the folder as a string.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Folder.search">
-<tt class="descname">search</tt><a class="headerlink" href="#Folder.search" title="Permalink to this definition">¶</a></dt>
-<dd><p>The string to pass to <tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> to get contained waves.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Folder.children">
-<tt class="descname">children</tt><a class="headerlink" href="#Folder.children" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of &#8220;child&#8221; Folder objects of the Folder.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="core-datasource">
 <h2>core.datasource<a class="headerlink" href="#core-datasource" title="Permalink to this headline">¶</a></h2>
-<p>This module has exactly the same architecture of the core.auth module. The &#8220;interface&#8221; in this module is DataSource, the object is <tt class="xref py py-data docutils literal"><span class="pre">PREFERENCES.STORAGE_OBJECT</span></tt> and it stores objects of <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> which contains a number of <a class="reference internal" href="#Item" title="Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> objects.</p>
+<p>The interface DataSource provides access to persistant XML following the wave schema. LXML is used to represent the XML files.</p>
 <dl class="method">
 <dt id="newDocument">
-<tt class="descname">newDocument</tt><big>(</big><em>doc</em><big>)</big><a class="headerlink" href="#newDocument" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">newDocument</tt><big>(</big><big>)</big><a class="headerlink" href="#newDocument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new document in the DataSource. Returns the
-blank <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> object if successful.</p>
+blank <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree.ElementBase</span></tt> object if successful.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="getDocument">
-<tt class="descname">getDocument</tt><big>(</big><em>doc</em><big>)</big><a class="headerlink" href="#getDocument" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads the document from the DataSource. Returns a <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> object.</p>
+<tt class="descname">getDocument</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#getDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the document from the DataSource. Returns a <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree.ElementBase</span></tt> object.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="getDocumentVersion">
-<tt class="descname">getDocumentVersion</tt><big>(</big><em>doc</em>, <em>start</em>, <em>end</em>, <em>limit</em><big>)</big><a class="headerlink" href="#getDocumentVersion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads the document at the specified times. Returns a iterable <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt>
-objects.</p>
+<tt class="descname">getDocumentVersion</tt><big>(</big><em>url</em>, <em>start</em>, <em>end</em>, <em>limit</em><big>)</big><a class="headerlink" href="#getDocumentVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the document at the specified times. Returns a iterable of <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree.ElementBase</span></tt> objects.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="searchDocuments">
 <tt class="descname">searchDocuments</tt><big>(</big><em>user</em>, <em>search</em><big>)</big><a class="headerlink" href="#searchDocuments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of wave documents that match the source. The tags that may be
-specified in the search are provided by <a class="reference internal" href="#setTags" title="setTags"><tt class="xref py py-meth docutils literal"><span class="pre">setTags()</span></tt></a>.</p>
+<dd><p>Returns a list of wave URLs to documents that match the search in the form of an xQuery conditional <tt class="xref py py-class docutils literal"><span class="pre">String</span></tt> object.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="setTags">
-<tt class="descname">setTags</tt><big>(</big><em>doc</em>, <em>user</em>, <em>**tags</em><big>)</big><a class="headerlink" href="#setTags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the tags for the documentation for use by search.</p>
-</dd></dl>
-
-<p>Classes:</p>
-<dl class="class">
-<dt id="Document">
-<em class="property">class </em><tt class="descname">Document</tt><big>(</big><em>*items</em><big>)</big><a class="headerlink" href="#Document" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a single &#8220;document&#8221; in the DataSource.</p>
-<dl class="attribute">
-<dt id="Document.items">
-<tt class="descname">items</tt><a class="headerlink" href="#Document.items" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of <a class="reference internal" href="#Item" title="Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> objects that make up the document.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Document.cursor">
-<tt class="descname">cursor</tt><a class="headerlink" href="#Document.cursor" title="Permalink to this definition">¶</a></dt>
-<dd><p>An integer representing the current location of the &#8220;cursor&#8221; in the
-document, used for delta processing.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Item">
-<em class="property">class </em><tt class="descname">Item</tt><big>(</big><em>type</em>, <em>name</em>, <em>**annotations</em><big>)</big><a class="headerlink" href="#Item" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a single &#8220;item&#8221; that makes up a document in the DataSource.</p>
-<dl class="attribute">
-<dt id="Item.type">
-<tt class="descname">type</tt><a class="headerlink" href="#Item.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Which type of item this is, as an integer. Values are specified by the class
-attributes.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Item.name">
-<tt class="descname">name</tt><a class="headerlink" href="#Item.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name or text of the item as a string.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Item.annotations">
-<tt class="descname">annotations</tt><a class="headerlink" href="#Item.annotations" title="Permalink to this definition">¶</a></dt>
-<dd><p>The mapping of the &#8220;annotations&#8221; attached to the tag.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="Item.TYPE_START_TAG">
-<tt class="descname">TYPE_START_TAG</tt><a class="headerlink" href="#Item.TYPE_START_TAG" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setting <a class="reference internal" href="#Item.type" title="Item.type"><tt class="xref py py-attr docutils literal"><span class="pre">type</span></tt></a> to this represents that it&#8217;s a start tag, which is
-closed by a following <a class="reference internal" href="#Item.TYPE_END_TAG" title="Item.TYPE_END_TAG"><tt class="xref py py-data docutils literal"><span class="pre">TYPE_END_TAG</span></tt></a>.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="Item.TYPE_END_TAG">
-<tt class="descname">TYPE_END_TAG</tt><a class="headerlink" href="#Item.TYPE_END_TAG" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setting <a class="reference internal" href="#Item.type" title="Item.type"><tt class="xref py py-attr docutils literal"><span class="pre">type</span></tt></a> to this represents that it closes the
-previous <a class="reference internal" href="#Item" title="Item"><tt class="xref py py-class docutils literal"><span class="pre">Item</span></tt></a> object with type <a class="reference internal" href="#Item.TYPE_START_TAG" title="Item.TYPE_START_TAG"><tt class="xref py py-data docutils literal"><span class="pre">TYPE_START_TAG</span></tt></a>.</p>
-</dd></dl>
-
-<dl class="data">
-<dt id="Item.TYPE_TEXT">
-<tt class="descname">TYPE_TEXT</tt><a class="headerlink" href="#Item.TYPE_TEXT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setting <a class="reference internal" href="#Item.type" title="Item.type"><tt class="xref py py-attr docutils literal"><span class="pre">type</span></tt></a> to this indicates that it represents the single
-charactor <a class="reference internal" href="#Item.name" title="Item.name"><tt class="xref py py-attr docutils literal"><span class="pre">name</span></tt></a>, and does not need a closing item.</p>
-</dd></dl>
-
-</dd></dl>
-
-<p>If this appears to be a bit imprecise, that&#8217;s because you use this to store whatever data you need to, adhering to appropriate standards.</p>
 </div>
 <div class="section" id="core-delta">
 <h2>core.delta<a class="headerlink" href="#core-delta" title="Permalink to this headline">¶</a></h2>
-<p><tt class="xref py py-mod docutils literal"><span class="pre">core.delta</span></tt>, this time, uses the architecture of a classic observer pattern. This module is used to distribute changes to documents, &#8220;deltas&#8221;, generated by the Federation and other protocols. These deltas can be in either &#8220;alpha&#8221; or &#8220;beta&#8221; state (after and before being commited to storage). In addition to just being passed around, they can also be applied to a document (which should only be done if you&#8217;re creating a new datasource, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>).</p>
-<p>Any one has the ability to distribute deltas on a <tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt>, but you should only do it on <a class="reference internal" href="#BetaDeltaObservable" title="BetaDeltaObservable"><tt class="xref py py-data docutils literal"><span class="pre">BetaDeltaObservable</span></tt></a> leaving <tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects to distribute on <a class="reference internal" href="#AlphaDeltaObservable" title="AlphaDeltaObservable"><tt class="xref py py-data docutils literal"><span class="pre">AlphaDeltaObservable</span></tt></a>, so as that the distributed <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects distributed there are truly in alpha state.</p>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">core.delta</span></tt>, provides a classic Observer interface. This module is used to distribute changes to documents, &#8220;deltas&#8221;, generated by the operations in the Wave Protocol. These deltas can be in either &#8220;alpha&#8221; or &#8220;beta&#8221; state (after and before being commited to storage).</p>
+<p>Any one has the ability to distribute deltas on a <a class="reference internal" href="#DeltaObservable" title="DeltaObservable"><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt></a>, but you should only do it on <a class="reference internal" href="#BetaDeltaObservable" title="BetaDeltaObservable"><tt class="xref py py-data docutils literal"><span class="pre">BetaDeltaObservable</span></tt></a> leaving <tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects to distribute on <a class="reference internal" href="#AlphaDeltaObservable" title="AlphaDeltaObservable"><tt class="xref py py-data docutils literal"><span class="pre">AlphaDeltaObservable</span></tt></a>, so as that the Deltas distributed there are truly in alpha state.</p>
+<p>Use the <a class="reference internal" href="#applyDelta" title="applyDelta"><tt class="xref py py-func docutils literal"><span class="pre">applyDelta()</span></tt></a> function to apply a delta to XML. This is mostly for persistance extensions.</p>
+<dl class="function">
+<dt id="applyDelta">
+<tt class="descname">applyDelta</tt><big>(</big><em>doc</em>, <em>delta</em><big>)</big><a class="headerlink" href="#applyDelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines the LXML eTree elements passed to it. Elements with a <tt class="xref py py-data docutils literal"><span class="pre">delete</span></tt> attribute are deleted.</p>
+</dd></dl>
+
 <div class="section" id="deltaobservable">
 <h3>DeltaObservable<a class="headerlink" href="#deltaobservable" title="Permalink to this headline">¶</a></h3>
-<p><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt> distributes <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects throughout all extensions.</p>
+<p><a class="reference internal" href="#DeltaObservable" title="DeltaObservable"><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt></a> distributes <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects throughout all extensions.</p>
+<dl class="class">
+<dt id="DeltaObservable">
+<em class="property">class </em><tt class="descname">DeltaObservable</tt><a class="headerlink" href="#DeltaObservable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Distributes deltas between different components of PyOfWave server.</p>
+<dl class="method">
+<dt id="DeltaObservable.applyDelta">
+<tt class="descname">applyDelta</tt><big>(</big><em>doc</em>, <em>delta</em><big>)</big><a class="headerlink" href="#DeltaObservable.applyDelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notifies all observers that doc has/will (depending on object) had the changes in delta applied.</p>
+<p>Delta is a partial LXML tree with <tt class="xref py py-data docutils literal"><span class="pre">delete</span></tt> properties marking elements to remove.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="DeltaObservable.addObserver">
+<tt class="descname">addObserver</tt><big>(</big><em>observer</em>, <em>url = &quot;&quot;</em><big>)</big><a class="headerlink" href="#DeltaObservable.addObserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <em>observer</em> when <a class="reference internal" href="#applyDelta" title="applyDelta"><tt class="xref py py-meth docutils literal"><span class="pre">applyDelta()</span></tt></a> is called, passing the same arguments.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="DeltaObservable.removeObserver">
+<tt class="descname">removeObserver</tt><big>(</big><em>observer</em><big>)</big><a class="headerlink" href="#DeltaObservable.removeObserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops calling <em>observer</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
 <p>There&#8217;s two instances of this class you&#8217;ll use to distribute <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects:</p>
 <dl class="data">
 <dt id="AlphaDeltaObservable">
 <tt class="descname">AlphaDeltaObservable</tt><a class="headerlink" href="#AlphaDeltaObservable" title="Permalink to this definition">¶</a></dt>
 <dd><p><tt class="xref py py-class docutils literal"><span class="pre">DataSource</span></tt> objects pushes deltas through this
-<tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt>, which indicates that all <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt>
+<a class="reference internal" href="#DeltaObservable" title="DeltaObservable"><tt class="xref py py-class docutils literal"><span class="pre">DeltaObservable</span></tt></a>, which indicates that all <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt>
 objects from this object has been commited to storage.</p>
 </dd></dl>
 
@@ -309,10 +142,6 @@ that by sending <tt class="xref py py-class docutils literal"><span class="pre">
 commiting them to memory.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="deltas-operations-and-messages">
-<h3>Deltas, Operations, and Messages<a class="headerlink" href="#deltas-operations-and-messages" title="Permalink to this headline">¶</a></h3>
-<p><tt class="xref py py-class docutils literal"><span class="pre">Operation</span></tt> wraps calls to functions in <tt class="xref py py-mod docutils literal"><span class="pre">deltaop</span></tt>, which map to the standard Federation operations:</p>
 </div>
 </div>
 <div class="section" id="core-operation">
@@ -326,27 +155,85 @@ raise a <tt class="xref py py-exc docutils literal"><span class="pre">OperationE
 HTTP Error codes), or return a mapping.</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="Events">
+<em class="property">class </em><tt class="descname">Events</tt><a class="headerlink" href="#Events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles notification of selected events.</p>
+<dl class="method">
+<dt id="Events.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>user</em>, <em>callback</em><big>)</big><a class="headerlink" href="#Events.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiates an object for user identified by <em>user</em>, and calls <em>callback</em> to notify the caller of new events.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Events.register">
+<tt class="descname">register</tt><big>(</big><em>url</em>, <em>event</em><big>)</big><a class="headerlink" href="#Events.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts notifying the callback when <em>event</em> happens in document identified by <em>url</em>. <em>event</em> is either an <tt class="xref py py-class docutils literal"><span class="pre">Operation</span></tt> or a <tt class="xref py py-class docutils literal"><span class="pre">String</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Events.unregister">
+<tt class="descname">unregister</tt><big>(</big><em>url</em>, <em>event = &quot;*&quot;</em><big>)</big><a class="headerlink" href="#Events.unregister" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops notifying the callback when <em>event</em> happens in document identified by <em>url</em>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="Events.user">
+<tt class="descname">user</tt><a class="headerlink" href="#Events.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Wave Address for the user.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="opdev-operationns">
+<h3>opdev.OperationNS<a class="headerlink" href="#opdev-operationns" title="Permalink to this headline">¶</a></h3>
+<p>OperationNS is the plugin system for adding operations. It is a class with the following methods:</p>
+<dl class="class">
+<dt id="OperationNS">
+<em class="property">class </em><tt class="descname">OperationNS</tt><big>(</big><em>object</em><big>)</big><a class="headerlink" href="#OperationNS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operation plugin system.</p>
+<dl class="method">
+<dt id="OperationNS.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>namespace</em><big>)</big><a class="headerlink" href="#OperationNS.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes with the given <em>namespace</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="OperationNS.receive">
+<tt class="descname">receive</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#OperationNS.receive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator, registers an operation of <cite>callback.__name__</cite> under
+<em>namespace</em> which calls <em>callback</em> . Preceding underscores are
+stripped.</p>
+<p><em>callback</em> returns an optional eTree element.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="OperationNS.shouldSend">
+<tt class="descname">shouldSend</tt><big>(</big><em>xQuery</em><big>)</big><a class="headerlink" href="#OperationNS.shouldSend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a decorator which decides whether a delta constitutes
+as an event for the element named by the decorated function.</p>
+<p>Decorated function returns an eTree Element or <tt class="xref py py-data xref docutils literal"><span class="pre">False</span></tt>
+value and takes an <tt class="xref py py-class docutils literal"><span class="pre">ElementMaker</span></tt> factory for it&#8217;s
+element, the selected tag, and it&#8217;s delta.</p>
+<p><cite>(S, tag, delta) -&gt; False or lxml.eTree.Element object</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="OperationNS.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#OperationNS.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on whether arg is a callable or string, forwards to
+<a class="reference internal" href="#OperationNS.receive" title="OperationNS.receive"><tt class="xref py py-meth docutils literal"><span class="pre">receive()</span></tt></a> or <a class="reference internal" href="#OperationNS.shouldSend" title="OperationNS.shouldSend"><tt class="xref py py-meth docutils literal"><span class="pre">shouldSend()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="OperationNS.E">
+<tt class="descname">E</tt><a class="headerlink" href="#OperationNS.E" title="Permalink to this definition">¶</a></dt>
+<dd><p>ElementMaker factory for <em>namespace</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
 <p>Instructions for adding operations are in <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>.</p>
-</div>
-<div class="section" id="core-tags">
-<h2>core.tags<a class="headerlink" href="#core-tags" title="Permalink to this headline">¶</a></h2>
-<p>This module allows provides an alternate way to examine <a class="reference internal" href="#Document" title="Document"><tt class="xref py py-class docutils literal"><span class="pre">Document</span></tt></a> and <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects and create <tt class="xref py py-class docutils literal"><span class="pre">Delta</span></tt> objects than by hand. The Tag class this module provides allows you to work with Documents simalor to how you work with XML with eTree. It lets you think of each tagname as a different object.</p>
-<p>Annotation are now properties and children are accessed like the <tt class="xref py py-class docutils literal"><span class="pre">Tag</span></tt> object was a <tt class="xref py py-class docutils literal"><span class="pre">List</span></tt>. With this new ease, there&#8217;s a few things to keep in mind:</p>
-<ol class="arabic">
-<li><p class="first">Property changes don&#8217;t take effect until you call <tt class="xref py py-meth docutils literal"><span class="pre">sendDelta()</span></tt>.</p>
-</li>
-<li><p class="first">When you assign a value to an index, it is inserted there and the previous value will be after it. &#8216;&#8217;del&#8217;&#8217; it if you want to delete it.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is to avoid problems in deltas.</p>
-</div>
-</li>
-<li><p class="first">Simalor to point 1, when you &#8216;&#8217;del&#8217;&#8217; an index, it is replaced with an object representing a deleted item. Call <tt class="xref py py-meth docutils literal"><span class="pre">sendDelta()</span></tt> to send changes.</p>
-</li>
-</ol>
-<div class="section" id="importing-objects-to-tags">
-<h3>Importing Objects to Tags<a class="headerlink" href="#importing-objects-to-tags" title="Permalink to this headline">¶</a></h3>
-<p>This module provides 3 functions which &#8220;import&#8221; objects to <tt class="xref py py-class docutils literal"><span class="pre">Tag</span></tt> objects: <tt class="xref py py-func docutils literal"><span class="pre">TagDoc()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">TagItem()</span></tt>, &amp; <tt class="xref py py-func docutils literal"><span class="pre">TagDelta()</span></tt>.</p>
 </div>
 </div>
 </div>
@@ -360,16 +247,13 @@ HTTP Error codes), or return a mapping.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Using PyOfWave&#8217;s Core module</a><ul>
-<li><a class="reference internal" href="#core-auth">core.auth</a></li>
 <li><a class="reference internal" href="#core-datasource">core.datasource</a></li>
 <li><a class="reference internal" href="#core-delta">core.delta</a><ul>
 <li><a class="reference internal" href="#deltaobservable">DeltaObservable</a></li>
-<li><a class="reference internal" href="#deltas-operations-and-messages">Deltas, Operations, and Messages</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#core-operation">core.operation</a></li>
-<li><a class="reference internal" href="#core-tags">core.tags</a><ul>
-<li><a class="reference internal" href="#importing-objects-to-tags">Importing Objects to Tags</a></li>
+<li><a class="reference internal" href="#core-operation">core.operation</a><ul>
+<li><a class="reference internal" href="#opdev-operationns">opdev.OperationNS</a></li>
 </ul>
 </li>
 </ul>

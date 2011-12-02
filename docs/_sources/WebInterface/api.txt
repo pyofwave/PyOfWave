@@ -148,22 +148,16 @@ WaveletView
 -----------
 
 .. rubric:: Options
-
-.. rubric:: Methods
-
+ 
 ParticipantsBar
 ---------------
 
 .. rubric:: Options
 
-.. rubric:: Methods
-
 BlipsListView
 -------------
 
 .. rubric:: Options
-
-.. rubric:: Methods
 
 BlipView
 --------
