@@ -22,23 +22,9 @@ class TestOperations(unittest.TestCase):
         self.assertEqual(res.text, "success")
         self.assertEqual(res.get("status"), "400")
 
-class TestEvents(unittest.TestCase):
-    def testOperationEvents(self):
-        res = False
-        def callback(*args, **kwargs):
-            res = True
-        URL = "wave://test@pyofwave.info/test"
-        evts = operation.Events("test@pyofwave.info", callback)
-
-        # Create an operation for it's event.
-        NS = opdev.OperationNS("pyofwave.info/test")
-        @NS
-        def op(event, *args, **kwargs): pass
-
-        # Trigger event
-        evts.register(URL, "{pyofwave.info/test")
-        operation.performOperation(evts, E.op(href=URL))
-        self.assertTrue(res)
+class TestOperations(unittest.TestCase):
+    def testCreateEvents(self):
+        evts = operation.Events()
 
 if __name__ == '__main__':
     unittest.main()

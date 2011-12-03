@@ -5,7 +5,7 @@ setup(name='PyOfWave',
       version='0.1',
       description='Open Source Wave server in Python',
       author=u'Alcinnz',
-      author_email='alcinnz@github.com',
+      author_email='alcinnz@eml.cc',
       url='https://github.com/pyofwave/PyOfWave',
       license='Mozilla Public License Version 2.0, Release Candidate 1',
 

@@ -2,7 +2,7 @@
 Standard interface for connecting client protocols to the operation extensions. 
 """
 ## import delta
-import opdev, delta
+import opdev
 
 # Perform operation
 def _getChildren(tag):
@@ -14,25 +14,44 @@ def _getChildren(tag):
 
 def performOperation(events, tag):
     """ Execute a operation."""
-    return opdev._receive[tag.tag](events, *_getChildren(tag), **tag.attrib)
+    rep = opdev._receive[tag.tag](events, *_getChildren(tag), **tag.attrib)
+
+    Events.trigger(tag)
+    return rep
 
 # Events
+def get(obj, prop, default = {}):
+    if not obj.get(prop): obj[prop] = default
+    return obj[prop]
+
+_handlers = {}
+
 class Events(object):
     """Keeps track of all the events a user registers to."""
     def __init__(self, user, callback):
         self.user = user
-        self._sendEvent= callback
-        self._events = {}
+        self._callback = callback
+
+    def _handlers(self, url, event):
+        return get(get(_handlers, url), event, [])
 
     def register(self, url, event):
-        if not self._events.get(url): self._events[url] = []
-        self._events[url].append(event)
+        self._handlers(url, event).append(self._callback)
 
     def unregister(self, url, event= "*"):
-        if event == "*": del self._events[url]
-        else: self._events[url].remove(event)
+        if event == "*": 
+            for evt in get(_handlers, url).values():
+                evt.remove(handler)
+        else: self._handlers(url, event).remove(self._callback)
 
-    @delta.alphaDeltaObservable.addObserver
     @staticmethod
-    def applyDelta(doc, delta):
-        """ Calculate and send events. """
+    def trigger(tag, src = None):
+        if src == None: src = tag.get("href", tag.get("src", ""))
+
+        for handler in _handlers.get(src, {}).get(tag.tag, []):
+            handler(tag)
+
+##    @delta.alphaDeltaObservable.addObserver
+##    @staticmethod
+##    def applyDelta(doc, delta):
+##        """ Calculate and send events. """
