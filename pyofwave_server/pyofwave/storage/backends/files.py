@@ -3,14 +3,18 @@ Provides a storage class which uses .wave & .ver files to save data.
 Not recommended for production use.  
 """
 import cPickle
+from zope.interface import implements
 
 from pyofwave.conf import settings
 from pyofwave.core import delta
+from pyofwave.core.datasource import DataSource
 
 class FileStorage(object):
    """
    A simple backing store using files to store waves
    """
+   implements(DataSource)   
+
    def __init__(self, path=None, checkDomain=None):
       self.path = path or settings.FILESTORAGE_PATH
       self.checkDomain = checkDomain or settings.FILESTORAGE_CHECKDOMAIN
@@ -73,3 +77,5 @@ class FileStorage(object):
          return path+doc[1]
       
       return doc
+
+DataStorage = FileStorage
