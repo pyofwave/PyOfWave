@@ -13,9 +13,12 @@ ul#nav li {display : inline; list-style-marker : none;}
 ul#nav a {color: #f00; font-weight: normal;}
 ul#nav > *:after {content: " |";}
 
-.footer { 
+header {
+  background: url(/images/wave.png);
+}
+
+footer { 
   text-align:center;
-  padding-top:30px;
 
   font-style: italic;
   font-weight: bold;
@@ -31,4 +34,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #810000;
   border-bottom: thin solid #810000;
+}
+
+#container, footer {
+  border: 3px solid #ff0000;
+  border-radius: 10px;
+  margin-bottom: 5px;
 }
