@@ -2,14 +2,15 @@
 This file defines a simple observer system for responding to updates on waves.
 """
 from multiprocessing import Pool
-from .. import SETTINGS
+
+from pyofwave.conf import settings
 
 def applyDelta(doc, delta):
     """Extend doc with delta."""
     return doc # TODO: add combination routine.
 
-DeltaObserverPool = Pool(SETTINGS.DELTA_OBSERVER_PROCESSES,
-                         None, SETTINGS.DELTA_OBSERVER_TIMEOUT)
+DeltaObserverPool = Pool(settings.DELTA_OBSERVER_PROCESSES,
+                         None, settings.DELTA_OBSERVER_TIMEOUT)
 class DeltaObservable(object):
     """The subject in the observer pattern."""
     def __init__(self):
