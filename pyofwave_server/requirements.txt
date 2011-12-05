@@ -1,4 +1,5 @@
 lxml
 sphinx
 setuptools-trial
+twisted
 zope.interface
