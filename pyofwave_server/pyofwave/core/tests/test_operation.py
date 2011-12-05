@@ -1,5 +1,6 @@
 import unittest
 from lxml.builder import ElementMaker
+
 from pyofwave.core import operation, opdev
 
 class TestOperations(unittest.TestCase):

@@ -1,5 +1,6 @@
 """
-This file provides settings which you will need to provide for your system.
+This file provides default settings you can customize through a
+user-defined 'settings.py'
 """
 ## URL settings
 DOMAIN = ""
@@ -26,7 +27,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
-            }
+            },
         },
     'loggers': {
         'pyofwave.server': {
