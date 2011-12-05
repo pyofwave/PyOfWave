@@ -6,11 +6,11 @@ import opdev
 
 # Perform operation
 def _getChildren(tag):
-	rep = [tag.text,]
-	for child in tag:
-		rep.append(child)
-		rep.append(child.tail)
-	return rep
+    rep = [tag.text, ]
+    for child in tag:
+        rep.append(child)
+        rep.append(child.tail)
+    return rep
 
 def performOperation(events, tag):
     """ Execute a operation."""
