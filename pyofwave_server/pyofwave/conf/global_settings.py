@@ -1,5 +1,6 @@
 """
-This file provides settings which you will need to provide for your system.
+This file provides default settings you can customize through a
+user-defined 'settings.py'
 """
 ## URL settings
 DOMAIN = ""
@@ -10,7 +11,7 @@ DELTA_OBSERVER_PROCESSES = cpu_count()
 DELTA_OBSERVER_TIMEOUT = None
 
 ## BACKING STORES (DATA SOURCES)
-DATASOURCE_STORAGE = 'storage.files.FileStorage'
+DATASOURCE_STORAGE = 'pyofwave.storage.backends.files'
 
 FILESTORAGE_PATH = "waves/"
 FILESTORAGE_CHECKDOMAIN = True
@@ -26,18 +27,19 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
-            }
+            },
         },
     'loggers': {
         'pyofwave.server': {
             'handlers': ['console_debug'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
             },
         },
     'formatters': {
         'verbose': {
-            'format': '%(asctime)s : %(levelname)s : %(message)s',
+            #TODO : display logger name
+            'format': '%(asctime)s - %(levelname)s - %(message)s',
             },
         },
     }
