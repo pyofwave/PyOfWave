@@ -1,22 +1,15 @@
 Settings in PyOfWave Server
 ***************************
 
-.. note:: Shouldn't we move part of this to the :doc:`For Wave Providers` section ?
-
 This file documents all the values in :file:`settings.py`  and
 :file:`protocols/__init__.py` you can customise.
 
-settings.py
-===========
-
-It is *highly* recommended to set these settings, or PyOfWave may not function correct in your setup.
-
 General settings
-----------------
+================
 
 .. py:data:: DOMAIN
 
-   Default: '' (Empty string)
+   *Required* (pyofwave.info for testing)
 
    This value represents your domain name. This is used by the protocols to 
    identify documents and users belonging to you. Should be a string.
@@ -36,7 +29,7 @@ General settings
    a integer.
 
 Backing stores
---------------
+==============
 
 If you wish to customize how data is handled in PyOfWave, use these variables. If you need more details, please see :doc:`CoreModule`.
 
@@ -53,6 +46,8 @@ protocols/__init__.py
 =====================
 
 .. note:: These settings have to be moved out of the package to allow
-    	  user reconfiguration
+    	  user reconfiguration.
+
+          Perhaps add a :py:data:`ADDONS` setting. 
 
 In this file, you setup any changes to the protocols you have in your runtime. Instructions for doing this can be found at :doc:`Protocols`.
