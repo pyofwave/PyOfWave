@@ -3,7 +3,8 @@ For Wave Providers
 
 contents:
 
-.. toctree
+.. toctree::
    :maxdepth: 2
 
    install
+   settings
