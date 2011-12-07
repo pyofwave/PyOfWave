@@ -12,11 +12,11 @@ def _getChildren(tag):
         rep.append(child.tail)
     return rep
 
-def performOperation(events, tag):
+def performOperation(events, operation):
     """ Execute a operation."""
-    rep = opdev._receive[tag.tag](events, *_getChildren(tag), **tag.attrib)
+    rep = opdev._receive[operation.tag](events, *_getChildren(operation), **operation.attrib)
 
-    Events.trigger(tag)
+    Events.trigger(operation)
     return rep
 
 # Events
@@ -32,24 +32,32 @@ class Events(object):
         self.user = user
         self._callback = callback
 
-    def _handlers(self, url, event):
-        return get(get(_handlers, url), event, [])
+    def _handlers(self, url, operation):
+        # XXX : Why is it a list that is associated to an operation ?
+        # XXX : Is it possible to assign several callback to an operation ?
+        return get(get(_handlers, url), operation, [])
 
-    def register(self, url, event):
-        self._handlers(url, event).append(self._callback)
+    def register(self, url, operation):
+        # XXX: All registered operations will have the save callback 
+        self._handlers(url, operation).append(self._callback)
 
-    def unregister(self, url, event= "*"):
-        if event == "*": 
-            for evt in get(_handlers, url).values():
-                evt.remove(handler)
-        else: self._handlers(url, event).remove(self._callback)
-
+    def unregister(self, url, operation="*"):
+        url_handlers = get(_handlers, url)
+        if operation == "*": 
+            for operation in url_handlers.keys():
+                operation_callback = self._handlers(url, operation)
+                if self._callback in operation_callback:
+                    operation_callback.remove(self._callback)
+        else: 
+            self._handlers(url, operation).remove(self._callback)
+    
     @staticmethod
-    def trigger(tag, src = None):
-        if src == None: src = tag.get("href", tag.get("src", ""))
+    def trigger(operation, src = None):
+        if src == None: 
+            src = operation.get("href", operation.get("src", ""))
 
-        for handler in _handlers.get(src, {}).get(tag.tag, []):
-            handler(tag)
+        for callback in _handlers.get(src, {}).get(operation.tag, []):
+            callback(operation)
 
 ##    @delta.alphaDeltaObservable.addObserver
 ##    @staticmethod
