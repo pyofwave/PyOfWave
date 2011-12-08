@@ -14,6 +14,6 @@
 	name CDATA #REQUIRED
 	q CDATA ""
 	qBound (bound|unbound|explicit) "unbound"> <!-- Whether q stays the same as name. Explicit means that the folder name must be explicitly searched to retreive children -->
-<!ELEMENT record #PCDATA)>
+<!ELEMENT record (#PCDATA)>
 
 ]>

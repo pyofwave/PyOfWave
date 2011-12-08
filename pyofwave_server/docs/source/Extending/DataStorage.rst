@@ -1,8 +1,6 @@
 Data Storage Extensions
 ***********************
 
-.. note:: Not yet fully implemented.
-
 If the existing data storage options don't suit you, you can easily add your own.
 
 1. Preparing the Datasource
