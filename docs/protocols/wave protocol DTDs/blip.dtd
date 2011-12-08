@@ -7,6 +7,6 @@
 	src PCDATA #REQUIRED			<!-- Parent blip -->
 	index PCDATA #REQUIRED			<!-- Index of input among inputs of blip -->
 	val PCDATA #REQUIRED>			<!-- New content of input -->
-<!ELEMENT get (#PCDATA)>			<!-- Returns body element identified blip by content -->
+<!ELEMENT get (#PCDATA)>			<!-- Returns body element of blip identified by content -->
 
 ]>
