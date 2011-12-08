@@ -14,7 +14,7 @@ def _getChildren(tag):
 
 def performOperation(events, op):
     """ Execute a operation."""
-    rep = opdev._receive[tag.tag](events, *_getChildren(op), **op.attrib)
+    rep = opdev._receive[op.tag](events, *_getChildren(op), **op.attrib)
 
     Events.trigger(op)
     return rep
