@@ -98,7 +98,7 @@
 <h1>Using PyOfWave&#8217;s Core module<a class="headerlink" href="#using-pyofwave-s-core-module" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Not yet fully implemented.</p>
+<p class="last">Not all of these are implemented, but enough to use.</p>
 </div>
 <p>pyofwave_server.core provides facilities that are shared, in various methods, by all protocols and extensions. Specifics for extending this are provided by <a class="reference internal" href="Authentication.html"><em>Integrating Your Own Authentication Scheme</em></a>, <a class="reference internal" href="DataStorage.html"><em>Data Storage Extensions</em></a>, <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>, and <a class="reference internal" href="Protocols.html"><em>Adding New Protocols to the PyOfWave Server</em></a>.</p>
 <div class="section" id="core-datasource">
@@ -138,7 +138,13 @@ blank <tt class="xref py py-class docutils literal"><span class="pre">lxml.etree
 <dl class="function">
 <dt id="applyDelta">
 <tt class="descname">applyDelta</tt><big>(</big><em>doc</em>, <em>delta</em><big>)</big><a class="headerlink" href="#applyDelta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combines the LXML eTree elements passed to it. Elements with a <tt class="xref py py-data docutils literal"><span class="pre">delete</span></tt> attribute are deleted.</p>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet implemented.</p>
+</div>
+<p>Combines the LXML eTree elements passed to it. An attribute of <cite>{pyofwave.info/delta}d</cite> controls how the delta is applied.</p>
+<p>A value of <cite>&#8220;delete&#8221;</cite> removes the corresponding attribute. <cite>&#8220;replace&#8221;</cite> replaces all content of the element.</p>
+<p>The ID value (<cite>{http://pyofwave.info/2012/wave-xmpp/wave}src</cite> in commoncase Wave XML) selects current element by ID or creates a new one.</p>
 </dd></dl>
 
 <div class="section" id="deltaobservable">
@@ -255,7 +261,11 @@ stripped.</p>
 <dl class="method">
 <dt id="OperationNS.shouldSend">
 <tt class="descname">shouldSend</tt><big>(</big><em>xQuery</em><big>)</big><a class="headerlink" href="#OperationNS.shouldSend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a decorator which decides whether a delta constitutes
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet implemented.</p>
+</div>
+<p>Returns a decorator which decides whether a delta constitutes
 as an event for the element named by the decorated function.</p>
 <p>Decorated function returns an eTree Element or <tt class="xref py py-data xref docutils literal"><span class="pre">False</span></tt>
 value and takes an <tt class="xref py py-class docutils literal"><span class="pre">ElementMaker</span></tt> factory for it&#8217;s
@@ -279,6 +289,7 @@ element, the selected tag, and it&#8217;s delta.</p>
 </dd></dl>
 
 <p>Instructions for adding operations are in <a class="reference internal" href="Operations.html"><em>Protocol Operators</em></a>.</p>
+<p>As a utility to use with <a class="reference internal" href="#OperationNS.shouldSend" title="OperationNS.shouldSend"><tt class="xref py py-meth docutils literal"><span class="pre">OperationNS.shouldSend()</span></tt></a>, <tt class="xref py py-func docutils literal"><span class="pre">rawElement()</span></tt> is provided which just returns the element it is passed.</p>
 </div>
 </div>
 </div>

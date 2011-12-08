@@ -1,7 +1,7 @@
 Using PyOfWave's Core module
 ****************************
 
-.. note:: Not yet fully implemented.
+.. note:: Not all of these are implemented, but enough to use.
 
 pyofwave_server.core provides facilities that are shared, in various methods, by all protocols and extensions. Specifics for extending this are provided by :doc:`Authentication`, :doc:`DataStorage`, :doc:`Operations`, and :doc:`Protocols`.
 
@@ -65,7 +65,13 @@ Use the :py:func:`applyDelta` function to apply a delta to XML. This is mostly f
 
 .. py:function:: applyDelta(doc, delta)
 
-  Combines the LXML eTree elements passed to it. Elements with a :py:data:`delete` attribute are deleted. 
+  .. note:: Not yet implemented.
+
+  Combines the LXML eTree elements passed to it. An attribute of `{pyofwave.info/delta}d` controls how the delta is applied.
+
+  A value of `"delete"` removes the corresponding attribute. `"replace"` replaces all content of the element.
+
+  The ID value (`{http://pyofwave.info/2012/wave-xmpp/wave}src` in commoncase Wave XML) selects current element by ID or creates a new one. 
 
 DeltaObservable
 ---------------
@@ -160,6 +166,8 @@ OperationNS is the plugin system for adding operations. It is a class with the f
 
    .. py:method:: shouldSend(xQuery)
 
+      .. note:: Not yet implemented.
+
       Returns a decorator which decides whether a delta constitutes 
       as an event for the element named by the decorated function. 
 
@@ -179,3 +187,5 @@ OperationNS is the plugin system for adding operations. It is a class with the f
       ElementMaker factory for *namespace*. 
 
 Instructions for adding operations are in :doc:`Operations`.
+
+As a utility to use with :py:meth:`OperationNS.shouldSend`, :py:func:`rawElement` is provided which just returns the element it is passed. 
