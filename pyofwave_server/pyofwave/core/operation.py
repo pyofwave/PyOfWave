@@ -12,11 +12,11 @@ def _getChildren(tag):
         rep.append(child.tail)
     return rep
 
-def performOperation(events, tag):
+def performOperation(events, op):
     """ Execute a operation."""
-    rep = opdev._receive[tag.tag](events, *_getChildren(tag), **tag.attrib)
+    rep = opdev._receive[tag.tag](events, *_getChildren(op), **op.attrib)
 
-    Events.trigger(tag)
+    Events.trigger(op)
     return rep
 
 # Events
@@ -32,23 +32,23 @@ class Events(object):
         self.user = user
         self._callback = callback
 
-    def _handlers(self, url, event):
-        return get(get(_handlers, url), event, [])
+    def _handlers(self, url, op):
+        return get(get(_handlers, url), op, [])
 
-    def register(self, url, event):
-        self._handlers(url, event).append(self._callback)
+    def register(self, url, op):
+        self._handlers(url, op).append(self._callback)
 
-    def unregister(self, url, event= "*"):
-        if event == "*": 
+    def unregister(self, url, op = "*"):
+        if op == "*": 
             for evt in get(_handlers, url).values():
                 evt.remove(handler)
-        else: self._handlers(url, event).remove(self._callback)
+        else: self._handlers(url, op).remove(self._callback)
 
     @staticmethod
-    def trigger(tag, src = None):
-        if src == None: src = tag.get("href", tag.get("src", ""))
+    def trigger(op, src = None):
+        if src == None: src = op.get("href", op.get("src", ""))
 
-        for handler in _handlers.get(src, {}).get(tag.tag, []):
+        for handler in _handlers.get(src, {}).get(op.tag, []):
             dop.apply_async(handler, (tag))
 
     @delta.alphaDeltaObservable.addObserver
