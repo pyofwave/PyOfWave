@@ -3,3 +3,7 @@ sphinx
 setuptools-trial
 twisted
 zope.interface
+
+python-xmpp-server
+tornado
+python-sasl
