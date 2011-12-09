@@ -1,8 +1,6 @@
 Protocol Operators
 ******************
 
-.. note:: Not yet implemented.
-
 An operator is a function called by a client request to minipulate the server. These operators can be called by either the Simple Data Protocol or the Wave Client Protocol. These operators should be implemented to those standards.
 
 Basic Form
@@ -35,6 +33,8 @@ These map to the following syntax in python (with `<` and `>` surrounding parts 
 As a shortcut, when PyOfWave receives an operation, it will distribute it as an event without checking the conditionals. You will not be able to block it. 
 
 Instead the conditionals are to check if the same effective action has been applied. 
+
+.. note:: Event conditions aren't checked at all yet, but they will be soon.
 
 OperationNS.E
 -------------

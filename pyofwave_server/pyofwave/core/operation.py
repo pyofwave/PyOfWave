@@ -1,8 +1,8 @@
 """
 Standard interface for connecting client protocols to the operation extensions. 
 """
-## import delta
-import opdev
+from delta import DeltaObserverPool as dop
+import opdev, delta
 
 # Perform operation
 def _getChildren(tag):
@@ -21,7 +21,8 @@ def performOperation(events, operation):
 
 # Events
 def get(obj, prop, default = {}):
-    if not obj.get(prop): obj[prop] = default
+    if not obj.get(prop): 
+        obj[prop] = default
     return obj[prop]
 
 _handlers = {}
@@ -56,10 +57,10 @@ class Events(object):
         if src == None: 
             src = operation.get("href", operation.get("src", ""))
 
-        for callback in _handlers.get(src, {}).get(operation.tag, []):
-            callback(operation)
+        for handler in _handlers.get(src, {}).get(operation.tag, []):
+            dop.apply_async(handler, (operation.tag))
 
-##    @delta.alphaDeltaObservable.addObserver
-##    @staticmethod
-##    def applyDelta(doc, delta):
-##        """ Calculate and send events. """
+    @delta.alphaDeltaObservable.addObserver
+    @staticmethod
+    def applyDelta(doc, delta):
+        """ Calculate and send events. """

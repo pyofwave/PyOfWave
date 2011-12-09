@@ -6,13 +6,17 @@ This file leads you through how to install PyOfWave on your server.
 Setting Up the Server
 =====================
 
-#. Download PyOfWave at https://github.com/alcinnz/pyofwave/ .
+#. Download PyOfWave at https://github.com/pyofwave/PyOfWave/ .
 
-#. Customize your settings/preferences as discussed in :doc:`settings`.
+#. From inside the downloaded and uncompressed directory::
 
-   At least open SETTINGS.py and set those values.
+    python setup.py install
 
-#. Execute :file:`pyofwave_server_launch`.
+#. Create a file named :file:`settings.py` as described by :doc:`settings` and from it's directory run::
+
+    pyofwave
+
+.. note:: Should we add a argument of the file to import?
 
 Setting Up the Client
 =====================
@@ -22,8 +26,6 @@ Setting Up the Client
    * Serving raw files.
 
    * Supports Python CGI.
-
-      .. note:: This is note necessary if you have already integrated an authentication scheme that provides authentication and registration.
 
 #. Customize :file:`pyofwave_client/index.html` and :file:`pofwave_client/pyofwave_client/pyofwave_client.html` to include your branding.
 

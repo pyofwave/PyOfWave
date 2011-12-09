@@ -4,3 +4,7 @@ pyofwave_server/docs/build/*
 pyofwave_server/build/*
 *#
 .#*
+pyofwave_server/PyOfWave.egg-info
+pyofwave_server/Twisted*
+pyofwave_server/_trial_temp/
+pyofwave_server/setuptools*
