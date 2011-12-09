@@ -10,5 +10,9 @@ def start(settings_mod=None):
     from conf import setup_environ
     setup_environ(settings_mod)
     
-    # TODO: Once we have XMPP/BOSH service, start them here. (Ideally, load all protocols from settings)
+    # Setup Wave Protocol
+    import xmpp
+    from pyofwave.protocols import WaveProtocol
+    server = xmpp.TCPServer(xmpp.XMPPHandler(WaveProtocol)).bind('127.0.0.1', 5222)
+    xmpp.start([server])
 
