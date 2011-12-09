@@ -6,17 +6,27 @@ This file leads you through how to install PyOfWave on your server.
 Setting Up the Server
 =====================
 
-#. Download PyOfWave at https://github.com/pyofwave/PyOfWave/ .
+.. note:: Since PyOfWave is still under heavy development, we
+   	  recommend using virtualenv for testing.
 
-#. From inside the downloaded and uncompressed directory::
+#. Download a release of PyOfWave at https://github.com/pyofwave/PyOfWave/ or if
+   you prefer to live on the bleeding edge, clone
+   the repository::
 
+     git clone https://github.com/pyofwave/PyOfWave
+
+#. From inside the downloaded and uncompressed directory (you can skip
+   this step if you want to use it locally)::
+
+    cd pyofwave_server/
     python setup.py install
 
-#. Create a file named :file:`settings.py` as described by :doc:`settings` and from it's directory run::
+#. Create a file named :file:`settings.py` as described by :doc:`settings` and from its directory run::
 
     pyofwave
 
-.. note:: Should we add a argument of the file to import?
+.. note:: If your :file:`settings.py` file is not in the current
+   	  directory, you can export the :py:data:`PYOFWAVE_SETTINGS_MODULE` symbol.
 
 Setting Up the Client
 =====================
