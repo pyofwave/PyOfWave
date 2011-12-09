@@ -7,7 +7,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 1
-   
+
+   TestSuite
    DataStorage
    Operations
    Authentication
