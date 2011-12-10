@@ -2,7 +2,7 @@
 <!DOCTYPE wavelet [
 
 <!ENTITY % wave SYSTEM "wave.dtd">		<!-- Please excuse me if this isn't proper, I don't know how to do this -->
-<!ELEMENT appendPost (wave:blip)>		<!-- Appends a post to a wavelet, thread, or blip -->
+<!ELEMENT appendPost (wave:post)>		<!-- Appends a post to a wavelet, thread, or blip -->
 
 <!ELEMENT participant (#PCDATA)>
 <!ATTLIST participant perm (view|edit|manage|none) "manage">	<!-- Permissions -->

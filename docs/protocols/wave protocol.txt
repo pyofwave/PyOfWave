@@ -7,6 +7,7 @@ Existing Standards: XMPP (BOSH optional, integrates TCP/IP & XML).
 Language
 --------
 
+The wave structure can be seen in wave.dtd.
 Wave Provider  --  A Domain Name which can be sent Wave Protocol packets.
 wave  --  A container for a number of "wavelets" which appears in search results.
 wavelet  -- A sequence of "posts" which can only be viewed by specific "Wave Addresses". Contains tags.
@@ -51,4 +52,6 @@ A number of XML namespaces are employed, with the main ones being:
 - wave
 	Represents the structure of a wave.
 
-I will provide a folder containing DTDs for these namespaces.
+"Wave Protocol DTDs" contains DTDs for these namespaces.
+
+All root elements can be placed directly inside XMPP stream and iq element, and be configured to be sent to the client using the events stanzas. 
