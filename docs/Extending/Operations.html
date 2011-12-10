@@ -91,10 +91,6 @@
             
   <div class="section" id="protocol-operators">
 <h1>Protocol Operators<a class="headerlink" href="#protocol-operators" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Not yet implemented.</p>
-</div>
 <p>An operator is a function called by a client request to minipulate the server. These operators can be called by either the Simple Data Protocol or the Wave Client Protocol. These operators should be implemented to those standards.</p>
 <div class="section" id="basic-form">
 <h2>Basic Form<a class="headerlink" href="#basic-form" title="Permalink to this headline">¶</a></h2>
@@ -120,6 +116,10 @@ def _&lt;tagname&gt;(S, tag, delta):
 </div>
 <p>As a shortcut, when PyOfWave receives an operation, it will distribute it as an event without checking the conditionals. You will not be able to block it.</p>
 <p>Instead the conditionals are to check if the same effective action has been applied.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Event conditions aren&#8217;t checked at all yet, but they will be soon.</p>
+</div>
 <div class="section" id="operationns-e">
 <h3>OperationNS.E<a class="headerlink" href="#operationns-e" title="Permalink to this headline">¶</a></h3>
 <p>The <a class="reference internal" href="CoreModule.html#OperationNS" title="OperationNS"><tt class="xref py py-class docutils literal"><span class="pre">OperationNS</span></tt></a> has a property of <tt class="xref py py-data docutils literal"><span class="pre">E</span></tt> of class <tt class="xref py py-class docutils literal"><span class="pre">lxml.builder.ElementMaker</span></tt> setup with the specified namespace.</p>

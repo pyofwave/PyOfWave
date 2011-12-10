@@ -90,10 +90,6 @@
             
   <div class="section" id="data-storage-extensions">
 <h1>Data Storage Extensions<a class="headerlink" href="#data-storage-extensions" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Not yet fully implemented.</p>
-</div>
 <p>If the existing data storage options don&#8217;t suit you, you can easily add your own.</p>
 <div class="section" id="preparing-the-datasource">
 <h2>1. Preparing the Datasource<a class="headerlink" href="#preparing-the-datasource" title="Permalink to this headline">¶</a></h2>
@@ -142,7 +138,7 @@ variables coming from their <tt class="file docutils literal"><span class="pre">
 </div>
 <div class="section" id="integrate-the-adaptor">
 <h2>3. Integrate the Adaptor<a class="headerlink" href="#integrate-the-adaptor" title="Permalink to this headline">¶</a></h2>
-<p>In your <tt class="file docutils literal"><span class="pre">settings.py</span></tt> set <a class="reference internal" href="settings.html#DATASOURCE_STORAGE" title="DATASOURCE_STORAGE"><tt class="xref py py-data docutils literal"><span class="pre">DATASOURCE_STORAGE</span></tt></a> to the
+<p>In your <tt class="file docutils literal"><span class="pre">settings.py</span></tt> set <a class="reference internal" href="../Usage/settings.html#DATASOURCE_STORAGE" title="DATASOURCE_STORAGE"><tt class="xref py py-data docutils literal"><span class="pre">DATASOURCE_STORAGE</span></tt></a> to the
 path of your adaptor. For example, to use the file storage backend:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">DATASOURCE_STORAGE</span> <span class="o">=</span> <span class="s">&#39;storage.files.FileStorage&#39;</span>
 </pre></div>

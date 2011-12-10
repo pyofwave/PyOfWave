@@ -11,4 +11,3 @@ Table Of Contents:
    DataStorage
    Operations
    Protocols
-   settings

@@ -9,4 +9,4 @@ Protocols are programmed in PyOfWave using `Twisted <http://twistedmatrix.com/tr
 
 #. Tie it into the system in :file:`__index__.py`.
 
-Use :py:mod:`Tornado` 's reactor module in place of :py:mod:`Twisted` 's, as to avoid networking classes between the modules. :py:mod:`Tornado` is used because py:mod:`Python XMPP Server` (which we use for the main protocol) uses it. 
+Use :py:mod:`Tornado` 's reactor module in place of :py:mod:`Twisted` 's, as to avoid networking clashes between the modules. :py:mod:`Tornado` is used because py:mod:`Python XMPP Server` (which we use for the main protocol) uses it. 

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
     <link rel="up" title="For Programmers" href="index.html" />
-    <link rel="next" title="Settings in PyOfWave Server" href="settings.html" />
+    <link rel="next" title="For Contributors" href="../StandardPlugins/index.html" />
     <link rel="prev" title="Protocol Operators" href="Operations.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="settings.html" title="Settings in PyOfWave Server"
+          <a href="../StandardPlugins/index.html" title="For Contributors"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Operations.html" title="Protocol Operators"
@@ -50,8 +50,8 @@
   <p class="topless"><a href="Operations.html"
                         title="previous chapter">Protocol Operators</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="settings.html"
-                        title="next chapter">Settings in PyOfWave Server</a></p>
+  <p class="topless"><a href="../StandardPlugins/index.html"
+                        title="next chapter">For Contributors</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Extending/Protocols.txt"
@@ -89,7 +89,7 @@
 <li>Place your protocol in it&#8217;s own folder inside protocols.</li>
 <li>Tie it into the system in <tt class="file docutils literal"><span class="pre">__index__.py</span></tt>.</li>
 </ol>
-<p>Use <tt class="xref py py-mod docutils literal"><span class="pre">Tornado</span></tt> &#8216;s reactor module in place of <tt class="xref py py-mod docutils literal"><span class="pre">Twisted</span></tt> &#8216;s, as to avoid networking classes between the modules. <tt class="xref py py-mod docutils literal"><span class="pre">Tornado</span></tt> is used because py:mod:<cite>Python XMPP Server</cite> (which we use for the main protocol) uses it.</p>
+<p>Use <tt class="xref py py-mod docutils literal"><span class="pre">Tornado</span></tt> &#8216;s reactor module in place of <tt class="xref py py-mod docutils literal"><span class="pre">Twisted</span></tt> &#8216;s, as to avoid networking clashes between the modules. <tt class="xref py py-mod docutils literal"><span class="pre">Tornado</span></tt> is used because py:mod:<cite>Python XMPP Server</cite> (which we use for the main protocol) uses it.</p>
 </div>
 
 
@@ -105,7 +105,7 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="settings.html" title="Settings in PyOfWave Server"
+          <a href="../StandardPlugins/index.html" title="For Contributors"
              >next</a> |</li>
         <li class="right" >
           <a href="Operations.html" title="Protocol Operators"

@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing PyOfWave &mdash; PyOfWave v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Testing PyOfWave</a><ul>
+<li><a class="reference internal" href="#running-the-tests">Running the tests</a></li>
+<li><a class="reference internal" href="#writing-new-tests">Writing new tests</a><ul>
+<li><a class="reference internal" href="#standard-unittests">Standard Unittests</a></li>
+<li><a class="reference internal" href="#trial-tests">Trial tests</a></li>
+<li><a class="reference internal" href="#adding-settings-to-the-test-environment">Adding settings to the test environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/StandardPlugins/TestSuite.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing-pyofwave">
+<h1>Testing PyOfWave<a class="headerlink" href="#testing-pyofwave" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-the-tests">
+<h2>Running the tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h2>
+<p>We use <a class="reference external" href="http://twistedmatrix.com/trac/wiki/TwistedTrial">trial</a>, the test runner of Twisted.</p>
+<p>Since we depend on a configuration file (see <a class="reference internal" href="../Usage/settings.html"><em>Settings in PyOfWave Server</em></a>), you
+need to run the tests either by using <tt class="file docutils literal"><span class="pre">setup.py</span></tt> or <tt class="file docutils literal"><span class="pre">runtest.py</span></tt>. These
+scripts set a correct environment for you before running the test suite:</p>
+<div class="highlight-python"><pre>python setup.py test</pre>
+</div>
+<p>or:</p>
+<div class="highlight-python"><pre>./runtest.py</pre>
+</div>
+</div>
+<div class="section" id="writing-new-tests">
+<h2>Writing new tests<a class="headerlink" href="#writing-new-tests" title="Permalink to this headline">¶</a></h2>
+<p>Tests are written in a <tt class="file docutils literal"><span class="pre">tests/</span></tt> directory, located under your
+package. Make sure the files start with the <tt class="file docutils literal"><span class="pre">test_</span></tt> prefix, such
+as <tt class="file docutils literal"><span class="pre">test_client.py</span></tt>.</p>
+<dl class="docutils">
+<dt>You can write two kinds of tests:</dt>
+<dd><ol class="first last arabic simple">
+<li>Standard Unittests</li>
+<li>Twisted Asynchronous Unittests</li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="standard-unittests">
+<h3>Standard Unittests<a class="headerlink" href="#standard-unittests" title="Permalink to this headline">¶</a></h3>
+<p>This is the most common type of tests. Use them when you don&#8217;t need to
+mimic the asynchronous behaviour of twisted or of a network.</p>
+<p>Here&#8217;s a sample test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">pyofwave.core</span> <span class="kn">import</span> <span class="n">operation</span><span class="p">,</span> <span class="n">opdev</span>
+
+<span class="k">class</span> <span class="nc">TestOperations</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testCreateOperation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">NS</span> <span class="o">=</span> <span class="n">opdev</span><span class="o">.</span><span class="n">OperationNS</span><span class="p">(</span><span class="s">&quot;pyofwave.info/test&quot;</span><span class="p">)</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">NS</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testAnotherOne</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+            <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trial-tests">
+<h3>Trial tests<a class="headerlink" href="#trial-tests" title="Permalink to this headline">¶</a></h3>
+<p>Such tests are specific to Twisted and make use of <a class="reference external" href="http://twistedmatrix.com/trac/wiki/TwistedTrial">trial</a>
+features. Trials helps us writing unit tests without worrying about
+asynchronous returns and weird network behaviours.
+You can refer to this document to learn <a class="reference external" href="http://twistedmatrix.com/documents/current/core/howto/testing.html">how to write asynchronous tests</a>.</p>
+<p>Here&#8217;s an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">twisted.trial</span> <span class="kn">import</span> <span class="n">unittest</span>
+<span class="kn">from</span> <span class="nn">twisted.test</span> <span class="kn">import</span> <span class="n">proto_helpers</span>
+
+<span class="kn">from</span> <span class="nn">..client</span> <span class="kn">import</span> <span class="n">ClientProtocolFactory</span>
+
+<span class="k">class</span> <span class="nc">TestClientProtocol</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">factory</span> <span class="o">=</span> <span class="n">ClientProtocolFactory</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proto</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">buildProtocol</span><span class="p">((</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">proto_helpers</span><span class="o">.</span><span class="n">StringTransport</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">makeConnection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testCall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">dataReceived</span><span class="p">(</span><span class="s">&quot;#aname</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">dataReceived</span><span class="p">(</span><span class="s">&quot;[tests.operation&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-settings-to-the-test-environment">
+<h3>Adding settings to the test environment<a class="headerlink" href="#adding-settings-to-the-test-environment" title="Permalink to this headline">¶</a></h3>
+<p>Before writing a test, you may need to add a few variables to the test
+environment. The file is located at <tt class="xref py py-mod docutils literal"><span class="pre">pyofwave.conf.test_configuration.py</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, alcinnz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

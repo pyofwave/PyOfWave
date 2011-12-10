@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" /> 
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="up" title="For Wave Providers" href="index.html" />
+    <link rel="next" title="Settings in PyOfWave Server" href="settings.html" />
+    <link rel="prev" title="For Wave Providers" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +34,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="settings.html" title="Settings in PyOfWave Server"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Wave Providers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">For Wave Providers</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -45,6 +55,12 @@
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">For Wave Providers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="settings.html"
+                        title="next chapter">Settings in PyOfWave Server</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/Usage/install.txt"
@@ -77,38 +93,34 @@
 <div class="section" id="setting-up-the-server">
 <h2>Setting Up the Server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Download PyOfWave at <a class="reference external" href="https://github.com/alcinnz/pyofwave/">https://github.com/alcinnz/pyofwave/</a> .</p>
+<li><p class="first">Download PyOfWave at <a class="reference external" href="https://github.com/pyofwave/PyOfWave/">https://github.com/pyofwave/PyOfWave/</a> .</p>
 </li>
-<li><p class="first">Customize your settings/preferences as discussed in <tt class="xref doc docutils literal"><span class="pre">settings</span></tt>.</p>
-<p>At least open SETTINGS.py and set those values.</p>
+<li><p class="first">From inside the downloaded and uncompressed directory:</p>
+<div class="highlight-python"><pre>python setup.py install</pre>
+</div>
 </li>
-<li><p class="first">Execute <tt class="file docutils literal"><span class="pre">pyofwave_server_launch</span></tt>.</p>
+<li><p class="first">Create a file named <tt class="file docutils literal"><span class="pre">settings.py</span></tt> as described by <a class="reference internal" href="settings.html"><em>Settings in PyOfWave Server</em></a> and from it&#8217;s directory run:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pyofwave</span>
+</pre></div>
+</div>
 </li>
 </ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Should we add a argument of the file to import?</p>
+</div>
 </div>
 <div class="section" id="setting-up-the-client">
 <h2>Setting Up the Client<a class="headerlink" href="#setting-up-the-client" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic">
-<li><p class="first">Ensure that the HTTP server you plan to use supports:</p>
-<ul>
-<li><p class="first">Serving raw files.</p>
-</li>
-<li><p class="first">Supports Python CGI.</p>
-<blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is note necessary if you have already integrated an authentication scheme that provides authentication and registration.</p>
-</div>
-</div></blockquote>
-</li>
+<ol class="arabic simple">
+<li>Ensure that the HTTP server you plan to use supports:<ul>
+<li>Serving raw files.</li>
+<li>Supports Python CGI.</li>
 </ul>
 </li>
-<li><p class="first">Customize <tt class="file docutils literal"><span class="pre">pyofwave_client/index.html</span></tt> and <tt class="file docutils literal"><span class="pre">pofwave_client/pyofwave_client/pyofwave_client.html</span></tt> to include your branding.</p>
-</li>
-<li><p class="first">Place these files in your server&#8217;s web directory.</p>
-</li>
-<li><p class="first">Start your HTTP server.</p>
-</li>
+<li>Customize <tt class="file docutils literal"><span class="pre">pyofwave_client/index.html</span></tt> and <tt class="file docutils literal"><span class="pre">pofwave_client/pyofwave_client/pyofwave_client.html</span></tt> to include your branding.</li>
+<li>Place these files in your server&#8217;s web directory.</li>
+<li>Start your HTTP server.</li>
 </ol>
 </div>
 </div>
@@ -125,7 +137,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="settings.html" title="Settings in PyOfWave Server"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Wave Providers"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >For Wave Providers</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
