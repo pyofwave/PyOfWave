@@ -2,7 +2,7 @@ Gadget API
 ----------
 
 Job: A minimal API for gadget developers to use and wave clients to implement.
-Existing Standards: ECMAScript (a.k.a. JavaScript), W3C JavaScript API, W3C URL, W3C WAI-ARIA, W3C CSS
+Existing Standards: ECMAScript (a.k.a. JavaScript), W3C JavaScript API, W3C URL, W3C WAI-ARIA, W3C CSS, W3C Capture API
 
 Format
 ------
@@ -45,15 +45,18 @@ APIs
 This section documents additional APIs to the W3C JavaScript APIs. CoffeeScript-style parameters (... after parameter means that it takes all arguments after it, = (JSON value) indicates a default value). CoffeeScript is not standardized, but an overview is in the https://github.com/pyofwave/PyOfWave repository. 
 Asterisks (*) surrounding words in the descriptions refer to the argument of that name.
 
+Recent W3C API standards that should be implemented are Object and Capture. 
+
 DOM utils:
 - load(MIMEtype = "", urls...)
 	Sends requests to load each of the *urls* of type *MIMEtype*.
 	Returns an Array of serializations of loaded resources, determined 
 	by *MIMEtype*.
+- load.types
+	Hashtable of handlers (function taking the String representation) for all MIMEtypes. 
 - resources
-	Object of standard resources. Properties yet to be fully decided, but contains:
-	- camera	-- Still picture from camera with confirmation.
-	- video		-- Live picture and audio with confirmation.
+	Object of standard resources. Properties yet to be fully decided (should be resources 
+	shared by gadgets), but contains:
 	- canvas	-- Blank canvas.
 
 - document.build(aria, style, events = {}, children...)
@@ -81,7 +84,7 @@ DOM utils:
 - dialog(title, children..., buttons = ["Cancel", "@O.K."])
 	Displays a dialog with title *title*, content *children*, and 
 	buttons labeled *buttons*. "@" indicates the default button and "&" 
-	indicates keyboard shortcut.
+	precedes keyboard shortcut.
 	Returns the label (without "@" or "&") of the button which closed 
 	the dialog or "Cancel".
 
@@ -115,3 +118,6 @@ State:
 	*protocol* determines whether to use "TCP" or "UDP". Objects know 
 	how to serialize. Details will be added on how communication should 
 	take place.
+
+	This method will be unstable in browser implementations until the W3C
+	releases a final standard to accomplish cross browser communication. 
