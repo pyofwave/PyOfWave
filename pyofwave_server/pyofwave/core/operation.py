@@ -16,7 +16,7 @@ def performOperation(event, operation):
     """ Execute a operation."""
     rep = opdev._receive[operation.tag](event, *_getChildren(operation), **operation.attrib)
 
-    Events.trigger(operation)
+    EventRegisty.notify(operation)
     return rep
 
 # Events
@@ -27,7 +27,7 @@ def get(obj, prop, default = {}):
 
 _handlers = {}
 
-class Events(object):
+class EventRegisty(object):
     """Keeps track of all the events a user registers to."""
     def __init__(self, user, callback):
         self.user = user
@@ -53,7 +53,7 @@ class Events(object):
             self._handlers(url, operation).remove(self._callback)
     
     @staticmethod
-    def trigger(operation, src = None):
+    def notify(operation, src = None):
         if src == None: 
             src = operation.get("href", operation.get("src", ""))
 
