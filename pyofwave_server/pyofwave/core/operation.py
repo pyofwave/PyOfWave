@@ -12,9 +12,9 @@ def _getChildren(tag):
         rep.append(child.tail)
     return rep
 
-def performOperation(events, operation):
+def performOperation(event, operation):
     """ Execute a operation."""
-    rep = opdev._receive[operation.tag](events, *_getChildren(operation), **operation.attrib)
+    rep = opdev._receive[operation.tag](event, *_getChildren(operation), **operation.attrib)
 
     Events.trigger(operation)
     return rep
