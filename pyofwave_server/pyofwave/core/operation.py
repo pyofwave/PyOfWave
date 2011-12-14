@@ -12,44 +12,56 @@ def _getChildren(tag):
         rep.append(child.tail)
     return rep
 
-def performOperation(events, op):
+def performOperation(event, operation):
     """ Execute a operation."""
-    rep = opdev._receive[op.tag](events, *_getChildren(op), **op.attrib)
+    rep = opdev._receive[operation.tag](event, *_getChildren(operation), **operation.attrib)
 
-    Events.trigger(op)
+    EventRegisty.notify(operation)
     return rep
 
 # Events
 def get(obj, prop, default = {}):
-    if not obj.get(prop): obj[prop] = default
+    if not obj.get(prop): 
+        obj[prop] = default
     return obj[prop]
 
 _handlers = {}
 
-class Events(object):
+class EventRegisty(object):
     """Keeps track of all the events a user registers to."""
     def __init__(self, user, callback):
         self.user = user
         self._callback = callback
 
-    def _handlers(self, url, op):
-        return get(get(_handlers, url), op, [])
+    def _handlers(self, url, operation):
+        # XXX : Why is it a list that is associated to an operation ?
+        # XXX : Is it possible to assign several callback to an operation ?
+        return get(get(_handlers, url), operation, [])
 
-    def register(self, url, op):
-        self._handlers(url, op).append(self._callback)
+    def register(self, url, operation):
+        # XXX: All registered operations will have the save callback 
+        self._handlers(url, operation).append(self._callback)
 
-    def unregister(self, url, op = "*"):
-        if op == "*": 
-            for evt in get(_handlers, url).values():
-                evt.remove(handler)
-        else: self._handlers(url, op).remove(self._callback)
-
+    def unregister(self, url, operation="*"):
+        url_handlers = get(_handlers, url)
+        if operation == "*": 
+            for operation in url_handlers.keys():
+                operation_callback = self._handlers(url, operation)
+                if self._callback in operation_callback:
+                    operation_callback.remove(self._callback)
+        else: 
+            self._handlers(url, operation).remove(self._callback)
+    
     @staticmethod
-    def trigger(op, src = None):
-        if src == None: src = op.get("href", op.get("src", ""))
+    def notify(operation, src = None):
+        if src == None: 
+            src = operation.get("href", operation.get("src", ""))
 
-        for handler in _handlers.get(src, {}).get(op.tag, []):
-            dop.apply_async(handler, (tag))
+        for handler in _handlers.get(src, {}).get(operation.tag, []):
+            ## FIXME : apply_async fails because handler seems to not be pickable 
+            #dop.apply_async(handler, [operation])
+            # XXX : amha, for the moment, a synchronous call is enought
+            handler(operation)
 
     @delta.alphaDeltaObservable.addObserver
     @staticmethod
