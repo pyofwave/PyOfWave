@@ -3,7 +3,6 @@
 
 <!-- Stanzas -->
 <!ELEMENT folders EMPTY>	<!-- Returns the user's root folder encoded in the folder element -->
-<!ELEMENT profile (#PCDATA)>	<!-- Returns the profile for the contained wave address encoded on a record element -->
 <!ELEMENT wave (#PCDATA)>	<!-- Returns the wave for the URL using the wave doctype encoding. body elements should be empty. -->
 <!ELEMENT records (#PCDATA)>	<!-- Returns the records for the contained name out of tags and history -->
 

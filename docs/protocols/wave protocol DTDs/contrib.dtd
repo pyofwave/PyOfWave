@@ -3,13 +3,10 @@
 
 <!ENTITY % wave SYSTEM "wave.dtd">
 <!ATTLIST wave:a
-	sel CDATA #IMPLIED	<!-- Wave Address of user who has selected the text -->
-	cursor CDATA #IMPLIED>	<!-- Wave Address of user whose cursor is at the annotation -->
+	sel CDATA #IMPLIED>	<!-- Wave Address of user who has selected the text -->
 
-<!ENTITY % fetch SYSTEM "fetch.dtd">
-<!ATTLIST fetch:record
-	name PCDATA #IMPLIED
-	status PCDATA #IMPLIED
+<!ENTITY % roster SYSTEM "jabber:iq:roster">
+<!ATTLIST roster:item
 	note PCDATA #IMPLIED
 	avatar PCDATA #IMPLIED
 	color PCDATA #IMPLIED

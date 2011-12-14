@@ -55,3 +55,15 @@ A number of XML namespaces are employed, with the main ones being:
 "Wave Protocol DTDs" contains DTDs for these namespaces.
 
 All root elements can be placed directly inside XMPP stream and iq element, and be configured to be sent to the client using the events stanzas. 
+
+XMPP Dependancy
+---------------
+
+XMPP features which MUST be implemented are:
+
+- SASL
+- iq stanzas
+- roster
+- presence
+
+This does not prevent Wave Providers from implementing more XMPP features, but those should not be used in the events namespace as an event between Wave Providers. 
