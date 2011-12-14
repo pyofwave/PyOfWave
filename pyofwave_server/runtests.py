@@ -22,7 +22,11 @@ def runtests(root_dir='pyofwave'):
     sys.exit(failures)
  
 if __name__ == '__main__':
-    runtests()
+    if len(sys.argv) == 2:
+        dir=sys.argv[1]
+    else:
+        dir='pyofwave'
+    runtests(root_dir=dir)
 
 
 
