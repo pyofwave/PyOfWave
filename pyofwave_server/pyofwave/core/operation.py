@@ -58,7 +58,10 @@ class EventRegisty(object):
             src = operation.get("href", operation.get("src", ""))
 
         for handler in _handlers.get(src, {}).get(operation.tag, []):
-            dop.apply_async(handler, (operation.tag))
+            ## FIXME : apply_async fails because handler seems to not be pickable 
+            #dop.apply_async(handler, [operation])
+            # XXX : amha, for the moment, a synchronous call is enought
+            handler(operation)
 
     @delta.alphaDeltaObservable.addObserver
     @staticmethod
