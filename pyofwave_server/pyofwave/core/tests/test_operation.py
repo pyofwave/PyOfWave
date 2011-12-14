@@ -11,25 +11,37 @@ class TestOperations(unittest.TestCase):
 
         @NS
         def op(event, arg, tag, text, action):
-            self.assertEqual(arg, "test")
+            self.assertEqual(event, "AnEventToTrigger")
+            self.assertEqual(arg, "Hello")
             self.assertEqual(tag.tag, "{pyofwave.info/test}tag")
-            self.assertEqual(text, "hello")
-            self.assertEqual(action, "test")
+            self.assertEqual(text, "World")
+            self.assertEqual(action, "SayHello")
             return NS.E.response("success", status = "400")
 
     def testPerformOperation(self):
-        res = operation.performOperation(None, 
-            E.op("test", E.tag(), "hello", action="test"))
+        res = operation.performOperation("AnEventToTrigger",
+                                         E.op("Hello",
+                                              E.tag(),
+                                              "World",
+                                              action="SayHello"))
+        
         self.assertEqual(res.text, "success")
         self.assertEqual(res.get("status"), "400")
-
-class TestEvents(unittest.TestCase):
-    def testOperationEvents(self):
-        res = {"value": False}
-        def callback(*args, **kwargs):
-            res["value"] = True
-        URL = "wave://test@pyofwave.info/test"
-        evts = operation.Events("test@pyofwave.info", callback)
+#
+class TestEventRegisty(unittest.TestCase):
+    def testEventRegisty(self):
+        #Define a test context
+        res = {"value": "FOO"}
+        #Define a function used as event callback that will modify the context
+        def misc(*args, **kwargs):
+            res["value"] = "BAR"
+        
+        url = "wave://test@pyofwave.info/test"
+        user="test@pyofwave.info"
+        event_registry = operation.EventRegisty(user=user, 
+                                                callback=misc)
+        
+        self.assertEqual(event_registry.user, user)
 
         # Create an operation for it's event.
         NS = opdev.OperationNS("pyofwave.info/test")
@@ -37,24 +49,30 @@ class TestEvents(unittest.TestCase):
         def op(event, *args, **kwargs): pass
 
         # Test that event isn't triggered before register
-        operation.performOperation(evts, E.op(href=URL))
-        self.assertFalse(res["value"])
+        operation.performOperation("AnEventToTrigger", E.op(href=url))
+        self.assertEqual(res["value"],"FOO")
 
         # Trigger event
-        evts.register(URL, "{pyofwave.info/test}op")
-        operation.performOperation(evts, E.op(href=URL))
-        self.assertTrue(res["value"])
+        event_registry.register(url, "{pyofwave.info/test}op")
+        operation.performOperation("AnEventToTrigger", E.op(href=url))
+        self.assertEqual(res["value"], "BAR")
 
         # test different URL
-        res["value"] = False
-        operation.performOperation(evts, E.op(href="pyofwave.info/Firefly"))
-        self.assertFalse(res["value"])
+        res["value"] = "FOOBAR"
+        operation.performOperation("AnEventToTrigger", E.op(href="pyofwave.info/Firefly"))
+        self.assertEqual(res["value"], "FOOBAR")
 
-        # Unregister
-        res["value"] = False
-        evts.unregister(URL, "{pyofwave.info/test}op")
-        operation.performOperation(evts, E.op(href=URL))
-        self.assertFalse(res["value"])
+        # Unregister one event
+        res["value"] = "BARFOO"
+        event_registry.unregister(url, "{pyofwave.info/test}op")
+        operation.performOperation("AnEventToTrigger", E.op(href=url))
+        self.assertEqual(res["value"], "BARFOO")
+        
+        # Unregister all events
+        event_registry.register(url, "{pyofwave.info/test}op1")
+        event_registry.register(url, "{pyofwave.info/test}op2")
+        event_registry.unregister(url, "*")
+        
 
 if __name__ == '__main__':
     unittest.main()
