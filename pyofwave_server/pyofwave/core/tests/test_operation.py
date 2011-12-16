@@ -3,17 +3,18 @@ from lxml.builder import ElementMaker
 
 from pyofwave.core import operation, opdev
 
-E = ElementMaker(namespace="pyofwave.info/test")
+ns = "pyofwave.info/test"
+E = ElementMaker(namespace=ns)
 
 class TestOperations(unittest.TestCase):
     def testCreateOperation(self):
-        NS = opdev.OperationNS("pyofwave.info/test")
+        NS = opdev.OperationNS(ns, events = True)
 
         @NS
         def op(event, arg, tag, text, action):
             self.assertEqual(event, "AnEventToTrigger")
             self.assertEqual(arg, "Hello")
-            self.assertEqual(tag.tag, "{pyofwave.info/test}tag")
+            self.assertEqual(tag.tag, "{%s}tag" % ns)
             self.assertEqual(text, "World")
             self.assertEqual(action, "SayHello")
             return NS.E.response("success", status = "400")
@@ -44,33 +45,33 @@ class TestEventRegisty(unittest.TestCase):
         self.assertEqual(event_registry.user, user)
 
         # Create an operation for it's event.
-        NS = opdev.OperationNS("pyofwave.info/test")
+        NS = opdev.OperationNS(ns)
         @NS
         def op(event, *args, **kwargs): pass
 
         # Test that event isn't triggered before register
-        operation.performOperation("AnEventToTrigger", E.op(href=url))
+        operation.performOperation(event_registry, E.op(href=url))
         self.assertEqual(res["value"],"FOO")
 
         # Trigger event
-        event_registry.register(url, "{pyofwave.info/test}op")
-        operation.performOperation("AnEventToTrigger", E.op(href=url))
+        event_registry.register(url, "{%s}op" % ns)
+        operation.performOperation(event_registry, E.op(href=url))
         self.assertEqual(res["value"], "BAR")
 
         # test different URL
         res["value"] = "FOOBAR"
-        operation.performOperation("AnEventToTrigger", E.op(href="pyofwave.info/Firefly"))
+        operation.performOperation(event_registry, E.op(href="pyofwave.info/Firefly"))
         self.assertEqual(res["value"], "FOOBAR")
 
         # Unregister one event
         res["value"] = "BARFOO"
-        event_registry.unregister(url, "{pyofwave.info/test}op")
-        operation.performOperation("AnEventToTrigger", E.op(href=url))
+        event_registry.unregister(url, "{%s}op" % ns)
+        operation.performOperation(event_registry, E.op(href=url))
         self.assertEqual(res["value"], "BARFOO")
         
         # Unregister all events
-        event_registry.register(url, "{pyofwave.info/test}op1")
-        event_registry.register(url, "{pyofwave.info/test}op2")
+        event_registry.register(url, "{%s}op1" % ns)
+        event_registry.register(url, "{%s}op2" % ns)
         event_registry.unregister(url, "*")
         
 

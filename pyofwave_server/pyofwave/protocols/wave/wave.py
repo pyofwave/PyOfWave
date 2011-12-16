@@ -10,7 +10,6 @@ class WaveProtocol(xmpp.ServerCore):
 
     def __init__(self, addr, stream):
         super(WaveProtocol, self).__init__(addr, stream)
-        super
 
     def is_stanza(self, name):
         return super(WaveProtocol, self).is_stanza(name) or name in opdev._receive.keys()
@@ -44,6 +43,10 @@ class WaveProtocol(xmpp.ServerCore):
         ret = operation.handleOperation(None, elem) #TODO: Handle errors
 
         if ret != None: self.iq('result', ret)
+
+    def on_stream_authorized(self, usr):
+        operation.EventRegistry(usr, self.write)
+        super(WaveProtocol, self).on_stream_authorized(usr)
 
 if __name__ == '__main__':
     from pyofwave.conf import settings

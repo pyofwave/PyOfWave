@@ -22,8 +22,9 @@ class OperationNS(object):
 	def receive(self, callback):
 		"""Register callback to be called for 
 			"{%s}%s" % self.namespace, callback.__name__."""
+		name = callback.__name__ # breaks when accessed after the wrap.
 		if self._wrap: callback = self._wrap(callback)
-		return self._register(_receive, callback.__name__, callback)
+		return self._register(_receive, name, callback)
 		
 	def shouldSend(self, xQuery):
 		"""Determines if a delta translates to this event (tag). """
