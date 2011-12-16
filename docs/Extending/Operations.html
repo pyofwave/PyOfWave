@@ -51,6 +51,7 @@
 <li><a class="reference internal" href="#">Protocol Operators</a><ul>
 <li><a class="reference internal" href="#basic-form">Basic Form</a><ul>
 <li><a class="reference internal" href="#operationns-e">OperationNS.E</a></li>
+<li><a class="reference internal" href="#events">Events</a></li>
 </ul>
 </li>
 </ul>
@@ -106,7 +107,7 @@
 NS = Ops("&lt;XML namespace&gt;")
 
 @NS
-def &lt;tagname&gt;(events, &lt;expected children&gt;, &lt;attributes&gt;):
+def &lt;tagname&gt;(usr, &lt;expected children&gt;, &lt;attributes&gt;):
    &lt;action&gt;
    return &lt;return element&gt;
 
@@ -127,6 +128,10 @@ def _&lt;tagname&gt;(S, tag, delta):
 <div class="highlight-python"><div class="highlight"><pre><span class="n">NS</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="o">*</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="events">
+<h3>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h3>
+<p>If for whatever reason, events in a namespace requires the <tt class="xref py py-class docutils literal"><span class="pre">EventRegistry</span></tt> object associated with the connection, pass <cite>events=True</cite> to the <a class="reference internal" href="CoreModule.html#OperationNS" title="OperationNS"><tt class="xref py py-class docutils literal"><span class="pre">OperationNS</span></tt></a> constructor. In this case, the events object would be passed in place of the username for all registered operations with that namespace.</p>
 </div>
 </div>
 </div>

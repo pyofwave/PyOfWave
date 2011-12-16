@@ -152,9 +152,9 @@ OperationNS is the plugin system for adding operations. It is a class with the f
 
    Operation plugin system.
 
-   .. py:method:: __init__(namespace)
+   .. py:method:: __init__(namespace, events = False)
 
-      Initializes with the given *namespace*.
+      Initializes with the given *namespace* and *events* flag. 
 
    .. py:method:: receive(callback)
 

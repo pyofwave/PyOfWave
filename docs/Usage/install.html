@@ -92,14 +92,25 @@
 <p>This file leads you through how to install PyOfWave on your server.</p>
 <div class="section" id="setting-up-the-server">
 <h2>Setting Up the Server<a class="headerlink" href="#setting-up-the-server" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since PyOfWave is still under heavy development, we
+recommend using virtualenv for testing.</p>
+</div>
 <ol class="arabic">
-<li><p class="first">Download PyOfWave at <a class="reference external" href="https://github.com/pyofwave/PyOfWave/">https://github.com/pyofwave/PyOfWave/</a> .</p>
-</li>
-<li><p class="first">From inside the downloaded and uncompressed directory:</p>
-<div class="highlight-python"><pre>python setup.py install</pre>
+<li><p class="first">Download a release of PyOfWave at <a class="reference external" href="https://github.com/pyofwave/PyOfWave/">https://github.com/pyofwave/PyOfWave/</a> or if
+you prefer to live on the bleeding edge, clone
+the repository:</p>
+<div class="highlight-python"><pre>git clone https://github.com/pyofwave/PyOfWave</pre>
 </div>
 </li>
-<li><p class="first">Create a file named <tt class="file docutils literal"><span class="pre">settings.py</span></tt> as described by <a class="reference internal" href="settings.html"><em>Settings in PyOfWave Server</em></a> and from it&#8217;s directory run:</p>
+<li><p class="first">From inside the downloaded and uncompressed directory (you can skip
+this step if you want to use it locally):</p>
+<div class="highlight-python"><pre>cd pyofwave_server/
+python setup.py install</pre>
+</div>
+</li>
+<li><p class="first">Create a file named <tt class="file docutils literal"><span class="pre">settings.py</span></tt> as described by <a class="reference internal" href="settings.html"><em>Settings in PyOfWave Server</em></a> and from its directory run:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pyofwave</span>
 </pre></div>
 </div>
@@ -107,7 +118,8 @@
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Should we add a argument of the file to import?</p>
+<p class="last">If your <tt class="file docutils literal"><span class="pre">settings.py</span></tt> file is not in the current
+directory, you can export the <tt class="xref py py-data docutils literal"><span class="pre">PYOFWAVE_SETTINGS_MODULE</span></tt> symbol.</p>
 </div>
 </div>
 <div class="section" id="setting-up-the-client">

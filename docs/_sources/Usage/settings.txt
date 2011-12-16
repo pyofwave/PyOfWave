@@ -31,7 +31,7 @@ General settings
 Backing stores
 ==============
 
-If you wish to customize how data is handled in PyOfWave, use these variables. If you need more details, please see :doc:`CoreModule`.
+If you wish to customize how data is handled in PyOfWave, use these variables. If you need more details, please see :doc:`../Extending/CoreModule`.
 
 .. py:data:: DATASOURCE_STORAGE
 
@@ -50,4 +50,4 @@ protocols/__init__.py
 
           Perhaps add a :py:data:`ADDONS` setting. 
 
-In this file, you setup any changes to the protocols you have in your runtime. Instructions for doing this can be found at :doc:`Protocols`.
+In this file, you setup any changes to the protocols you have in your runtime. Instructions for doing this can be found at :doc:`../Extending/Protocols`.

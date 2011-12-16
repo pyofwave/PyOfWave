@@ -22,7 +22,7 @@ These map to the following syntax in python (with `<` and `>` surrounding parts 
    NS = Ops("<XML namespace>")
 
    @NS
-   def <tagname>(events, <expected children>, <attributes>):
+   def <tagname>(usr, <expected children>, <attributes>):
       <action>
       return <return element>
 
@@ -44,3 +44,8 @@ The :py:class:`OperationNS` has a property of :py:data:`E` of class :py:class:`l
 If you don't know how to use this factory (it's the same as :py:data:`lxml.builder.E`), it allows you to create XML tags using the following syntax::
 
    NS.E.tag(*children, **attributes)
+
+Events
+------
+
+If for whatever reason, events in a namespace requires the :py:class:`EventRegistry` object associated with the connection, pass `events=True` to the :py:class:`OperationNS` constructor. In this case, the events object would be passed in place of the username for all registered operations with that namespace. 
