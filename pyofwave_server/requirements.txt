@@ -4,6 +4,6 @@ setuptools-trial
 twisted
 zope.interface
 
-python-xmpp-server
 tornado
-python-sasl
+-e git+https://github.com/thisismedium/python-sasl.git#egg=python-sasl
+-e git+https://github.com/thisismedium/python-xmpp-server.git#egg=python-xmpp-server
