@@ -7,7 +7,31 @@ from pyofwave.conf import settings
 
 def applyDelta(doc, delta):
     """Extend doc with delta."""
-    return doc # TODO: add combination routine.
+    # apply delta:d
+    d = delta.get("{pyofwave.info/delta}d")
+    if d == "delete":
+        doc.getParent().remove(doc)
+        return True
+    elif d == "replace":
+        doc.clear()
+
+    # find element
+    if doc.tag != delta.tag:
+        doc = doc.find("./"+delta.tag)
+    if not doc: return False
+
+    # apply elements
+    attrs = delta.attrib[:]
+    del attrs["{pyofwave.info/delta}d"]
+    for attr, val in attrs.items():
+        doc.set(attr, val)
+    
+    # apply children
+    for child in delta:
+        if (not doc) or (not applyDelta(doc, child)):
+            doc.append(child)
+
+    return True
 
 DeltaObserverPool = Pool(settings.DELTA_OBSERVER_PROCESSES,
                          None, settings.DELTA_OBSERVER_TIMEOUT)

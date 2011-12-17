@@ -7,9 +7,10 @@
 
 <!ENTITY % roster SYSTEM "jabber:iq:roster">
 <!ATTLIST roster:item
-	note PCDATA #IMPLIED
-	avatar PCDATA #IMPLIED
-	color PCDATA #IMPLIED
-	lang PCDATA #IMPLIED>
+	note PCDATA ""
+	avatar PCDATA "about:blank"
+	color PCDATA #REQUIRED
+	lang PCDATA #IMPLIED
+	robot PCDATA "human">
 
 ]>

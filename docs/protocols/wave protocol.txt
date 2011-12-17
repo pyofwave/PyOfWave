@@ -67,3 +67,15 @@ XMPP features which MUST be implemented are:
 - presence
 
 This does not prevent Wave Providers from implementing more XMPP features, but those should not be used in the events namespace as an event between Wave Providers. 
+
+Roster Differences
+------------------
+
+Due to extra data in the roster, it's behaviour is extended. Values a client hasn't filled in on a roster should match the values on that account's "own" roster item (their address in their roster). 
+
+Federation Records
+------------------
+
+The server account SHOULD have in it's roster all it's user's own roster items. 
+
+It MAY also have records of type "Gadget" listing all it's known gadgets. This would be a useful aid for users to find useful gadgets.
