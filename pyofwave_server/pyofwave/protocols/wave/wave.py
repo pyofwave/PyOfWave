@@ -9,6 +9,7 @@ from pyofwave.core import opdev, operation
 class WaveProtocol(xmpp.ServerCore):
 
     def __init__(self, addr, stream):
+	self.events = None
         super(WaveProtocol, self).__init__(addr, stream)
 
     def is_stanza(self, name):
@@ -16,7 +17,7 @@ class WaveProtocol(xmpp.ServerCore):
 
     def handle_stanza(self, el):
         super(WaveProtocol, self).handle_stanza(el)
-        operation.handleOperation(None, el)
+        operation.handleOperation(self.events, el)
 
     def info_query(self, elem):
         # Same as in xmpp.Core, slight change in handling
@@ -40,12 +41,12 @@ class WaveProtocol(xmpp.ServerCore):
                 )
             name = '{jabber:client}iq/%s' % child.tag
 
-        ret = operation.handleOperation(None, elem) #TODO: Handle errors
+        ret = operation.handleOperation(self.events, elem) #TODO: Handle errors
 
         if ret != None: self.iq('result', ret)
 
     def on_stream_authorized(self, usr):
-        operation.EventRegistry(usr, self.write)
+        self.events = operation.EventRegistry(usr, self.write)
         super(WaveProtocol, self).on_stream_authorized(usr)
 
 if __name__ == '__main__':
