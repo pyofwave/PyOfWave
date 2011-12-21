@@ -1,8 +1,32 @@
 """
 Standard interface for connecting client protocols to the operation extensions. 
 """
+from zope import interface
+
 from delta import DeltaObserverPool as dop
 import opdev, delta
+
+from pyofwave.utils.command import CommandInterface
+
+class OperationBase(object):
+    interface.implements(CommandInterface)
+    """
+    An operation is a transformation that alters a document and is
+    made of one or more Actions.
+    """
+    def do(self, aDocument):
+        cursor_position = 0 # Cursor index in the document
+
+        # Apply transformations using actions
+        for action in self.scenario():
+            cursor_position = action.do(aDocument=aDocument,
+                                        cursor_position=cursor_position)
+
+        assert(aDocument.length == cursor_position)
+
+    def scenario(self):
+        raise NotImplementedError
+
 
 # Perform operation
 def _getChildren(tag):
