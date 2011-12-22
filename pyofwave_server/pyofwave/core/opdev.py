@@ -40,7 +40,7 @@ class OperationNS(object):
 			cb = fn
 
 			self._register(_shouldSend, name, callback)
-			return inner
+			return inner # WTF ?
 
 		def callback(doc, delta):
 			""" Checks xQuery then cb. """

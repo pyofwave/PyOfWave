@@ -1,20 +1,28 @@
 """
 Standard interface for connecting client protocols to the operation extensions. 
 """
+from cStringIO import StringIO
+
+import lxml.etree, lxml.builder
 from zope import interface
 
 from delta import DeltaObserverPool as dop
 import opdev, delta
 
 from pyofwave.utils.command import CommandInterface
+from .action import ACTION_REGISTRY
 
 class OperationBase(object):
-    interface.implements(CommandInterface)
     """
     An operation is a transformation that alters a document and is
     made of one or more Actions.
     """
+    interface.implements(CommandInterface)
+    
     def do(self, aDocument):
+        """
+        Perform the operation using the scenario
+        """
         cursor_position = 0 # Cursor index in the document
 
         # Apply transformations using actions
@@ -23,10 +31,51 @@ class OperationBase(object):
                                         cursor_position=cursor_position)
 
         assert(aDocument.length == cursor_position)
-
+        
     def scenario(self):
+        """
+        Yield here the flow of Actions required to perform this
+        operation.
+        """
         raise NotImplementedError
 
+    def to_xml(self):
+        """
+        Turns an operation to an XML stream
+        """
+        E = lxml.builder.ElementMaker()
+        xml_etree = E.op()
+        for action in self.scenario():
+            xml_etree.append(action.to_xml_etree())
+
+        return lxml.etree.tostring(xml_etree)
+
+
+class XMLOperation(OperationBase):
+    """
+    An Operation that reads its Actions from a XML stream.
+    """
+    def __init__(self, xml):
+        self.xml = xml
+    
+    def scenario(self):
+        xml_file = StringIO(self.xml)
+
+        for event, element in lxml.etree.iterparse(xml_file, events=('end',)):
+            # XXX: Remove this, this is a bad lazy hack
+            if element.tag == '{pyofwave.info/2012/dtd/document.dtd}op': continue
+
+            # Lookup the action name (using: "{NS}NAME") from the
+            # action registry and yield the corresponding Action(s)
+            if element.tag in ACTION_REGISTRY:
+                kwargs = dict(element.items())
+                try:
+                    yield ACTION_REGISTRY[element.tag](**kwargs)
+                except Exception, e:
+                    raise OperationError("Wrong usage of '%s': %s" % (element.tag, e))
+
+            else:
+                raise OperationError("Unknown Action: %s" % element.tag)
 
 # Perform operation
 def _getChildren(tag):
@@ -37,7 +86,9 @@ def _getChildren(tag):
     return rep
 
 def performOperation(event, operation):
-    """ Execute a operation."""
+    """
+    Execute an operation.
+    """
     rep = opdev._receive[operation.tag](event, *_getChildren(operation), **operation.attrib)
 
     EventRegisty.notify(operation)
@@ -77,7 +128,7 @@ class EventRegisty(object):
             self._handlers(url, operation).remove(self._callback)
     
     @staticmethod
-    def notify(operation, src = None):
+    def notify(operation, src=None):
         if src == None: 
             src = operation.get("href", operation.get("src", ""))
 
@@ -91,3 +142,7 @@ class EventRegisty(object):
     @staticmethod
     def applyDelta(doc, delta):
         """ Calculate and send events. """
+
+## -- Exceptions -- #
+class OperationError(Exception):
+    pass

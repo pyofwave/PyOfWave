@@ -1,17 +1,37 @@
 import unittest
+
 from lxml.builder import ElementMaker
+import lxml.etree
 
+from pyofwave.action.document import Retain, InsertCharacters
 from pyofwave.core import operation, opdev
-from pyofwave.core.action import Retain, InsertCharacters
-
-
 from pyofwave.core.document import Document
-from pyofwave.core.operation import OperationBase
+from pyofwave.core.operation import OperationBase, XMLOperation
 
-ns = "pyofwave.info/test"
+ns = "pyofwave.info/2012/dtd/document.dtd"
 
-class TestActions(unittest.TestCase):
-    def testInsertCharacters(self):
+class TestOperations(unittest.TestCase):
+    def setUp(self):
+        self.E = ElementMaker(namespace=ns)
+
+    def testPerformXMLOperation(self):
+        # Write an operation in XML, inserting "go" at position 2
+        xml = self.E.op(self.E.retain(amount="2"),
+                        self.E.insertCharacters(characters="go"),
+                        self.E.retain(amount="3")
+                        )
+
+        doc = Document(uri='nowhere', content='Hello')
+
+        op = XMLOperation(lxml.etree.tostring(xml))
+        op.do(doc)
+
+        self.assertEqual(doc.content, "Hegollo")
+
+        # Compare we can restitute the same XML from the Operation
+        self.assertEqual(op.to_xml(), lxml.etree.tostring(xml))
+
+    def testPerformOperation(self):
         class TestOperation(OperationBase):
             def scenario(self):
                 yield Retain(2)
@@ -24,74 +44,6 @@ class TestActions(unittest.TestCase):
         op.do(doc)
 
         self.assertEqual(doc.content, "Hegollo")
-
-class TestOperations(unittest.TestCase):
-    def setUp(self):
-        self.E = ElementMaker(namespace=ns)
-
-    def testCreateOperation(self):
-        NS = opdev.OperationNS(ns, events=True)
-
-        @NS
-        def op(event, arg, tag, text, action):
-            self.assertEqual(event, "AnEventToTrigger")
-            self.assertEqual(arg, "Hello")
-            self.assertEqual(tag.tag, "{%s}tag" % ns)
-            self.assertEqual(text, "World")
-            self.assertEqual(action, "SayHello")
-            return NS.E.response("success", status="400")
-
-    def testCreateOperationFromXML(self):
-        class TestXMLOperation(OperationBase):
-            def __init__(self, xml):
-                self.xml = xml
-                
-            def scenario(self):
-                import lxml.etree
-                from cStringIO import StringIO
-
-                xml_file = StringIO(self.xml)
-
-                for event, element in lxml.etree.iterparse(xml_file):
-                    #if eleemprint("%5s, %4s, %s" % (event, element.tag, element.text))
-                    if element.tag in ("select", "text"):
-                        action = {"select": Retain,
-                                  "text": InsertCharacters}[element.tag]
-
-                        yield action(element.items())
-
-        # Write some xml
-        xml = self.E.op(self.E.select(href="about:blank",
-                                      range="10",
-                                      version="2"),
-                        self.E.text("go"),
-                        )
-
-
-        doc = Document(uri='nowhere', content='Hello')
-
-        import lxml.etree
-        op = TestXMLOperation(lxml.etree.tostring(xml))
-        op.do(doc)
-
-        self.assertEqual(doc.content, "Hegollo")
-
-
-        # print lxml.etree.tostring(xml)
-
-    def testPerformOperation(self):
-        res = operation.performOperation("AnEventToTrigger",
-                                         self.E.op("Hello",
-                                                   self.E.tag(),
-                                                   "World",
-                                                   action="SayHello")
-                                         )
-        
-        self.assertEqual(res.text, "success")
-        self.assertEqual(res.get("status"), "400")
-
-
-
         
         
 class TestEventRegisty(unittest.TestCase):

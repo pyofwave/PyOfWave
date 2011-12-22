@@ -20,7 +20,7 @@ class Document(object):
         if not aDataStore:
             aDataStore = pyofwave.storage.datastore
 
-        return aDataStore.getDocument(uri)
+        return aDataStore.get_document(uri)
         
 
     def save(self, aDataStore=None):
@@ -35,7 +35,7 @@ class Document(object):
                 # XXX: Use a real exception
                 raise "This document is not linked to a datastore or none was specified"
             
-        return aDataStore.saveDocument(self)
+        return aDataStore.save_document(self)
                 
     @property
     def length(self):
