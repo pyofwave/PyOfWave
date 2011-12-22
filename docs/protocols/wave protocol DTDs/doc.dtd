@@ -1,14 +1,12 @@
 <!-- Used to edit post body content -->
-<!DOCTYPE doc [
-
+<!ELEMENT doc (select, text*)>
 <!ELEMENT select EMPTY>		<!-- Sets user's cursor and annotations marking it. -->
 <!ATTLIST select 
-	href CDATA #REQUIRED	<!-- URL to the blip to change -->
-	range CDATA #REQUIRED	<!-- In form \d+(-\d+)? the range of text in declared version -->
-<!-- Value of the version element in the identified post on client-side, used to ensure posts match -->
+	href CDATA #REQUIRED
+	range CDATA #REQUIRED
 	version CDATA #REQUIRED>
-
+	<!-- href : URL to the blip to change -->
+	<!-- range : in form \d+(-\d+)? the range of text in declared version -->
+	<!-- version : value of the version element in the identified post on client-side, used to ensure posts match -->
 <!ELEMENT annotation EMPTY>	<!-- Applies annotation properties to the selected text -->
 <!ELEMENT text ANY>		<!-- Replaces selected text with content. -->
-
-]>
