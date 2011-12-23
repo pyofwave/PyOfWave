@@ -16,10 +16,12 @@ class TestOperations(unittest.TestCase):
 
     def testPerformXMLOperation(self):
         # Write an operation in XML, inserting "go" at position 2
-        xml = self.E.op(self.E.retain(amount="2"),
-                        self.E.insertCharacters(characters="go"),
-                        self.E.retain(amount="3")
-                        )
+        xml = self.E.doc(
+            self.E.op(self.E.retain(amount="2"),
+                      self.E.insertCharacters(characters="go"),
+                      self.E.retain(amount="3")
+                      )
+            )
 
         doc = Document(uri='nowhere', content='Hello')
 
@@ -29,7 +31,8 @@ class TestOperations(unittest.TestCase):
         self.assertEqual(doc.content, "Hegollo")
 
         # Compare we can restitute the same XML from the Operation
-        self.assertEqual(op.to_xml(), lxml.etree.tostring(xml))
+        self.assertEqual(lxml.etree.tostring(self.E.doc(op.to_xml_etree())),
+                         lxml.etree.tostring(xml))
 
     def testPerformOperation(self):
         class TestOperation(OperationBase):

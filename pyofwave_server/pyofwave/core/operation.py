@@ -14,8 +14,8 @@ from .action import ACTION_REGISTRY
 
 class OperationBase(object):
     """
-    An operation is a transformation that alters a document and is
-    made of one or more Actions.
+    An operation is a transformation that alters an entity (blip,
+    document, ...) and is made of one or more Actions.
     """
     interface.implements(CommandInterface)
     
@@ -39,16 +39,23 @@ class OperationBase(object):
         """
         raise NotImplementedError
 
-    def to_xml(self):
+    def to_xml_etree(self):
         """
-        Turns an operation to an XML stream
+        Turns an operation to an XML etree
         """
-        E = lxml.builder.ElementMaker()
+        # XXX This namespace shouldn't be hardcoded
+        E = lxml.builder.ElementMaker(namespace="pyofwave.info/2012/dtd/document.dtd")
         xml_etree = E.op()
         for action in self.scenario():
             xml_etree.append(action.to_xml_etree())
 
-        return lxml.etree.tostring(xml_etree)
+        return xml_etree
+
+    def to_xml(self):
+        """
+        Turns an operation to an XML stream
+        """
+        return lxml.etree.tostring(self.to_xml_etree())
 
 
 class XMLOperation(OperationBase):
@@ -59,12 +66,12 @@ class XMLOperation(OperationBase):
         self.xml = xml
     
     def scenario(self):
-        xml_file = StringIO(self.xml)
+        root = lxml.etree.fromstring(self.xml)
+        
+        # XXX This namespace shouldn't be hardcoded
+        operation_tag = root.find(".//{pyofwave.info/2012/dtd/document.dtd}op")
 
-        for event, element in lxml.etree.iterparse(xml_file, events=('end',)):
-            # XXX: Remove this, this is a bad lazy hack
-            if element.tag == '{pyofwave.info/2012/dtd/document.dtd}op': continue
-
+        for element in operation_tag.iterchildren():
             # Lookup the action name (using: "{NS}NAME") from the
             # action registry and yield the corresponding Action(s)
             if element.tag in ACTION_REGISTRY:
@@ -103,7 +110,9 @@ def get(obj, prop, default = {}):
 _handlers = {}
 
 class EventRegisty(object):
-    """Keeps track of all the events a user registers to."""
+    """
+    Keeps track of all the events a user registers to.
+    """
     def __init__(self, user, callback):
         self.user = user
         self._callback = callback
