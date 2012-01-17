@@ -1,4 +1,5 @@
-"""The Wave Protocol
+"""
+The Wave Protocol
 
 Loose XMPP wrapper around operations and their events. 
 """
@@ -7,10 +8,10 @@ import xmpp
 from pyofwave.core import opdev, operation
 
 class WaveProtocol(xmpp.ServerCore):
-
-    def __init__(self, addr, stream):
+    
+    def __init__(self, stream):
 	self.events = None
-        super(WaveProtocol, self).__init__(addr, stream)
+        super(WaveProtocol, self).__init__(stream, jid="serverjid") # XXX: hardcoded JID
 
     def is_stanza(self, name):
         return super(WaveProtocol, self).is_stanza(name) or name in opdev._receive.keys()
