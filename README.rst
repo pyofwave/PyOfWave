@@ -1,57 +1,41 @@
 PyOfWave server and webclient (in development, pre-beta)
 =======================
-Wave is a combination of existing communication technologies (eMail, forums, wikis, and instant messaging) designed by Google. PyGoWave is one implementation of Wave programmed in Python.
 
-Server
-=====
+Wave is the features of common communication platforms (eMail, IM, forums, wikis, social networking, etc.) merged into one system. 
 
-The server provides protocols around some core functionality (authentication, profiles, "document" access, and sending and recieving "deltas"). These protocols are documented in docs/protocols. 
+PyOfWave implements Wave in Python (for the browser) with a re-factored XMPP based protocol dubbed xWave. It uses compiled & compressed CoffeeScript for Web browsers. 
 
-The client and server acts as 2 different programs. The server is a customizable application while the client is some CGI and "static" web files. 
+We hope to keep PyOfWave a moderate code base for maintainability and speed, and in cases download size. We also focus on decentralization (we don't create everything users might want in house) and provide strong customizability. 
 
-When launched, PyOfWave appears to do nothing, but don't worry, it sets up API and shortly Internet access to them. Eventually, it'll become a deamon and include a setup and settings utility.
+Furthermore, we hope to undo whatever it was that made Google Wave fall (lack of "integration"? Complex UI? Centralized groups & embedding/linking? Bad pitch?). Whatever it was, we'll do it right. 
 
-Dependancies
+Components
+----------
+
+PyOfWave has a number of components, including:
+
+- Server
+- Client
+- Mobile (planned)
+- Pad (planned)
+
+Each has it's own README which talks about it in relation to PyOfWave, although they can be substituted for a compatible one (except the planned Mobile and Pad will use other components directly). 
+
+Technical Components
 --------------------
 
-+ Python 2.7+ -  http://python.org/ (older versions can be used with installation of importlib)
+Although PyOfWave for the most part uses well tested dependancies, in some cases we had to write software ourselves for satisfaction. These technical projects include:
 
-+ Python XMPP Server (requires Tornado, includes Twisted adaptor) - https://github.com/thisismedium/python-xmpp-server
+- XML.js
+- Mozilla RepoTheWeb
 
-+ Twisted Projects (requires zope.interface, for integration to existing protocols)  - http://twistedmatrix.com/
+Other Software
+--------------
 
-+ CouchDB - http://couchdb.apache.org/ or any Relational Database System (Optional, recommended for production)
+We provide additional projects to be used as tools and reference implementations, but in order to encourage decentralization and decrease workload I (Adrian Cochrane "alcinnz", Project Manager) want to limit these. This way competition can grow in place of "official" robots. 
 
+These include:
 
-Client
-====
-
-The client provides a dynamic web based interface to PyOfWave_server, using websockets on the client protocol or a backup protocol. It is designed to be embedded in the frame of your site and delivers great customizability and ease.  
-
-It is written using Agility.js and jQuery, both of which are included in this project.
-
-Used jQuery Plugins
-------------------------------
-
-- jQuery UI (http://jqueryui.com/)
-
-- MVClets(https://github.com/pyofwave/MVClets/)
-
-- farbtastic (https://github.com/mattfarina/farbtastic/)
-
-- jsTree (http://www.jstree.com/)
-
-Other dependancies
------------------------------
-
-- Strophe.js (https://github.com/metajack/strophejs)
-
-- RepoTheWeb (https://github.com/mozilla/repotheweb) - For registerProtocolHandler support.
-
-- CoffeeScript (https://github.com/jashkenas/coffee-script) - Purely for development.
-
-P. S. 
-====
-
-Shortly, I will be rebuilding PyOfWave to use one XMPP based protocol for both web and offline clients and Federation. Client dependancies have been considered and changed to support a XMPP BOSH protocol.
-The roster is old as of now. 
+- pywavebot (planned)
+- iWave (planned)
+- robots (planned, lacks repo)
