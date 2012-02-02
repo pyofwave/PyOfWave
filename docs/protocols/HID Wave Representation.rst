@@ -32,6 +32,8 @@ The principles in this section draw from three main sources, which all follow an
 
 	Was chosen by the Ubuntu OS, which aims to be the most user friendly Open Source operating and is currently the the most popular of them. Echoes several principles of Apple's while also drawing from other sources. 
 
+In addition, it is loosely derived from the WaveInABox designs at https://plus.google.com/photos/117473852478348637128/albums/5687797721073659953 , but with plenty of redesign. 
+
 Focus on text
 -------------
 
