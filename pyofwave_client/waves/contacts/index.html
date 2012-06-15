@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contacts</title>
+	<script src="../../api/knockout-2.1.0.debug.js"></script>
+
+	<style>
+		section {
+			min-height: 500px;
+			min-width: 500px;
+		}
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+		ul li {
+			cursor: pointer;
+			height: 20px;
+		}
+		aside {float: left;}
+		section ul {
+			width: 200px;
+			overflow: auto;
+		}
+		.vsplitbar {width: 3px; background: black;}
+	</style>
+
+	<script src="../../api/jquery-1.5.1.js"></script>
+	<script src="../../api/splitter.js"></script>
+</head>
+<body>
+	<section>
+	<section>
+	<ul data-bind="foreach: groups">
+		<li data-bind="text: name, click: $root.contacts"></li>
+	</ul>
+	<ul data-bind="foreach: contacts().contacts">
+		<li data-bind="text: foaf_name, click: $root.contact"></li>
+	</ul>
+	</section>
+	<div class="about" data-bind="with: contact">
+		<aside><img data-bind="attr: {src: foaf_depiction}" height="100" width="100" /></aside>
+		<h2 data-bind="text: foaf_name"></h2>
+		<h3 data-bind="text: foaf_mbox"></h2>
+	</div>
+	</section>
+
+
+	<script type="text/javascript">
+		var _ = ko.observable, __ = ko.observableArray
+
+		var starWars = [
+			{foaf_name : _("Obi Wan Kanobi"),
+				foaf_mbox : _("obiwan@jedi.org"),
+				foaf_depiction: _("avatars/obiwan.jpg")},
+			{foaf_name : _("Anakin Skywalker"),
+				foaf_mbox : _("anikan@jedi.org"),
+				foaf_depiction: _("avatars/anakin.jpg")},
+			{foaf_name : _("Yoda"),
+				foaf_mbox : _("yoda@jedi.org"),
+				foaf_depiction: _("avatars/yoda.jpg")}]
+		var doctorWho = [
+			{foaf_name : _("The Master"),
+				foaf_mbox : _("master@timelords.gal"),
+				foaf_depiction: _("avatars/themaster.jpg")},
+			{foaf_name : _("The Doctor"),
+				foaf_mbox : _("doctor@timelords.gal"),
+				foaf_depiction: _("avatars/thedoctor.jpg")}]
+		var groups = __([
+			{name : _("All"),
+				contacts : __(starWars.concat(doctorWho))},
+			{name : _("StarWars"),
+				contacts : __(starWars)},
+			{name : _("DoctorWho"),
+				contacts : __(doctorWho)}])
+
+		var mapped = {
+			'groups' : groups,
+			'contacts' : _(groups()[0]),
+			'contact' : _()
+		}
+
+		$(function() {
+		ko.applyBindings(mapped);
+
+		$('section').splitter();
+		});
+	</script>
+
+	<script>
+		
+	</script>
+</body>
+</html>

@@ -15,14 +15,13 @@ It builds upon a custom engine (an XML builder, data access, & bindings system) 
 Underlaying Technologies
 ------------------------
 
-- CoffeeScript (developer only)
 - Strophe.js
 - jQuery
 - RepoTheWeb
+- Knockout.js (finally found a framework which seems to support what I want to do)
 
 jQuery contrib:
 
-- XML.js (custom, should be XML.coffee. Provides live XML translation)
 - jsTree
 - Farbtastic
 - jQueryUI
