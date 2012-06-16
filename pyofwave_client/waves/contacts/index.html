@@ -5,10 +5,21 @@
 	<script src="../../api/knockout-2.1.0.debug.js"></script>
 
 	<style>
-		section {
+		html, body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;	/* Remove scroll bars on browser window */
+			font: small sans-serif;
+		}
+		div#content {
 			min-height: 500px;
 			min-width: 500px;
 		}
+		section {overflow-x: hidden; overflow-y: auto;}
+		.vsplitbar {width: 3px; background: black;}
+
+		h1 button {float: right;}
+		h1 {font-size: 1em; margin: 0;}
 		ul {
 			list-style: none;
 			padding: 0;
@@ -17,38 +28,60 @@
 			cursor: pointer;
 			height: 20px;
 		}
-		aside {float: left;}
+		.selected {
+			background: #00f;
+		}
 		section ul {
 			width: 200px;
 			overflow: auto;
 		}
-		.vsplitbar {width: 3px; background: black;}
+
+		aside {
+			float: left;
+			padding: 10px;
+		}
 	</style>
 
 	<script src="../../api/jquery-1.5.1.js"></script>
 	<script src="../../api/splitter.js"></script>
 </head>
 <body>
+	<div id="content">
 	<section>
-	<section>
+	<h1>Group
+		<button data-bind="click: addGroup">+</button>
+		<button data-bind="click: function() {groups.remove(contacts())}">-</button>
+	</h1>
 	<ul data-bind="foreach: groups">
-		<li data-bind="text: name, click: $root.contacts"></li>
+		<li data-bind="text: name, click: $root.contacts, edit: name,
+									css: {selected: $data == $root.contacts()}"></li>
 	</ul>
+	</section>
+	<section id="people">
+	<section>
+	<h1>Name
+		<button data-bind="click: addContact">+</button>
+		<button data-bind="click: function() {contacts().contacts.remove(contact())}">-</button>
+	</h1>
 	<ul data-bind="foreach: contacts().contacts">
-		<li data-bind="text: foaf_name, click: $root.contact"></li>
+		<li data-bind="text: foaf_name, click: $root.contact, edit: foaf_name,
+									css: {selected: $data == $root.contact()}"></li>
 	</ul>
 	</section>
-	<div class="about" data-bind="with: contact">
-		<aside><img data-bind="attr: {src: foaf_depiction}" height="100" width="100" /></aside>
-		<h2 data-bind="text: foaf_name"></h2>
-		<h3 data-bind="text: foaf_mbox"></h2>
-	</div>
+	<section class="about" data-bind="with: contact">
+		<aside><img data-bind="attr: {src: foaf_depiction}, edit: foaf_depiction" height="100" width="100" /></aside>
+		<h2 data-bind="text: foaf_name, edit: foaf_name"></h2>
+		<h3 data-bind="text: foaf_mbox, edit: foaf_mbox"></h2>
 	</section>
+	</section>
+	</div>
 
 
 	<script type="text/javascript">
+		/* Shortcuts */
 		var _ = ko.observable, __ = ko.observableArray
 
+		/* data */
 		var starWars = [
 			{foaf_name : _("Obi Wan Kanobi"),
 				foaf_mbox : _("obiwan@jedi.org"),
@@ -58,7 +91,22 @@
 				foaf_depiction: _("avatars/anakin.jpg")},
 			{foaf_name : _("Yoda"),
 				foaf_mbox : _("yoda@jedi.org"),
-				foaf_depiction: _("avatars/yoda.jpg")}]
+				foaf_depiction: _("avatars/yoda.jpg")},
+			{foaf_name: _("Padme Amidala"),
+				foaf_mbox: _("padme@senate.gov.ge"),
+				foaf_depiction: _("avatars/padme.png")},
+			{foaf_name: _("Darth Vader"),
+				foaf_mbox: _("vader@senate.gov.ge"),
+				foaf_depiction: _("avatars/vader.jpg")},
+			{foaf_name: _("Luke Skywalker"),
+				foaf_mbox: _("luke@jedi.org"),
+				foaf_depiction: _("avatars/skywalker.jpg")},
+			{foaf_name: _("Han Solo"),
+				foaf_mbox: _("han@resistance.org"),
+				foaf_depiction: _("avatars/solo.jpg")},
+			{foaf_name: _("Princess Leia Organa"),
+				foaf_mbox: _("leia@resistance.org"),
+				foaf_depiction: _("avatars/leia.jpg")}]
 		var doctorWho = [
 			{foaf_name : _("The Master"),
 				foaf_mbox : _("master@timelords.gal"),
@@ -66,29 +114,153 @@
 			{foaf_name : _("The Doctor"),
 				foaf_mbox : _("doctor@timelords.gal"),
 				foaf_depiction: _("avatars/thedoctor.jpg")}]
+		var stargate = [
+			{foaf_name: _("Jack O'Neill"),
+				foaf_mbox: _("oneill@sgc.airforce.com"),
+				foaf_depiction: _("avatars/oneill.jpg")},
+			{foaf_name: _("Daniel Jackson"),
+				foaf_mbox: _("jackson@sgc.airforce.com"),
+				foaf_depiction: _("avatars/jackson.jpg")},
+			{foaf_name: _("Samantha Carter"),
+				foaf_mbox: _("carter@sgc.airforce.com"),
+				foaf_depiction: _("avatars/carter.jpg")},
+			{foaf_name: _("Tea'lc"),
+				foaf_mbox: _("tealc@sgc.airforce.com"),
+				foaf_depiction: _("avatars/tealc.gif")},
+			{foaf_name: _("George Hammond"),
+				foaf_mbox: _("hammond@sgc.airforce.com"),
+				foaf_depiction: _("avatars/hammond.jpg")}]
+		var firefly = [
+			{foaf_name: _("Mal Reynolds"),
+				foaf_mbox: _("mal@serenity.ship"),
+				foaf_depiction: _("avatars/reynolds.jpg")},
+			{foaf_name: _("Zoe Washburne"),
+				foaf_mbox: _("zoe@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("Hoben Washburne"),
+				foaf_mbox: _("hoben@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("Inara Serra"),
+				foaf_mbox: _("inara@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("Jayne Cobb"),
+				foaf_mbox: _("jayne@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("Kaylee Frye"),
+				foaf_mbox: _("kaylee@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("Simon Tam"),
+				foaf_mbox: _("simon@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("River Tam"),
+				foaf_mbox: _("river@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")},
+			{foaf_name: _("Derrial Book"),
+				foaf_mbox: _("book@serenity.ship"),
+				foaf_depiction: _("avatars/unknown.png")}]
+		var startrek = [
+			{foaf_name: _("James T. Kirk"),
+				foaf_mbox: _("kirk@federation.gov"),
+				foaf_depiction: _("avatars/kirk.jpg")},
+			{foaf_name: _("Spock"),
+				foaf_mbox: _("spock@federation.gov"),
+				foaf_depiction: _("avatars/spock.jpg")},
+			{foaf_name: _("Leonard McCoy"),
+				foaf_mbox: _("mccoy@federation.gov"),
+				foaf_depiction: _("avatars/mccoy.jpg")},
+			{foaf_name: _("Montgomery Scott"),
+				foaf_mbox: _("scott@federation.gov"),
+				foaf_depiction: _("avatars/scott.jpg")},
+			{foaf_name: _("Nyota Uhura"),
+				foaf_mbox: _("uhura@federation.gov"),
+				foaf_depiction: _("avatars/uhura.jpg")},
+			{foaf_name: _("Hikaru Sulu"),
+				foaf_mbox: _("sulu@federation.gov"),
+				foaf_depiction: _("avatars/sulu.jpg")},
+			{foaf_name: _("Pavel Checkov"),
+				foaf_mbox: _("checkov@federation.gov"),
+				foaf_depiction: _("avatars/checkov.jpg")},
+			{foaf_name: _("Janice Rand"),
+				foaf_mbox: _("rand@federation.gov"),
+				foaf_depiction: _("avatars/rand.jpg")},
+			{foaf_name: _("Christine Chapel"),
+				foaf_mbox: _("chapel@federation.gov"),
+				foaf_depiction: _("avatars/chapel.jpg")}]
+
 		var groups = __([
 			{name : _("All"),
-				contacts : __(starWars.concat(doctorWho))},
+				contacts : __(starWars.concat(doctorWho).concat(stargate).concat(firefly).concat(startrek))},
 			{name : _("StarWars"),
 				contacts : __(starWars)},
 			{name : _("DoctorWho"),
-				contacts : __(doctorWho)}])
+				contacts : __(doctorWho)},
+			{name : _("Stargate"),
+				contacts: __(stargate)},
+			{name : _("Firefly"),
+				contacts: __(firefly)},
+			{name : _("Star Trek"),
+				contacts: __(startrek)}])
 
 		var mapped = {
 			'groups' : groups,
 			'contacts' : _(groups()[0]),
-			'contact' : _()
+			'contact' : _(),
+
+			addGroup : function() {
+				this.groups.push({
+					name: _("Untitled"), contacts: __()
+				});
+			},
+			addContact : function() {
+				this.contacts().contacts.push({foaf_name : _("Some One"),
+					foaf_mbox : _("account@provider.com"),
+					foaf_depiction : _("avatars/unknown.png")
+				})
+			}
 		}
 
+		/* UI */
 		$(function() {
 		ko.applyBindings(mapped);
 
-		$('section').splitter();
+		// Main vertical splitter, anchored to the browser window
+		$("#content").splitter({
+			type: "v",
+			sizeLeft: 200, 
+			anchorToWindow: true,
+			accessKey: "L"
 		});
-	</script>
+		// Second vertical splitter, nested in the right pane of the main one.
+		$("#people").splitter({
+			type: "v",
+			sizeLeft: 200,
+			accessKey: "R"
+		});
+		});
 
-	<script>
-		
+		/* custom bindings */
+		ko.bindingHandlers.edit = {
+			init: function(element, valueAccessor) {
+				function handler() {
+					function close() {
+						$(input).replaceWith(element);
+						accessor($(input).val());
+					}
+
+					var input = $('<input>').val(accessor()).keydown(function(e) {
+						if (e.which == 13) close();
+					}).click(function(e) {
+						e.stopPropagation();
+					}).width($(element).width() - 10);
+
+					$(input).insertBefore(this); $(this).detach();
+					$(document).click(close);
+				}
+
+				var accessor = valueAccessor();
+				$(element).dblclick(handler);
+			}
+		}
 	</script>
 </body>
 </html>
