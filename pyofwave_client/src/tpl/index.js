@@ -1,3 +1,4 @@
-define(['text!tpl/hello.txt'], function(hello) {
-	return {'hello': hello}
+/* index of all textual template files for amdtemplate.js */
+define(function() {
+	return {'hello': require('text!tpl/hello.txt')}
 });

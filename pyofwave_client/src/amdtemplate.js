@@ -1,3 +1,8 @@
+/* AMDTemplates
+*
+* Loads KnockOut.js templates from a AMD store, used to make POW more self
+* contained.
+*/
 define(['../api/knockout-2.1.0', 'tpl/index.js'], function(ko, templates){
 	ko.templateSources.stringTemplate = function(template, templates) {
     this.templateName = template;
