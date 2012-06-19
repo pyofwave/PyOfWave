@@ -2,7 +2,7 @@
 *
 * Extremely geeky sample contacts for PyOfWave Client development.
 */
-define(['builder'], function($) {
+define(['sample/builder'], function($) {
 	return $('groups', {},
 		$('group', {name : 'StarWars'},
 			$('foaf_person', {foaf_name: 'Obi Wan Kanobi', foaf_mbox: 'obiwan@jedi.org', foaf_depiction: 'avatars/obiwan.jpg'}),
@@ -16,14 +16,14 @@ define(['builder'], function($) {
 		),
 		$('group', {name : 'Doctor Who'}, 
 			$('foaf_person', {foaf_name: 'The Doctor', foaf_mbox: 'doctor@timelords.gal', foaf_depiction: 'avatars/doctor.jpg'}),
-			$('foaf_person', {foaf_name: 'The Master', foaf_mbox: 'master@timelords.gal', foaf_depiction: 'avatars/master.jpg'}),
+			$('foaf_person', {foaf_name: 'The Master', foaf_mbox: 'master@timelords.gal', foaf_depiction: 'avatars/master.jpg'})
 		),
 		$('group', {name : 'Star Gate'},
 			$('foaf_person', {foaf_name: "Jack O'Neill", foaf_mbox: 'oneill@sgc.airforce.com', foaf_depiction: 'avatars/oneill.jpg'}),
 			$('foaf_person', {foaf_name: 'Daniel Jackson', foaf_mbox: 'jackson@sgc.airforce.com', foaf_depiction: 'avatars/jackson.jpg'}),
 			$('foaf_person', {foaf_name: 'Samantha Carter', foaf_mbox: 'carter@sgc.airforce.com', foaf_depiction: 'avatars/carter.jpg'}),
 			$('foaf_person', {foaf_name: "Tea'lc", foaf_mbox: 'tealc@sgc.airforce.com', foaf_depiction: 'avatars/tealc.jpg'}),
-			$('foaf_person', {foaf_name: 'George Hammond', foaf_mbox: 'hammond@sgc.airforce.com', foaf_depiction: 'avatars/hammond.jpg'}),
+			$('foaf_person', {foaf_name: 'George Hammond', foaf_mbox: 'hammond@sgc.airforce.com', foaf_depiction: 'avatars/hammond.jpg'})
 		),
 		$('group', {name : 'Firefly'},
 			$('foaf_person', {foaf_name: 'Mal Reynolds', foaf_mbox: 'mal@serenity.ship', foaf_depiction: 'avatars/reynolds.jpg'}),
@@ -34,7 +34,7 @@ define(['builder'], function($) {
 			$('foaf_person', {foaf_name: 'Kaylee Frye', foaf_mbox: 'frye@serenity.ship', foaf_depiction: 'avatars/obiwan.jpg'}),
 			$('foaf_person', {foaf_name: 'Simon Tam', foaf_mbox: 'simon@serenity.ship', foaf_depiction: 'avatars/obiwan.jpg'}),
 			$('foaf_person', {foaf_name: 'River Tam', foaf_mbox: 'river@serenity.ship', foaf_depiction: 'avatars/obiwan.jpg'}),
-			$('foaf_person', {foaf_name: 'Derriel Book', foaf_mbox: 'derrial@serenity.ship', foaf_depiction: 'avatars/obiwan.jpg'}),
+			$('foaf_person', {foaf_name: 'Derriel Book', foaf_mbox: 'derrial@serenity.ship', foaf_depiction: 'avatars/obiwan.jpg'})
 		),
 		$('group', {name: 'Startrek'},
 			$('foaf_person', {foaf_name: 'James T. Kirk', foaf_mbox: 'kirk@federation.gov', foaf_depiction: 'avatars/kirk.jpg'}),
@@ -45,7 +45,7 @@ define(['builder'], function($) {
 			$('foaf_person', {foaf_name: 'Hikaru Sulu', foaf_mbox: 'sulu@federation.gov', foaf_depiction: 'avatars/sulu.jpg'}),
 			$('foaf_person', {foaf_name: 'Pavel Checkov', foaf_mbox: 'checkov@federation.gov', foaf_depiction: 'avatars/obiwan.jpg'}),
 			$('foaf_person', {foaf_name: 'Janice Rand', foaf_mbox: 'rand@federation.gov', foaf_depiction: 'avatars/rand.jpg'}),
-			$('foaf_person', {foaf_name: 'Christine Chapel', foaf_mbox: 'chapel@federation.gov', foaf_depiction: 'avatars/chapel.jpg'}),
+			$('foaf_person', {foaf_name: 'Christine Chapel', foaf_mbox: 'chapel@federation.gov', foaf_depiction: 'avatars/chapel.jpg'})
 		)
 	)
 })

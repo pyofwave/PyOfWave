@@ -16,9 +16,9 @@ define(['../../api/knockout-2.1.0'], function(ko) {
 			obj[key] = ko.observable(attrs[key]);
 
 		// tagname children
-		for (var i=0; i < args.length; i++) {
-			var child = args[i],
-				prop = '_' + child.$;
+		for (var i=0; i < args.length; i++) if (args[i]) {
+			var child = args[i];
+			var prop = '_' + child.$;
 
 			if (! (prop in obj) ) obj[prop] = ko.observableArray();
 			obj[prop].push(child);
@@ -26,5 +26,7 @@ define(['../../api/knockout-2.1.0'], function(ko) {
 
 		// children
 		obj._ = ko.observableArray(args);
+
+		return obj;
 	}
 });
