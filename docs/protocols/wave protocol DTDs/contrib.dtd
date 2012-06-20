@@ -5,10 +5,8 @@
 <!ATTLIST wave:a
 	sel CDATA #IMPLIED>	<!-- Wave Address of user who has selected the text -->
 
-<!ENTITY % roster SYSTEM "jabber:iq:roster">
-<!ATTLIST roster:item
-	note PCDATA ""
-	avatar PCDATA "about:blank"
+<!ENTITY % roster SYSTEM "fetch">
+<!ATTLIST fetch:record
 	color PCDATA #REQUIRED
 	lang PCDATA #IMPLIED
 	robot PCDATA "human">
