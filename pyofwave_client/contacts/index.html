@@ -49,7 +49,7 @@
 		<button data-bind="click: function() {groups.remove(contacts())}">-</button>
 	</h1>
 	<ul data-bind="foreach: groups">
-		<li data-bind="text: name, click: $root.contacts, edit: name,
+		<li data-bind="text: name(), click: $root.contacts, edit: name,
 									css: {selected: $data == $root.contacts()}"></li>
 	</ul>
 	</section>
@@ -59,7 +59,7 @@
 		<button data-bind="click: addContact">+</button>
 		<button data-bind="click: function() {contacts().contacts.remove(contact())}">-</button>
 	</h1>
-	<ul data-bind="foreach: contacts().contacts">
+	<ul data-bind="foreach: contacts()._group">
 		<li data-bind="text: foaf_name, click: $root.contact, edit: foaf_name,
 									css: {selected: $data == $root.contact()}"></li>
 	</ul>

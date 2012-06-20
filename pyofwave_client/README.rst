@@ -33,4 +33,4 @@ PyOfWave client is compiled using Require.js/Almond.js with help from the i18n a
 
 To compile, run the following command from the src directory:
 
-		node ../lib/r.js -o name=../lib/almond include=amdtemplate out=../../build/pow.min.js baseUrl=.
+		node ../lib/r.js -o name=../lib/almond include=amdtemplate out=../build/pow.min.js baseUrl=.

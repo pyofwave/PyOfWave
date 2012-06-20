@@ -1,5 +1,5 @@
 define(['sample/contacts', '../api/knockout-2.1.0', '../api/jquery-1.5.1', '../api/splitter'], function(contacts, ko) {
-	var groups = contacts._;
+	var groups = ko.observableArray(contacts);
 
 	var mapped = {
 		'groups' : groups,

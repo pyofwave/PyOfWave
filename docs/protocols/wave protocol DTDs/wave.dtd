@@ -1,20 +1,23 @@
 <!DOCTYPE wave [
 
-<!ELEMENT wave (wavelets|author!|version!)>
+<!ELEMENT wave (wavelet|author!|version!)>
 <!ELEMENT wavelet (participant|tags|thread)>
 <!ELEMENT participant (#PCDATA)>
 <!ELEMENT tags EMPTY>
 <!ELEMENT thread (post|data)>
 <!ELEMENT data EMPTY>
-<!ELEMENT post (participant|tags|thread|version|body)>
-<!ELEMENT body (#PCDATA|p|a|file|wavelet|thread)>
+<!ELEMENT post (participant|tags|thread|version|p)>
 
-<!ELEMENT p (#PCDATA)>		<!-- A line -->
+<!ELEMENT p (#PCDATA|a|file|wavelet|thread)>		<!-- A line -->
 <!ATTLIST p
-	s #CDATA "p"		<!-- Style out of p(aragraph), h(eading), or l(ist) -->
-	l #CDATA "1"		<!-- 1-based heading level or indentation -->
-	a #CDATA "l"		<!-- Alignment out of l(eft), r(ight), c(enter), or j(ustify) -->
-	d #CDATA "l">		<!-- Writing direction out of l(eft to right) or r(ight to left) -->
+	s (p|h|l) "p"		
+	l #CDATA "1"		
+	a #CDATA "l"		
+	d #CDATA "l">		
+	<!-- s: Style out of p(aragraph), h(eading), or l(ist) -->
+	<!-- l: 1-based heading level or indentation -->
+	<!-- a: Alignment out of l(eft), r(ight), c(enter), or j(ustify) -->
+	<!-- d: Writing direction out of l(eft to right) or r(ight to left) -->
 <!ELEMENT a (#PCDATA|a)>
 <!ELEMENT file EMPTY>
 <!ATTLIST file
@@ -22,14 +25,17 @@
 	src CDATA #IMPLIED
 	data IDREFS #IMPLIED>	<!-- For gadgets, points to data elements -->
 <!ELEMENT input
-	type CDATA "text"	<!-- Types will be compiled later -->
-	value CDATA "">		<!-- Contained value -->
+	type CDATA "text"	
+	value CDATA "">		<!-- As in HTML -->
 
 
 <!ENTITY attlist "
-	private CDATA "public"		<!-- If private, only visible by uploading user -->
-	src ID #REQUIRED		<!-- URL to the element -->
-	modified NMTOKEN #REQUIRED">	<!-- Date of last modification -->
+	private CDATA 'public'		
+	href ID #REQUIRED		
+	modified NMTOKEN #REQUIRED">	
+	<!-- private: If private, only visible by uploading user -->
+	<!-- href: URL to the element -->
+	<!-- modified: Date of last modification -->
 
 <!ATTLIST wave &attlist>
 <!ATTLIST wavelet &attlist>

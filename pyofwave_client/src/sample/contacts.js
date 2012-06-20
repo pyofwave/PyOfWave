@@ -3,7 +3,7 @@
 * Extremely geeky sample contacts for PyOfWave Client development.
 */
 define(['sample/builder'], function($) {
-	return $('groups', {},
+	return [
 		$('group', {name : 'StarWars'},
 			$('foaf_person', {foaf_name: 'Obi Wan Kanobi', foaf_mbox: 'obiwan@jedi.org', foaf_depiction: 'avatars/obiwan.jpg'}),
 			$('foaf_person', {foaf_name: 'Anakin Skywalker', foaf_mbox: 'anakin@jedi.org', foaf_depiction: 'avatars/anakin.jpg'}),
@@ -47,5 +47,5 @@ define(['sample/builder'], function($) {
 			$('foaf_person', {foaf_name: 'Janice Rand', foaf_mbox: 'rand@federation.gov', foaf_depiction: 'avatars/rand.jpg'}),
 			$('foaf_person', {foaf_name: 'Christine Chapel', foaf_mbox: 'chapel@federation.gov', foaf_depiction: 'avatars/chapel.jpg'})
 		)
-	)
+	]
 })
