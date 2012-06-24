@@ -4,8 +4,14 @@
   <meta charset="utf-8">
   <title></title>
 	
+	<script src="../build/pow.min.js"></script>
 </head>
 <body>
-	
+	<!-- ko template: 'wave-toolbar' --><!-- /ko -->
+
+	<script type="text/javascript">
+		var ko = require('../api/knockout-2.1.0'), wave = require('sample/wave1');
+		ko.applyBindings({wave: wave});
+	</script>
 </body>
 </html>
