@@ -1,0 +1,7 @@
+<!-- wave tags template
+
+Renders tags for a post or wavelet. -->
+
+<ul class="pow-wave-tags" data-bind="foreach: _wave_tags"><!-- ko forprop: $data -->
+	<li><span data-bind="edit: key, widget: {$: 'autocomplete', $$tags}"></span>:<span data-bind="edit: value"></span></li>
+<!-- /ko --></ul>

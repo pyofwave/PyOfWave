@@ -1,0 +1,12 @@
+<!-- Toolbar template
+
+Accessible from the tool: binding, renders i18n-ized toolbar options. -->
+
+<ul data-bind="forprop: options">
+<!-- ko ifnot: key == '$' --><!-- ko with: key[0] == '_' ? {key: key.slice(1), float: 'right'} : {float: 'left'} -->
+	<!-- with: { _ : _[options.$][key] } -->
+	<li data-bind="click: value, attr: { class: 'pow-icon pow-icon-'+_.icon, title: _.help},
+		css: {float: float}, text: _.label, access: _.label"></li>
+	<!-- /ko -->
+<!-- /ko --><!-- /ko -->
+</ul>

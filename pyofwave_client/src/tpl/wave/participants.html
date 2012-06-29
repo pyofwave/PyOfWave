@@ -1,0 +1,12 @@
+<!-- wave participants template 
+
+Renders all invited participants on a wave, with invite utility. -->
+
+<ul class="pow-wave-participants" data-bind="waveData: 'utils'">
+	<!-- ko foreach: wave_participant --><!-- ko with: $$contacts[_()[0]] -->
+	<li><img data-bind="attr: {title: foaf_mbox, src: foaf_depiction, alt: foaf_mbox() + '\'s avatar'},
+			border: $data, click: $$contact" /><p data-bind="text: foaf_name"></p></li>
+	<!-- /ko --><!-- /ko -->
+	<li class="pow-icon pow-icon-add" data-bind="click: $$invite, title: $$.invite.help
+		text: $$.invite.label"></li>
+</ul>

@@ -1,0 +1,9 @@
+<!-- wave thread template
+
+Renders a sequence of posts and an add new post icon -->
+
+<ul class="pow-wave-thread">
+	<!-- ko template: {name: 'wave-post', foreach: _wave_post} --><!-- /ko -->
+	<li class="pow-add" data-bind="border: $$contacts.myself, click: $$new.post,
+		text: $$.addPost.label, title: $$.addPost.help"></li>
+</ul>

@@ -1,0 +1,10 @@
+<!-- Modal select template
+
+Used to let the user select value, which will frequently be out of a set of "records" from the server.
+
+Used for selecting a users, gadgets, and tags. -->
+
+<p><input data-bind="value: value"></p>
+<ul data-bind="foreach: context.filter(value())">
+	<li data-bind="text: _()[0], title: context.help, click: report(true, $data, true)"></li>
+</ul>

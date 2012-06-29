@@ -1,0 +1,30 @@
+<!-- wave post template
+
+Subtly renders wave post metadata of participants, time, tags, and replies. -->
+
+<li class="pow-wave-post">
+	<div class="inner" data-bind="border: _wave_participants()[0]">
+		<aside>
+			<time data-bind="text: wave_modified"></time>
+			<ul class="pow-participants" data-bind="foreach: _wave_participants">
+				<li data-bind="style: {background: $$contacts[_()[0]], border: $$contacts[contrib_group()]}
+					class: {active: $$isEditing(_()[0], $parent)}"></li>
+			</ul>
+		</aside>
+		<div data-bind="template: {name: 'wave-content', foreach: _wave_p}"></div>
+		<div class="pow-editing" data-bind="if: editing, click: $$postOpts">
+			<button data-bind="text: $$_.done.label, title: $$_.down.help,
+												click: $$mode.close"></button
+			<span style="float: right;" data-bind="title: $$_.showEdits.help">
+				<input data-bind="checked: $$stanza.postpone('doc')" id="pow-show-edits">
+				<label for="pow-show-edits" data-bind="text: $$_.showEdits.label"></label>
+			</span>
+		</div>
+		<ul data-bind="tools: {_: 'post', $: false,
+				tags: function() {showTags(!showTags()),
+				_replies: $$stanza('fetch:thread', {id: id}, _wave_thread()[0]._)"></ul>
+		</div>
+		<!-- ko template: 'wave-tags' --><!-- /ko -->
+	</div>
+	<!-- ko template: {name: 'wave-thread', data: _wave_thread()[0]} --><!-- /ko -->
+</li>

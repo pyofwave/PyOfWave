@@ -1,0 +1,8 @@
+<!-- Modal menu template
+
+Renders a menu using the same modal style of the other modal widgets (which we wouldn't get from jQuery UI). -->
+
+<ul data-bind="forprop: value">
+	<li data-bind="click: context.cb|value, text: _[key].label, title: _[key].help, access: _[key].label,
+		css: {'pow-seperator': !value, 'pow-hl': context.value() == value}"></li>
+</ul>

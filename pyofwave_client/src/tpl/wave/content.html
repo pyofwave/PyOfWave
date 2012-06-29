@@ -1,0 +1,7 @@
+<!-- wave content template
+
+Renders wave:p elements. TODO finish -->
+
+<p data-bind="attr: {'aria-role' : wave_t() == 'h' ? wave_t() + wave_l() : wave_t,
+	aria-indent: wave_l}, _css: {type : wave_t, level: wave_l, align: wave_a, dir: wave_d},
+	selectTemplate: {from: $$contentWidgets, by: '$', foreach: _}"></p>

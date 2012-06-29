@@ -1,1 +1,22 @@
-<ul><li>Toolbar</li></ul>
+<!-- wave toolbar template
+ 
+Used to provide consistant placement for both playback and editting controls.
+
+Provides facilities to provide Silk icons (for consistancy with other apps) 
+[by Mark James of famfamfam.com, packaged with CSS by Sky Sanders of skysanders.net],
+context sensitive help (it gets forgotten that the browser provides this),
+actions (so they can actually do things), arbitruary pow prefixed classes (for radio buttons),
+background colours (for colour sections), and HTML content (for the inclusion of sliders).
+ -->
+
+<!-- ko waveData: 'toolbar' -->
+<ul data-bind="foreach: options">
+	<!-- ko if: $data -->
+	<li data-bind="click: action, title: help, class: ['famfam-'+icon, 'pow-'+name], html: content,
+		style: {background-color: colour}"></li>
+	<!-- /ko -->
+	<!-- ko ifnot: $data -->
+	<li class="pow-seperator"></li>
+	<!-- /ko -->
+</ul>
+<!-- /ko -->
