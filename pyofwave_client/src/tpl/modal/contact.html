@@ -1,3 +1,11 @@
 <!-- Modal contact template
 
 Renders more information on a wave user. -->
+<p><img data-bind="border: value, attr: {src: value().foaf_depiction, alt: value().foaf_mbox+'\'s avatar.'}" /></p>
+<h2 data-bind="text: value().foaf_name"></h2>
+<h3 data-bind="text: value().foaf_mbox"></h3>
+<p data-bind="text: value().contrib_note"></p>
+<table><!-- TODO: fill in with further properties --></table>
+<p class="pow-dlg-buttons" data-bind="forprop: context">
+	<button data-bind="value: _[key].label, title: _[key].help, click: value" />
+</p>

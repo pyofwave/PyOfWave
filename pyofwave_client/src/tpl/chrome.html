@@ -1,3 +1,37 @@
 <!-- Chrome template
 
 Renders organization tools for waves. -->
+<section id="pow-section-inboxes">
+	<aside><input type="search" data-bind="value: sel.query, valueUpdate: 'keyup'" /></aside>
+	<ul data-bind="tree: {data: rootInbox, target: sel.inbox}"><!-- TODO: figure out interface --></ul>
+	<!-- ko with:sel.inbox -->
+	<aside class="bottom" 
+		data-bind="tool: {_: 'inboxes', new: stanza.inbox, rm: stanza.delete, edit: ui.edit}"></aside>
+	<!-- /ko -->
+</section>
+<div>
+	<section>
+		<aside data-bind="tool: {_: 'waves', actions: ui.folderActions, _new: stanza.wave}"></aside>
+		<ul class="waves" data-bind="sizeNotify: sel.query, foreach: waves">
+			<li data-bind="click: sel.wave, border: true, title: _.help.openWave">
+				<ul class="pow-participants" data-bind="foreach: wave_participants.slice(0,5)">
+					<li data-bind="with: users[$data]">
+						<img data-bind="border: true, attr: {title: foaf_mbox, src: foaf_depiction, alt: foaf_name+'\'s avatar'}" />
+					</li>
+				</ul>
+				<h3><span data-bind="text: wave_participants()[0].foaf_name, title: _.help.lastContrib"></span>
+					<time data-bind="text: Date(modified), attr: {time: modified}"></time></h3>
+				<p data-bind="text: wave_sample, title: _.help.sampleContent"></p>
+			</li>
+		</ul>
+	</section>
+	<section data-bind="with: sel.wave">
+		<aside>
+			<!-- ko template: 'wave-participants' --><!-- /ko -->
+			<!-- ko tool: {_: 'wave', _popout: utils.open, _play: mode.play} --><!-- /ko -->
+		</aside>
+		<!-- ko template: 'wave-toolbar' --><!-- /ko -->
+		<!-- ko template: 'wave-thread' --><!-- /ko -->
+		<aside class="bottom" data-bind="template: 'wave-tags'"></aside>
+	</section>
+</div>
