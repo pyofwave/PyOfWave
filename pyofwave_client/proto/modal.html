@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PyOfWave modal controls</title>
+	
+	<script src="../src/api/jquery-1.5.1.js"></script>
+	<script>
+		function popover($el) {
+			$el.hide()
+			return function(evt) {
+				// TODO: Position using jQueryUI utilities
+				$el.show().click(function(evt) {evt.stopPropagation()})
+				$(document).click(function() {$el.hide()})
+			}
+		}
+		$(function() {
+			popover($('#modal'))()
+		})
+	</script>
+	<style>
+		body {background: #ddd;font-family:sans-serif;}
+		.modal {
+			width: 225px;
+			padding: 5px;
+			border: 3px solid #f00;
+			border-radius: 20px;
+			background: white;
+			box-shadow: 10px 10px 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Modal menus, prompts, colours, and contacts</h1>
+	<p>In order to retrieve (or communicate) additional details on specific actions, modal controls will be used. For consistancy, menus would be grouped in with these modal controls. These modal controls would would have a rounded solid border to tie into the post style and seperate the modal from the background content. Positioned right under the related control, click outside the modal control to close it, in which way it behaves like an iPad UIPopOver. </p>
+	<div class="modal" id="modal">
+		This is a popover. This general style of control will:
+		<ul>
+			<li>Give additional actions. (menu)</li>
+			<li>Request textual information whilst providing frequent values. (prompt)</li>
+			<li>Shows contacts details. (cards)</li>
+			<li>Requests colours. (Farbtastic)</li>
+		</ul>
+	</div>
+</body>
+</html>
