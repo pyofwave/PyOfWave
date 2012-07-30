@@ -5,17 +5,25 @@
   <title>PyOfWave modal controls</title>
 	
 	<script src="../src/api/jquery-1.5.1.js"></script>
+	<script src="../src/api/jqueryUI/jquery-ui-1.8.14.custom.js"></script>
 	<script>
 		function popover($el) {
-			$el.hide()
-			return function(evt) {
-				// TODO: Position using jQueryUI utilities
-				$el.show().click(function(evt) {evt.stopPropagation()})
-				$(document).click(function() {$el.hide()})
+			$el.hide() // Add overlay to increase modality and prevent clashes between views?
+			return function(evtOrEl) {
+				$el.fadeIn().click(function(evt) {evt.stopPropagation()})
+					.position({of: evtOrEl, offset: "0 10", collision: "fit",
+						my: 'top', at: 'bottom'})
+				$(document).click(function() {$el.fadeOut()})
 			}
 		}
 		$(function() {
-			popover($('#modal'))()
+			$('button').each(function() {
+				var popup = popover($('#'+$(this).attr('data-for')))
+				$(this).click(function(evt) {
+					evt.stopPropagation()
+					popup(this)
+				})
+			})
 		})
 	</script>
 	<style>
@@ -33,6 +41,12 @@
 <body>
 	<h1>Modal menus, prompts, colours, and contacts</h1>
 	<p>In order to retrieve (or communicate) additional details on specific actions, modal controls will be used. For consistancy, menus would be grouped in with these modal controls. These modal controls would would have a rounded solid border to tie into the post style and seperate the modal from the background content. Positioned right under the related control, click outside the modal control to close it, in which way it behaves like an iPad UIPopOver. </p>
+	<p>
+		<button data-for="modal">Show Modal</button>
+		<button data-for="menu">File</button>
+		<button>Text Color</button>
+		<button>Spock</button>
+	</p>
 	<div class="modal" id="modal">
 		This is a popover. This general style of control will:
 		<ul>
@@ -42,5 +56,17 @@
 			<li>Requests colours. (Farbtastic)</li>
 		</ul>
 	</div>
+	<ul class="modal menu" id="menu">
+		<li>New</li>
+		<li>Open...</li>
+		<li>Open Recent &gt;</li>
+		<li class="seperator"></li>
+		<li>Save</li>
+		<li>Save As</li>
+		<li class="seperator"></li>
+		<li>Print...</li>
+		<li class="seperator"></li>
+		<li>Close...</li>
+	</ul>
 </body>
 </html>
