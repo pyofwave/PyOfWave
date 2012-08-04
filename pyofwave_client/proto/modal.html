@@ -6,6 +6,7 @@
 	
 	<script src="../src/api/jquery-1.5.1.js"></script>
 	<script src="../src/api/jqueryUI/jquery-ui-1.8.14.custom.js"></script>
+	<script src="../src/api/farbtastic.js"></script>
 	<script>
 		var $overlay = $('<div>').css({
 				position: 'absolute', top: 0, left: 0, 
@@ -35,6 +36,9 @@
 			})
 
 			$overlay.prependTo('body').hide()
+			$('.farbtastic').each(function() {
+				$(this).farbtastic($('[data-for='+$(this).attr('id')+']'))
+			})
 		})
 	</script>
 	<style>
@@ -47,6 +51,17 @@
 			background: white;
 			box-shadow: 10px 10px 20px;
 		}
+		.modal.menu {list-style: none; overflow: hidden;}
+		.modal.menu li {
+			border-bottom: thin solid #666;
+			cursor: default;
+			width: 100%;
+			margin: 0 -10px; width: 240px; /* span full row */
+			padding-left: 5px;
+		}
+		.modal.menu li:hover {
+			background: #bbb;
+		}
 	</style>
 </head>
 <body>
@@ -55,7 +70,7 @@
 	<p>
 		<button data-for="modal">Show Modal</button>
 		<button data-for="menu">File</button>
-		<button>Text Color</button>
+		<button data-for="color" style="background-color: #f99">Text Color</button>
 		<button>Spock</button>
 	</p>
 	<div class="modal" id="modal">
@@ -79,5 +94,9 @@
 		<li class="seperator"></li>
 		<li>Close...</li>
 	</ul>
+	<div class="modal" id="color">
+		<div class="farbtastic"></div>
+		<p><button type="submit">OK</button><button>Cancel</button></p>
+	</div>
 </body>
 </html>
