@@ -4,38 +4,17 @@
   <meta charset="utf-8">
   <title>PyOfWave modal controls</title>
 	
-	<script src="../src/api/jquery-1.5.1.js"></script>
-	<script src="../src/api/jqueryUI/jquery-ui-1.8.14.custom.js"></script>
-	<script src="../src/api/farbtastic.js"></script>
+	<script src="modal.min.js"></script>
 	<script>
-		var $overlay = $('<div>').css({
-				position: 'absolute', top: 0, left: 0, 
-				width: window.innerWidth, height: window.innerHeight, 
-				background: 'black', opacity: 0.1})
-
-		function popover($el) {
-			$el.hide() // Add overlay to increase modality and prevent clashes between views?
-			return function(evtOrEl) {
-				$el.fadeIn().click(function(evt) {evt.stopPropagation()})
-					.position({of: evtOrEl, offset: "0 10", collision: "fit",
-						my: 'top', at: 'bottom'})
-				$overlay.fadeIn()
-					.one('click', function(e) {
-						e.stopPropagation()
-						$(this).add($el).fadeOut()
-					})
-			}
-		}
 		$(function() {
 			$('button').each(function() {
-				var popup = popover($('#'+$(this).attr('data-for')))
+				var popup = $(this).popover($('#'+$(this).attr('data-for')))
 				$(this).click(function(evt) {
 					evt.stopPropagation()
 					popup(this)
 				})
 			})
 
-			$overlay.prependTo('body').hide()
 			$('.farbtastic').each(function() {
 				$(this).farbtastic($('[data-for='+$(this).attr('id')+']'))
 			})

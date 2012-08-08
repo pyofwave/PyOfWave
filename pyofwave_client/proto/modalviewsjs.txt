@@ -1,0 +1,4 @@
+popover.menu({'_':ns, iconl:callback, '_'+iconr:callback, ...}) [knockout.js]
+popover.color(callbacks...) [farbtastic]
+popover.card(data) [knockout]
+popover.prompt() // TODO: define
