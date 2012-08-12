@@ -8,7 +8,7 @@
 	<script>
 		$(function() {
 			$('button').each(function() {
-				var popup = $(this).popover($('#'+$(this).attr('data-for')))
+				var popup = $('#'+$(this).attr('data-for')).popover()
 				$(this).click(function(evt) {
 					evt.stopPropagation()
 					popup(this)
