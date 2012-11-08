@@ -28,20 +28,4 @@
 	type CDATA "text"	
 	value CDATA "">		<!-- As in HTML -->
 
-
-<!ENTITY attlist "
-	private CDATA 'public'		
-	href ID #REQUIRED		
-	modified NMTOKEN #REQUIRED">	
-	<!-- private: If private, only visible by uploading user -->
-	<!-- href: URL to the element -->
-	<!-- modified: Date of last modification -->
-
-<!ATTLIST wave &attlist>
-<!ATTLIST wavelet &attlist>
-<!ATTLIST tags &attlist>
-<!ATTLIST thread &attlist>
-<!ATTLIST data &attlist>
-<!ATTLIST blip &attlist>
-
 ]>

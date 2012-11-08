@@ -4,7 +4,7 @@
 		perm CDATA ""
 		priv CDATA "">
 	<!-- perm: Permissions for that element in form r?u?a?@?+?-?(s tagname)? where each can be prefixed by a list of wave addresses between { & } for affected accounts -->
-	<!-- priv: Privalages for selected user in form r?+?-?a? (a for administrate), overwrites permissions per user. -->
+	<!-- priv: Privalages for xmlu:user in form r?+?-?a? (a for administrate), overwrites permissions per user. -->
 	<!-- r: read/access, u: update children, a: update attributes, @: append attributes, +: append children, -: delete, s: select (needs tagname to use) -->
 	<!ELEMENT descriptor #CDATA> 	<!-- Contains URL to perm XML file prividing permissions for element -->
 	<!ELEMENT perm EMPTY>			<!-- Applies permissions to selected element(s), additive -->

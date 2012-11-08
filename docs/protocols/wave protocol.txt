@@ -4,6 +4,9 @@ Wave Protocal
 Job: Provides a protocol for Wave clients and servers to communicate with.
 Existing Standards: XMPP (BOSH optional, integrates TCP/IP & XML).
 
+
+NOTE: DTDs are updated, and this should follow.
+
 Language
 --------
 

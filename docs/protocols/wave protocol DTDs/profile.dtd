@@ -8,7 +8,10 @@
 		q CDATA #IMPLIED
 		qbound "bound|unbound|explicit">
 	<!ELEMENT me (foaf:*)>
-	<!ATTLIST me color CDATA #REQUIRED foaf:*>
+	<!ATTLIST me 
+		color CDATA #REQUIRED 
+		lang CDATA #REQUIRED
+		foaf:*>
 	<!ELEMENT contacts (foaf:*)>
 	<!ATTLIST foaf:* color CDATA #IMPLIED>
 	<!ELEMENT history (xmlu:*)>

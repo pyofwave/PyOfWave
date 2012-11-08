@@ -5,7 +5,10 @@
 	<!ATTLIST * 
 		src CDATA #IMPLIED
 		named CDATA #IMPLIED
-		version CDATA #IMPLIED><!-- On any element, src: selected by href, named: selected by name (optionally prefixed by + or - to add or remove from a group) -->
+		version CDATA #IMPLIED
+		modified NMTOKEN #IMPLIED
+		user CDATA #IMPLIED><!-- On any element, src: selected by href, named: selected by name (optionally prefixed by + or - to add or remove from a group) -->
+		<!-- version: identifier for current version, modified: last modified date (informative), user: refers to a user (used by select and to reinstate communication) -->
 		
 	<!ELEMENT get EMPTY> <!-- Sent in iq stanza to get or search files -->
 	<!ATTLIST get 
