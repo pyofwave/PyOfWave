@@ -26,7 +26,6 @@ Technical Components
 
 Although PyOfWave for the most part uses well tested dependancies, in some cases we had to write software ourselves for satisfaction. These technical projects include:
 
-- XML.js
 - Mozilla RepoTheWeb
 
 Other Software
