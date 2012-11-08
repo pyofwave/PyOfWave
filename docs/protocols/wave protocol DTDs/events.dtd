@@ -1,6 +1,0 @@
-<!-- Used to select which stanzas (events) the client is sent -->
-<!DOCTYPE events [
-
-<!ELEMENT on (#PCDATA)>				<!-- Listens to contained (as a tag name and element attributes) events. -->
-<!ELEMENT off (#PCDATA)>			<!-- Stops listening for contained (as a tag name and element attributes) events. -->
-]>
