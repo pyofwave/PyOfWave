@@ -28,10 +28,10 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 nav a {
-	border-left: thin dotted gray;
+	border-right: thin dotted gray;
 }
 nav a:last {
-	border-left: none;
+	border-right: none;
 }
 body {
 	line-height: 1;

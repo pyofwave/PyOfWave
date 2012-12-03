@@ -17,7 +17,7 @@
 
 <body>
 
-  <div id="container"><div class="inner">
+  <div id="container">
 		<nav>
 			<a href="/" title="Back to home">Home</a>
 			<a href="/docs" title="Read our documentation">Docs</a>
@@ -37,6 +37,6 @@
        <li><a href="/sketches/mobile/powMobile.html" title="View Sketch">Mobile Sketch</a></li>
     </ul>
 		</section>
-   </div></div>
+   </div>
 </body>
 </html>

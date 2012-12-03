@@ -13,7 +13,7 @@
   <title>Pyofwave | about</title>
 </head>
 <body>
-  <div id="container"><div class="inner">
+  <div id="container">
 		<nav>
 			<a href="/" title="Back to home">Home</a>
 			<a href="/docs/" title="Read our documentation">Docs</a>
@@ -43,6 +43,6 @@
     <p>Various projects supported PyOfWave indirectly and we would like to think them.</p>
     <p>The list will be compiled later.</p>
 		</section>
-	</div></div>
+	</div>
 </body>
 </html>
