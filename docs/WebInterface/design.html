@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>UI Design Principles &mdash; PyOfWave v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PyOfWave v0.1 documentation" href="../index.html" />
+    <link rel="up" title="For Web Developers" href="index.html" />
+    <link rel="next" title="POW Web Client API" href="api.html" />
+    <link rel="prev" title="For Web Developers" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="POW Web Client API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Web Developers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">For Web Developers</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">UI Design Principles</a><ul>
+<li><a class="reference internal" href="#apple-hig-principles">Apple HIG Principles</a><ul>
+<li><a class="reference internal" href="#metaphors">Metaphors</a></li>
+<li><a class="reference internal" href="#reflect-the-user-s-mental-model">Reflect the User&#8217;s Mental Model</a></li>
+<li><a class="reference internal" href="#explicit-and-implied-actions">Explicit and Implied Actions</a></li>
+<li><a class="reference internal" href="#user-control">User Control</a></li>
+<li><a class="reference internal" href="#feedback-and-communication">Feedback and Communication</a></li>
+<li><a class="reference internal" href="#consistancy">Consistancy</a></li>
+<li><a class="reference internal" href="#wysiwyg-what-you-see-is-what-you-get">WYSIWYG (What You See Is What You Get)</a></li>
+<li><a class="reference internal" href="#forgiveness">Forgiveness</a></li>
+<li><a class="reference internal" href="#percieved-stability">Percieved Stability</a></li>
+<li><a class="reference internal" href="#asthetic-integrity">Asthetic Integrity</a></li>
+<li><a class="reference internal" href="#modelessness">Modelessness</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pow-specific-design">POW Specific Design</a><ul>
+<li><a class="reference internal" href="#familiarity">Familiarity</a></li>
+<li><a class="reference internal" href="#keep-a-static-screen">Keep a Static Screen</a></li>
+<li><a class="reference internal" href="#place-actions-in-the-toolbar">Place Actions in the Toolbar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">For Web Developers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">POW Web Client API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/WebInterface/design.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ui-design-principles">
+<h1><a class="toc-backref" href="#id1">UI Design Principles</a><a class="headerlink" href="#ui-design-principles" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ui-design-principles" id="id1">UI Design Principles</a><ul>
+<li><a class="reference internal" href="#apple-hig-principles" id="id2">Apple HIG Principles</a><ul>
+<li><a class="reference internal" href="#metaphors" id="id3">Metaphors</a></li>
+<li><a class="reference internal" href="#reflect-the-user-s-mental-model" id="id4">Reflect the User&#8217;s Mental Model</a></li>
+<li><a class="reference internal" href="#explicit-and-implied-actions" id="id5">Explicit and Implied Actions</a></li>
+<li><a class="reference internal" href="#user-control" id="id6">User Control</a></li>
+<li><a class="reference internal" href="#feedback-and-communication" id="id7">Feedback and Communication</a></li>
+<li><a class="reference internal" href="#consistancy" id="id8">Consistancy</a></li>
+<li><a class="reference internal" href="#wysiwyg-what-you-see-is-what-you-get" id="id9">WYSIWYG (What You See Is What You Get)</a></li>
+<li><a class="reference internal" href="#forgiveness" id="id10">Forgiveness</a></li>
+<li><a class="reference internal" href="#percieved-stability" id="id11">Percieved Stability</a></li>
+<li><a class="reference internal" href="#asthetic-integrity" id="id12">Asthetic Integrity</a></li>
+<li><a class="reference internal" href="#modelessness" id="id13">Modelessness</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pow-specific-design" id="id14">POW Specific Design</a><ul>
+<li><a class="reference internal" href="#familiarity" id="id15">Familiarity</a></li>
+<li><a class="reference internal" href="#keep-a-static-screen" id="id16">Keep a Static Screen</a></li>
+<li><a class="reference internal" href="#place-actions-in-the-toolbar" id="id17">Place Actions in the Toolbar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>I use the term &#8220;hacker&#8221; to refer to a collaberator on PyOfWave or
+other OpenSource project. &#8220;Crackers&#8221; are what society calls &#8220;hackers&#8221;.</p>
+<p class="last">This is written in first person to make it easier to explain where I&#8217;m
+coming from.</p>
+</div>
+<p>This file describes the UI principles used by POW (PyOfWave), it is here as a guide for web developer hackers. I want POW to be an example that OpenSource does <em>note</em> create bad designs, as I&#8217;ve seen some people in both general society and hackers believe.</p>
+<div class="section" id="apple-hig-principles">
+<span id="apple-hig"></span><h2><a class="toc-backref" href="#id2">Apple HIG Principles</a><a class="headerlink" href="#apple-hig-principles" title="Permalink to this headline">¶</a></h2>
+<p>I find it generally agreed by users that Apple delivers the best experience, and I&#8217;m a Apple fanatic myself. However, it is odd that other organizations don&#8217;t typically clue into this, because Apple freely (as in beer) shares this knowledge. This section describes the principles behind it as found at <a class="reference external" href="http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines/XHIGHIDesign/XHIGHIDesign.html">http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines/XHIGHIDesign/XHIGHIDesign.html</a> in a more general example.</p>
+<p>Please acknowledge that a large quantity of this section is Apple&#8217;s work, and does not belong to me.</p>
+<div class="section" id="metaphors">
+<h3><a class="toc-backref" href="#id3">Metaphors</a><a class="headerlink" href="#metaphors" title="Permalink to this headline">¶</a></h3>
+<p>Take advantage of people&#8217;s knowledge of the world by using metaphors to convey concepts and features of your application. Metaphors are the building blocks in the user&#8217;s mental model of a task. Use metaphors that represent concrete, familiar ideas, and make the metaphors obvious, so that users can apply a set of expectations to the computer environment. A common example of a metaphor are folders to organize files into, which is anologues to a filing cabinet.</p>
+<p>Metaphors should suggest a use for a particular element, but that use doesn&#8217;t have to limit the implementation of the metaphor. It is important to strike a balance between the metaphor&#8217;s suggested use and the computer&#8217;s ability to support and extend the metaphor. For example, the number of items a user puts in the Trash is not limited to the number of items a physical wastebasket could hold.</p>
+</div>
+<div class="section" id="reflect-the-user-s-mental-model">
+<h3><a class="toc-backref" href="#id4">Reflect the User&#8217;s Mental Model</a><a class="headerlink" href="#reflect-the-user-s-mental-model" title="Permalink to this headline">¶</a></h3>
+<p>The user already has a mental model that describes the task your software is enabling. This model arises from a combination of real-world experiences, experience with other software, and with computers in general. For example, users have real-world experience writing and mailing letters and most users have used email applications to write and send email. Based on this, a user has a conceptual model of this task that includes certain expectations, such as the ability to create a new letter, select a recipient, and send the letter. An email application that ignores the user&#8217;s mental model and does not meet at least some of the user&#8217;s expectations would be difficult and even unpleasant to use. This is because such an application imposes an unfamiliar conceptual model on its users instead of building on the knowledge and experiences those users already have.</p>
+<p>Before you design your application&#8217;s user interface, try to discover your users&#8217; mental model of the task your application helps them perform. Be aware of the model&#8217;s inherent metaphors, which represent conceptual components of the task. In the letter-writing example, the metaphors include letters, mail boxes, and envelopes. In the mental model of a task related to photography, the metaphors include photographs, cameras, and albums. Strive to reflect the user&#8217;s expectations of task components, organization, and workflow in your window layout, menu and toolbar organization, and use of panels.</p>
+<p>You should support the user&#8217;s mental model by striving to incorporate the following characteristics:</p>
+<ul class="simple">
+<li><strong>Familiarity</strong> The user&#8217;s mental model is based primarily on experience. When possible, enhance user interface components to reflect the model&#8217;s symbology and display labels that use the model&#8217;s terminology. Then, where appropriate, use familiar OS (Operating System) user interface components to offer standard functionality, such as searching and navigating hierarchical sets of data.</li>
+<li><strong>Simplicity</strong> A mental model of a task is typically streamlined and focused on the fundamental components of the task. Although there may be myriad optional details associated with a given task, the basic components should not have to compete with the details for the user&#8217;s attention.</li>
+<li><strong>Availability</strong> A corollary of simplicity is availability. An uncluttered user interface is essential, but the availability of certain key features and settings the user needs is equally so. Avoid hiding such components too deeply in submenus or making them accessible only from a contextual menu.</li>
+<li><strong>Discoverability</strong> Encourage your users to discover functionality by providing cues about how to use user interface elements. If an element is clickable, for example, it must appear that way, or a user may never try clicking it. Be sure to use OS controls properly and avoid making controls invisible to inexperienced users.</li>
+</ul>
+</div>
+<div class="section" id="explicit-and-implied-actions">
+<h3><a class="toc-backref" href="#id5">Explicit and Implied Actions</a><a class="headerlink" href="#explicit-and-implied-actions" title="Permalink to this headline">¶</a></h3>
+<p>Each operation involves the manipulation of an object using an action. In the first step of this manipulation, the user sees the desired object onscreen. In the second step, the user selects or designates that object. In the final step, the user performs an action, either using a menu command or by direct manipulation of the object with the mouse or other device. This leads to two paradigms for manipulating objects: explicit and implied actions.</p>
+<p>Explicit actions clearly state the result of manipulating an object. For example, menus list the commands that can be performed on the currently selected object. The name of the menu command clearly indicates what the action is and the current state of the command (dimmed or enabled) indicates whether that action is valid in the current context. Explicit actions do not require the user to memorize the commands that can be performed on a given object.</p>
+<p>Implied actions convey the result of an action through visual cues or context. A drag-and-drop operation is a common example of an implied action. Dragging one object onto another object constitutes a relationship between the objects and an action to be performed by the drag operation. For example, dragging a file icon to the Trash implies the imminent removal of the underlying file from the file system. For implied actions to be apparent, the user must be able to recognize the objects involved, the manipulation to be performed, and the consequences of the action.</p>
+<p>Keep these two paradigms in mind as you design your user interface. Examine the user&#8217;s mental model of your application&#8217;s task to help you determine when each type of action is appropriate.</p>
+</div>
+<div class="section" id="user-control">
+<h3><a class="toc-backref" href="#id6">User Control</a><a class="headerlink" href="#user-control" title="Permalink to this headline">¶</a></h3>
+<p>Allow the user, not the computer, to initiate and control actions. Some applications attempt to assist the user by offering only those alternatives deemed good for the user or by protecting the user from having to make detailed decisions. Because this approach puts the computer, not the user, in control, it is best confined to parts of the user interface aimed at novice users. Provide the level of user control that is appropriate for your audience</p>
+</div>
+<div class="section" id="feedback-and-communication">
+<h3><a class="toc-backref" href="#id7">Feedback and Communication</a><a class="headerlink" href="#feedback-and-communication" title="Permalink to this headline">¶</a></h3>
+<p>Feedback and communication encompass far more than merely displaying alerts when something goes wrong. Instead, it involves keeping users informed about what&#8217;s happening by providing appropriate feedback and enabling communication with your application.</p>
+<p>When a user initiates an action, always provide an indication that your application has received the user&#8217;s input and is operating on it. Users want to know that a command is being carried out. If a command can&#8217;t be carried out, they want to know why it can&#8217;t and what can be done instead. When used sparingly, animation is one of the best ways to show a user that a requested action is being carried out.</p>
+</div>
+<div class="section" id="consistancy">
+<h3><a class="toc-backref" href="#id8">Consistancy</a><a class="headerlink" href="#consistancy" title="Permalink to this headline">¶</a></h3>
+<p>Consistency in the interface allows users to transfer their knowledge and skills from one application to another. Use standard controls to achieve consistancy with the OS.</p>
+<ul class="simple">
+<li><strong>Is it consistent with Mac OS X standards?</strong> For example, does the application use the reserved and recommended keyboard equivalents (see ?Keyboard Shortcuts Quick Reference?) for their correct purposes? Is it Aqua-compliant? Does it use the solutions to standard tasks Mac OS X provides? (For more information on these solutions, see ?Using Mac OS X Technologies.?)</li>
+<li><strong>Is it consistent within itself?</strong> Does it use consistent terminology for labels and features? Do icons mean the same thing every time they are used? Are concepts presented in similar ways across all modules? Are similar controls and other user interface elements located in similar places in windows and dialogs?</li>
+<li><strong>Is it consistent with earlier versions of the product?</strong> Have the terms and meanings remained the same between releases? Are the fundamental concepts essentially unchanged?</li>
+<li><strong>Is it consistent with people&#8217;s expectations?</strong> Does it meet the needs of the user without extraneous features? Does it conform to the user&#8217;s mental model?</li>
+</ul>
+</div>
+<div class="section" id="wysiwyg-what-you-see-is-what-you-get">
+<h3><a class="toc-backref" href="#id9">WYSIWYG (What You See Is What You Get)</a><a class="headerlink" href="#wysiwyg-what-you-see-is-what-you-get" title="Permalink to this headline">¶</a></h3>
+<p>In applications in which users can format data for printing, publish to the web, or write to film, DVD, or other formats, make sure there are no significant differences between what users see onscreen and what they receive in the final output. When the user makes changes to a document, display the results immediately; the user shouldn&#8217;t have to wait for the final output or make mental calculations about how the document will look later. Use a preview function if necessary.</p>
+<p>People should be able to find all the available features in your application. Don&#8217;t hide features by failing to make commands available in a menu. Menus present lists of commands so that people can see their choices rather than try to remember command names. Avoid providing access to features only in toolbars or contextual menus.</p>
+</div>
+<div class="section" id="forgiveness">
+<h3><a class="toc-backref" href="#id10">Forgiveness</a><a class="headerlink" href="#forgiveness" title="Permalink to this headline">¶</a></h3>
+<p>Encourage people to explore your application by building in forgiveness?that is, making most actions easily reversible. People need to feel that they can try things without damaging the system or jeopardizing their data. Create safety nets, such as the Undo and Revert to Saved commands, so that people will feel comfortable learning and using your product.</p>
+<p>Warn users when they initiate a task that will cause irreversible loss of data. If alerts appear frequently, however, it may mean that the product has some design flaws. When options are presented clearly and feedback is timely, using an application should be relatively error-free.</p>
+<p>Anticipate common problems and alert users to potential side effects. Provide extensive feedback and communication at every stage so users feel that they have enough information to make the right choices.</p>
+</div>
+<div class="section" id="percieved-stability">
+<h3><a class="toc-backref" href="#id11">Percieved Stability</a><a class="headerlink" href="#percieved-stability" title="Permalink to this headline">¶</a></h3>
+<p>To give users a conceptual sense of stability, the interface provides a clear, finite set of objects and a set of actions to perform on those objects. For example, when a menu command doesn&#8217;t apply to a selected object or to the object in its current state, the command is dimmed rather than omitted.</p>
+<p>To help convey the perception of stability, preserve user-modifiable settings such as window dimensions and locations. When a user sets up his or her onscreen environment to have a certain layout, the settings should stay that way until the user changes them.</p>
+<p>Providing status and feedback also contributes to perceived stability by letting users know that the application is performing the specified task.</p>
+</div>
+<div class="section" id="asthetic-integrity">
+<h3><a class="toc-backref" href="#id12">Asthetic Integrity</a><a class="headerlink" href="#asthetic-integrity" title="Permalink to this headline">¶</a></h3>
+<p>Aesthetic integrity means that information is well organized and consistent with principles of good visual design. Your product should look pleasant on the screen, even when viewed for a long time.</p>
+<p>Keep graphics simple, and use them only when they truly enhance usability. Don&#8217;t overload windows and dialogs with dozens of icons or buttons. Don&#8217;t use arbitrary symbols to represent concepts; they may confuse or distract users. The overall layout of your windows and design of user interface elements should reflect the user&#8217;s mental model of the task your application performs.</p>
+</div>
+<div class="section" id="modelessness">
+<h3><a class="toc-backref" href="#id13">Modelessness</a><a class="headerlink" href="#modelessness" title="Permalink to this headline">¶</a></h3>
+<p>As much as possible, allow users to do whatever they want at all times. Avoid using modes that lock them into one operation and prevent them from working on anything else until that operation is completed.</p>
+</div>
+</div>
+<div class="section" id="pow-specific-design">
+<h2><a class="toc-backref" href="#id14">POW Specific Design</a><a class="headerlink" href="#pow-specific-design" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="familiarity">
+<h3><a class="toc-backref" href="#id15">Familiarity</a><a class="headerlink" href="#familiarity" title="Permalink to this headline">¶</a></h3>
+<p>To achieve familiarity, as described in the previous section <a class="reference internal" href="#apple-hig"><em>Apple HIG Principles</em></a>, use one of the following guidelines explained below:</p>
+<ul class="simple">
+<li>Use semantic elements if the browser provides what you are looking for. This is the optimal solution, because it provides consistancy with the OS.</li>
+<li>Use commonly used jQuery widgets, at least users may have ran into them somewhere. A good example of this is our use of Farbtastic which is used on Twitter.</li>
+<li>Put any custom widgets in <tt class="file docutils literal"><span class="pre">pyofwave_client/pyofwave_client/api/jqueryUIx.js</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="keep-a-static-screen">
+<h3><a class="toc-backref" href="#id16">Keep a Static Screen</a><a class="headerlink" href="#keep-a-static-screen" title="Permalink to this headline">¶</a></h3>
+<p>Wave provides live data, which changes all the time. This may overwhelm users, so do not change anything else and keep changes to reflect either</p>
+<ul class="simple">
+<li>An addition to a Wave</li>
+<li>Or a reflow of content (which allows better layout of data and screen use).</li>
+</ul>
+</div>
+<div class="section" id="place-actions-in-the-toolbar">
+<h3><a class="toc-backref" href="#id17">Place Actions in the Toolbar</a><a class="headerlink" href="#place-actions-in-the-toolbar" title="Permalink to this headline">¶</a></h3>
+<p>This provides tidy organization to the screen, with all actions clearly associated with a section of the screen holding content.</p>
+<p>An exception to this is the edit and playback actions in the Wave view. This is placed in a secondary toolbar below the toolbar and is there to maintain a more static screen as described above.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="POW Web Client API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="For Web Developers"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyOfWave v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >For Web Developers</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, alcinnz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

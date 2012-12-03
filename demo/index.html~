@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  <title>PyOfWave | demo (to be provided)</title>
+
+  <link href="/site.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+	<nav>
+		<a href="/" title="Back to home">Home</a><a href="/about" title="About PyOfWave">About</a><a href="/demo">Demo</a>
+	</nav>
+  <div id="container">
+    <h2>Demo Placeholder</h2>
+    <p>When PyOfWave is demoable, we'll fill this placeholder link with a online demo. However, to do this, we'll have to switch to a (rare) host which will allow us to run a long running Python process connecting to the system's sockets.</p>
+    <p>Ideally we'd like to have this demo run on a dedicated machine, and any offers are welcome.</p>
+
+    <h2>Sketches</h2>
+    <ul>
+       <li><a href="/sketches/desktop" title="View Sketch">Desktop Sketch</a></li>
+       <li><a href="/sketches/desktop/wave.html" title="View Sketch">Wave sketch</a></li>
+       <li><a href="/sketches/mobile/powMobile.html" title="View Sketch">Mobile Sketch</a></li>
+    </ul>
+    </div>
+
+  <footer>
+    &copy;2011 Adrian Cochrane. Licensed under the <a href="https://raw.github.com/alcinnz/PyOfWave/master/LICENSE" title="Read our license">Mozilla Public License</a>. All rights shared. 
+  </footer>
+</body>
+</html>

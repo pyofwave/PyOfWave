@@ -27,12 +27,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-nav a {
-	border-left: thin dotted gray;
-}
-nav a:last {
-	border-left: none;
-}
 body {
 	line-height: 1;
 }
