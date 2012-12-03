@@ -1,2 +1,0 @@
-Standard Data Storage Options
-=============================
