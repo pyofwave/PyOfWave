@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 nav a {
 	border-right: thin dotted gray;
+	padding-right: 3px;
 }
 nav a:last {
 	border-right: none;
