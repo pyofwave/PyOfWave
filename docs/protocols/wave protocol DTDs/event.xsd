@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmlu="http://pyofwave.info/2013/events"
+		 targetNamespace="http://pyofwave.info/2013/events">
+	<xs:element name="on">
+		<xs:attributeGroup ref="xmlu:query" />
+	</xs:element>
+	<xs:element name="off">
+		<xs:attributeGroup ref="xmlu:query" />
+	</xs:element>
+	<xs:element name="join">
+		<xs:attributeGroup ref="xmlu:query" />
+	</xs:element>
+	<xs:element name="state">
+		<xs:attribute name="storeOwn" type="xs:boolean" />
+		<xs:attribute name="confirm" type="xs:boolean" />
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://pyofwave.info/2013/xmlu">
+	<xs:attribute name="src" type="xs:anyURI" />
+	<xs:attribute name="named" type="xs:string" />
+	<xs:attribute name="version" type="xs:string" />		<!-- Server decides format -->
+	<xs:attribute name="modified" type="xs:datetime" />
+	<xs:attribute name="user">
+		<xs:simpleType name="waveAddress"><xs:restriction base="xs:string">
+			<xs:pattern value=".*@[0-9a-zA-Z|.|-|_]+" />
+		</xs:restriction></xs:simpleType>
+	</xs:attribute>
+
+	<xs:attributeGroup name="query"><xs:choice>
+		<xs:attribute name="xpath" type="xs:string" />		<!-- Standard xpath format. -->
+		<xs:attribute name="q">
+			<xs:simpleType name="userQuery"><xs:restriction base="xs:string">
+				<xs:pattern value="[xs:QName[=[.*|'.*']]?]*" />
+			</xs:simpleType></xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="href" type="xs:anyURI" />
+	</xs:choice></xs:attributeGroup>
+
+	<xs:element name="get" minOccurs="0" maxOccurs="unbounded">
+		<xs:attributeGroup ref="query" />
+		<xs:attribute name="depth">
+			<xs:restriction base="anySimpleType">
+				<xs:union memberTypes="xs:integer xs:QName" />
+			</xs:restriction>
+		</xs:attribute>
+		<xs:attribute name="via" type="waveAddress" />
+		<xs:attribute name="index" type="xs:integer" />
+		<xs:attribute name="numResults" type="xs:integer" />
+	</xs:element>
+	<xs:element name="append">
+		<xs:attributeGroup ref="query" />
+		<xs:anyAttribute minOccurs="0" maxOccurs="unbounded" />
+		<xs:complexType><xs:sequence>
+			<xs:any minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence></xs:complexType>
+	</xs:element>
+	<xs:element name="update">
+		<xs:attributeGroup ref="query" />
+		<xs:anyAttribute minOccurs="0" maxOccurs="unbounded" />
+		<xs:complexType><xs:sequence>
+			<xs:any minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence></xs:complexType>
+	</xs:element>
+	<xs:element name="select">
+		<xs:attributeGroup ref="query" />
+		<xs:attribute name="version" type="xs:string" />
+		<xs:attribute name="range" type="xs:string" />
+	</xs:element>
+	<xs:element name="delete">
+		<xs:attributeGroup ref="query" />
+	</xs:element>
+</xs:schema>
