@@ -21,15 +21,16 @@
 			</xs:element>
 
 
+			<xs:simpleType name="color"><xs:restriction base="xs:hexBinary">
+				<xs:maxInclusive value="16581375" /><!-- 255^3, hexadecimal color -->
+			</xs:restriction></xs:simpleType>
+
 			<xs:attribute name="color">
-				<xs:restriction base="xs:hexBinary">
-					<xs:maxInclusive value="16581375" /><!-- 255^3, hexadecimal color -->
-				</xs:restriction>
+				<!-- Uses h&v from hsv, color type moved out.-->
+				<xs:simpleType name="hvcolor"><xs:list itemType="xs:decimal" /></xs:simpleType>
 			</xs:attribute>
 			<xs:attribute name="lang">
-				<xs:simpleType name="color"><xs:restriction base="xs:string">
-					<xs:maxlength value="3" /><xs:minLength value="3" />
-				</xs:restriction></xs:simpleType>
+				<!-- formated according to RFC4646 -->
 			</xs:attribute>
 			<xs:element name="me">
 				<xs:anyAttribute processContents="skip" /> <!-- RDF specifies no validation -->

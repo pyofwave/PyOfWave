@@ -9,4 +9,5 @@
 	<xs:attribute name="fontWeight" type="xs:string" />				<!-- As in CSS -->
 	<xs:attribute name="textDecoration" type="xs:string" />		<!-- As in CSS -->
 	<xs:attribute name="verticalAlign" type="xs:string" />		<!-- As in CSS -->
+	<xs:attribute name="href" type="xs:anyURI" />
 </xs:schema>

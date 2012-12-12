@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-nz#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+		xmlns:profile="http://pyofwave.info/2013/profile#">
+	<rdfs:Property rdf:about="profile:color" rdfs:range="profile:hvcolor">
+		<rdfs:comment>The color used to depict the user, in form *hue**value* as in the hsv scheme. Saturation may follow but is ignored in Wave for collision resolution on colours.</rdfs:comment>
+		<rdfs:label>Identifying color</rdfs:label>
+	</rdfs:Property>
+	<rdfs:Property rdf:about="profile:lang" rdfs:range="rdfs:Literal">
+		<rdfs:comment>A language the agent speaks, formatted by RFC4646.</rdfs:comment>
+		<rdfs:label>Speaks</rdfs:label>
+	</rdfs:Property>
+</rdf:RDF>

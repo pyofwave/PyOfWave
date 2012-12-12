@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmlu="http://pyofwave.info/2013/xmlu"
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmlu="http://pyofwave.info/2013/xmlu" xmlns:prof="http://pyofwave.info/2013/profile"
 		targetNamespace="http://pyofwave.info/2013/wave">
 	<xs:element name="wave">
 		<xs:complexType><xs:sequence>
@@ -24,12 +24,44 @@
 			<xs:attribute name="type" type="xs:string" />		<!-- MIMEtype -->
 			<xs:attribute name="src" type="xs:anyURI" />		<!-- dereferencable -->
 
-			<xs:element name="data" minOccurs="0" maxOccurs="unbounded">
-				<xs:anyAttribute />
-			</xs:element>
+			<xs:complexType><xs:sequence>
+				<xs:element name="data" minOccurs="0" maxOccurs="unbounded">
+					<xs:anyAttribute />
+				</xs:element>
+			</xs:sequence></xs:complexType>
 		</xs:element>
 		<xs:element ref="wavelet" />
 		<xs:element ref="thread" />
+		<xs:element name="input">
+			<xs:attribute name="type">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="button" />
+					<xs:enumeration value="checkbox" />
+					<xs:enumeration value="color" />
+					<xs:enumeration value="date" />
+					<xs:enumeration value="datetime" />
+					<xs:enumeration value="datetime-local" />
+					<xs:enumeration value="month" />
+					<xs:enumeration value="number" />
+					<xs:enumeration value="radio" />
+					<xs:enumeration value="range" />
+					<xs:enumeration value="search" />
+					<xs:enumeration value="submit" />
+					<xs:enumeration value="tel" />
+					<xs:enumeration value="text" />
+					<xs:enumeration value="time" />
+					<xs:enumeration value="url" />
+					<xs:enumeration value="week" />
+					<xs:enumeration value="textarea" />
+					<xs:enumeration value="select" />
+				</xs:restriction>
+			</xs:attribute>
+			<xs:attribute name="value" type="xs:string" />
+			<xs:attribute name="checked" type="xs:boolean" />
+
+			<xs:complexType><xs:sequence>
+				<xs:element ref="prof:li" minOccurs="0" maxOccurs="unbounded" />
+		</xs:element>
 	</xs:choice></xs:group>
 
 	<xs:element name="post">

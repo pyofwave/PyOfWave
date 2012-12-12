@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://pyofwave.info/2013/xmlu">
 	<xs:attribute name="src" type="xs:anyURI" />
-	<xs:attribute name="named" type="xs:string" />
+	<xs:attribute name="named" type="xs:string" />			<!-- Optionally unique per connection -->
 	<xs:attribute name="version" type="xs:string" />		<!-- Server decides format -->
 	<xs:attribute name="modified" type="xs:datetime" />
 	<xs:attribute name="user">
@@ -49,7 +49,11 @@
 	<xs:element name="select">
 		<xs:attributeGroup ref="query" />
 		<xs:attribute name="version" type="xs:string" />
-		<xs:attribute name="range" type="xs:string" />
+		<xs:attribute name="range">
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[0-9]+[-[0-9]+]?" />
+			</xs:restriction>
+		</xs:attribute>
 	</xs:element>
 	<xs:element name="delete">
 		<xs:attributeGroup ref="query" />
