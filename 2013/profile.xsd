@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://w3.org/2001/XMLSchema" xmlns:xmlu="http://pyofwave.info/2013/xmlu"
+		targetNamespace="http://pyofwave.info/2013/profile.xsd">
+	<xs:element name="profile">
+		<xs:complexType><xs:sequence>
+			<xs:element name="folder">
+				<xs:attribute name="icon" type="xs:anyURI" />
+				<xs:attribute name="name" type="xs:string" />
+				<xs:attribute name="q" type="xmlu:userQuery" />
+				<xs:attribute name="qbound">
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="bound" />
+						<xs:enumeration value="unbound" />
+						<xs:enumeration value="explicit" /><!-- Must query for this folder directly for results to show, useful for spam, archive, etc. -->
+					</xs:restriction>
+				</xs:attribute>
+
+				<xs:complexType><xs:sequence>
+					<xs:element ref="folder" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence></xs:complexType>
+			</xs:element>
+
+
+			<xs:simpleType name="color"><xs:restriction base="xs:hexBinary">
+				<xs:maxInclusive value="16581375" /><!-- 255^3, hexadecimal color -->
+			</xs:restriction></xs:simpleType>
+
+			<xs:attribute name="color">
+				<!-- Uses h&v from hsv, color type moved out.-->
+				<xs:simpleType name="hvcolor"><xs:list itemType="xs:decimal" /></xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="lang">
+				<!-- formated according to RFC4646 -->
+			</xs:attribute>
+			<xs:element name="me">
+				<xs:anyAttribute processContents="skip" /> <!-- RDF specifies no validation -->
+				<xs:complexType><xs:sequence>
+					<xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence></xs:complexType>
+			</xs:element>
+
+			<xs:element name="history">
+				<xs:complexType><xs:sequence>
+					<xs:any namespace="http://pyofwave.info/2013/xmlu" processContents="strict" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence></xs:complexType>
+			</xs:element>
+			<xs:element name="tags">
+				<xs:complexType><xs:sequence>
+					<xs:element name="li" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence></xs:complexType>
+			</xs:element>
+			<xs:element name="gadgets">
+				<xs:complexType><xs:sequence>
+					<xs:element ref="li" minOccurs="0" maxOccurs="ubounded" /><!-- Must be dereferencable URLs -->
+				</xs:sequence></xs:complexType>
+			</xs:element>
+
+			<xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence></xs:complexType>
+	</xs:element>
+</xs:schema>

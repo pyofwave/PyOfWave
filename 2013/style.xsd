@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:prof="http://pyofwave.info/2013/profile"
+		targetNamespace="http://pyofwave.info/2013/style">
+	<xs:attribute name="backgroundColor" type="prof:color" />
+	<xs:attribute name="color" type="prof:color" />
+	<xs:attribute name="fontFamily" type="xs:string" />
+	<xs:attribute name="fontSize" type="xs:string" />					<!-- As in CSS -->
+	<xs:attribute name="fontStyle" type="xs:string" />				<!-- As in CSS -->
+	<xs:attribute name="fontWeight" type="xs:string" />				<!-- As in CSS -->
+	<xs:attribute name="textDecoration" type="xs:string" />		<!-- As in CSS -->
+	<xs:attribute name="verticalAlign" type="xs:string" />		<!-- As in CSS -->
+	<xs:attribute name="href" type="xs:anyURI" />
+</xs:schema>
