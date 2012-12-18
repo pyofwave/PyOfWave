@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://w3.org/2001/XMLSchema" xmlns:xmlu="http://pyofwave.info/2013/xmlu"
 			targetNamespace="http://pyofwave.info/2013/permissions">
+	<!-- This namespace was created to replace high level logic (how to edit a wave) with low level knowledge (how a wave should be edited). -->
+
 	<xs:attribute name="perm" value="xs:string">
 		<!-- Permisions for element applied on -->
 		<!-- r=read/access, u=update children, a=update attributes, @=append attributes, +=append children, -=delete, s=select using specified tag as wrapper -->
@@ -8,13 +10,24 @@
 	</xs:attribute>
 	<xs:attribute name="priv" value="xs:string">
 		<!-- Privilages for selected user. -->
-		<!-- r=read/access, u=update, -=delete, a=administrate (overwrites permissions) -->
+		<!-- r=read/access, +=update, -=delete, a=administrate (overwrites permissions) -->
 		<xs:pattern value="r?+?-?a?" />
+	</xs:attribute>
+
+	<xs:attribute name="target">
+		<!-- Marks the element embedded priv attributes apply on. -->
+		<xs:restriction base="xs:string"><xs:enumeration value="self" /></xs:restriction>
 	</xs:attribute>
 
 	<xs:attribute name="descriptor" type="anyURI" />
 	<xs:element name="perm">
 		<xs:attributeGroup ref="xmlu:query" />
 		<xs:attribute ref="perm" /> <!-- On selected elements -->
+	</xs:element>
+
+	<xs:element name="descriptor">
+		<xs:complexType><xs:sequence>
+			<xs:element ref="perm" />
+		</xs:sequence></xs:complexType>
 	</xs:element>
 <xs:schema>

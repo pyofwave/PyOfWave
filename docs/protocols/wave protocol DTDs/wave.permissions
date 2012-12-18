@@ -1,0 +1,16 @@
+<descriptor xmlns="http://pyofwave.info/2013/permissions" xmlns:xmlu="http://pyofwave.info/2013/xmlu"
+		xmlns:wave="http://pyofwave.info/2013/wave" xmlns:prof="http://pyofwave.info/2013/profile">
+	<perm xmlu:xpath="wave:wave" perm="" /> <!-- Only authorized can view. -->
+		<perm xmlu:xpath="wave:wavelet" perm="r+" />
+		<perm xmlu:xpath="wave:participant" perm="r" />	<!-- Requires administrative priveliges to edit or remove. -->
+		<wave xmlu:xpath="wave:tags" perm="ra@-" />
+		<perm xmlu:xpath="wave:thread" perm="r+" />
+			<perm xmlu:xpath="wave:post" perm="r+" />
+			<perm xmlu:xpath="wave:p" perm="rs wave:a" />
+			<perm xmlu:named="sel" perm="rua-" />
+
+			<perm xmlu:xpath="wave:file" perm="r@+-" />
+				<perm xmlu:xpath="wave:data" perm="" /> 		<!-- Set by user -->
+			<perm xmlu:xpath="wave:input" perm="r@+-" />
+				<perm xmlu:xpath="wave:input/prof:li" perm="r-" />
+</descriptor>
