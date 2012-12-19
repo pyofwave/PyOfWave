@@ -83,6 +83,6 @@ value="Inputs. \nMostly usefull only for robots.\nSearch is handy, though, lets 
 			</post>
 		</thread>
 		<tags xmlu:perm="(personal)" user:unread="3" />
-		<tags user:salutations="" />
+		<tags xmlns:fed="http://federation.gov/terms" fed:salutations="" />
 	</wavelet>
 </wave>

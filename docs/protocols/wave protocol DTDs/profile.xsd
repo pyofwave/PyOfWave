@@ -21,9 +21,11 @@
 			</xs:element>
 
 
-			<xs:simpleType name="color"><xs:restriction base="xs:hexBinary">
-				<xs:maxInclusive value="16581375" /><!-- 255^3, hexadecimal color -->
-			</xs:restriction></xs:simpleType>
+			<xs:attribute name="hexcolor">
+				<xs:simpleType name="color"><xs:restriction base="xs:hexBinary">
+					<xs:maxInclusive value="16581375" /><!-- 255^3, hexadecimal color -->
+				</xs:restriction></xs:simpleType>
+			</xs:attribute>
 
 			<xs:attribute name="color">
 				<!-- Uses h&v from hsv, color type moved out.-->

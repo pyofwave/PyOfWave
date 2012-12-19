@@ -1,0 +1,67 @@
+<profile xmlns="http://pyofwave.info/2013/profile" xmlns:xmlu="http://pyofwave.info/2013/xmlu"
+		xmlns:priv="http://pyofwave.info/2013/permissions" 
+		xmlu:src="wave://spock@federation.gov" xmlu:user="spock@federation.gov" priv:priv="a">
+	<folder icon="http://pyofwave.info/icons/waves.png" name="All Waves" q="" qbound="unbound">
+		<folder icon="unread.png" name="unread" q="unread" qbound="unbound" />
+		<folder icon="chats.png" name="chats" q="chats" qbound="bound" />
+		<folder icon="trash.png" name="spam" q="spam" qbound="explicit" />
+		<folder icon="trash.png" name="archive" q="archive" qbound="explicit" />
+		<folder icon="search.png" name="search" q="" qbound="unbound">
+			<folder icon="search.png" name="Preferences" q="prefs" qbound="unbound" />
+			<folder icon="search.png" name="PyOfWave" q="pow:pow" qbound="unbound" />
+		</folder>
+	</folder>
+
+	<me xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-nz#" xmlns:foaf="http://xmlns.com/foaf/0.1"
+			rdf:about="wave://spock@federation.gov"
+			foaf:depiction="http://federation.gov/profiles/spock.jpg"> <!-- TODO: Use real images. -->
+		<color>240 1</color>
+		<hexcolor>0000FF</hexcolor>
+		<foaf:name>Spock</foaf:name>
+		<status>online</status>
+		<foaf:knows rdf:about="wave://oneil@sgc.airforce.org" foaf:depiction="http://airforce.org/colonols/oneil.jpg">
+			<color>68.8 0.3373</color>
+			<hexcolor>4c5612</hexcolor>
+			<foaf:title>colonol</foaf:title>
+			<foaf:firstName>Jack</foaf:firstName>
+			<foaf:lastName>Oneil</foaf:lastName>
+			<status>online</status>
+		</foaf:knows>
+		<foaf:knows rdf:about="wave://malcom@serenity.ship" foaf:depiction="http://serenity.ship/malcom.png">
+			<color>60 1</color>
+			<hexcolor>ffff00</hexcolor>
+			<foaf:nick>malc</foaf:nick>
+			<status>offline</status>
+		</foaf:knows>
+		<foaf:knows rdf:about="wave://doctor@timelords.gal" foaf:depiction="http://timelords.gal/avatars/thedoctor.png">
+			<color>240 1</color>
+			<hexcolor>0000ff</hexcolor>
+			<foaf:name>doctor</foaf:name>
+			<status>offline</status>
+		</foaf:knows>
+		<foaf:knows rdf:about="" foaf:depiction="http://jedi.org/members/starwalker.jpg">
+			<color>84 1</color>
+			<hexcolor>99ff00</hexcolor>
+			<foaf:givenName>Luke</foaf:givenName>
+			<foaf:familyName>Starwalker</foaf:familyName>
+			<status>online</status>
+		</foaf:knows>
+	</me>
+
+	<history>
+		<!-- XMLU stanza history -->
+	</history>
+	<tags xmlns:fed="http://federation.gov/terms">
+		<li>fed:salutations</li>
+		<li>fed:political</li>
+		<li>fed:official</li>
+		<li>personal</li>
+	</tags>
+	<gadgets>
+		<li>http://chat.example.com/videosalute</li>
+		<li>http://pleft.com/gadget</li>
+		<li>http://games.example.com/poker</li>
+	</gadgets>
+
+	<!-- waves go here -->
+</profile>

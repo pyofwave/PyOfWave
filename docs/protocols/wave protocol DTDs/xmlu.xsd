@@ -10,16 +10,18 @@
 		</xs:restriction></xs:simpleType>
 	</xs:attribute>
 
-	<xs:attributeGroup name="query"><xs:choice>
-		<xs:attribute name="xpath" type="xs:string" />		<!-- Standard xpath format. -->
-		<xs:attribute name="q">
-			<xs:simpleType name="userQuery"><xs:restriction base="xs:string">
-				<xs:pattern value="[xs:QName[=[.*|'.*']]?]*" />
-			</xs:simpleType></xs:simpleType>
-		</xs:attribute>
-		<xs:attribute name="name" type="xs:string" />
-		<xs:attribute name="href" type="xs:anyURI" />
-	</xs:choice></xs:attributeGroup>
+	<xs:attributeGroup name="query"><xs:sequence>
+		<xs:choice>
+			<xs:attribute name="q">
+				<xs:simpleType name="userQuery"><xs:restriction base="xs:string">
+					<xs:pattern value="[xs:QName[=[.*|'.*']]?]*" />
+				</xs:simpleType></xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="href" type="xs:anyURI" />
+		</xs:choice>
+		<xs:attribute name="xpath" type="xs:string" minOccurs="0" maxOccurs="1" />		<!-- Standard xpath format. -->
+	</xs:sequence></xs:attributeGroup>
 
 	<xs:element name="get" minOccurs="0" maxOccurs="unbounded">
 		<xs:attributeGroup ref="query" />
@@ -28,6 +30,9 @@
 				<xs:union memberTypes="xs:integer xs:QName" />
 			</xs:restriction>
 		</xs:attribute>
+		<xs:attribute name="versioned" type="xs:string" />
+		<xs:attribute name="restore" type="xs:bool" /> <!-- If set and user administrates the element, reverts it back to @versioned. -->
+
 		<xs:attribute name="via" type="waveAddress" />
 		<xs:attribute name="index" type="xs:integer" />
 		<xs:attribute name="numResults" type="xs:integer" />

@@ -1,0 +1,30 @@
+<stream:stream xmlns:stream="http://etherx.jabber.org/streams" xmlns="http://pyofwave.info/2013/xmlu"
+		xmlns:prof="http://pyofwave.info/2013/profile" xmlns:wave="http://pyofwave.info/2013/wave"
+		from="spock@federation.gov" to="federation.gov" version="1.0" xml:lang="en">
+	<!-- This file gives a sample client-server wave session after XMPP authentication. -->
+	<!-- The protocol is designed to be symmetrical, so could also be (with minor modifications) server-client. -->
+	<!-- Shows Spock opening the wave described in about.wave -->
+
+	<stream:iq id="1" to="federation.gov" from="spock@federation.gov">
+		<get xpath="prof:folder" />
+	</stream:iq>
+	<append href="wave://spock@federation.gov" xmlns:priv="http://pyofwave.info/2013/priv">
+		<wave:wave priv:target="self" xmlu:user="spock@federation.gov" xmlu:src="_:njvdjdas">
+			<wave:wavelet>
+				<wave:participant xmlu:user="spock@federation.gov" priv:priv="a" />
+			</wave:wavelet>
+		</wave:wave>
+	</append>
+	<append href="wave://spock@federation.gov/dfbabutphhaqnbvgowu/" xpath="wave:wavelet" xmlns:xmlu="http://pyofwave.info/2013/xmlu">
+		<wave:thread xmlu:src="0/">
+			<wave:post xmlu:named="sel"><wave:participant xmlu:user="spock@federation.gov" /></wave:post>
+		</wave:thread>
+	</append>
+	<append name="sel">
+		<p s="h">This is a wave!</p>
+	</append>
+	<select href="wave://spock@federation.gov/dfbabutphhaqnbvgowu/0" range="10-14" version="iugebrbhiovloaewrti" />
+	<update name="sel" xmlns:style="http://pyofwave.info/2013/style" xmlns:user="http://pyofwave.info/2013/user" style:fontStyle="italic" user:term="" />
+	<select href="wave://spock@federation.gov/dfbabutphhaqnbvgowu/0" range="14-15" version="aertkykjzjkgswykthz" />
+	<delete name="sel" />
+</stream:stream>

@@ -5,6 +5,10 @@
 		<rdfs:comment>The color used to depict the user, in form *hue**value* as in the hsv scheme. Saturation may follow but is ignored in Wave for collision resolution on colours.</rdfs:comment>
 		<rdfs:label>Identifying color</rdfs:label>
 	</rdfs:Property>
+	<rdfs:Property rdf:about="profile:hexcolor" rdfs:range="profile:color">
+		<rdfs:comment>The color selected by the server to represent the contact for the user, saturation choosen to avoid conflicts.</rdfs:comment>
+		<rdfs:label>Locally Unique identifying color</rdfs:label>
+	</rdfs:Property>
 	<rdfs:Property rdf:about="profile:lang" rdfs:range="rdfs:Literal">
 		<rdfs:comment>A language the agent speaks, formatted by RFC4646.</rdfs:comment>
 		<rdfs:label>Speaks</rdfs:label>
