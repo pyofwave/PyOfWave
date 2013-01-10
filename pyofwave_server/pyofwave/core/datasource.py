@@ -7,35 +7,11 @@ class DataSource(interface.Interface):
     """
     Standard interface for a dataSource. 
     """
-    def newDocument(doc):
-        """
-        generate a new document.
-        """
-        raise NotImplementedError
-
-    def getDocument(doc):
-        """
-        returns the specified document.
-        """
-        raise NotImplementedError
-
-    def getDocumentVersion(doc, start, end, limit):
-        """
-        Returns the delta for the specified versions. 
-        """
-        raise NotImplementedError
-
-    def searchDocuments(user, query):
+    def searchDocuments(user, url=None, xpath=None, range_=None, depth=-1, version=None, restore=False):
         """
         Returns an iterable of all documents that match the query.
         This query should be in the form found in the client protocol
         standard.
-        """
-        raise NotImplementedError
-
-    def setTags(doc, user, **tags):
-        """
-        Apply the tags to the document/user combination to be searched.
         """
         raise NotImplementedError
 
@@ -45,3 +21,8 @@ class DataSource(interface.Interface):
         """
         raise NotImplementedError
 
+		def getPermission(user, xml, ptype):
+				"""
+				Retrieve the permission *ptype* for user *user* and element *xml*.
+				"""
+				raise NotImplementedError
