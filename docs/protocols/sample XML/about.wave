@@ -22,6 +22,7 @@
 						<post xmlu:src="1/">
 							<participant xmlu:user="malcom@serenity.ship" />
 							<p>This is really handy for making it clear what statement you're replying it.</p>
+						</post>
 					</thread>.
 				</p>
 
@@ -34,6 +35,7 @@
 						<participant xmlu:user="spock@federation.gov" />
 						<p>This is nice for staying out of the way. </p>
 					</post>
+				</thread>
 			</post>
 			<post  xmlu:src="1/">
 				<participant xmlu:user="luke@jedi.org" />
@@ -41,7 +43,7 @@
 				<p>As you can see, threads can have multiple posts. They can also include:</p>
 				<p s="l">Lists <a xmlu:user="doctor@timelords.gal" style:fontWeight="bold">and rich text</a></p>
 				<p s="l" l="2">Indentation/<a style:fontStyle="italic" user:term="">levels</a></p>
-				<p s="l" l="2"><a style:fontFamily="cursive">text stylings (<a style:fontStyle="italic" user:term="">"annotations"</a>)</p>
+				<p s="l" l="2"><a style:fontFamily="cursive">text stylings</a> (<a style:fontStyle="italic" user:term="">"annotations"</a>)</p>
 				<p s="l" l="2" a="c">Alignment</p>
 				<p s="l" l="2" d="r">And (for internationalization) text direction</p>
 				<p s="l">Wave structural elements:</p>
@@ -50,7 +52,7 @@
 						<post src="0/">
 							<participant xmlu:user="spock@federation.gov" />
 							<p>We've seen this one.</p>
-						</posts>
+						</post>
 					</thread> can be embedded.
 				</p>
 				<p s="l" l="2">Wavelets
@@ -65,7 +67,7 @@
 					</wavelet> can also be embedded.
 				</p>
 				<p s="l" l="2"><input type="textarea" xmlu:src="_2"
-value="Inputs. \nMostly usefull only for robots.\nSearch is handy, though, lets us filter visible posts (for example, find all annotations tagged &quote;term&quote;)." /></p>
+value="Inputs. \nMostly usefull only for robots.\nSearch is handy, though, lets us filter visible posts (for example, find all annotations tagged &quot;term&quot;)." /></p>
 				<p s="l" l="2"><file type="image/jpeg" src="http://www.lolcats.com/images/u/12/43/lolcatsdotcomlikemyself.jpg" xmlu:src="_3"
 							caption="Files as well, so we can all enjoy our cute cat pics.">
 						<data xmlu:user="luke@jedi.org" priv:perm="ra@-" user:filesCan="contain data." />
@@ -73,7 +75,7 @@ value="Inputs. \nMostly usefull only for robots.\nSearch is handy, though, lets 
 					</file>
 					<thread xmlu:src="_4/">
 						<post xmlu:src="0/">
-							<participant xmlu:user="doctor@timelords.gal">
+							<participant xmlu:user="doctor@timelords.gal" />
 							<p>These files will also allow you to include handy <a style:fontStyle="italic" user:term="">gadgets</a>, </p>
 							<p>anything from small games to handy collaborative utilities and visualizations to voice and video chat.</p>
 						</post>
