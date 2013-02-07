@@ -7,9 +7,10 @@ It provides a small, efficient, and flexible XMPP-powered code base which is cus
 
 We also plan to "integrate" into existing protocols (SMTP, RSS, XMPP IM "Jabber") so users don't have to wait for everyone else to use Wave before using it themselves. 
 
-Underlaying Technologies
-------------------------
+Underlaying Technologies/Dependancies
+-------------------------------------
 
 - Python
-- Twisted
+- py-dom-xpath
 - Python XMPP Server (+ Tornado)
+- Twisted (planned)
