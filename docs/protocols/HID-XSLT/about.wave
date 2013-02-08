@@ -1,0 +1,156 @@
+<profile xmlns="http://pyofwave.info/2013/profile" xmlns:xmlu="http://pyofwave.info/2013/xmlu"
+		xmlns:priv="http://pyofwave.info/2013/permissions" 
+		xmlu:src="wave://spock@federation.gov" xmlu:user="spock@federation.gov" priv:priv="a">
+	<folder icon="http://pyofwave.info/icons/waves.png" name="All Waves" q="" qbound="unbound">
+		<folder icon="unread.png" name="unread" q="unread" qbound="unbound" />
+		<folder icon="chats.png" name="chats" q="chats" qbound="bound" />
+		<folder icon="trash.png" name="spam" q="spam" qbound="explicit" />
+		<folder icon="trash.png" name="archive" q="archive" qbound="explicit" />
+		<folder icon="search.png" name="search" q="" qbound="unbound">
+			<folder icon="search.png" name="Preferences" q="prefs" qbound="unbound" />
+			<folder icon="search.png" name="PyOfWave" q="pow:pow" qbound="unbound" />
+		</folder>
+	</folder>
+
+	<me xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-nz#" xmlns:foaf="http://xmlns.com/foaf/0.1"
+			rdf:about="wave://spock@federation.gov"
+			foaf:depiction="http://federation.gov/profiles/spock.jpg"> <!-- TODO: Use real images. -->
+		<color>240 1</color>
+		<hexcolor>0000FF</hexcolor>
+		<foaf:name>Spock</foaf:name>
+		<status>online</status>
+		<foaf:knows rdf:about="wave://oneil@sgc.airforce.org" foaf:depiction="http://airforce.org/colonols/oneil.jpg">
+			<color>68.8 0.3373</color>
+			<hexcolor>4c5612</hexcolor>
+			<foaf:title>colonol</foaf:title>
+			<foaf:firstName>Jack</foaf:firstName>
+			<foaf:lastName>Oneil</foaf:lastName>
+			<status>online</status>
+		</foaf:knows>
+		<foaf:knows rdf:about="wave://malcom@serenity.ship" foaf:depiction="http://serenity.ship/malcom.png">
+			<color>60 1</color>
+			<hexcolor>ffff00</hexcolor>
+			<foaf:nick>malc</foaf:nick>
+			<status>offline</status>
+		</foaf:knows>
+		<foaf:knows rdf:about="wave://doctor@timelords.gal" foaf:depiction="http://timelords.gal/avatars/thedoctor.png">
+			<color>240 1</color>
+			<hexcolor>0000ff</hexcolor>
+			<foaf:name>doctor</foaf:name>
+			<status>offline</status>
+		</foaf:knows>
+		<foaf:knows rdf:about="" foaf:depiction="http://jedi.org/members/starwalker.jpg">
+			<color>84 1</color>
+			<hexcolor>99ff00</hexcolor>
+			<foaf:givenName>Luke</foaf:givenName>
+			<foaf:familyName>Starwalker</foaf:familyName>
+			<status>online</status>
+		</foaf:knows>
+	</me>
+
+	<history>
+		<!-- XMLU stanza history -->
+	</history>
+	<tags xmlns:fed="http://federation.gov/terms">
+		<li>fed:salutations</li>
+		<li>fed:political</li>
+		<li>fed:official</li>
+		<li>personal</li>
+	</tags>
+	<gadgets>
+		<li>http://chat.example.com/videosalute</li>
+		<li>http://pleft.com/gadget</li>
+		<li>http://games.example.com/poker</li>
+	</gadgets>
+
+	<wave xmlns="http://pyofwave.info/2013/wave" 
+		xmlns:user="http://pyofwave.info/2013/user" xmlns:style="http://pyofwave.info/2013/style"
+		priv:target="self"
+		xmlu:user="spock@federation.gov" xmlu:modified="10-10-2110 7:52:46" xmlu:src="wave://spock@federation.gov/dfbabutphhaqnbvgowu/">
+		<wavelet>
+			<participant xmlu:user="spock@federation.gov" priv:priv="a" />
+			<participant xmlu:user="oneill@sgc.airforce.org" priv:priv="r+-" />
+			<participant xmlu:user="malcom@serenity.ship" priv:priv="r+-" />
+			<participant xmlu:user="doctor@timelords.gal" priv:priv="r+-" />
+			<participant xmlu:user="luke@jedi.org" priv:priv="r+-" />
+			<thread>
+				<post xmlu:src="0/">
+					<participant xmlu:user="spock@federation.gov" />
+					<p s="h">This is a <a style:fontStyle="italic" user:term="">wave</a></p>
+					<p>By viewing the source code or just looking at it's visual structure, you should see that a wave is structured into 
+						<a style:fontStyle="italic" user:term="">threads</a> of <a style:fontStyle="italic" user:term="">posts</a>
+						<thread xmlu:src="_0/">
+							<post xmlu:src="0/">
+								<participant xmlu:user="doctor@timelords.gal" />
+								<p>A thread can be placed in the content of a post.</p>
+							</post>
+							<post xmlu:src="1/">
+								<participant xmlu:user="malcom@serenity.ship" />
+								<p>This is really handy for making it clear what statement you're replying it.</p>
+							</post>
+						</thread>.
+					</p>
+
+					<thread>
+						<post xmlu:src="0/">
+							<participant xmlu:user="oneill@sgc.airforce.org" />
+							<p>A post can include a <a style:fontDecoration="underline">replies</a> thread, as shown here.</p>
+						</post>
+						<post xmlu:src="1/">
+							<participant xmlu:user="spock@federation.gov" />
+							<p>This is nice for staying out of the way. </p>
+						</post>
+					</thread>
+				</post>
+				<post  xmlu:src="1/">
+					<participant xmlu:user="luke@jedi.org" />
+					<participant xmlu:user="doctor@timelords.gal" />
+					<p>As you can see, threads can have multiple posts. They can also include:</p>
+					<p s="l">Lists <a xmlu:user="doctor@timelords.gal" style:fontWeight="bold">and rich text</a></p>
+					<p s="l" l="2">Indentation/<a style:fontStyle="italic" user:term="">levels</a></p>
+					<p s="l" l="2"><a style:fontFamily="cursive">text stylings</a> (<a style:fontStyle="italic" user:term="">"annotations"</a>)</p>
+					<p s="l" l="2" a="c">Alignment</p>
+					<p s="l" l="2" d="r">And (for internationalization) text direction</p>
+					<p s="l">Wave structural elements:</p>
+					<p s="l" l="2">Threads
+						<thread src="_0/">
+							<post src="0/">
+								<participant xmlu:user="spock@federation.gov" />
+								<p>We've seen this one.</p>
+							</post>
+						</thread> can be embedded.
+					</p>
+					<p s="l" l="2">Wavelets
+						<wavelet src="_1/" priv:target="self">
+							<participant xmlu:user="oneill@sgc.airforce.org" priv:priv="a" /><!-- This is private -->
+							<thread>
+								<post src="0/">
+									<participant xmlu:user="oneill@sgc.airforce.org" />
+									<p><a style:fontWeight="heavy">Note to self:</a> Why do I even have this account? I thought SGC was top secret.</p>
+								</post>
+							</thread>
+						</wavelet> can also be embedded.
+					</p>
+					<p s="l" l="2"><input type="textarea" xmlu:src="_2"
+	value="Inputs. \nMostly usefull only for robots.\nSearch is handy, though, lets us filter visible posts (for example, find all annotations tagged &quot;term&quot;)." /></p>
+					<p s="l" l="2"><file type="image/jpeg" src="http://www.lolcats.com/images/u/12/43/lolcatsdotcomlikemyself.jpg" xmlu:src="_3"
+								caption="Files as well, so we can all enjoy our cute cat pics.">
+							<data xmlu:user="luke@jedi.org" priv:perm="ra@-" user:filesCan="contain data." />
+							<data priv:perm="ra@-" user:usefullFor="'Gadgets'" />
+						</file>
+						<thread xmlu:src="_4/">
+							<post xmlu:src="0/">
+								<participant xmlu:user="doctor@timelords.gal" />
+								<p>These files will also allow you to include handy <a style:fontStyle="italic" user:term="">gadgets</a>, </p>
+								<p>anything from small games to handy collaborative utilities and visualizations to voice and video chat.</p>
+							</post>
+						</thread>
+					</p>
+					<p><a user:user="doctor@timelords.gal">Oh, and did I mention? Multiple users can write to the same post.</a>Z</p>
+				</post>
+			</thread>
+			<tags xmlu:perm="(personal)" user:unread="3" />
+			<tags xmlns:fed="http://federation.gov/terms" fed:salutations="" />
+		</wavelet>
+	</wave>
+</profile>
