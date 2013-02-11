@@ -23,15 +23,15 @@
 				</xsl:for-each>
 				<li class="wave-button wave-icon-add wave-add-participant">+</li>
 			</ul>
-			<xsl:apply-templates select="w:thread" />
+			<xsl:call-template name="thread"><xsl:with-param name="el" select="w:thread" /><xsl:with-param name="collapse" select="0" /></xsl:call-template>
 		</div>
 	</xsl:template>
-	<xsl:template match="w:thread">
-		<xsl:param name="collapse" select="1" />
+	<xsl:template name="thread" match="w:thread">
+		<xsl:param name="collapse" select="1" /><xsl:param name="el" select="." />
 		<xsl:call-template name="collapse"><xsl:with-param name="collapse" select="$collapse" /></xsl:call-template>
 
 		<ul class="wave-Thread">
-			<xsl:apply-templates />
+			<xsl:apply-templates select="$el/w:post" />
 			<li class="wave-js-appendpost">Edit to add post</li>
 		</ul>
 	</xsl:template>
@@ -41,7 +41,7 @@
 				<aside class="wave-Info"></aside>
 				<xsl:apply-templates select="w:p" />
 			</div>
-			<xsl:apply-templates select="w:thread" />
+			<xsl:call-template name="thread"><xsl:with-param name="el" select="w:thread" /></xsl:call-template>
 		</li>
 	</xsl:template>
 
