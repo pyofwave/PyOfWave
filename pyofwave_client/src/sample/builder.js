@@ -1,12 +1,12 @@
 /* Sample data builder for PyOfWave client
-* 
+*
 * Enforces a XML structure to sample data used for development.
-* This is done to make it easier to switch to a XMPP BOSH 
+* This is done to make it easier to switch to a XMPP BOSH
 * interface which was chosen for serverside simplicity.
 */
-define(['../../api/knockout-2.1.0'], function(ko) {
+define(['../api/knockout-2.1.0'], function(ko) {
 	return function() {
-		var args = Array.slice(arguments),
+		var args = Array.prototype.slice.call(arguments),
 			name = args.shift(),
 			attrs = args.shift(),
 			obj = {$:name};
@@ -28,5 +28,5 @@ define(['../../api/knockout-2.1.0'], function(ko) {
 		obj._ = ko.observableArray(args);
 
 		return obj;
-	}
+	};
 });
