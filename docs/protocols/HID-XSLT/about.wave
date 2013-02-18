@@ -74,17 +74,17 @@
 			<participant xmlu:user="doctor@timelords.gal" priv:priv="r+-" />
 			<participant xmlu:user="luke@jedi.org" priv:priv="r+-" />
 			<thread>
-				<post xmlu:src="0/">
+				<post xmlu:src="0/" xmlu:modified="10-10-2110 7:52:46">
 					<participant xmlu:user="spock@federation.gov" />
 					<p s="h">This is a <a style:fontStyle="italic" user:term="">wave</a></p>
 					<p>By viewing the source code or just looking at it's visual structure, you should see that a wave is structured into 
 						<a style:fontStyle="italic" user:term="">threads</a> of <a style:fontStyle="italic" user:term="">posts</a>
 						<thread xmlu:src="_0/">
-							<post xmlu:src="0/">
+							<post xmlu:src="0/" xmlu:modified="10-10-2110 7:53:33">
 								<participant xmlu:user="doctor@timelords.gal" />
 								<p>A thread can be placed in the content of a post.</p>
 							</post>
-							<post xmlu:src="1/">
+							<post xmlu:src="1/" xmlu:modified="10-10-2110 7:56:41">
 								<participant xmlu:user="malcom@serenity.ship" />
 								<p>This is really handy for making it clear what statement you're replying it.</p>
 							</post>
@@ -92,17 +92,17 @@
 					</p>
 
 					<thread>
-						<post xmlu:src="0/">
+						<post xmlu:src="0/" xmlu:modified="10-10-2110 8:00:24">
 							<participant xmlu:user="oneill@sgc.airforce.org" />
 							<p>A post can include a <a style:fontDecoration="underline">replies</a> thread, as shown here.</p>
 						</post>
-						<post xmlu:src="1/">
+						<post xmlu:src="1/" xmlu:modified="10-10-2110 8:00:56">
 							<participant xmlu:user="spock@federation.gov" />
 							<p>This is nice for staying out of the way. </p>
 						</post>
 					</thread>
 				</post>
-				<post  xmlu:src="1/">
+				<post  xmlu:src="1/" xmlu:modified="10-10-2110 9:23:11">
 					<participant xmlu:user="luke@jedi.org" />
 					<participant xmlu:user="doctor@timelords.gal" />
 					<p>As you can see, threads can have multiple posts. They can also include:</p>
@@ -114,7 +114,7 @@
 					<p s="l">Wave structural elements:</p>
 					<p s="l" l="2">Threads
 						<thread src="_0/">
-							<post src="0/">
+							<post src="0/" xmlu:modified="10-10-2110 9:30:30">
 								<participant xmlu:user="spock@federation.gov" />
 								<p>We've seen this one.</p>
 							</post>
@@ -124,7 +124,7 @@
 						<wavelet src="_1/" priv:target="self">
 							<participant xmlu:user="oneill@sgc.airforce.org" priv:priv="a" /><!-- This is private -->
 							<thread>
-								<post src="0/">
+								<post src="0/" xmlu:modified="10-10-2110 9:31:01">
 									<participant xmlu:user="oneill@sgc.airforce.org" />
 									<p><a style:fontWeight="heavy">Note to self:</a> Why do I even have this account? I thought SGC was top secret.</p>
 								</post>
@@ -139,7 +139,7 @@
 							<data priv:perm="ra@-" user:usefullFor="'Gadgets'" />
 						</file>
 						<thread xmlu:src="_4/">
-							<post xmlu:src="0/">
+							<post xmlu:src="0/" xmlu:modified="10-10-2110 9:32:06">
 								<participant xmlu:user="doctor@timelords.gal" />
 								<p>These files will also allow you to include handy <a style:fontStyle="italic" user:term="">gadgets</a>, </p>
 								<p>anything from small games to handy collaborative utilities and visualizations to voice and video chat.</p>

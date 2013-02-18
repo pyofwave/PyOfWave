@@ -70,15 +70,15 @@
 			<xs:element ref="tags" minOccurs="0" maxOccurs="unbounded" />
 			<xs:element ref="thread" />
 			<xs:element name="p" minOccurs="0" maxOccurs="unbounded" type="content">
-				<xs:attribute name="s">	<!-- *s*tyle -->
+				<xs:attribute name="s" default="p">	<!-- *s*tyle -->
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="p" />	<!-- *p*aragraph -->
 						<xs:enumeration value="h" />	<!-- *h*eading -->
 						<xs:enumeration value="l" />	<!-- *l*ist -->
 					</xs:restriction>
 				</xs:attribute>
-				<xs:attribute name="l" type="xs:positiveInteger" />	<!-- *l*evel -->
-				<xs:attribute name="a">	<!-- *a*lign -->
+				<xs:attribute name="l" default="0" type="xs:positiveInteger" />	<!-- *l*evel -->
+				<xs:attribute name="a" default="l">	<!-- *a*lign -->
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="l" />	<!-- *l*eft -->
 						<xs:enumeration value="c" />	<!-- *c*enter -->
@@ -86,7 +86,7 @@
 						<xs:enumeration value="j" />	<!-- *j*ustify -->
 					</xs:restriction>
 				</xs:attribute>
-				<xs:attribute name="d">	<!-- *d*irection -->
+				<xs:attribute name="d" default="l">	<!-- *d*irection -->
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="l" />	<!-- *l*eft -->
 						<xs:enumeration value="r" />	<!-- *r*ight -->
