@@ -1,5 +1,8 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:w="http://pyofwave.info/2013/wave" xmlns:xmlu="http://pyofwave.info/2013/xmlu">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:w="http://pyofwave.info/2013/wave" 
+		xmlns:xmlu="http://pyofwave.info/2013/xmlu">
 	<xsl:include href="content.xsl" />
+	<xsl:strip-space elements="*" />
+
 	<xsl:template match="/*" priority="-1">
 		<xsl:apply-templates select="w:*"><xsl:with-param name="collapse" select="0" /></xsl:apply-templates>
 	</xsl:template>
@@ -20,7 +23,13 @@
 		<div class="wave-Wavelet">
 			<ul class="wave-ParticipantBar">
 				<xsl:for-each select="w:participant">
-					<li><xsl:value-of select="@xmlu:user" /></li>
+					<li>
+						<xsl:attribute name="data-bind">with: contacts()['<xsl:value-of select="@xmlu:user" />']</xsl:attribute>
+						<img src="unknown.png">
+							<xsl:attribute name="data-bind">attr: {src: 'depiction', alt: '<xsl:value-of select="@xmlu:user" />\'s avatar.', style: 'border-color: #' + color}</xsl:attribute>
+						</img>
+						<span data-bind="text: nick"></span>
+					</li>
 				</xsl:for-each>
 				<li class="wave-button wave-icon-add wave-add-participant">+</li>
 			</ul>
@@ -38,9 +47,12 @@
 	</xsl:template>
 	<xsl:template match="w:post">
 		<li class="wave-Post">
-			<div class="inner">
+			<div class="inner" data-bind="user: '{w:participant/@xmlu:user}'">
 				<aside class="wave-Info">
 					<time><xsl:value-of select="@xmlu:modified" /></time>
+					<ol class="contributors"><xsl:for-each select="w:participant/@xmlu:user">
+						<li data-bind="user: '{.}', userProperty: 'background/border'"></li>
+					</xsl:for-each></ol>
 				</aside>
 				<xsl:apply-templates select="w:p" />
 			</div>
